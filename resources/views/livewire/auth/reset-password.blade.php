@@ -1,52 +1,88 @@
-<x-layouts.auth>
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Reset password')" :description="__('Please enter your new password below')" />
+@extends('layouts.web.layout-web')
 
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+@section('titulo', 'Restablecer contraseña')
 
-        <form method="POST" action="{{ route('password.update') }}" class="flex flex-col gap-6">
-            @csrf
-            <!-- Token -->
-            <input type="hidden" name="token" value="{{ request()->route('token') }}">
+@section('contenido')
 
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                value="{{ request('email') }}"
-                :label="__('Email')"
-                type="email"
-                required
-                autocomplete="email"
-            />
+<div class="contenedor_login">
 
-            <!-- Password -->
-            <flux:input
-                name="password"
-                :label="__('Password')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Password')"
-                viewable
-            />
-
-            <!-- Confirm Password -->
-            <flux:input
-                name="password_confirmation"
-                :label="__('Confirm password')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Confirm password')"
-                viewable
-            />
-
-            <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="reset-password-button">
-                    {{ __('Reset password') }}
-                </flux:button>
-            </div>
-        </form>
+    <div class="contenedor_login_imagen">
+        <!--IMAGEN-->
+        <img src="{{ asset('assets/imagen/construccion-aybar-corp.jpg') }}" alt="" />
     </div>
-</x-layouts.auth>
+
+    <div class="contenedor_login_formulario">
+        <div class="login_formulario_centrar">
+
+            <div class="login_formulario_logo">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('assets/imagen/logo-2.png') }}" alt="">
+                </a>
+            </div>
+
+            <h1 class="titulo_formulario">RESTABLECER CONTRASEÑA</h1>
+
+            <p class="descripcion_formulario">Ingrese su nueva contraseña para continuar.</p>
+
+            @if (session('status'))
+            <div class="g_alerta_succes">
+                <i class="fa-solid fa-circle-check"></i>
+                {{ session('status') }}
+            </div>
+            @endif
+
+            @if ($errors->any())
+            <div class="g_alerta_error">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>
+                    <strong>Por favor corrige los siguientes errores:</strong>
+                    {{-- <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul> --}}
+                </div>
+            </div>
+            @endif
+
+            <form method="POST" action="{{ route('password.update') }}" class="formulario_flex formulario">
+                @csrf
+
+                <input type="hidden" name="token" value="{{ request()->route('token') }}">
+
+                <div class="g_margin_top_20">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" name="email" type="email" value="{{ request('email') }}" required>
+                    @error('email')
+                    <div class="mensaje_error">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="g_margin_top_20">
+                    <label for="password">Nueva contraseña</label>
+                    <input id="password" name="password" type="password" required>
+                    @error('password')
+                    <div class="mensaje_error">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="g_margin_top_20">
+                    <label for="password_confirmation">Confirmar contraseña</label>
+                    <input id="password_confirmation" name="password_confirmation" type="password" required>
+                    @error('password_confirmation')
+                    <div class="mensaje_error">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="g_margin_top_20 formulario_botones centrar">
+                    <button type="submit" class="guardar">
+                        Restablecer
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@endsection

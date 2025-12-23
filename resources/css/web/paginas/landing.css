@@ -1,0 +1,42 @@
+.landing_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 30px;
+    grid-template-areas:
+        "info form";
+}
+
+.landing_grid .contacto_info {
+    grid-area: info;
+}
+
+.landing_grid .contacto_info img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: var(--sombra);
+}
+
+.landing_grid .contacto_formulario {
+    grid-area: form;
+    background: var(--color-blanco);
+    border-radius: 14px;
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+    border: var(--borde-card);
+}
+
+@media (max-width: 1024px) {
+    .landing_grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        grid-template-areas:
+            "form"
+            "info";
+    }
+}

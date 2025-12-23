@@ -1,29 +1,60 @@
-<x-layouts.auth>
-    <div class="mt-4 flex flex-col gap-6">
-        <flux:text class="text-center">
-            {{ __('Please verify your email address by clicking on the link we just emailed to you.') }}
-        </flux:text>
+@extends('layouts.web.layout-web')
 
-        @if (session('status') == 'verification-link-sent')
-            <flux:text class="text-center font-medium !dark:text-green-400 !text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-            </flux:text>
-        @endif
+@section('titulo', 'Verifica tu correo')
 
-        <div class="flex flex-col items-center justify-between space-y-3">
-            <form method="POST" action="{{ route('verification.send') }}">
-                @csrf
-                <flux:button type="submit" variant="primary" class="w-full">
-                    {{ __('Resend verification email') }}
-                </flux:button>
-            </form>
+@section('contenido')
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-               <flux:button variant="ghost" type="submit" class="text-sm cursor-pointer" data-test="logout-button">
-                    {{ __('Log out') }}
-                </flux:button>
-            </form>
+<div class="contenedor_login">
+
+    <div class="contenedor_login_imagen">
+        <!--IMAGEN-->
+        <img src="{{ asset('assets/imagen/construccion-aybar-corp.jpg') }}" alt="" />
+    </div>
+
+    <div class="contenedor_login_formulario">
+        <div class="login_formulario_centrar">
+
+            <!--LOGO-->
+            <div class="login_formulario_logo">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('assets/imagen/logo-2.png') }}" alt="">
+                </a>
+            </div>
+
+            <h1 class="titulo_formulario">Verifique su bandeja de correo</h1>
+
+            <p class="descripcion_formulario">Le hemos enviado un enlace para validar su cuenta.</p>
+
+            <div class="g_gap_pagina g_margin_top_40">
+                @if (session('status') == 'verification-link-sent')
+                <div class="g_alerta_succes">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <div>Hemos enviado un nuevo enlace de verificación. Revise su correo y active su cuenta.</div>
+                </div>
+                @endif
+
+                @if (session('error'))
+                <div class="g_alerta_error">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div>{{ session('error') }}</div>
+                </div>
+                @endif
+
+                <form method="POST" action="{{ route('verification.send') }}" class="formulario_flex formulario">
+                    @csrf
+                    <div class="g_margin_top_20">
+                        <label>Si no recibió el link de verificación, puede reenviarlo.</label>
+
+                        <div class="g_margin_top_20 formulario_botones centrar">
+                            <button type="submit" class="guardar">
+                                Reenviar verificación
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</x-layouts.auth>
+</div>
+
+@endsection

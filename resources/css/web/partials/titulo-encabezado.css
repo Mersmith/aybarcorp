@@ -1,0 +1,15 @@
+.partials_titulo_encabezado {
+    /*max-width: 800px;*/
+    margin: auto;
+    /*text-align: center;*/
+}
+
+.partials_titulo_encabezado h2 {
+    padding-bottom: 20px;
+}
+
+@media (max-width: 1024px) {
+    .partials_titulo_encabezado h2 {
+        padding-bottom: 10px;
+    }
+}

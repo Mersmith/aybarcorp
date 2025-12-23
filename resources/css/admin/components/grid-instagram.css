@@ -1,0 +1,60 @@
+.grid_instagram {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-gap: 16px;
+}
+
+.grid_instagram .item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e6eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.grid_instagram .contenedor_imagen {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+}
+
+.grid_instagram .contenedor_información {
+    text-align: center;
+    font-size: 13px;
+    border-bottom: 1px solid #e0e6eb;
+    height: 50px;
+    overflow: hidden; /* Oculta el texto que se desborda */
+    display: -webkit-box; /* Configura el contenedor como un box flexible */
+    -webkit-line-clamp: 2; /* Muestra como máximo 2 líneas */
+    -webkit-box-orient: vertical; /* Orienta el contenido verticalmente */
+    line-height: 1.3; /* Ajusta el espacio entre las líneas */
+    height: calc(1.3em * 2); /* Altura para 2 líneas */
+    text-overflow: ellipsis; /* Agrega "..." al final si el texto se corta */
+}
+
+.grid_instagram .imagen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #e0e6eb;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.grid_instagram .botones {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+}
+
+@media (max-width: 700px) {
+    .grid_instagram {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-gap: 10px;
+    }
+}

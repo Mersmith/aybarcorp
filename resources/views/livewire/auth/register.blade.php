@@ -7,12 +7,10 @@
 
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
-
             <!-- Name -->
             <flux:input
                 name="name"
                 :label="__('Name')"
-                :value="old('name')"
                 type="text"
                 required
                 autofocus
@@ -24,7 +22,6 @@
             <flux:input
                 name="email"
                 :label="__('Email address')"
-                :value="old('email')"
                 type="email"
                 required
                 autocomplete="email"
@@ -54,7 +51,7 @@
             />
 
             <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full">
+                <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
                     {{ __('Create account') }}
                 </flux:button>
             </div>

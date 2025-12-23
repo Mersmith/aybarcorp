@@ -1,3 +1,25 @@
 laravel new aybarcorp
 
 php artisan migrate:fresh --seed
+
+php artisan make:model UnidadNegocio -mfsc
+php artisan make:model GrupoProyecto -mfsc
+php artisan make:model Proyecto -mfsc
+
+php artisan make:model Area -mfsc
+php artisan make:migration create_area_user_table
+
+php artisan make:model Pais -mfs
+php artisan make:model Region -mfs
+php artisan make:model Provincia -mfs
+php artisan make:model Distrito -mfs
+
+php artisan make:model Cliente -mfsc
+php artisan make:model Direccion -mfsc
+
+php artisan make:model Imagen -mfsc
+php artisan make:model Archivo -mfsc
+
+php artisan vendor:publish --tag=laravel-pagination
+
+php artisan storage:link

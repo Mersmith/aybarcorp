@@ -1,0 +1,25 @@
+@import "../generales/reset.css";
+@import "../generales/variables.css";
+@import "../generales/alertas.css";
+@import "../generales/paginacion.css";
+@import "../generales/ckeditor.css";
+@import "../generales/rejilla.css";
+@import "../generales/globales.css";
+@import "../generales/panel.css";
+@import "../generales/formulario.css";
+@import "../generales/tabla.css";
+@import "../generales/tabla-cabecera.css";
+@import "../generales/modal.css";
+@import "../generales/botones.css";
+
+@import "./layout.css";
+
+@import "./components/menu-principal.css";
+@import "./components/header.css";
+
+@import "./components/pagina-cabecera.css";
+
+@import "./components/dropzone.css";
+@import "./components/grid-instagram.css";
+
+@import "./components/calendario.css";

@@ -1,0 +1,97 @@
+/*TABLA CABECERA*/
+.tabla_cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+/*TABLA CABECERA BOTONES*/
+/*.tabla_cabecera_botones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+}*/
+
+.tabla_cabecera_botones {
+    display: flex;
+    gap: 15px;
+    overflow-y: auto;
+    white-space: nowrap;
+    justify-content: flex-end;
+    margin: 10px 0px;
+}
+
+.tabla_cabecera_botones a,
+.tabla_cabecera_botones button {
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+/*TABLA CABECERA BUSCAR*/
+.tabla_cabecera_buscar {
+    display: flex;
+}
+
+.tabla_cabecera_buscar form {
+    position: relative;
+}
+
+.tabla_cabecera_buscar form input {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #29343d;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #e0e6eb;
+    border-radius: 8px;
+    padding-left: 3rem;
+}
+
+.tabla_cabecera_buscar form i {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    margin-left: 1rem;
+}
+
+.tabla_cabecera_buscar form input:focus,
+.tabla_cabecera_buscar form input:active {
+    outline: none;
+    box-shadow: none;
+    border-color: #635BFF;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+@media (max-width: 900px) {
+
+    /*TABLA CABECERA*/
+    .tabla_cabecera {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /*TABLA CABECERA BOTONES*/
+    .tabla_cabecera_botones {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    /*TABLA CABECERA BUSCAR*/
+    .tabla_cabecera_buscar {
+        width: 100%;
+    }
+
+    .tabla_cabecera_buscar form {
+        width: 100%;
+    }
+
+}

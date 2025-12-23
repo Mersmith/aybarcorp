@@ -1,0 +1,71 @@
+.razones_section {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.razones_section .grid-columna {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.razones_section .grid-columna .imagen img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--sombra);
+}
+
+.razones_section .grid-columna .texto h3 {
+    font-size: 32px;
+    color: var(--color-celeste);
+    margin-bottom: 10px;
+    line-height: 35px;
+}
+
+.razones_section .grid-columna .texto p {
+    font-size: 18px;
+    color: var(--color-negro);
+    line-height: 1.6;
+}
+
+.razones_section .grid-columna .texto ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.razones_section .grid-columna .texto ul li {
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: var(--color-negro);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.razones_section .grid-columna .texto ul li i {
+    color: var(--color-verde);
+}
+
+.razones_section .invertir_movil {
+    display: grid;
+}
+
+@media(max-width: 1024px) {
+    .razones_section .grid-columna {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .razones_section .invertir_movil .imagen {
+        grid-row: 1;
+    }
+
+    .razones_section .invertir_movil .texto {
+        grid-row: 2;
+    }
+}

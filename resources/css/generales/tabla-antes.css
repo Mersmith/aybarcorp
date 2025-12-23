@@ -1,0 +1,85 @@
+/*TABLA CONTENIDO*/
+.tabla_contenido {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+    overflow-x: auto;
+    background: #ffff;
+}
+
+.tabla_contenido .contenedor_tabla {
+    overflow: hidden;
+    min-width: 100%;
+    display: inline-block;
+    border-radius: 12px;
+    border: 1px solid #e0e6eb;
+    border-collapse: collapse;
+}
+
+.tabla_contenido .tabla {
+    min-width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla_contenido .tabla th {
+    font-weight: 600;
+}
+
+.tabla_contenido .tabla a {
+    cursor: pointer;
+}
+
+.tabla_contenido .tabla tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.tabla_contenido .tabla tr:hover {
+    background-color: #eff4fa;
+}
+
+.tabla_contenido .tabla th,
+.tabla_contenido .tabla td {
+    padding: 12px 24px;
+    text-align: left;
+}
+
+.tabla_contenido .tabla tr:not(:last-child) td,
+.tabla_contenido .tabla th {
+    border-bottom: 1px solid #e0e6eb;
+}
+
+.tabla_contenido .tabla .boton {
+    cursor: pointer;
+    padding: 6px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 15px;
+    width: max-content;
+}
+
+.tabla_contenido .tabla .boton_eliminar {
+    background-color: var(--color-plomo);
+    color: var(--color-verde);
+}
+
+.tabla_contenido .tabla .boton_activo {
+    background-color: var(--color-verde);
+    color: var(--color-blanco);
+}
+
+.tabla_contenido .tabla .boton_guardar {
+    background-color: var(--color-amarillo);
+    color: var(--color-verde);
+}
+
+.tabla_contenido .tabla .boton:hover {
+    filter: brightness(1.1);
+}
+
+.tabla_contenido .botones {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+}

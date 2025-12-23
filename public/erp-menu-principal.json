@@ -1,0 +1,23 @@
+[
+    {
+        "id": 50,
+        "nombre": "50",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-circle-user",
+        "nivel": 1,
+        "roles": [],
+        "submenus": [
+            {
+                "id": 41,
+                "nombre": "Perfil",
+                "ruta": "admin.home",
+                "url": "/admin/perfil",
+                "icono": "fa-solid fa-user-tie",
+                "nivel": 2,
+                "roles": [],
+                "submenus": []
+            }
+        ]
+    }  
+]

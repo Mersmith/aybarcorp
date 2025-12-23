@@ -1,0 +1,9 @@
+php artisan make:seeder RolesYPermisosSeeder
+
+php artisan make:livewire Spatie/Rol/RolTodoLivewire
+php artisan make:livewire Spatie/Rol/RolCrearLivewire
+php artisan make:livewire Spatie/Rol/RolEditarLivewire
+
+php artisan make:livewire Spatie/Permiso/PermisoTodoLivewire
+php artisan make:livewire Spatie/Permiso/PermisoCrearLivewire
+php artisan make:livewire Spatie/Permiso/PermisoEditarLivewire

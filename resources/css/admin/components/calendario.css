@@ -1,0 +1,127 @@
+.calendario_cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendario_cabecera button {
+    background: #e5e7eb;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.calendario_cabecera button:hover {
+    background: #d1d5db;
+}
+
+.calendario_cabecera h2 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.calendario_caja {
+    background: #f9fafb;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.calendario_caja_dia {
+    background: #fafafa;
+    border: 1px solid #e5e7eb;
+    padding: 4px;
+    border-radius: 6px;
+    min-height: 110px;
+    position: relative;
+    transition: 0.2s;
+}
+
+.calendario_caja_dia.vacio {
+    background: transparent;
+    border: none;
+}
+
+.calendario_caja_dia:hover {
+    background: #f0f0f0;
+}
+
+.calendario_lista {
+    background: #2563eb;
+    color: white;
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.calendario_lista:hover {
+    background: #1d4ed8;
+}
+
+/* AÑO */
+.calendario_grid_anio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+/* MES */
+.calendario_grid_mes {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+/* DIA */
+.calendario_grid_dia {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.calendario_hora_fila {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    padding: 4px 0;
+}
+
+.calendario_hora_fila .hora {
+    font-weight: bold;
+    font-size: 13px;
+    color: #444;
+}
+
+.calendario_cita_item {
+    background: #e9f1ff;
+    border-left: 4px solid #1d6cff;
+    padding: 6px 10px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+@media (max-width: 1200px) {
+    .calendario_grid_mes {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .calendario_grid_mes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .calendario_grid_mes {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

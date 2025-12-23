@@ -1,0 +1,98 @@
+.proyecto_banner {
+    position: relative;
+    text-align: center;
+}
+
+.proyecto_banner_alto_auto{
+    position: relative;
+}
+
+.proyecto_banner img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.proyecto_banner_alto_auto img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.proyecto_cabecera {
+    position: relative;
+    margin-top: -60px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.proyecto_cabecera section {
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: var(--sombra);
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.proyecto_cabecera section h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.proyecto_cabecera section p {
+    margin-top: 10px;
+    font-size: 60px;
+    font-weight: 700;
+}
+
+.proyecto_cabecera .precio {
+    background-color: var(--color-amarillo);
+    color: var(--color-verde);
+}
+
+.proyecto_cabecera .aviso {
+    background-color: var(--color-verde);
+    color: var(--color-blanco);
+}
+
+.proyecto_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin: 0px auto 0;
+    text-align: center;
+}
+
+.proyecto_grid .proyecto_grid_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-verde);
+    font-weight: 600;
+}
+
+.proyecto_grid .proyecto_grid_item img {
+    width: 100px;
+}
+
+@media (max-width: 768px) {
+
+    .proyecto_banner img {
+        height: 280px;
+    }
+
+    .proyecto_cabecera {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+
+    .proyecto_grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+}

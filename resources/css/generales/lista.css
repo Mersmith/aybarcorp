@@ -1,0 +1,92 @@
+/* LISTA */
+.g_lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.g_lista .lista_item {
+    padding: 15px;
+    background-color: rgb(250, 250, 250);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.g_lista .lista_item .dos_bloques {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.g_lista .lista_item .dos_bloques i {
+    cursor: pointer;
+}
+
+.g_lista .lista_item p {
+    font-weight: 500;
+    color: #29343d;
+    font-size: 14px;
+}
+
+.g_lista .lista_item span {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #29343d;
+    font-size: 14px;
+}
+
+/* LISTA BOTONES */
+.g_lista .lista_item .botones {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-texto-secundario);
+}
+
+/* LISTA ACCIONES */
+.g_lista .lista_item .acciones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.g_lista .lista_item .acciones button {
+    font-size: 13px;
+    font-weight: normal;
+    color: rgb(136, 136, 136);
+    border-bottom: 1px solid rgb(136, 136, 136);
+    white-space: normal;
+    display: flex;
+    gap: 5px;
+}
+
+.g_lista .lista_item .acciones .precio {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(24, 111, 7);
+}
+
+@media (max-width: 700px) {
+
+    .g_lista .lista_item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .g_lista .lista_item .dos_bloques {
+        width: 100%;
+    }
+
+    .g_lista .lista_item .botones {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .g_lista .lista_item .acciones {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+}

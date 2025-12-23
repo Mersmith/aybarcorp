@@ -1,0 +1,19 @@
+.r_lista {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.r_lista li {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    color: var(--color-negro);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.r_lista li i {
+    color: var(--color-verde);
+}

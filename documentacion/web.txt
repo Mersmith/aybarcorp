@@ -1,0 +1,4 @@
+php artisan make:controller Web/LoginController
+php artisan make:controller Web/VerificationController
+
+php artisan make:livewire Web/Sesion/ClienteRegistrarLivewire

@@ -1,0 +1,44 @@
+.bloque_10 {
+    width: 100%;
+    position: relative;
+}
+
+.bloque_10 .swiper {
+    width: 100%;
+}
+
+.bloque_10 .swiper-wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+.bloque_10 .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.bloque_10 .contenedor_card {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    background: var(--color-blanco);
+    border-radius: 10px;
+    box-shadow: var(--sombra);
+    overflow: hidden;
+}
+
+.bloque_10 .youtube_wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+}
+
+.bloque_10 .youtube_wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}

@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ResetPasswordCustom;
+use App\Notifications\VerificarEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, SoftDeletes, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +26,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_photo_path',
+        'rol',
+        'politica_uno',
+        'politica_dos',
+        'activo',
     ];
 
     /**
@@ -36,6 +44,21 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'remember_token',
     ];
+
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class);
+    }
+
+    public function direcciones()
+    {
+        return $this->hasMany(Direccion::class);
+    }
+
+    public function areas()
+    {
+        return $this->belongsToMany(Area::class)->withTimestamps();
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -58,7 +81,27 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerificarEmail());
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordCustom($token));
+    }
+
+    public function necesitaActualizarDatosPersonales(): bool
+    {
+        return empty(optional($this->cliente)->telefono_principal);
+    }
+
+    public function necesitaActualizarDirecciones(): bool
+    {
+        return !$this->direcciones()->exists();
     }
 }

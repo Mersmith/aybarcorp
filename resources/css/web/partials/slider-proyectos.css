@@ -1,0 +1,137 @@
+.partials_contenedor_slider_proyectos {
+    position: relative;
+    width: 100%;
+}
+
+/* SLIDER */
+.partials_contenedor_slider_proyectos .swiper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.partials_contenedor_slider_proyectos .swiper-wrapper {
+    display: flex;
+    padding: 20px 0px;
+}
+
+.partials_contenedor_slider_proyectos .swiper-slide {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+/* LINK */
+.partials_contenedor_slider_proyectos a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+
+/* CARD PRINCIPAL */
+.partials_contenedor_slider_proyectos .post_imagen_contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border: var(--borde-card);
+    border-radius: 10px;
+    background-color: var(--color-blanco);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: transform 0.3s ease;
+}
+
+.partials_contenedor_slider_proyectos .post_imagen_contenedor:hover {
+    transform: translateY(-4px);
+}
+
+.partials_contenedor_slider_proyectos .post_imagen_contenedor .precio {
+    background: #ffcd02;
+    width: 267px;
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border-radius: 35px;
+    margin-top: -45px;
+    margin-left: 10px;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.partials_contenedor_slider_proyectos .post_imagen_contenedor .precio span {
+    font-size: 14px;
+    padding: 0 !important;
+    line-height: 15px;
+}
+
+.partials_contenedor_slider_proyectos .post_imagen_contenedor .precio p {
+    font-size: 30px;
+    padding: 0 !important;
+    line-height: 40px;
+    color: #0069b3;
+    font-weight: 600;
+}
+
+.partials_contenedor_slider_proyectos .post_imagen_contenedor .precio p small {
+    font-size: 16px;
+}
+
+/* Título: máximo 2 líneas */
+.partials_contenedor_slider_proyectos .post_imagen_contenedor p.titulo {
+    margin-top: 20px;
+    font-size: 22px;
+    line-height: 25px;
+    padding-bottom: 10px;
+    color: #333;
+    font-weight: 700;
+    text-align: left;
+    padding-left: 15px;
+}
+
+/* Fecha */
+.partials_contenedor_slider_proyectos .post_imagen_contenedor .pie {
+    display: flex;
+    gap: 10px;
+    padding-left: 15px;
+    padding-bottom: 20px;
+}
+
+/* Descripción: máximo 3 líneas */
+.partials_contenedor_slider_proyectos .post_imagen_contenedor p.descripcion {
+    font-size: 16px;
+    line-height: 20px;
+    padding-left: 10px;
+    color: #333;
+}
+
+/* Imagen con altura fija y que ocupe todo el ancho */
+.partials_contenedor_slider_proyectos .post_imagen_contenedor img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .partials_contenedor_slider_proyectos .swiper-slide {
+        width: 50%;
+    }
+}
+
+@media (max-width: 500px) {
+    .partials_contenedor_slider_proyectos .swiper-slide {
+        width: 80%;
+    }
+}

@@ -1,0 +1,168 @@
+.ck-editor__main h2,
+.g_ck_editor h2 {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.5;
+}
+
+.ck-editor__main h3,
+.g_ck_editor h3 {
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 1.5;
+}
+
+.ck-editor__main h4,
+.g_ck_editor h4 {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+/* Párrafos */
+.ck-editor__main strong,
+.g_ck_editor strong {
+    font-weight: 600;
+}
+
+.ck-editor__main p {
+    font-size: 17px;
+    color: var(--color-negro);
+    line-height: 1.1;
+}
+
+.g_ck_editor p {
+    font-size: 17px;
+    color: var(--color-negro);
+    line-height: 1.5;
+}
+
+.ck-editor__main p i,
+.g_ck_editor p i {
+    font-size: 17px;
+    color: var(--color-negro);
+    font-style: italic;
+}
+
+.ck-editor__main a,
+.g_ck_editor a {
+    cursor: pointer;
+}
+
+/* Imágenes centradas y responsive */
+.ck-editor__main img,
+.g_ck_editor img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+}
+
+/* Videos centrados y responsive */
+.ck-editor__main iframe,
+.g_ck_editor iframe {
+    display: block;
+    margin: 1em auto;
+    max-width: 100%;
+}
+
+/* Contenedor general del post */
+.ck-editor__main figure,
+.g_ck_editor figure {
+    display: table;
+    margin: 1em auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+/* La imagen dentro de la figura */
+.ck-editor__main figure img,
+.g_ck_editor figure img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/* El caption de la figura */
+.ck-editor__main figure figcaption,
+.g_ck_editor figure figcaption {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.5em;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Listas generales */
+.ck-editor__main ul,
+.ck-editor__main ol,
+.g_ck_editor ul,
+.g_ck_editor ol {
+    padding-left: 2em;
+    margin-bottom: 1em;
+}
+
+/* Items de lista */
+.ck-editor__main ul li,
+.g_ck_editor ul li {
+    margin-bottom: 0.5em;
+    list-style-type: disc;
+}
+
+.ck-editor__main ol li,
+.g_ck_editor ol li {
+    margin-bottom: 0.5em;
+    list-style-type: decimal;
+}
+
+.ck-editor__main ol li::marker,
+.g_ck_editor ol li::marker {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Listas anidadas */
+.ck-editor__main ul ul,
+.ck-editor__main ul ol,
+.ck-editor__main ol ul,
+.ck-editor__main ol ol,
+.g_ck_editor ul ul,
+.g_ck_editor ul ol,
+.g_ck_editor ol ul,
+.g_ck_editor ol ol {
+    margin-bottom: 0;
+    margin-left: 1.5em;
+}
+
+/* Blockquotes */
+.ck-editor__main blockquote,
+.g_ck_editor blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 1em;
+    color: #555;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+/* Tablas básicas */
+.ck-editor__main table,
+.g_ck_editor table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+
+.ck-editor__main th,
+.ck-editor__main td,
+.g_ck_editor th,
+.g_ck_editor td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    text-align: left;
+}
+
+.ck-editor__main th,
+.g_ck_editor th {
+    background-color: #f5f5f5;
+}

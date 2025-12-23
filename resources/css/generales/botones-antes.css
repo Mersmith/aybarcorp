@@ -1,0 +1,46 @@
+.g_boton_personalizado {
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 25px;
+    justify-content: center;
+}
+
+.g_boton_personalizado.verde {
+    background: var(--color-verde);
+    border: 1px solid var(--color-verde);
+    color: var(--color-blanco);
+}
+
+.g_boton_personalizado.verde:disabled  {
+    color: var(--color-verde) !important;
+}
+
+.g_boton_personalizado:hover {
+    filter: brightness(1.1);
+}
+
+.g_boton_cerrar {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--color-error);
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.g_boton_cerrar:hover {
+    filter: brightness(1.1);
+}

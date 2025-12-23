@@ -1,0 +1,9 @@
+@import "../generales/lista.css";
+@import "../generales/modal.css";
+@import "../generales/tabla-cabecera.css";
+@import "../generales/tabla.css";
+
+@import "./layout.css";
+@import "./components/header.css";
+@import "./reportes/cronograma.css";
+@import "./paginas/procesar-imagen.css";

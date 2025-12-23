@@ -1,59 +1,85 @@
-<x-layouts.auth>
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
+@extends('layouts.web.layout-web')
 
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+@section('contenido')
+<div class="contenedor_login">
 
-        <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
-            @csrf
+    <div class="contenedor_login_imagen">
+        <img src="{{ asset('assets/imagen/construccion-aybar-corp.jpg') }}" alt="" />
+    </div>
 
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                :label="__('Email address')"
-                :value="old('email')"
-                type="email"
-                required
-                autofocus
-                autocomplete="email"
-                placeholder="email@example.com"
-            />
+    <div class="contenedor_login_formulario">
 
-            <!-- Password -->
-            <div class="relative">
-                <flux:input
-                    name="password"
-                    :label="__('Password')"
-                    type="password"
-                    required
-                    autocomplete="current-password"
-                    :placeholder="__('Password')"
-                    viewable
-                />
+        <div class="login_formulario_centrar">
+
+            <div class="login_formulario_logo">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('assets/imagen/logo-2.png') }}" alt="">
+                </a>
+            </div>
+
+            <h1 class="titulo_formulario">¡Hola! Bienvenido nuevamente</h1>
+
+            <p class="descripcion_formulario">
+                Inicie sesión con sus credenciales para continuar.
+            </p>
+
+            @if (session('status'))
+            <div class="g_alerta_succes">
+                <i class="fa-solid fa-circle-check"></i>
+                {{ session('status') }}
+            </div>
+            @endif
+
+            @if ($errors->any())
+            <div class="g_alerta_error">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>
+                    <strong>Por favor corrige los siguientes errores:</strong>
+                </div>
+            </div>
+            @endif
+
+            <form method="POST" action="{{ route('login.store') }}" class="formulario_flex formulario">
+                @csrf
+
+                <div class="g_margin_top_20">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
+                    @error('email')
+                    <div class="mensaje_error">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="g_margin_top_20">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+
+                    @error('password')
+                    <div class="mensaje_error">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="g_margin_top_20">
+                    <label for="remember">
+                        <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                        Recordarme
+                    </label>
+                </div>
+
+                <div class="g_margin_top_20 formulario_botones centrar">
+                    <button type="submit" class="guardar">
+                        Ingresar
+                    </button>
+                </div>
 
                 @if (Route::has('password.request'))
-                    <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')" wire:navigate>
-                        {{ __('Forgot your password?') }}
-                    </flux:link>
+                <a href="{{ route('password.request') }}" class="recuperar_clave">
+                    ¿Olvidaste tu contraseña?
+                </a>
                 @endif
-            </div>
-
-            <!-- Remember Me -->
-            <flux:checkbox name="remember" :label="__('Remember me')" :checked="old('remember')" />
-
-            <div class="flex items-center justify-end">
-                <flux:button variant="primary" type="submit" class="w-full" data-test="login-button">
-                    {{ __('Log in') }}
-                </flux:button>
-            </div>
-        </form>
-
-        @if (Route::has('register'))
-            <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
-                <span>{{ __('Don\'t have an account?') }}</span>
-                <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
-            </div>
-        @endif
+            </form>
+        </div>
     </div>
-</x-layouts.auth>
+
+</div>
+@endsection

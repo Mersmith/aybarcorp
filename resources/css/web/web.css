@@ -1,0 +1,54 @@
+@import "../generales/reset.css";
+@import "../generales/variables.css";
+@import "../generales/alertas.css";
+@import "../generales/paginacion.css";
+@import "../generales/rejilla.css";
+@import "../generales/globales.css";
+@import "../generales/panel.css";
+@import "../generales/formulario.css";
+@import "../generales/ckeditor.css";
+@import "../generales/botones.css";
+@import "../generales/loader.css";
+@import "../generales/lista-simple.css";
+
+@import "./layout.css";
+
+@import "./components/header.css";
+@import "./components/header-banner.css";
+@import "./components/texto.css";
+@import "./components/footer.css";
+
+@import "./partials/compartir-redes.css";
+@import "./partials/back-to-top.css";
+@import "./partials/titulo-encabezado.css";
+@import "./partials/slider-post.css";
+@import "./partials/slider-grupo-proyectos.css";
+@import "./partials/slider-proyectos.css";
+@import "./partials/visualizador-pdf.css";
+@import "./partials/formulario-imagen.css";
+@import "./partials/confia.css";
+@import "./partials/slider-galeria.css";
+@import "./partials/slider-videos.css";
+
+@import "./bloques/bloque-1.css";
+@import "./bloques/bloque-2.css";
+@import "./bloques/bloque-3.css";
+@import "./bloques/bloque-4.css";
+@import "./bloques/bloque-5.css";
+@import "./bloques/bloque-6.css";
+@import "./bloques/bloque-7.css";
+@import "./bloques/bloque-8.css";
+@import "./bloques/bloque-10.css";
+@import "./bloques/bloque-11.css";
+
+@import "./sesion/ingresar.css";
+
+@import "./paginas/nosotros.css";
+@import "./paginas/consulta-codigo-cliente.css";
+@import "./paginas/contacto.css";
+@import "./paginas/posts.css";
+@import "./paginas/post.css";
+@import "./paginas/landing.css";
+@import "./paginas/proyecto.css";
+
+@import "./../cliente/cliente.css";

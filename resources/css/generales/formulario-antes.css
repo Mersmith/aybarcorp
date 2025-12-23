@@ -1,0 +1,130 @@
+.g_formulario  {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.g_formulario .form_grupo {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.g_formulario .form_grupo label{
+    font-size: .9rem;
+    line-height: 20px;
+    margin-bottom: 5;
+    /*font-weight: 500;*/
+}
+
+.g_formulario input[type="text"],
+.g_formulario input[type="number"],
+.g_formulario input[type="email"],
+.g_formulario input[type="password"],
+.formulario input[type="date"],
+.formulario input[type="tel"],
+.formulario input[type="color"],
+.g_formulario textarea,
+.g_formulario select {
+    width: 100%;
+    padding: 8px 10px;
+    border: var(--borde-card);
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    background: var(--color-blanco);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.g_formulario input[type="checkbox"] {
+    /*background-color: rgb(245, 245, 245);*/
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: var(--color-verde);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.g_formulario input[type="checkbox"]:checked {
+    background-color: var(--color-verde);
+}
+
+.g_formulario *:disabled {
+    background-color: #f6f6f6 !important;
+    opacity: 1;
+}
+
+.g_formulario .radio_group,
+.g_formulario .check_group,
+.g_formulario .radio_group label {
+    display: flex;
+    align-items: center;
+}
+
+.g_formulario input[type="radio"] {
+    cursor: pointer;
+    accent-color: var(--color-verde);
+}
+
+.g_formulario input[type="color"] {
+    cursor: pointer;
+}
+
+.g_formulario input::placeholder,
+.g_formulario textarea::placeholder {
+    color: var(--color-placeholder);
+    font-size: 0.95rem;
+}
+
+.g_formulario input:focus,
+.g_formulario input:active,
+.g_formulario select:focus,
+.g_formulario select:active,
+.g_formulario textarea:focus,
+.g_formulario textarea:active {
+    border-color: var(--color-verde);
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    outline: none;
+    box-shadow: none;
+}
+
+.g_formulario textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.g_formulario button {
+    background: var(--color-verde);
+    color: var(--color-blanco);
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 200px;
+    text-align: center;
+    margin: auto;
+}
+
+.g_formulario .error {
+    color: var(--color-error);
+    font-size: 13px;
+    margin-top: -6px;
+    text-align: start;
+}
+
+.g_formulario button:hover {
+    background: var(--color-amarillo);
+    transform: translateY(-2px);
+    color: var(--color-verde);
+}
+
+@media (max-width: 1024px) {
+    .g_formulario button {
+        width: 100%;
+    }
+}

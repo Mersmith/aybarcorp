@@ -1,0 +1,21 @@
+.partials_back_to_top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--color-verde);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s;
+    z-index: 999;
+}
+
+.partials_back_to_top:hover {
+    background: var(--color-amarillo);
+    color: var(--color-verde);
+}
