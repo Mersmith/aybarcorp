@@ -1,7 +1,11 @@
 @extends('layouts.web.layout-web')
 
 @section('contenido')
-    <div class="contenedor_login"> 
+    <div class="contenedor_login">
+        <div class="contenedor_login_imagen">
+            <img src="{{ asset('assets/imagen/construccion-aybar-corp.jpg') }}" alt="" />
+        </div>
+
         <div class="contenedor_login_formulario">
             <!--FORMULARIO CENTRAR-->
             <div class="login_formulario_centrar">

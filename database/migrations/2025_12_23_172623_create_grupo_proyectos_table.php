@@ -13,7 +13,22 @@ return new class extends Migration
     {
         Schema::create('grupo_proyectos', function (Blueprint $table) {
             $table->id();
+
+            $table->string('nombre')->unique();
+            $table->string('slug')->unique();
+
+            $table->string('titulo');
+            $table->string('subtitulo');
+            $table->string('imagen')->nullable();
+            $table->boolean('activo')->default(true);
+
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_image')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

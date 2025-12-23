@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    'openai' => [
+        'key' => env('OPENAI_API_KEY'),
+        'organization' => env('OPENAI_ORGANIZATION'),
+        'project' => env('OPENAI_PROJECT'),
+    ],
+
+    'slin' => [
+        'user' => env('SLIN_USER'),
+        'password' => env('SLIN_PASSWORD'),
+        'url' => env('SLIN_URL'),
+    ],
+
 ];

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('direccions', function (Blueprint $table) {
             $table->id();
-
             
             $table->unsignedBigInteger('user_id');
             $table->string('recibe_nombres');

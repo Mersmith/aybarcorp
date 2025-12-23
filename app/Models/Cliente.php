@@ -30,4 +30,9 @@ class Cliente extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function evidenciasPagos()
+    {
+        return $this->hasMany(EvidenciaPago::class, 'cliente_id');
+    }
 }

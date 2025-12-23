@@ -2,33 +2,23 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
 use App\Models\Area;
+use Illuminate\Database\Seeder;
 
-class AreaUserSeeder extends Seeder
+class AreaSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
-        // Obtener todas las áreas
-        $areas = Area::pluck('id')->toArray();
-
-        // Obtener solo usuarios admin
-        $admins = User::where('rol', 'admin')->pluck('id')->toArray();
-
-        foreach ($admins as $adminId) {
-            // Elegir entre 1 y 3 áreas aleatorias
-            $areasAsignadas = collect($areas)->random(rand(1, min(6, count($areas))));
-
-            foreach ($areasAsignadas as $areaId) {
-                DB::table('area_user')->insert([
-                    'area_id' => $areaId,
-                    'user_id' => $adminId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
-        }
+        Area::insert([
+            ['nombre' => 'Soporte Técnico', 'activo' => true],
+            ['nombre' => 'Atención al Cliente', 'activo' => true],
+            ['nombre' => 'Ventas', 'activo' => true],
+            ['nombre' => 'Postventa', 'activo' => true],
+            ['nombre' => 'Facturación', 'activo' => true],
+            ['nombre' => 'Marketing', 'activo' => true],
+        ]);
     }
 }

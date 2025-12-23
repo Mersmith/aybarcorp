@@ -20,6 +20,8 @@ php artisan make:model Direccion -mfsc
 php artisan make:model Imagen -mfsc
 php artisan make:model Archivo -mfsc
 
+
 php artisan vendor:publish --tag=laravel-pagination
+php artisan vendor:publish --tag=livewire:config
 
 php artisan storage:link

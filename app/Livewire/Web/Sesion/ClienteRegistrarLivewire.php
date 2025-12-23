@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Web\Sesion;
 
-use App\Services\SlinService;
 use App\Models\Cliente;
 use App\Models\User;
+use App\Services\SlinService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -55,9 +55,7 @@ class ClienteRegistrarLivewire extends Component
             return;
         }
 
-        $cliente = app()->environment('production')
-            ? Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}")->json()
-            : $slinService->getClientePorDni($this->dni);
+        $cliente = Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}")->json();
 
         if (empty($cliente)) {
             session()->flash('error', 'Inténtelo más tarde, por favor.');

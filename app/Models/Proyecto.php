@@ -4,9 +4,47 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Proyecto extends Model
 {
     /** @use HasFactory<\Database\Factories\ProyectoFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'unidad_negocio_id',
+        'grupo_proyecto_id',
+        'nombre',
+        'slug',
+        'contenido',
+        'secciones',
+        'imagen',
+        'publicado_en',
+        'activo',
+        'documento',
+        'meta_title',
+        'meta_description',
+        'meta_image',
+        'views'
+    ];
+
+    protected $casts = [
+        'documento' => 'array',
+        'secciones' => 'array',
+    ];
+
+    public function unidadNegocio()
+    {
+        return $this->belongsTo(UnidadNegocio::class);
+    }
+
+    public function grupoProyecto()
+    {
+        return $this->belongsTo(GrupoProyecto::class);
+    }
+
+    public function evidencias()
+    {
+        return $this->hasMany(EvidenciaPago::class);
+    }
 }
