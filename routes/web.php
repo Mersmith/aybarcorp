@@ -5,4 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-Route::get('/', [LoginController::class, 'indexIngresarCliente'])->name('home');
+Route::middleware('redirect.by.role')->group(function () {
+    Route::get('/', [LoginController::class, 'indexIngresarCliente'])->name('home');
+});

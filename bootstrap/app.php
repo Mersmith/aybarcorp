@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\RedirectIfAuthenticatedByRole;
 use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CheckCliente;
 use Illuminate\Foundation\Application;
@@ -32,8 +33,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            'redirect.by.role' => RedirectIfAuthenticatedByRole::class,
+
             'check.admin' => CheckAdmin::class,
-            'check.cliente' => CheckCliente::class,
+            'check.cliente' => CheckCliente::class,            
 
             // AGREGAR MIDDLEWARE DE SPATIE
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,

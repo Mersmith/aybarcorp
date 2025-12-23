@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\VerifyEmailResponse;
+use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -26,17 +26,11 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 public function toResponse($request)
                 {
-                    $user = $request->user();
-
-                    if ($user->rol === 'admin') {
-                        return redirect()->route('admin.home');
-                    }
-
-                    if ($user->rol === 'cliente') {
-                        return redirect()->route('cliente.home');
-                    }
-
-                    return '/';
+                    return match ($request->user()->rol) {
+                        'admin' => redirect()->route('admin.home'),
+                        'cliente' => redirect()->route('cliente.home'),
+                        default => redirect('/'),
+                    };
                 }
             };
         });
@@ -55,7 +49,7 @@ class FortifyServiceProvider extends ServiceProvider
 
                     if ($user->rol === 'cliente') {
                         return redirect()->route('cliente.home');
-                    }                   
+                    }
 
                     return '/';
                 }

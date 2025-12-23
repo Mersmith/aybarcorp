@@ -1,4 +1,8 @@
-<div>
+<div x-data="{ menuAbierto: false, submenu: null, scrollY: 0, ocultarBanner: false }" x-init="window.addEventListener('scroll', () => {
+    ocultarBanner = window.scrollY > scrollY && window.scrollY > 30;
+    scrollY = window.scrollY;
+})" :class="{ 'web_header_contenedor': ocultarBanner }"
+    x-effect="document.body.classList.toggle('no-scroll', menuAbierto)">
     <!-- Header -->
     <header class="web_header">
         <div class="web_header_cuerpo">
@@ -21,7 +25,8 @@
                     </button>
 
                     <a href="https://aybarcorp.com/">
-                        <img class="logo" src="{{ asset('assets/imagen/logo-aybar-corp-blanco.png') }}" alt="Logo">
+                        <img class="logo" src="{{ asset('assets/imagen/logo-aybar-corp-blanco.png') }}"
+                            alt="Logo">
                     </a>
                 </div>
 
@@ -50,7 +55,7 @@
 
                             <div x-show="openMenuCliente" x-transition @click.outside="open = false" style="display: none;"
                                 class="mostrar_menu_cliente">
-                                @include('layouts.cliente.menu')
+                                @include('layouts.cliente.menu-cliente')
                             </div>
                         @elseif (auth()->user()->rol === 'admin')
                             <li class="menu_item">

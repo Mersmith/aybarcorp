@@ -12,10 +12,6 @@ class LoginController extends Controller
 {
     public function indexIngresarCliente()
     {
-        if (Auth::check() && Auth::user()->rol === 'cliente') {
-            return redirect()->route('cliente.home');
-        }
-
         return view('modules.web.login.ingresar-cliente');
     }
 
@@ -74,11 +70,7 @@ class LoginController extends Controller
 
     public function indexIngresarAdmin()
     {
-        if (Auth::check() && Auth::user()->rol === 'admin') {
-            return redirect()->route('admin.home');
-        }
-
-        return view('modules.login.ingresar-admin');
+        return view('modules.web.login.ingresar-admin');
     }
 
     public function ingresarAdmin(Request $request)
