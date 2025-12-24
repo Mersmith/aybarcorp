@@ -16,7 +16,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class EvidenciaPagoEditarLivewire extends Component
 {
     use AuthorizesRequests;
-    public $comprobante;
+    public $evidencia;
     public $estados, $estado_id = '';
 
     public $observacion;
@@ -35,11 +35,11 @@ class EvidenciaPagoEditarLivewire extends Component
 
     public function mount($id)
     {
-        $this->comprobante = EvidenciaPago::findOrFail($id);
-        $this->estado_id = $this->comprobante->estado_comprobante_pago_id;
-        $this->observacion = $this->comprobante->observacion;
-        $this->unidad_negocio_id = $this->comprobante->unidad_negocio_id;
-        $this->proyecto_id = $this->comprobante->proyecto_id;
+        $this->evidencia = EvidenciaPago::findOrFail($id);
+        $this->estado_id = $this->evidencia->estado_comprobante_pago_id;
+        $this->observacion = $this->evidencia->observacion;
+        $this->unidad_negocio_id = $this->evidencia->unidad_negocio_id;
+        $this->proyecto_id = $this->evidencia->proyecto_id;
 
         $this->estados = EstadoEvidenciaPago::all();
         $this->empresas = UnidadNegocio::all();
@@ -66,7 +66,7 @@ class EvidenciaPagoEditarLivewire extends Component
     {
         $this->validate();
 
-        $this->comprobante->update([
+        $this->evidencia->update([
             'estado_comprobante_pago_id' => $this->estado_id,
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'proyecto_id' => $this->proyecto_id,
@@ -78,11 +78,11 @@ class EvidenciaPagoEditarLivewire extends Component
     public function validar()
     {
         $this->authorize('evidencia-pago-validar');
-        $this->comprobante->update([
+        $this->evidencia->update([
             'usuario_valida_id' => auth()->id(),
             'fecha_validacion' => now(),
         ]);
-        $this->comprobante->refresh();
+        $this->evidencia->refresh();
         $this->dispatch('alertaLivewire', "Validado");
     }
 
@@ -92,20 +92,20 @@ class EvidenciaPagoEditarLivewire extends Component
             'observacion' => 'required',
         ]);
 
-        $this->comprobante->update([
+        $this->evidencia->update([
             'observacion' => $this->observacion,
         ]);
 
-        $emailDestino = $this->comprobante->cliente->email;
+        $emailDestino = $this->evidencia->cliente->email;
 
         Mail::to($emailDestino)
-            ->send(new EvidenciaPagoObservacionMail($this->comprobante));
+            ->send(new EvidenciaPagoObservacionMail($this->evidencia));
 
         $this->dispatch('alertaLivewire', "Enviado");
     }
 
     public function render()
     {
-        return view('livewire.atc.comprobante-pago.comprobante-pago-editar-livewire');
+        return view('livewire.atc.evidencia-pago.evidencia-pago-editar-livewire');
     }
 }

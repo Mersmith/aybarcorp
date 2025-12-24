@@ -11,6 +11,19 @@ class Imagen extends Model
     /** @use HasFactory<\Database\Factories\ImagenFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['path', 'url', 'titulo', 'descripcion', 'extension'];
+    protected $fillable = [
+        'imageable_id',
+        'imageable_type',
+        'path',
+        'url',
+        'titulo',
+        'descripcion',
+        'extension',
+    ];
+
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
 
 }

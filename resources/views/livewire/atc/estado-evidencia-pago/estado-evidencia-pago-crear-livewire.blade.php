@@ -1,13 +1,13 @@
-@section('tituloPagina', 'Crear estado comprobante pago')
+@section('tituloPagina', 'Crear estado evidencia pago')
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Crear estado comprobante pago</h2>
+        <h2>Crear estado evidencia pago</h2>
         <div class="cabecera_titulo_botones">
-            <a href="{{ route('admin.estado-comprobante-pago.vista.todo') }}" class="g_boton g_boton_light">
+            <a href="{{ route('admin.estado-evidencia-pago.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i></a>
 
-            <a href="{{ route('admin.estado-comprobante-pago.vista.todo') }}" class="g_boton g_boton_darkt">
+            <a href="{{ route('admin.estado-evidencia-pago.vista.todo') }}" class="g_boton g_boton_darkt">
                 <i class="fa-solid fa-arrow-left"></i> Regresar</a>
         </div>
     </div>
@@ -58,7 +58,7 @@
         <div class="g_margin_top_20">
             <div class="formulario_botones">
                 <button wire:click="store" class="guardar" wire:loading.attr="disabled">Guardar</button>
-                <a href="{{ route('admin.estado-comprobante-pago.vista.todo') }}" class="cancelar">Cancelar</a>
+                <a href="{{ route('admin.estado-evidencia-pago.vista.todo') }}" class="cancelar">Cancelar</a>
             </div>
         </div>
     </div>

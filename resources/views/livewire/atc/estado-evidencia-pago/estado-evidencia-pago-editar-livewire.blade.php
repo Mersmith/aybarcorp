@@ -1,20 +1,20 @@
-@section('tituloPagina', 'Editar estado comprobante pago')
+@section('tituloPagina', 'Editar estado evidencia pago')
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Editar estado comprobante pago</h2>
+        <h2>Editar estado evidencia pago</h2>
         <div class="cabecera_titulo_botones">
-            <a href="{{ route('admin.estado-comprobante-pago.vista.todo') }}" class="g_boton g_boton_light">
+            <a href="{{ route('admin.estado-evidencia-pago.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i></a>
 
-            <a href="{{ route('admin.estado-comprobante-pago.vista.crear') }}" class="g_boton g_boton_primary">
+            <a href="{{ route('admin.estado-evidencia-pago.vista.crear') }}" class="g_boton g_boton_primary">
                 Crear <i class="fa-solid fa-square-plus"></i></a>
 
             <button type="button" class="g_boton g_boton_danger" onclick="alertaEliminarEstadoComprobantePago()">
                 Eliminar <i class="fa-solid fa-trash-can"></i>
             </button>
 
-            <a href="{{ route('admin.estado-comprobante-pago.vista.todo') }}" class="g_boton g_boton_darkt">
+            <a href="{{ route('admin.estado-evidencia-pago.vista.todo') }}" class="g_boton g_boton_darkt">
                 <i class="fa-solid fa-arrow-left"></i> Regresar</a>
         </div>
     </div>
@@ -69,7 +69,7 @@
                     <span wire:loading wire:target="store">Actualizando...</span>
                 </button>
 
-                <a href="{{ route('admin.estado-comprobante-pago.vista.todo') }}" class="cancelar">Cancelar</a>
+                <a href="{{ route('admin.estado-evidencia-pago.vista.todo') }}" class="cancelar">Cancelar</a>
             </div>
         </div>
     </div>

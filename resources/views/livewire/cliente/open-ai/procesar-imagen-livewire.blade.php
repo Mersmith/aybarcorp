@@ -21,7 +21,7 @@
     @endif
 
     <label class="dropzone">
-        <p>Haz clic para que subas la imagen de tu comprobante</p>
+        <p>Haz clic para que subas la imagen de tu evidencia</p>
         <input type="file" wire:model="imagen" accept="image/*">
     </label>
 
@@ -114,7 +114,7 @@
                     @if (!$datos)
                     <button wire:click="procesarImagen" class="g_boton_personalizado verde" wire:loading.attr="disabled"
                         wire:target="procesarImagen">
-                        <span wire:loading.remove wire:target="procesarImagen">Validar comprobante</span>
+                        <span wire:loading.remove wire:target="procesarImagen">Validar evidencia</span>
                         <span wire:loading wire:target="procesarImagen">Validando...</span>
                     </button>
                     @else

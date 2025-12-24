@@ -1,16 +1,16 @@
-@section('tituloPagina', 'Estados comprobante pago')
+@section('tituloPagina', 'Estados evidencia pago')
 
 @section('anchoPantalla', '100%')
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Estados comprobante pago</h2>
+        <h2>Estados evidencia pago</h2>
 
         <div class="cabecera_titulo_botones">
-            <a href="{{ route('admin.estado-comprobante-pago.vista.todo') }}" class="g_boton g_boton_light">
+            <a href="{{ route('admin.estado-evidencia-pago.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i></a>
 
-            <a href="{{ route('admin.estado-comprobante-pago.vista.crear') }}" class="g_boton g_boton_primary">
+            <a href="{{ route('admin.estado-evidencia-pago.vista.crear') }}" class="g_boton g_boton_primary">
                 Crear <i class="fa-solid fa-square-plus"></i></a>
         </div>
     </div>
@@ -62,7 +62,7 @@
                             </td>
 
                             <td class="centrar_iconos">
-                                <a href="{{ route('admin.estado-comprobante-pago.vista.editar', $item->id) }}"
+                                <a href="{{ route('admin.estado-evidencia-pago.vista.editar', $item->id) }}"
                                     class="g_accion_editar">
                                     <span><i class="fa-solid fa-pencil"></i></span>
                                 </a>

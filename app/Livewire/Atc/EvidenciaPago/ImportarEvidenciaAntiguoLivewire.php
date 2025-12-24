@@ -28,6 +28,6 @@ class ImportarEvidenciaAntiguoLivewire extends Component
 
     public function render()
     {
-        return view('livewire.atc.comprobante-pago.importar-comprobante-antiguo-livewire');
+        return view('livewire.atc.evidencia-pago.importar-evidencia-antiguo-livewire');
     }
 }

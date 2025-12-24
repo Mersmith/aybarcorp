@@ -7,7 +7,7 @@
         <h2>Evidencias pago</h2>
 
         <div class="cabecera_titulo_botones">
-            <a href="{{ route('admin.comprobante-pago.vista.todo') }}" class="g_boton g_boton_light">
+            <a href="{{ route('admin.evidencia-pago.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i></a>
 
             <button wire:click="resetFiltros" class="g_boton g_boton_danger">
@@ -111,7 +111,7 @@
                                 </span>
                             </td>
                             <td class="centrar_iconos">
-                                <a href="{{ route('admin.comprobante-pago.vista.editar', $item->id) }}"
+                                <a href="{{ route('admin.evidencia-pago.vista.editar', $item->id) }}"
                                     class="g_accion_editar">
                                     <span><i class="fa-solid fa-pencil"></i></span>
                                 </a>

@@ -1,17 +1,17 @@
-@section('tituloPagina', 'Editar comprobante pago')
+@section('tituloPagina', 'Editar evidencia pago')
 @section('anchoPantalla', '100%')
 
 <div class="g_gap_pagina">
 
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Editar comprobante pago</h2>
+        <h2>Editar evidencia pago</h2>
 
         <div class="cabecera_titulo_botones">
-            <a href="{{ route('admin.comprobante-pago.vista.todo') }}" class="g_boton g_boton_light">
+            <a href="{{ route('admin.evidencia-pago.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i>
             </a>
 
-            <a href="{{ route('admin.comprobante-pago.vista.todo') }}" class="g_boton g_boton_darkt">
+            <a href="{{ route('admin.evidencia-pago.vista.todo') }}" class="g_boton g_boton_darkt">
                 <i class="fa-solid fa-arrow-left"></i> Regresar
             </a>
         </div>
@@ -27,22 +27,22 @@
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Cliente</label>
                             <input type="text" disabled
-                                value="{{ $comprobante->cliente->user->name ?? 'Sin asignar' }}">
+                                value="{{ $evidencia->cliente->user->name ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>DNI</label>
-                            <input type="text" disabled value="{{ $comprobante->cliente->dni ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->cliente->dni ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Email</label>
-                            <input type="text" disabled value="{{ $comprobante->cliente->email ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->cliente->email ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Fecha subida</label>
-                            <input type="text" disabled value="{{ $comprobante->created_at ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->created_at ?? 'Sin asignar' }}">
                         </div>
                     </div>
                 </div>
@@ -53,66 +53,66 @@
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Razón social</label>
-                            <input type="text" disabled value="{{ $comprobante->razon_social ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->razon_social ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Proyecto</label>
-                            <input type="text" disabled value="{{ $comprobante->nombre_proyecto ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->nombre_proyecto ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Etapa</label>
-                            <input type="text" disabled value="{{ $comprobante->etapa ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->etapa ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Manzana</label>
-                            <input type="text" disabled value="{{ $comprobante->manzana ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->manzana ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Codigo cliente</label>
-                            <input type="text" disabled value="{{ $comprobante->codigo_cliente ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->codigo_cliente ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Lote</label>
-                            <input type="text" disabled value="{{ $comprobante->lote ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->lote ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Codigo cuota</label>
-                            <input type="text" disabled value="{{ $comprobante->codigo_cuota ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->codigo_cuota ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>N° cuota</label>
-                            <input type="text" disabled value="{{ $comprobante->numero_cuota ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->numero_cuota ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>N° Operación</label>
-                            <input type="text" disabled value="{{ $comprobante->numero_operacion ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->numero_operacion ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Banco</label>
-                            <input type="text" disabled value="{{ $comprobante->banco ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->banco ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Monto</label>
-                            <input type="text" disabled value="{{ $comprobante->monto ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->monto ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Fecha operación</label>
-                            <input type="text" disabled value="{{ $comprobante->fecha ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->fecha ?? 'Sin asignar' }}">
                         </div>
                     </div>
                 </div>
@@ -170,18 +170,18 @@
                 <div class="g_panel">
                     <h4 class="g_panel_titulo">Imagen</h4>
 
-                    @if ($comprobante->url)
+                    @if ($evidencia->url)
                     <div class="g_centrar_elemento">
-                        <a href="{{ $comprobante->url }}" target="_blank">
-                            <img src="{{ $comprobante->url }}" alt="Comprobante" width="150">
+                        <a href="{{ $evidencia->url }}" target="_blank">
+                            <img src="{{ $evidencia->url }}" alt="Comprobante" width="150">
                         </a>
 
                         <div class="formulario_botones g_margin_top_20 ">
-                            <a href="{{ $comprobante->url }}" target="_blank" class="guardar">
+                            <a href="{{ $evidencia->url }}" target="_blank" class="guardar">
                                 Ver <i class="fa-regular fa-file-image fa-xl"></i>
                             </a>
 
-                            <a href="{{ $comprobante->url }}" download class="cancelar">
+                            <a href="{{ $evidencia->url }}" download class="cancelar">
                                 Descargar <i class="fa-solid fa-download"></i>
                             </a>
                         </div>
@@ -200,7 +200,7 @@
                 <span wire:loading wire:target="store">Actualizando...</span>
             </button>
 
-            <a href="{{ route('admin.comprobante-pago.vista.todo') }}" class="cancelar">Cancelar</a>
+            <a href="{{ route('admin.evidencia-pago.vista.todo') }}" class="cancelar">Cancelar</a>
         </div>
 
         <div class="g_fila">
@@ -237,11 +237,11 @@
                     <div class="g_margin_bottom_10">
                         <label>Fecha validación</label>
                         <input type="text" disabled
-                            value="{{ $comprobante->fecha_validacion ? $comprobante->fecha_validacion->format('d/m/Y H:i') : 'Falta validar' }}">
+                            value="{{ $evidencia->fecha_validacion ? $evidencia->fecha_validacion->format('d/m/Y H:i') : 'Falta validar' }}">
                     </div>
 
                     @can('evidencia-pago-validar')
-                    @if (!$comprobante->fecha_validacion)
+                    @if (!$evidencia->fecha_validacion)
                     <div class="g_margin_bottom_10">
                         <div class="formulario_botones">
                             <button wire:click="validar" class="guardar" wire:loading.attr="disabled"

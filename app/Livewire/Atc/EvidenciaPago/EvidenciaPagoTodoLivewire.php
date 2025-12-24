@@ -83,6 +83,6 @@ class EvidenciaPagoTodoLivewire extends Component
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
-        return view('livewire.atc.comprobante-pago.comprobante-pago-todo-livewire', compact('evidencias'));
+        return view('livewire.atc.evidencia-pago.evidencia-pago-todo-livewire', compact('evidencias'));
     }
 }
