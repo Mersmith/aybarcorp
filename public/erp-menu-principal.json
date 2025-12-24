@@ -19,5 +19,339 @@
                 "submenus": []
             }
         ]
-    }  
+    },
+    {
+        "id": 49,
+        "nombre": "49",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-city",
+        "nivel": 1,
+        "roles": ["super-admin"],
+        "submenus": [
+            {
+                "id": 39,
+                "nombre": "Unidad Negocio",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-archway",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.unidad-negocio.vista.todo",
+                        "url": "/admin/unidad-negocio",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.unidad-negocio.vista.crear",
+                        "url": "/admin/unidad-negocio/crear",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 41,
+                "nombre": "Areas",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-shapes",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.area.vista.todo",
+                        "url": "/admin/area",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.area.vista.crear",
+                        "url": "/admin/area/crear",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 48,
+        "nombre": "48",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-users-cog",
+        "nivel": 1,
+        "roles": ["super-admin"],
+        "submenus": [
+            {
+                "id": 50,
+                "nombre": "Roles",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-user-shield",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.rol.vista.todo",
+                        "url": "/admin/rol",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.rol.vista.crear",
+                        "url": "/admin/rol/crear",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 51,
+                "nombre": "Permisos",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-user-cog",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.permiso.vista.todo",
+                        "url": "/admin/permiso",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.permiso.vista.crear",
+                        "url": "/admin/permiso/crear",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 41,
+                "nombre": "Admins",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-user-tie",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.usuario.vista.todo",
+                        "url": "/admin/usuario",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.usuario.vista.crear",
+                        "url": "/admin/usuario/crear",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 42,
+                "nombre": "Clientes",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-users",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.cliente.vista.todo",
+                        "url": "/admin/cliente",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.cliente.vista.crear",
+                        "url": "/admin/cliente/crear",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 47,
+        "nombre": "47",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-photo-film",
+        "nivel": 1,
+        "roles": ["super-admin"],
+        "submenus": [
+            {
+                "id": 41,
+                "nombre": "Imagen",
+                "ruta": "admin.imagen.vista.todo",
+                "url": "/admin/imagen",
+                "icono": "fa-regular fa-image",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": []
+            },
+            {
+                "id": 42,
+                "nombre": "Archivo",
+                "ruta": "admin.archivo.vista.todo",
+                "url": "/admin/archivo",
+                "icono": "fa-solid fa-file-lines text-gray-600",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": []
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "nombre": "9",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-map",
+        "nivel": 1,
+        "roles": ["super-admin", "supervisor gestor", "gestor"],
+        "submenus": [
+            {
+                "id": 42,
+                "nombre": "Proyecto",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-shapes",
+                "nivel": 2,
+                "roles": ["super-admin"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.proyecto.vista.todo",
+                        "url": "/admin/proyecto",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.proyecto.vista.crear",
+                        "url": "/admin/proyecto/crear",
+                        "nivel": 3,
+                        "roles": ["super-admin"],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 45,
+                "nombre": "Estados evidencias",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-lock-open",
+                "nivel": 2,
+                "roles": ["super-admin", "supervisor gestor"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.estado-evidencia-pago.vista.todo",
+                        "url": "/admin/estado-evidencia-pago",
+                        "nivel": 3,
+                        "roles": ["super-admin", "supervisor gestor"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.estado-evidencia-pago.vista.crear",
+                        "url": "/admin/estado-evidencia-pago/crear",
+                        "nivel": 3,
+                        "roles": ["super-admin", "supervisor gestor"],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 46,
+                "nombre": "Evidencias pago",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-regular fa-image",
+                "nivel": 2,
+                "roles": ["super-admin", "supervisor gestor", "gestor"],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.evidencia-pago.vista.todo",
+                        "url": "/admin/evidencia-pago",
+                        "nivel": 3,
+                        "roles": ["super-admin", "supervisor gestor", "gestor"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 113,
+                        "nombre": "Stock",
+                        "ruta": "admin.evidencia-pago.vista.todo",
+                        "url": "/admin/evidencia-pago",
+                        "nivel": 3,
+                        "roles": ["super-admin", "supervisor gestor", "gestor"],
+                        "submenus": []
+                    },
+                    {
+                        "id": 114,
+                        "nombre": "Importar",
+                        "ruta": "admin.evidencia-pago.vista.importar-antiguo",
+                        "url": "/admin/evidencia-pago/importar-antiguo",
+                        "nivel": 3,
+                        "roles": ["super-admin", "supervisor gestor", "gestor"],
+                        "submenus": []
+                    }
+                ]
+            }
+        ]
+    }
 ]
