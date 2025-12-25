@@ -45,7 +45,6 @@ class EvidenciaPagoSeeder extends Seeder
         // Insertar registros de prueba
         foreach (range(1, 30) as $i) {
             EvidenciaPago::create([
-                'cronograma_id' => null,
                 'unidad_negocio_id' => rand(1, 3),
                 'proyecto_id' => rand(1, 10),
                 'path' => $storagePath,

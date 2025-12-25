@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
                 'rol' => 'admin',
             ]);
 
-            $supervisor_gestor->syncRoles(['supervisor gestor']);
+            $supervisor_gestor->syncRoles(['supervisor atc', 'supervisor atc']);
         }
 
         for ($i = 1; $i <= 8; $i++) {
@@ -45,6 +45,28 @@ class UserSeeder extends Seeder
             ]);
 
             $gestor->assignRole('gestor');
+        }
+
+        for ($i = 1; $i <= 2; $i++) {
+            $supervisor_atc = User::create([
+                'name' => "Supervisor Atc $i",
+                'email' => "supervisor_atc$i@aybarplat.com",
+                'password' => Hash::make('123456'),
+                'rol' => 'admin',
+            ]);
+
+            $supervisor_atc->syncRoles(['supervisor atc', 'supervisor gestor']);
+        }
+
+        for ($i = 1; $i <= 8; $i++) {
+            $atc = User::create([
+                'name' => "Atc $i",
+                'email' => "atc$i@aybarplat.com",
+                'password' => Hash::make('123456'),
+                'rol' => 'admin',
+            ]);
+
+            $atc->assignRole('atc');
         }
 
         for ($i = 1; $i <= 2; $i++) {

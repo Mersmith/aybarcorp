@@ -190,7 +190,6 @@ NO agregues explicación ni texto adicional. Solo JSON.",
         }
 
         EvidenciaPago::create([
-            'cronograma_id' => null,
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'proyecto_id' => $this->proyecto_id,
             'path' => $ruta,

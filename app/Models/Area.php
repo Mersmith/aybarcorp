@@ -18,4 +18,14 @@ class Area extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+    public function tipos()
+    {
+        return $this->belongsToMany(TipoSolicitud::class, 'area_tipo_solicitud');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
 }

@@ -27,7 +27,9 @@
         "url": "#",
         "icono": "fa-solid fa-city",
         "nivel": 1,
-        "roles": ["super-admin"],
+        "roles": [
+            "super-admin"
+        ],
         "submenus": [
             {
                 "id": 39,
@@ -36,7 +38,9 @@
                 "url": "#",
                 "icono": "fa-solid fa-archway",
                 "nivel": 2,
-                "roles": ["super-admin"],
+                "roles": [
+                    "super-admin"
+                ],
                 "submenus": [
                     {
                         "id": 111,
@@ -44,7 +48,9 @@
                         "ruta": "admin.unidad-negocio.vista.todo",
                         "url": "/admin/unidad-negocio",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     },
                     {
@@ -53,7 +59,79 @@
                         "ruta": "admin.unidad-negocio.vista.crear",
                         "url": "/admin/unidad-negocio/crear",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 40,
+                "nombre": "Sedes",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-map-location-dot",
+                "nivel": 2,
+                "roles": [
+                    "super-admin"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.sede.vista.todo",
+                        "url": "/admin/sede",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.sede.vista.crear",
+                        "url": "/admin/sede/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 41,
+                "nombre": "Areas",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-shapes",
+                "nivel": 2,
+                "roles": [
+                    "super-admin"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.area.vista.todo",
+                        "url": "/admin/area",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.area.vista.crear",
+                        "url": "/admin/area/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     }
                 ]
@@ -65,7 +143,9 @@
                 "url": "#",
                 "icono": "fa-solid fa-shapes",
                 "nivel": 2,
-                "roles": ["super-admin"],
+                "roles": [
+                    "super-admin"
+                ],
                 "submenus": [
                     {
                         "id": 111,
@@ -73,7 +153,9 @@
                         "ruta": "admin.proyecto.vista.todo",
                         "url": "/admin/proyecto",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     },
                     {
@@ -82,7 +164,9 @@
                         "ruta": "admin.proyecto.vista.crear",
                         "url": "/admin/proyecto/crear",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     }
                 ]
@@ -96,7 +180,9 @@
         "url": "#",
         "icono": "fa-solid fa-users-cog",
         "nivel": 1,
-        "roles": ["super-admin"],
+        "roles": [
+            "super-admin"
+        ],
         "submenus": [
             {
                 "id": 50,
@@ -105,7 +191,9 @@
                 "url": "#",
                 "icono": "fa-solid fa-user-shield",
                 "nivel": 2,
-                "roles": ["super-admin"],
+                "roles": [
+                    "super-admin"
+                ],
                 "submenus": [
                     {
                         "id": 111,
@@ -113,7 +201,9 @@
                         "ruta": "admin.rol.vista.todo",
                         "url": "/admin/rol",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     },
                     {
@@ -122,7 +212,9 @@
                         "ruta": "admin.rol.vista.crear",
                         "url": "/admin/rol/crear",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     }
                 ]
@@ -134,7 +226,9 @@
                 "url": "#",
                 "icono": "fa-solid fa-user-cog",
                 "nivel": 2,
-                "roles": ["super-admin"],
+                "roles": [
+                    "super-admin"
+                ],
                 "submenus": [
                     {
                         "id": 111,
@@ -142,7 +236,9 @@
                         "ruta": "admin.permiso.vista.todo",
                         "url": "/admin/permiso",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     },
                     {
@@ -151,7 +247,9 @@
                         "ruta": "admin.permiso.vista.crear",
                         "url": "/admin/permiso/crear",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     }
                 ]
@@ -163,7 +261,9 @@
                 "url": "#",
                 "icono": "fa-solid fa-user-tie",
                 "nivel": 2,
-                "roles": ["super-admin"],
+                "roles": [
+                    "super-admin"
+                ],
                 "submenus": [
                     {
                         "id": 111,
@@ -171,7 +271,9 @@
                         "ruta": "admin.usuario.vista.todo",
                         "url": "/admin/usuario",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     },
                     {
@@ -180,7 +282,9 @@
                         "ruta": "admin.usuario.vista.crear",
                         "url": "/admin/usuario/crear",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     }
                 ]
@@ -192,7 +296,9 @@
                 "url": "#",
                 "icono": "fa-solid fa-users",
                 "nivel": 2,
-                "roles": ["super-admin"],
+                "roles": [
+                    "super-admin"
+                ],
                 "submenus": [
                     {
                         "id": 111,
@@ -200,7 +306,9 @@
                         "ruta": "admin.cliente.vista.todo",
                         "url": "/admin/cliente",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
                         "submenus": []
                     },
                     {
@@ -209,7 +317,486 @@
                         "ruta": "admin.cliente.vista.crear",
                         "url": "/admin/cliente/crear",
                         "nivel": 3,
-                        "roles": ["super-admin"],
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 47,
+        "nombre": "47",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-photo-film",
+        "nivel": 1,
+        "roles": [
+            "super-admin"
+        ],
+        "submenus": [
+            {
+                "id": 41,
+                "nombre": "Imagen",
+                "ruta": "admin.imagen.vista.todo",
+                "url": "/admin/imagen",
+                "icono": "fa-regular fa-image",
+                "nivel": 2,
+                "roles": [
+                    "super-admin"
+                ],
+                "submenus": []
+            },
+            {
+                "id": 42,
+                "nombre": "Archivo",
+                "ruta": "admin.archivo.vista.todo",
+                "url": "/admin/archivo",
+                "icono": "fa-solid fa-file-lines text-gray-600",
+                "nivel": 2,
+                "roles": [
+                    "super-admin"
+                ],
+                "submenus": []
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "nombre": "14",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-headset",
+        "nivel": 1,
+        "roles": [
+            "super-admin",
+            "supervisor atc",
+            "atc"
+        ],
+        "submenus": [
+            {
+                "id": 42,
+                "nombre": "Tipo solicitud",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-tag",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.tipo-solicitud.vista.todo",
+                        "url": "/admin/tipo-solicitud",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.tipo-solicitud.vista.crear",
+                        "url": "/admin/tipo-solicitud/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 41,
+                "nombre": "Sub tipo solicitud",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-indent",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.sub-tipo-solicitud.vista.todo",
+                        "url": "/admin/sub-tipo-solicitud",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.sub-tipo-solicitud.vista.crear",
+                        "url": "/admin/sub-tipo-solicitud/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 43,
+                "nombre": "Prioridad ticket",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-bolt",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.prioridad-ticket.vista.todo",
+                        "url": "/admin/prioridad-ticket",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.prioridad-ticket.vista.crear",
+                        "url": "/admin/prioridad-ticket/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 44,
+                "nombre": "Estados ticket",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-lock-open",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.estado-ticket.vista.todo",
+                        "url": "/admin/estado-ticket",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.estado-ticket.vista.crear",
+                        "url": "/admin/estado-ticket/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 45,
+                "nombre": "Canal",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-bullhorn",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.canal.vista.todo",
+                        "url": "/admin/canal",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.canal.vista.crear",
+                        "url": "/admin/canal/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 46,
+                "nombre": "Ticket",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-clipboard-check",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc",
+                    "atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.ticket.vista.todo",
+                        "url": "/admin/ticket",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc",
+                            "atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.ticket.vista.crear",
+                        "url": "/admin/ticket/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc",
+                            "atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 47,
+                "nombre": "Reporte",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-chart-line",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.reporte-ticket.vista.todo",
+                        "url": "/admin/reporte-ticket",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "nombre": "12",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-calendar-days",
+        "nivel": 1,
+        "roles": [
+            "super-admin",
+            "supervisor atc",
+            "atc"
+        ],
+        "submenus": [
+            {
+                "id": 44,
+                "nombre": "Motivos cita",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-lightbulb",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.motivo-cita.vista.todo",
+                        "url": "/admin/motivo-cita",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.motivo-cita.vista.crear",
+                        "url": "/admin/motivo-cita/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 45,
+                "nombre": "Estados cita",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-lock-open",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.estado-cita.vista.todo",
+                        "url": "/admin/estado-cita",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.estado-cita.vista.crear",
+                        "url": "/admin/estado-cita/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 46,
+                "nombre": "Cita",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-calendar",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc",
+                    "atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.cita.vista.todo",
+                        "url": "/admin/cita",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc",
+                            "atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.cita.vista.crear",
+                        "url": "/admin/cita/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc",
+                            "atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 47,
+                "nombre": "Calendario",
+                "ruta": "admin.cita.vista.calendario",
+                "url": "/admin/cita/calendario",
+                "icono": "fa-solid fa-calendar-check",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc",
+                    "atc"
+                ],
+                "submenus": []
+            },
+            {
+                "id": 48,
+                "nombre": "Reporte",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-chart-line",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.reporte-cita.vista.todo",
+                        "url": "/admin/reporte-cita",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc"
+                        ],
                         "submenus": []
                     }
                 ]
@@ -223,8 +810,12 @@
         "url": "#",
         "icono": "fa-solid fa-map",
         "nivel": 1,
-        "roles": ["super-admin", "supervisor gestor", "gestor"],
-        "submenus": [            
+        "roles": [
+            "super-admin",
+            "supervisor gestor",
+            "gestor"
+        ],
+        "submenus": [
             {
                 "id": 45,
                 "nombre": "Estados evidencias",
@@ -232,7 +823,10 @@
                 "url": "#",
                 "icono": "fa-solid fa-lock-open",
                 "nivel": 2,
-                "roles": ["super-admin", "supervisor gestor"],
+                "roles": [
+                    "super-admin",
+                    "supervisor gestor"
+                ],
                 "submenus": [
                     {
                         "id": 111,
@@ -240,7 +834,10 @@
                         "ruta": "admin.estado-evidencia-pago.vista.todo",
                         "url": "/admin/estado-evidencia-pago",
                         "nivel": 3,
-                        "roles": ["super-admin", "supervisor gestor"],
+                        "roles": [
+                            "super-admin",
+                            "supervisor gestor"
+                        ],
                         "submenus": []
                     },
                     {
@@ -249,7 +846,10 @@
                         "ruta": "admin.estado-evidencia-pago.vista.crear",
                         "url": "/admin/estado-evidencia-pago/crear",
                         "nivel": 3,
-                        "roles": ["super-admin", "supervisor gestor"],
+                        "roles": [
+                            "super-admin",
+                            "supervisor gestor"
+                        ],
                         "submenus": []
                     }
                 ]
@@ -261,7 +861,11 @@
                 "url": "#",
                 "icono": "fa-regular fa-image",
                 "nivel": 2,
-                "roles": ["super-admin", "supervisor gestor", "gestor"],
+                "roles": [
+                    "super-admin",
+                    "supervisor gestor",
+                    "gestor"
+                ],
                 "submenus": [
                     {
                         "id": 111,
@@ -269,7 +873,11 @@
                         "ruta": "admin.evidencia-pago.vista.todo",
                         "url": "/admin/evidencia-pago",
                         "nivel": 3,
-                        "roles": ["super-admin", "supervisor gestor", "gestor"],
+                        "roles": [
+                            "super-admin",
+                            "supervisor gestor",
+                            "gestor"
+                        ],
                         "submenus": []
                     },
                     {
@@ -278,7 +886,11 @@
                         "ruta": "admin.evidencia-pago.vista.todo",
                         "url": "/admin/evidencia-pago",
                         "nivel": 3,
-                        "roles": ["super-admin", "supervisor gestor", "gestor"],
+                        "roles": [
+                            "super-admin",
+                            "supervisor gestor",
+                            "gestor"
+                        ],
                         "submenus": []
                     },
                     {
@@ -287,7 +899,11 @@
                         "ruta": "admin.evidencia-pago.vista.importar-antiguo",
                         "url": "/admin/evidencia-pago/importar-antiguo",
                         "nivel": 3,
-                        "roles": ["super-admin", "supervisor gestor", "gestor"],
+                        "roles": [
+                            "super-admin",
+                            "supervisor gestor",
+                            "gestor"
+                        ],
                         "submenus": []
                     }
                 ]

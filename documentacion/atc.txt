@@ -3,3 +3,18 @@ php artisan make:model EvidenciaPago -mfsc
 php artisan make:model EvidenciaPagoAntiguo -mfsc
 
 php artisan make:mail EvidenciaPagoObservacionMail
+
+php artisan make:model TipoSolicitud -mfsc
+php artisan make:model SubTipoSolicitud -mfsc
+php artisan make:migration create_area_tipo_solicitud_table
+php artisan make:model EstadoTicket -mfsc
+php artisan make:model PrioridadTicket -mfsc
+php artisan make:model Canal -mfsc
+php artisan make:model Ticket -mfsc
+php artisan make:model TicketHistorial -mfsc
+php artisan make:model TicketDerivado -mfsc
+php artisan make:model Sede -mfsc
+
+php artisan make:model Cita -mfsc
+php artisan make:model MotivoCita -mfsc
+php artisan make:model EstadoCita -mfsc

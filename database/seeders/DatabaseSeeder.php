@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,19 +14,40 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolesYPermisosSeeder::class,
-            UserSeeder::class,
+            UserSeeder::class, //EVIDENCIA, TICKET, CITA
 
-            UnidadNegocioSeeder::class,
+            //PaisSeeder::class,
+            //RegionSeeder::class,
+            //ProvinciaSeeder::class,
+            //DistritoSeeder::class,
+
+            //ImagenSeeder::class,
+            //ArchivoSeeder::class,
+
+            UnidadNegocioSeeder::class, //EVIDENCIA
             GrupoProyectoSeeder::class,
+            ProyectoSeeder::class, //EVIDENCIA
 
-            PaisSeeder::class,
-            RegionSeeder::class,
-            ProvinciaSeeder::class,
-            DistritoSeeder::class,
+            EstadoEvidenciaPagoSeeder::class, //EVIDENCIA
+            EvidenciaPagoSeeder::class, //EVIDENCIA
 
-            ProyectoSeeder::class,
+            EstadoTicketSeeder::class,//TICKET
+            PrioridadTicketSeeder::class,//TICKET
+            CanalSeeder::class,//TICKET
+            AreaSeeder::class,//TICKET
+            AreaUserSeeder::class,//TICKET
+            TipoSolicitudSeeder::class,//TICKET
+            SubTipoSolicitudSeeder::class,//TICKET
+            AreaTipoSolicitudSeeder::class,//TICKET
+            TicketSeeder::class,//TICKET
+            TicketHistorialSeeder::class,//TICKET
+            TicketDerivadoSeeder::class,//TICKET
 
-            EstadoEvidenciaPagoSeeder::class,
+            SedeSeeder::class,//CITA
+            MotivoCitaSeeder::class,//CITA
+            EstadoCitaSeeder::class,//CITA
+            CitaSeeder::class,//CITA
+
         ]);
     }
 }
