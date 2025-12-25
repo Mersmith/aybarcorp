@@ -1,24 +1,24 @@
 <div>
     <div class="g_panel">
         <div class="g_panel_titulo">
-            <h2>Mis direcciones</h2>
+            <h2>Mi dirección</h2>
         </div>
 
         <div class="g_lista">
             @if ($direcciones->isEmpty())
-                <p>No tienes direcciones registradas.</p>
+                <p>No tienes dirección registrada.</p>
             @else
                 @foreach ($direcciones as $direccion)
                     <div class="lista_item">
                         <div class="dos_bloques">
-                            <div>
+                            {{-- <div>
                                 @if ($direccion->es_principal)
                                     <i class="fa-solid fa-heart"></i>
                                 @else
                                     <i class="fa-regular fa-heart"
                                         wire:click="establecerPrincipal({{ $direccion->id }})"></i>
                                 @endif
-                            </div>
+                            </div> --}}
 
                             <div>
                                 <p><span>Recibe: </span>{{ $direccion->recibe_nombres }}</p>
@@ -72,16 +72,17 @@
                     <button wire:click="$set('estadoModalEliminar', false)"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <div class="modal_titulo r_titulo_panel">
+                <div class="modal_titulo g_panel_titulo">
                     <h2>Eliminar dirección</h2>
                 </div>
-
-                <div class="modal_cuerpo g_formulario">
+        
+                <div class="modal_cuerpo">
                     <p>¿Realmente quieres eliminar la dirección?</p>
-                    <br>
                     <div class="modal_pie">
-                        <button wire:click="$set('estadoModalEliminar', false)">Cancelar</button>
-                        <button wire:click="deleteDireccion">Eliminar</button>
+                        <div class="g_margin_top_20 formulario_botones">
+                            <button wire:click="$set('estadoModalEliminar', false)" class="cancelar">Cancelar</button>
+                            <button wire:click="deleteDireccion" class="guardar">Eliminar</button>
+                        </div>
                     </div>
                 </div>
             </div>

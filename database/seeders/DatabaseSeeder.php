@@ -16,6 +16,18 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesYPermisosSeeder::class,
             UserSeeder::class,
+
+            UnidadNegocioSeeder::class,
+            GrupoProyectoSeeder::class,
+
+            PaisSeeder::class,
+            RegionSeeder::class,
+            ProvinciaSeeder::class,
+            DistritoSeeder::class,
+
+            ProyectoSeeder::class,
+
+            EstadoEvidenciaPagoSeeder::class,
         ]);
     }
 }

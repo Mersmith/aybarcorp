@@ -4,6 +4,7 @@ namespace App\Livewire\Cliente\Perfil;
 
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -25,7 +26,6 @@ class PerfilVerLivewire extends Component
     {
         $cliente = Cliente::where('user_id', Auth::id())->firstOrFail();
 
-        // Asignar los valores del cliente a las propiedades del componente
         $this->cliente = $cliente;
 
         $this->nombre = $cliente->nombre;
@@ -38,7 +38,6 @@ class PerfilVerLivewire extends Component
 
     public function actualizarDatos()
     {
-        // Reglas de validación para actualizar datos
         $rules = [
             'nombre' => 'nullable|string|max:255',
             'apellido_paterno' => 'nullable|string|max:255',
@@ -68,17 +67,14 @@ class PerfilVerLivewire extends Component
 
         $validatedData = $this->validate($rules, $messages, $validationAttributes);
 
-        // Actualizar los datos del cliente
         $cliente = Cliente::where('user_id', Auth::id())->firstOrFail();
         $cliente->update($validatedData);
 
-        // Redirigir con un mensaje de éxito
         session()->flash('success', 'Perfil actualizado correctamente.');
     }
 
     public function actualizarClave()
     {
-        // Reglas de validación para actualizar clave
         $rules = [
             'clave_actual' => 'required|string',
             'clave_nueva' => 'required|string|min:8',
@@ -97,24 +93,19 @@ class PerfilVerLivewire extends Component
 
         $this->validate($rules, $messages, $validationAttributes);
 
-        // Obtener el cliente autenticado
         $cliente = Cliente::where('user_id', Auth::id())->firstOrFail();
 
-        // Verificar si la contraseña actual coincide
-        if (!\Hash::check($this->clave_actual, $cliente->user->password)) {
+        if (!Hash::check($this->clave_actual, $cliente->user->password)) {
             $this->addError('clave_actual', 'La contraseña actual no es correcta.');
             return;
         }
 
-        // Actualizar la contraseña con la nueva
         $cliente->user->update([
             'password' => bcrypt($this->clave_nueva),
         ]);
 
-        // Limpiar los campos de la contraseña después de la actualización
         $this->reset(['clave_actual', 'clave_nueva']);
 
-        // Redirigir con un mensaje de éxito
         session()->flash('success', 'Contraseña actualizada correctamente.');
     }
 

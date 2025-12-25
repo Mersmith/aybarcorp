@@ -16,7 +16,7 @@
 
             <div class="login_formulario_logo">
                 <a href="{{ route('home') }}">
-                    <img src="{{ asset('assets/imagen/logo-2.png') }}" alt="">
+                    <img src="{{ asset('assets/imagen/logo-aybar-corp-verde.png') }}" alt="">
                 </a>
             </div>
 

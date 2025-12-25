@@ -15,6 +15,6 @@
         <p class="r_parrafo minimo left color_1">
             Atentamente,
         </p>
-        <img src="{{ asset('assets/imagen/logo-2.png') }}" alt="" style="width: 200px;">
+        <img src="{{ asset('assets/imagen/logo-aybar-corp-verde.png') }}" alt="" style="width: 200px;">
     </div>
 </div>

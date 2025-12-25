@@ -90,7 +90,6 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    /** 1. Probar cliente */
     public function probarCliente()
     {
         $dni = "41870082";
@@ -100,7 +99,6 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    /** 2. Probar lotes */
     public function probarLotes()
     {
         $params = [
@@ -113,7 +111,6 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    /** 3. Probar cuotas */
     public function probarCuotas()
     {
         $params = [
@@ -130,7 +127,6 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    /** 4. Probar estado de cuenta */
     public function probarEstadoCuenta()
     {
         $params = [
@@ -157,7 +153,6 @@ class SlinController extends Controller
         ]);
     }
 
-    /** 4. Probar comprobante */
     public function probarComprobante()
     {
         $params = [
