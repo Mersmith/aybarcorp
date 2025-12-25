@@ -28,9 +28,7 @@ class ClienteCrearLivewire extends Component
             'dni' => 'required',
         ]);
 
-        $cliente = app()->environment('production')
-            ? Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}")->json()
-            : $slinService->getClientePorDni($this->dni);
+        $cliente =  Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}")->json();
 
         if (empty($cliente)) {
             session()->flash('error', 'Inténtelo más tarde, por favor.');

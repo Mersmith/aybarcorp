@@ -27,6 +27,8 @@ Route::middleware('api')->group(function () {
     Route::get('/test-slin/cliente', [SlinController::class, 'probarCliente']);
     Route::get('/test-slin/lotes', [SlinController::class, 'probarLotes']);
     Route::get('/test-slin/cuotas', [SlinController::class, 'probarCuotas']);
+    Route::get('/test-slin/estado-cuenta', [SlinController::class, 'probarEstadoCuenta']);
+    Route::get('/test-slin/comprobante', [SlinController::class, 'probarComprobante']);
 
     Route::get('/cavali/signer/test', [CavaliSignerController::class, 'test']);
 
