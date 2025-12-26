@@ -111,7 +111,8 @@
                 "icono": "fa-solid fa-user-tie",
                 "nivel": 2,
                 "roles": [
-                    "super-admin"
+                    "super-admin",
+                    "supervisor atc"
                 ],
                 "submenus": [
                     {
@@ -121,7 +122,8 @@
                         "url": "/admin/usuario",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "supervisor atc"
                         ],
                         "submenus": []
                     },
@@ -132,7 +134,8 @@
                         "url": "/admin/usuario/crear",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "supervisor atc"
                         ],
                         "submenus": []
                     }
