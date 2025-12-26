@@ -14,13 +14,9 @@ return new class extends Migration
         Schema::create('evidencia_pagos', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('unidad_negocio_id')
-                ->constrained('unidad_negocios')
-                ->cascadeOnDelete();
+            $table->foreignId('unidad_negocio_id')->constrained('unidad_negocios')->cascadeOnDelete();
 
-            $table->foreignId('proyecto_id')
-                ->constrained('proyectos')
-                ->cascadeOnDelete();
+            $table->foreignId('proyecto_id')->constrained('proyectos')->cascadeOnDelete();
 
             $table->string('path');
             $table->string('url');

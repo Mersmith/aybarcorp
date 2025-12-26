@@ -14,13 +14,8 @@ class Cliente extends Model
     protected $fillable = [
         'user_id',
         'nombre',
-        'apellido_paterno',
-        'apellido_materno',
         'email',
-        'cuc',
         'dni',
-        'codigo_cliente',
-        'nombre_completo',
         'telefono_principal',
         'telefono_alternativo',
         'imagen_ruta',

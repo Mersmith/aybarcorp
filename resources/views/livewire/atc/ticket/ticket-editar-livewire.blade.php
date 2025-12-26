@@ -55,7 +55,7 @@
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
                             <label>Cliente</label>
-                            <input type="text" disabled value="{{ $ticket->cliente->name ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $ticket->nombres ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
@@ -105,17 +105,15 @@
                                     <tr>
                                         <th>Razón Social</th>
                                         <th>Proyecto</th>
-                                        <th>Mz.</th>
-                                        <th>Lot.</th>
+                                        <th>Mz./Lt.</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($ticket->lotes as $index => $l)
                                     <tr class="sorteable_item" wire:key="lote-{{ $index }}">
                                         <td> {{ $l['razon_social'] }} </td>
-                                        <td> {{ $l['descripcion'] }} </td>
-                                        <td> {{ $l['id_manzana'] }} </td>
-                                        <td> {{ $l['id_lote'] }} </td>
+                                        <td> {{ $l['proyecto'] }} </td>
+                                        <td> {{ $l['numero_lote'] }} </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

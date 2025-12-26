@@ -134,7 +134,7 @@
                         @foreach ($tickets as $index => $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td class="g_negrita g_resumir">{{ $item->cliente->name }}</td>
+                            <td class="g_negrita g_resumir">{{ $item->nombres }}</td>
                             <td>{{ $item->area->nombre }}</td>
                             <td class="g_resumir g_inferior">{{ $item->tipoSolicitud->nombre }}</td>
                             <td>{{ $item->canal->nombre }}</td>

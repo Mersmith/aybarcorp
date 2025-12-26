@@ -129,12 +129,20 @@ class SlinController extends Controller
 
     public function probarEstadoCuenta()
     {
-        $params = [
+        /*$params = [
             'empresa' => '014',
-            'lote' => '00101-A-0001',
+            'lote' => '00101-A-0001', //proyecto/etapa-manza-lote
             'cliente' => 'C10838',
-            'contrato' => '',
-            'servicio' => '02',
+            'contrato' => '', //opcional//si es null, porque fue migrado
+            'servicio' => '02', //default, solo para cuotas
+        ];*/
+
+        $params = [
+            'empresa' => '019',
+            'lote' => '00501-F-28.R', //proyecto/etapa-manza-lote
+            'cliente' => 'C00896',
+            'contrato' => '', //opcional//si es null, porque fue migrado
+            'servicio' => '02', //default, solo para cuotas
         ];
 
         $response = Http::acceptJson()
@@ -175,5 +183,4 @@ class SlinController extends Controller
             'data' => $response->json(),
         ]);
     }
-
 }

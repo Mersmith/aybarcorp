@@ -18,12 +18,9 @@ class ClienteFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(), // Crea un usuario y lo asigna
+            'user_id' => User::factory(),
 
-            'cuc' => $this->faker->unique()->numerify('CUC####'),
-            'codigo_cliente' => $this->faker->unique()->numerify('CLI#####'),
-
-            'nombre_completo' => $this->faker->name(),
+            'nombre' => $this->faker->name(),
             'dni' => $this->faker->unique()->numerify('########'),
 
             'telefono_principal' => $this->faker->phoneNumber(),

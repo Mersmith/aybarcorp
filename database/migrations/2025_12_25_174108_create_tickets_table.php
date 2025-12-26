@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('cliente_id')->constrained('users');
+            $table->foreignId('unidad_negocio_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('proyecto_id')->nullable()->constrained()->nullOnDelete();
+
+            $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('area_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('tipo_solicitud_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('sub_tipo_solicitud_id')->nullable()->constrained()->nullOnDelete();
@@ -30,6 +33,10 @@ return new class extends Migration
 
             $table->string('asunto')->nullable();
             $table->text('descripcion')->nullable();
+
+            $table->string('dni')->nullable();
+            $table->string('nombres')->nullable();
+            $table->string('origen')->nullable(); //antiguo:clientes_2 o slin
 
             $table->timestamps();
             $table->softDeletes();

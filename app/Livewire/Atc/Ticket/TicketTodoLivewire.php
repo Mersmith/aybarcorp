@@ -116,6 +116,13 @@ class TicketTodoLivewire extends Component
     {
         $tickets = Ticket::query()
             ->when($this->buscar, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('id', 'like', "%{$this->buscar}%")
+                        ->orWhere('dni', 'like', "%{$this->buscar}%")
+                        ->orWhere('nombres', 'like', "%{$this->buscar}%");
+                });
+            })
+            /*->when($this->buscar, function ($query) {
                 $query->where('id', 'like', "%{$this->buscar}%")
                     ->orWhereHas('cliente', function ($q) {
                         $q->where('name', 'like', "%{$this->buscar}%");
@@ -124,7 +131,7 @@ class TicketTodoLivewire extends Component
                         $q->where('dni', 'like', "%{$this->buscar}%")
                             ->orWhere('nombre_completo', 'like', "%{$this->buscar}%");
                     });
-            })
+            })*/
             ->when($this->estado, fn($q) => $q->where('estado_ticket_id', $this->estado))
             ->when($this->area, fn($q) => $q->where('area_id', $this->area))
             ->when($this->solicitud, fn($q) => $q->where('tipo_solicitud_id', $this->solicitud))

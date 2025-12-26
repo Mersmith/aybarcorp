@@ -83,7 +83,6 @@ class UserSeeder extends Seeder
                 'user_id' => $cliente->id,
                 'email' => $cliente->email,
                 'nombre' => $cliente->name,
-                'nombre_completo' => $cliente->name,
             ]);
         }
     }

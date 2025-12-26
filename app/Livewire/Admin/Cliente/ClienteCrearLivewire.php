@@ -28,15 +28,22 @@ class ClienteCrearLivewire extends Component
             'dni' => 'required',
         ]);
 
-        $cliente = Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}")->json();
+        $response = Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}");
 
-        if (empty($cliente)) {
-            session()->flash('error', 'Inténtelo más tarde, por favor.');
+        if (! $response->ok()) {
+            session()->flash('error', 'Error al consultar el servicio.');
+            return;
+        }
+
+        $cliente = $response->json();
+
+        if (! is_array($cliente)) {
+            session()->flash('error', 'Respuesta inválida del servicio.');
             return;
         }
 
         $this->cliente_encontrado = $cliente;
-        $this->razones_sociales = $this->cliente_encontrado['empresas'];
+        $this->razones_sociales = $cliente['empresas'] ?? [];
 
         $this->existingCliente = Cliente::where('dni', $this->dni)->first();
 
@@ -44,7 +51,6 @@ class ClienteCrearLivewire extends Component
             $this->mostrar_form_email = true;
             session()->flash('info', 'Cliente nuevo. Ingrese un correo para registrarlo.');
         } else {
-            $this->cliente_id = $this->existingCliente->user->id;
             $this->mostrar_form_email = false;
             session()->flash('success', 'Cliente encontrado en el sistema.');
         }
@@ -70,15 +76,15 @@ class ClienteCrearLivewire extends Component
 
         $cliente_nuevo = Cliente::create([
             'user_id' => $user->id,
-            'dni' => $this->dni,
+            'nombre' => $$user->name,
             'email' => $this->email,
+            'dni' => $this->dni,
         ]);
 
         Password::sendResetLink(['email' => $user->email]);
 
         session()->flash('success', "Cliente registrado. Contraseña temporal enviada al correo.");
 
-        $this->cliente_id = $user->id;
         $this->existingCliente = $cliente_nuevo;
         $this->mostrar_form_email = false;
     }

@@ -31,22 +31,22 @@ class DatabaseSeeder extends Seeder
             EstadoEvidenciaPagoSeeder::class, //EVIDENCIA
             EvidenciaPagoSeeder::class, //EVIDENCIA
 
-            EstadoTicketSeeder::class,//TICKET
-            PrioridadTicketSeeder::class,//TICKET
-            CanalSeeder::class,//TICKET
-            AreaSeeder::class,//TICKET
-            AreaUserSeeder::class,//TICKET
-            TipoSolicitudSeeder::class,//TICKET
-            SubTipoSolicitudSeeder::class,//TICKET
-            AreaTipoSolicitudSeeder::class,//TICKET
-            TicketSeeder::class,//TICKET
-            TicketHistorialSeeder::class,//TICKET
-            TicketDerivadoSeeder::class,//TICKET
+            EstadoTicketSeeder::class, //TICKET
+            PrioridadTicketSeeder::class, //TICKET
+            CanalSeeder::class, //TICKET
+            AreaSeeder::class, //TICKET
+            AreaUserSeeder::class, //TICKET
+            TipoSolicitudSeeder::class, //TICKET
+            SubTipoSolicitudSeeder::class, //TICKET
+            AreaTipoSolicitudSeeder::class, //TICKET
+            //TicketSeeder::class,//TICKET
+            //TicketHistorialSeeder::class,//TICKET
+            //TicketDerivadoSeeder::class,//TICKET
 
-            SedeSeeder::class,//CITA
-            MotivoCitaSeeder::class,//CITA
-            EstadoCitaSeeder::class,//CITA
-            CitaSeeder::class,//CITA
+            SedeSeeder::class, //CITA
+            MotivoCitaSeeder::class, //CITA
+            EstadoCitaSeeder::class, //CITA
+            CitaSeeder::class, //CITA
 
         ]);
     }

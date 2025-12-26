@@ -36,7 +36,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'redirect.by.role' => RedirectIfAuthenticatedByRole::class,
 
             'check.admin' => CheckAdmin::class,
-            'check.cliente' => CheckCliente::class,            
+            'check.cliente' => CheckCliente::class,
 
             // AGREGAR MIDDLEWARE DE SPATIE
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,

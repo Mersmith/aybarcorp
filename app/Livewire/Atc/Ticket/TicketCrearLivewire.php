@@ -4,16 +4,14 @@ namespace App\Livewire\Atc\Ticket;
 
 use App\Models\Area;
 use App\Models\Canal;
-use App\Models\User;
 use App\Models\Cliente;
 use App\Models\EstadoTicket;
 use App\Models\Ticket;
 use App\Models\TicketHistorial;
-use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
+use App\Services\ConsultaClienteService;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
@@ -22,26 +20,19 @@ class TicketCrearLivewire extends Component
     public $areas, $area_id = "";
     public $tipos_solicitudes = [], $tipo_solicitud_id = "";
     public $canales, $canal_id = "";
-    public $clientes, $cliente_id = "";
+    public $cliente, $cliente_id = "", $origen = "";
 
     public $usuarios = [], $usuario_asignado_id = "";
 
     public $asunto_inicial;
     public $descripcion_inicial;
 
-    public $existingCliente;
     public $dni;
-    public $email;
-    public $mostrar_form_email = false;
-    public $cliente_encontrado = null;
-    public $razones_sociales = [];
-    public $razon_social_id = "";
-    public $razon_social_select;
-    public $lotes = null;
-    public $lote_select = null;
 
     public $lote_id = "";
     public $lotes_agregados = [];
+
+    public Collection $informaciones;
 
     protected function rules()
     {
@@ -58,9 +49,10 @@ class TicketCrearLivewire extends Component
 
     public function mount()
     {
-        $this->clientes = Cliente::all();
         $this->areas = Area::all();
         $this->canales = Canal::all();
+
+        $this->informaciones = collect();
     }
 
     public function updatedAreaId($value)
@@ -81,7 +73,7 @@ class TicketCrearLivewire extends Component
         $estadoAbiertoId = EstadoTicket::where('nombre', 'Abierto')->value('id');
 
         $ticket = Ticket::create([
-            'cliente_id' => $this->cliente_id,
+            'cliente_id' => $this->origen === 'slin' ? $this->cliente_id : null,
             'area_id' => $this->area_id,
             'tipo_solicitud_id' => $this->tipo_solicitud_id,
             'canal_id' => $this->canal_id,
@@ -90,6 +82,9 @@ class TicketCrearLivewire extends Component
             'asunto_inicial' => $this->asunto_inicial,
             'descripcion_inicial' => $this->descripcion_inicial,
             'lotes' => $this->lotes_agregados,
+            'dni' => $this->cliente->dni,
+            'nombres' => $this->cliente->nombre,
+            'origen' => $this->origen,
         ]);
 
         TicketHistorial::create([
@@ -104,124 +99,100 @@ class TicketCrearLivewire extends Component
         return redirect()->route('admin.ticket.vista.todo');
     }
 
-    public function buscarCliente()
-    {
-        $response = Http::get("https://aybarcorp.com/api/slin/cliente/{$this->dni}");
-
-        if ($response->failed() || empty($response->json())) {
-            session()->flash('error', 'Intentelo más tarde, por favor.');
-            return;
-        }
-
-        $this->cliente_encontrado = $response->json();
-        $this->razones_sociales = $this->cliente_encontrado['empresas'];
-
-        $this->existingCliente = Cliente::where('dni', $this->dni)->first();
-
-        if (!$this->existingCliente) {
-            $this->mostrar_form_email = true;
-            session()->flash('info', 'Cliente nuevo. Ingrese un correo para registrarlo.');
-        } else {
-            $this->cliente_id = $this->existingCliente->user->id;
-            $this->mostrar_form_email = false;
-            session()->flash('success', 'Cliente encontrado en el sistema.');
-        }
-    }
-
-    public function registrarClienteNuevo()
+    public function buscarCliente(ConsultaClienteService $service)
     {
         $this->validate([
-            'email' => 'required|email|unique:users,email',
+            'dni' => 'required',
         ]);
 
-        $tempPassword = Str::random(8);
+        $resultado = $service->consultar($this->dni);
 
-        $user = User::create([
-            'name' => $this->cliente_encontrado['apellidos_nombres'],
-            'email' => $this->email,
-            'password' => Hash::make($tempPassword),
-            'rol' => 'cliente',
-            'activo' => true,
-        ]);
+        switch ($resultado['estado']) {
 
-        $cliente_nuevo = Cliente::create([
-            'user_id' => $user->id,
-            'dni' => $this->dni,
-            'email' => $this->email,
-        ]);
+            case 'ok':
+                session()->flash('success', $resultado['mensaje']);
+                $this->informaciones = $resultado['data'];
 
-        Password::sendResetLink(['email' => $user->email]);
+                if ($resultado['origen'] === 'antiguo') {
+                    $this->cliente = DB::table('clientes_2')->where('dni', $this->dni)->first();
+                    $this->cliente_id = $this->cliente->id;
+                    $this->origen = "antiguo";
+                } elseif ($resultado['origen'] === 'slin') {
+                    $this->cliente = Cliente::where('dni', $this->dni)->first();
+                    if (!$this->cliente) {
+                        session()->flash('info', 'Debes crear la cuenta del cliente.');
+                    } else {
+                        $this->cliente_id = $this->cliente->user->id;
+                        session()->flash('success', 'Cliente creado desde su portal.');
+                    }
+                    $this->origen = "slin";
+                }
 
-        session()->flash('success', "Cliente registrado. Contraseña temporal enviada al correo.");
+                break;
 
-        $this->cliente_id = $user->id;
-        $this->existingCliente = $cliente_nuevo;
-        $this->mostrar_form_email = false;
-    }
+            case 'cliente_sin_lotes':
+                session()->flash('info', $resultado['mensaje']);
+                $this->informaciones = collect();
 
-    public function updatedRazonSocialId($value)
-    {
-        $this->lotes = [];
+                $this->cliente = Cliente::where('dni', $this->dni)->first();
 
-        if (empty($value)) {
-            $this->razon_social_select = null;
-            $this->lotes = null;
-            return;
+                if (!$this->cliente) {
+                    session()->flash('info', 'Debes crear la cuenta del cliente.');
+                } else {
+                    $this->cliente_id = $this->cliente->user->id;
+                    session()->flash('success', 'Cliente encontrado en el sistema.');
+                }
+
+                $this->origen = "slin";
+
+                break;
+
+            case 'no_cliente':
+                session()->flash('error', $resultado['mensaje']);
+                break;
+
+            case 'error':
+                session()->flash('error', $resultado['mensaje']);
+                break;
         }
-
-        $this->razon_social_select = collect($this->razones_sociales)
-            ->firstWhere('id_empresa', $value);
-
-        if (!$this->razon_social_select) {
-            $this->lotes = null;
-            return;
-        }
-
-        $params = [
-            "id_cliente" => $this->razon_social_select['codigo'],
-            "id_empresa" => $this->razon_social_select['id_empresa'],
-        ];
-
-        $response = Http::get("https://aybarcorp.com/api/slin/lotes", $params);
-
-        if ($response->failed() || empty($response->json())) {
-            $this->lotes = [];
-            session()->flash('error', 'Intentelo más tarde, por favor.');
-            return;
-        }
-
-        $this->lotes = $response->json();
-
-        $this->lote_select = null;
     }
 
     public function agregarLote()
     {
-        if (empty($this->lote_id)) {
+        if (! $this->lote_id) {
             return;
         }
 
-        $lote = collect($this->lotes)->firstWhere('id_recaudo', $this->lote_id);
+        // Buscar el lote por ID (el mismo que viene del select)
+        $lote = $this->informaciones->firstWhere('id', $this->lote_id);
 
-        if (!$lote) {
+        if (! $lote) {
             return;
         }
 
-        $existe = collect($this->lotes_agregados)->firstWhere('id_recaudo', $lote['id_recaudo']);
+        // Evitar duplicados por ID
+        $existe = collect($this->lotes_agregados)
+            ->firstWhere('id', $lote->id);
 
         if ($existe) {
             return;
         }
 
-        $this->lotes_agregados[] = $lote;
+        $this->lotes_agregados[] = [
+            'id'           => $lote->id,
+            'razon_social' => $lote->razon_social,
+            'proyecto'     => $lote->proyecto,
+            'numero_lote'   => $lote->numero_lote,
+        ];
 
+        // Limpiar select
         $this->lote_id = "";
     }
 
-    public function quitarLote($id_recaudo)
+    public function quitarLote($id)
     {
         $this->lotes_agregados = collect($this->lotes_agregados)
-            ->reject(fn($l) => $l['id_recaudo'] == $id_recaudo)
+            ->reject(fn($l) => $l['id'] == $id)
             ->values()
             ->toArray();
     }
