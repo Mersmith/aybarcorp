@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
             //ImagenSeeder::class,
             //ArchivoSeeder::class,
 
-            /*UnidadNegocioSeeder::class, //EVIDENCIA
-            GrupoProyectoSeeder::class,
+            UnidadNegocioSeeder::class, //EVIDENCIA
+            GrupoProyectoSeeder::class, //EVIDENCIA
             ProyectoSeeder::class, //EVIDENCIA
 
             EstadoEvidenciaPagoSeeder::class, //EVIDENCIA
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             SedeSeeder::class,//CITA
             MotivoCitaSeeder::class,//CITA
             EstadoCitaSeeder::class,//CITA
-            CitaSeeder::class,//CITA*/
+            CitaSeeder::class,//CITA
 
         ]);
     }

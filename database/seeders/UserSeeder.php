@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
                 'rol' => 'admin',
             ]);
 
-            $supervisor_gestor->syncRoles(['supervisor atc', 'supervisor atc']);
+            $supervisor_gestor->assignRole(['supervisor gestor']);
         }
 
         for ($i = 1; $i <= 8; $i++) {

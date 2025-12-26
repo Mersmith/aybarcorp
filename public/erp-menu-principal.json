@@ -28,7 +28,9 @@
         "icono": "fa-solid fa-users-cog",
         "nivel": 1,
         "roles": [
-            "super-admin"
+            "super-admin",
+            "supervisor atc",
+            "atc"
         ],
         "submenus": [
             {
@@ -144,7 +146,9 @@
                 "icono": "fa-solid fa-users",
                 "nivel": 2,
                 "roles": [
-                    "super-admin"
+                    "super-admin",
+                    "supervisor atc",
+                    "atc"
                 ],
                 "submenus": [
                     {
@@ -154,7 +158,9 @@
                         "url": "/admin/cliente",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "supervisor atc",
+                            "atc"
                         ],
                         "submenus": []
                     },
@@ -165,7 +171,9 @@
                         "url": "/admin/cliente/crear",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "supervisor atc",
+                            "atc"
                         ],
                         "submenus": []
                     }
@@ -181,7 +189,8 @@
         "icono": "fa-solid fa-city",
         "nivel": 1,
         "roles": [
-            "super-admin"
+            "super-admin",
+            "supervisor atc"
         ],
         "submenus": [
             {
@@ -227,7 +236,8 @@
                 "icono": "fa-solid fa-map-location-dot",
                 "nivel": 2,
                 "roles": [
-                    "super-admin"
+                    "super-admin",
+                    "supervisor atc"
                 ],
                 "submenus": [
                     {
@@ -237,7 +247,8 @@
                         "url": "/admin/sede",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "supervisor atc"
                         ],
                         "submenus": []
                     },
@@ -262,7 +273,8 @@
                 "icono": "fa-solid fa-shapes",
                 "nivel": 2,
                 "roles": [
-                    "super-admin"
+                    "super-admin",
+                    "supervisor atc"
                 ],
                 "submenus": [
                     {
@@ -272,7 +284,8 @@
                         "url": "/admin/area",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "supervisor atc"
                         ],
                         "submenus": []
                     },
@@ -334,7 +347,8 @@
         "icono": "fa-solid fa-photo-film",
         "nivel": 1,
         "roles": [
-            "super-admin"
+            "super-admin",
+            "supervisor atc"
         ],
         "submenus": [
             {
@@ -357,7 +371,8 @@
                 "icono": "fa-solid fa-file-lines text-gray-600",
                 "nivel": 2,
                 "roles": [
-                    "super-admin"
+                    "super-admin",
+                    "supervisor atc"
                 ],
                 "submenus": []
             }

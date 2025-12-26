@@ -41,41 +41,42 @@
                     </thead>
                     @if ($items->count())
 
-                    <tbody>
-                        @foreach ($items as $index => $item)
-                        <tr>
-                            <td> {{ $index + 1 }} </td>
-                            <td class="g_resaltar">ID: {{ $item->id }} - {{ $item->nombre }}</td>
-                            <td>
-                                <span class="estado {{ $item->activo ? 'g_activo' : 'g_desactivado' }}"><i
-                                        class="fa-solid fa-circle"></i></span>
-                                {{ $item->activo ? 'Activo' : 'Desactivo' }}
-                            </td>
+                        <tbody>
+                            @foreach ($items as $index => $item)
+                                <tr>
+                                    <td> {{ $index + 1 }} </td>
+                                    <td class="g_resaltar">{{ $item->nombre }}</td>
+                                    <td>
+                                        <span class="estado {{ $item->activo ? 'g_activo' : 'g_desactivado' }}"><i
+                                                class="fa-solid fa-circle"></i></span>
+                                        {{ $item->activo ? 'Activo' : 'Desactivo' }}
+                                    </td>
 
-                            <td class="centrar_iconos">
-                                <a href="{{ route('admin.canal.vista.editar', $item->id) }}" class="g_accion_editar">
-                                    <span><i class="fa-solid fa-pencil"></i></span>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                                    <td class="centrar_iconos">
+                                        <a href="{{ route('admin.canal.vista.editar', $item->id) }}"
+                                            class="g_accion_editar">
+                                            <span><i class="fa-solid fa-pencil"></i></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     @endif
                 </table>
             </div>
         </div>
 
         @if ($items->hasPages())
-        <div class="g_paginacion">
-            {{ $items->links('vendor.pagination.default-livewire') }}
-        </div>
+            <div class="g_paginacion">
+                {{ $items->links('vendor.pagination.default-livewire') }}
+            </div>
         @endif
 
         @if ($items->count() == 0)
-        <div class="g_vacio">
-            <p>No hay items disponibles.</p>
-            <i class="fa-regular fa-face-grin-wink"></i>
-        </div>
+            <div class="g_vacio">
+                <p>No hay items disponibles.</p>
+                <i class="fa-regular fa-face-grin-wink"></i>
+            </div>
         @endif
     </div>
 </div>
