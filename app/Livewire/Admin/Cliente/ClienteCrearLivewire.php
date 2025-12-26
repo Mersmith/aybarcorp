@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Admin\Cliente;
 
-use App\Services\SlinService;
 use App\Models\Cliente;
-use App\Models\UnidadNegocio;
 use App\Models\User;
+use App\Services\SlinService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
+use Illuminate\Support\Facades\Password;
 use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
@@ -28,7 +28,7 @@ class ClienteCrearLivewire extends Component
             'dni' => 'required',
         ]);
 
-        $cliente =  Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}")->json();
+        $cliente = Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}")->json();
 
         if (empty($cliente)) {
             session()->flash('error', 'Inténtelo más tarde, por favor.');
@@ -62,6 +62,8 @@ class ClienteCrearLivewire extends Component
             'name' => $this->cliente_encontrado['apellidos_nombres'],
             'email' => $this->email,
             'password' => Hash::make($tempPassword),
+            'must_change_password' => true,
+            'password_changed_at' => null,
             'rol' => 'cliente',
             'activo' => true,
         ]);
@@ -72,20 +74,7 @@ class ClienteCrearLivewire extends Component
             'email' => $this->email,
         ]);
 
-        foreach ($this->cliente_encontrado['empresas'] as $empresaJson) {
-
-            $unidad = UnidadNegocio::firstOrCreate(
-                ['nombre' => $empresaJson['razon_social']],
-                ['razon_social' => $empresaJson['razon_social']]
-            );
-
-            $cliente_nuevo->unidadesNegocio()->attach($unidad->id, [
-                'codigo' => $empresaJson['codigo'],
-                'id_empresa' => $empresaJson['id_empresa'],
-            ]);
-        }
-
-        //Password::sendResetLink(['email' => $user->email]);
+        Password::sendResetLink(['email' => $user->email]);
 
         session()->flash('success', "Cliente registrado. Contraseña temporal enviada al correo.");
 

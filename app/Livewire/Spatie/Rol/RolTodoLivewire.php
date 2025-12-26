@@ -4,8 +4,8 @@ namespace App\Livewire\Spatie\Rol;
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Spatie\Permission\Models\Role;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 
 #[Layout('layouts.admin.layout-admin')]
 class RolTodoLivewire extends Component
@@ -31,7 +31,8 @@ class RolTodoLivewire extends Component
 
     public function render()
     {
-        $items = Role::where('name', 'like', "%{$this->buscar}%")
+        $items = Role::where('name', '!=', 'super-admin')
+            ->where('name', 'like', "%{$this->buscar}%")
             ->orderBy('name')
             ->paginate($this->perPage);
 

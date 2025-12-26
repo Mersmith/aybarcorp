@@ -31,9 +31,12 @@ class UserTodoLivewire extends Component
 
     public function render()
     {
-        $items = User::where('rol', 'admin')
+        $items = User::with('roles')
+            ->whereDoesntHave('roles', function ($q) {
+                $q->where('name', 'super-admin');
+            })
             ->where('name', 'like', '%' . $this->buscar . '%')
-            ->orderBy('created_at', 'desc')
+            ->orderByDesc('created_at')
             ->paginate($this->perPage);
 
         return view('livewire.admin.user.user-todo-livewire', [

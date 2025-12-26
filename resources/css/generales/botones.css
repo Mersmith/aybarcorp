@@ -20,6 +20,16 @@
     color: #02424e;
 }
 
+.g_boton_pdf {
+    background-color: #ff6692;
+    color: white;
+}
+
+.g_boton_excel {
+    background-color: #36c76c;
+    color: white;
+}
+
 .g_boton_primary {
     background-color: #635bff;
     color: white;
@@ -119,6 +129,11 @@
     border-radius: 5px;
     margin-right: 3px;
     font-size: 12px;
+}
+
+.g_badge.activo {
+    background: #4caf50 !important;
+    color: white;
 }
 
 .g_estado {

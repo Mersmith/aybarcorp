@@ -54,7 +54,7 @@
                         @enderror
                     </div>
 
-                    <div>
+                    {{--<div>
                         <label for="rol">Rol</label>
                         <select id="rol" wire:model.live="rol">
                             <option value="cliente">Cliente</option>
@@ -63,7 +63,7 @@
                         @error('rol')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div>--}}
                 </div>
 
                 <div class="g_panel">

@@ -79,7 +79,7 @@ class RolesYPermisosSeeder extends Seeder
             'gestor',
             'supervisor atc',
             'atc',
-            'cliente',
+            //'cliente',
         ];
 
         foreach ($roles as $rol) {
@@ -92,7 +92,7 @@ class RolesYPermisosSeeder extends Seeder
         $gestor = Role::findByName('gestor');
         $supervisorAtc = Role::findByName('supervisor atc');
         $atc = Role::findByName('atc');
-        $cliente = Role::findByName('cliente');
+        //$cliente = Role::findByName('cliente');
 
         // ----------------------------------------
         // 3. ASIGNACIÓN DE PERMISOS POR ROL

@@ -26,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'must_change_password',
+        'password_changed_at',
         'profile_photo_path',
         'rol',
         'politica_uno',

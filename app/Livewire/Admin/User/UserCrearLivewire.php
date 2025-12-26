@@ -13,7 +13,7 @@ class UserCrearLivewire extends Component
     public $name;
     public $email;
     public $password;
-    public $rol = 'cliente';
+    public $rol = 'admin';
 
     public $activo = false;
 

@@ -77,7 +77,7 @@ class UserSeeder extends Seeder
                 'rol' => 'cliente',
             ]);
 
-            $cliente->assignRole('cliente');
+            //$cliente->assignRole('cliente');
 
             Cliente::factory()->create([
                 'user_id' => $cliente->id,
