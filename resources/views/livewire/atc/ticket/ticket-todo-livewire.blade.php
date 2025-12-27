@@ -28,30 +28,30 @@
                 </div>
 
                 <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Empresa </label>
+                    <select wire:model.live="unidad_negocio_id">
+                        <option value="">Todos</option>
+                        @foreach ($empresas as $item)
+                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Proyecto </label>
+                    <select wire:model.live="proyecto_id">
+                        <option value="">Todos</option>
+                        @foreach ($proyectos as $item)
+                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
                     <label>Area </label>
                     <select wire:model.live="area">
                         <option value="">Todos</option>
                         @foreach ($areas as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="g_margin_bottom_10 g_columna_2">
-                    <label>Solicitud </label>
-                    <select wire:model.live="solicitud">
-                        <option value="">Todos</option>
-                        @foreach ($solicitudes as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="g_margin_bottom_10 g_columna_2">
-                    <label>Canal </label>
-                    <select wire:model.live="canal">
-                        <option value="">Todos</option>
-                        @foreach ($canales as $item)
                         <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
@@ -69,6 +69,36 @@
             </div>
 
             <div class="g_fila">
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Solicitud </label>
+                    <select wire:model.live="solicitud">
+                        <option value="">Todos</option>
+                        @foreach ($solicitudes as $item)
+                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Sub tipo solicitud </label>
+                    <select wire:model.live="sub_tipo_solicitud_id">
+                        <option value="">Todos</option>
+                        @foreach ($sub_tipos_solicitudes as $item)
+                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Canal </label>
+                    <select wire:model.live="canal">
+                        <option value="">Todos</option>
+                        @foreach ($canales as $item)
+                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="g_margin_bottom_10 g_columna_2">
                     <label>Asignado </label>
                     <select wire:model.live="admin">
@@ -88,7 +118,9 @@
                         @endforeach
                     </select>
                 </div>
+            </div>
 
+            <div class="g_fila">
                 <div class="g_margin_bottom_10 g_columna_2">
                     <label>Derivados</label>
                     <select wire:model.live="con_derivados">

@@ -12,6 +12,8 @@ class Ticket extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'unidad_negocio_id',
+        'proyecto_id',
         'cliente_id',
         'area_id',
         'tipo_solicitud_id',

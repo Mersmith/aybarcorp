@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\TipoSolicitud;
 use App\Models\PrioridadTicket;
 use App\Models\Canal;
+use App\Models\Proyecto;
+use App\Models\SubTipoSolicitud;
+use App\Models\UnidadNegocio;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -19,24 +22,21 @@ class TicketTodoLivewire extends Component
 {
     use WithPagination;
 
-    public $estados;
-    public $areas;
-    public $solicitudes;
-    public $canales;
-    public $usuarios_admin;
-    public $prioridades = [];
+    public $estados, $estado = '';
+    public $areas, $area = '';
+    public $solicitudes, $solicitud = '';
+    public $sub_tipos_solicitudes = [], $sub_tipo_solicitud_id = "";
+    public $canales, $canal = '';
+    public $usuarios_admin, $admin = '';
+    public $prioridades, $prioridad = '';
+    public $empresas, $unidad_negocio_id = '';
+    public $proyectos = [], $proyecto_id = '';
 
-    public $prioridad = '';
     public $fecha_inicio = '';
     public $fecha_fin = '';
-    public $admin = '';
     public $buscar = '';
-    public $estado = '';
-    public $area = '';
-    public $solicitud = '';
-    public $canal = '';
-    public $perPage = 20;
     public $con_derivados = '';
+    public $perPage = 20;
 
     public function mount()
     {
@@ -49,24 +49,79 @@ class TicketTodoLivewire extends Component
         $this->admin = Auth::check() ? Auth::id() : '';
         $this->fecha_inicio = now()->toDateString(); // "2025-11-26"
         $this->fecha_fin = now()->toDateString();
+
+        $this->empresas = UnidadNegocio::all();
+    }
+
+    public function updatedUnidadNegocioId($value)
+    {
+        $this->proyecto_id = '';
+        $this->proyectos = [];
+
+        if ($value) {
+            $this->loadProyectos();
+        }
+    }
+
+    public function loadProyectos()
+    {
+        if (!is_null($this->unidad_negocio_id)) {
+            $this->proyectos = Proyecto::where('unidad_negocio_id', $this->unidad_negocio_id)->get();
+        }
+    }
+
+    public function updatedSolicitud($value)
+    {
+        $this->sub_tipo_solicitud_id = '';
+        $this->sub_tipos_solicitudes = [];
+
+        if ($value) {
+            $this->loadSubTipoSolicitudes();
+        }
+    }
+
+    public function loadSubTipoSolicitudes()
+    {
+        if (!is_null($this->solicitud)) {
+            $this->sub_tipos_solicitudes = SubTipoSolicitud::where('tipo_solicitud_id', $this->solicitud)->get();
+        }
+    }
+
+    public function updatingUnidadNegocioId()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingProyectoId()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSubTipoSolicitudId()
+    {
+        $this->resetPage();
     }
 
     public function updatingBuscar()
     {
         $this->resetPage();
     }
+
     public function updatingEstado()
     {
         $this->resetPage();
     }
+
     public function updatingArea()
     {
         $this->resetPage();
     }
+
     public function updatingSolicitud()
     {
         $this->resetPage();
     }
+
     public function updatingCanal()
     {
         $this->resetPage();
@@ -95,6 +150,8 @@ class TicketTodoLivewire extends Component
     public function resetFiltros()
     {
         $this->reset([
+            'unidad_negocio_id',
+            'proyecto_id',
             'fecha_inicio',
             'fecha_fin',
             'admin',
@@ -102,6 +159,7 @@ class TicketTodoLivewire extends Component
             'estado',
             'area',
             'solicitud',
+            'sub_tipo_solicitud_id',
             'canal',
             'perPage',
             'prioridad',
@@ -132,9 +190,12 @@ class TicketTodoLivewire extends Component
                             ->orWhere('nombre_completo', 'like', "%{$this->buscar}%");
                     });
             })*/
+            ->when($this->unidad_negocio_id, fn($q) => $q->where('unidad_negocio_id', $this->unidad_negocio_id))
+            ->when($this->proyecto_id, fn($q) => $q->where('proyecto_id', $this->proyecto_id))
             ->when($this->estado, fn($q) => $q->where('estado_ticket_id', $this->estado))
             ->when($this->area, fn($q) => $q->where('area_id', $this->area))
             ->when($this->solicitud, fn($q) => $q->where('tipo_solicitud_id', $this->solicitud))
+            ->when($this->sub_tipo_solicitud_id, fn($q) => $q->where('sub_tipo_solicitud_id', $this->sub_tipo_solicitud_id))
             ->when($this->canal, fn($q) => $q->where('canal_id', $this->canal))
             ->when($this->admin, fn($q) => $q->where('usuario_asignado_id', $this->admin))
             ->when(

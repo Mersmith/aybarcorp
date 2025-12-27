@@ -27,6 +27,36 @@
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
+                            <label for="unidad_negocio_id">
+                                Empresa <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                            </label>
+                            <select id="unidad_negocio_id" wire:model.live="unidad_negocio_id" required>
+                                <option value="" selected disabled>Seleccionar una empresa</option>
+                                @foreach ($empresas as $empresa)
+                                <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
+                                @endforeach
+                            </select>
+                            @error('unidad_negocio_id')
+                            <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label for="proyecto_id">
+                                Proyecto <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                            </label>
+                            <select id="proyecto_id" wire:model.live="proyecto_id" required>
+                                <option value="" selected disabled>Seleccionar un proyecto</option>
+                                @foreach ($proyectos as $proyecto)
+                                <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
+                                @endforeach
+                            </select>
+                            @error('proyecto_id')
+                            <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
                             <label for="area_id">
                                 Area <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
@@ -40,7 +70,9 @@
                             <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
+                    </div>
 
+                    <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
                             <label for="tipo_solicitud_id">
                                 Tipo solicitud <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
@@ -52,6 +84,21 @@
                                 @endforeach
                             </select>
                             @error('tipo_solicitud_id')
+                            <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label for="sub_tipo_solicitud_id">
+                                Sub tipo solicitud <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                            </label>
+                            <select id="sub_tipo_solicitud_id" wire:model.live="sub_tipo_solicitud_id" required>
+                                <option value="" selected disabled>Seleccionar un subtipo</option>
+                                @foreach ($sub_tipos_solicitudes as $subtipo)
+                                <option value="{{ $subtipo->id }}">{{ $subtipo->nombre }}</option>
+                                @endforeach
+                            </select>
+                            @error('sub_tipo_solicitud_id')
                             <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>

@@ -6,8 +6,11 @@ use App\Models\Area;
 use App\Models\Canal;
 use App\Models\Cliente;
 use App\Models\EstadoTicket;
+use App\Models\Proyecto;
+use App\Models\SubTipoSolicitud;
 use App\Models\Ticket;
 use App\Models\TicketHistorial;
+use App\Models\UnidadNegocio;
 use Livewire\Attributes\Layout;
 use App\Services\ConsultaClienteService;
 use Illuminate\Support\Collection;
@@ -19,6 +22,7 @@ class TicketCrearLivewire extends Component
 {
     public $areas, $area_id = "";
     public $tipos_solicitudes = [], $tipo_solicitud_id = "";
+    public $sub_tipos_solicitudes = [], $sub_tipo_solicitud_id = "";
     public $canales, $canal_id = "";
     public $cliente, $cliente_id = "", $origen = "";
 
@@ -32,14 +36,20 @@ class TicketCrearLivewire extends Component
     public $lote_id = "";
     public $lotes_agregados = [];
 
+    public $empresas, $unidad_negocio_id = '';
+    public $proyectos = [], $proyecto_id = '';
+
     public Collection $informaciones;
 
     protected function rules()
     {
         return [
+            'unidad_negocio_id' => 'required',
+            'proyecto_id' => 'required',
             'cliente_id' => 'required',
             'area_id' => 'required',
             'tipo_solicitud_id' => 'required',
+            'sub_tipo_solicitud_id' => 'required',
             'canal_id' => 'required',
             'usuario_asignado_id' => 'required',
             'asunto_inicial' => 'required|string|max:255',
@@ -51,8 +61,25 @@ class TicketCrearLivewire extends Component
     {
         $this->areas = Area::all();
         $this->canales = Canal::all();
+        $this->empresas = UnidadNegocio::all();
 
         $this->informaciones = collect();
+    }
+
+    public function updatedUnidadNegocioId($value)
+    {
+        $this->proyecto_id = '';
+
+        if ($value) {
+            $this->loadProyectos();
+        }
+    }
+
+    public function loadProyectos()
+    {
+        if (!is_null($this->unidad_negocio_id)) {
+            $this->proyectos = Proyecto::where('unidad_negocio_id', $this->unidad_negocio_id)->get();
+        }
     }
 
     public function updatedAreaId($value)
@@ -66,6 +93,22 @@ class TicketCrearLivewire extends Component
         $this->usuario_asignado_id = "";
     }
 
+    public function updatedTipoSolicitudId($value)
+    {
+        $this->sub_tipo_solicitud_id = '';
+
+        if ($value) {
+            $this->loadSubTipoSolicitudes();
+        }
+    }
+
+    public function loadSubTipoSolicitudes()
+    {
+        if (!is_null($this->tipo_solicitud_id)) {
+            $this->sub_tipos_solicitudes = SubTipoSolicitud::where('tipo_solicitud_id', $this->tipo_solicitud_id)->get();
+        }
+    }
+
     public function store()
     {
         $this->validate();
@@ -73,9 +116,12 @@ class TicketCrearLivewire extends Component
         $estadoAbiertoId = EstadoTicket::where('nombre', 'Abierto')->value('id');
 
         $ticket = Ticket::create([
+            'unidad_negocio_id' => $this->unidad_negocio_id,
+            'proyecto_id' => $this->proyecto_id,
             'cliente_id' => $this->origen === 'slin' ? $this->cliente_id : null,
             'area_id' => $this->area_id,
             'tipo_solicitud_id' => $this->tipo_solicitud_id,
+            'sub_tipo_solicitud_id' => $this->sub_tipo_solicitud_id,
             'canal_id' => $this->canal_id,
             'estado_ticket_id' => $estadoAbiertoId,
             'usuario_asignado_id' => $this->usuario_asignado_id,
