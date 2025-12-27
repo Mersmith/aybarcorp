@@ -12,7 +12,8 @@ use App\Livewire\Admin\Sede\SedeCrearLivewire;
 use App\Livewire\Admin\Sede\SedeEditarLivewire;
 use App\Livewire\Admin\Sede\SedeTodoLivewire;
 use App\Livewire\Admin\UnidadNegocio\UnidadNegocioCrearLivewire;
-use App\Livewire\Admin\UnidadNegocio\UnidadNegocioEditarLivewire;use App\Livewire\Admin\UnidadNegocio\UnidadNegocioTodoLivewire;
+use App\Livewire\Admin\UnidadNegocio\UnidadNegocioEditarLivewire;
+use App\Livewire\Admin\UnidadNegocio\UnidadNegocioTodoLivewire;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/perfil', InicioLivewire::class)->name('home');
@@ -24,6 +25,12 @@ Route::prefix('unidad-negocio')->name('unidad-negocio.vista.')->group(function (
 });
 
 Route::prefix('cliente')->name('cliente.vista.')->group(function () {
+    Route::get('/', ClienteTodoLivewire::class)->name('todo');
+    Route::get('/crear', ClienteCrearLivewire::class)->name('crear');
+    Route::get('/editar/{id}', ClienteEditarLivewire::class)->name('editar');
+});
+
+Route::prefix('cliente-bd-antiguo')->name('cliente-bd-antiguo.vista.')->group(function () {
     Route::get('/', ClienteTodoLivewire::class)->name('todo');
     Route::get('/crear', ClienteCrearLivewire::class)->name('crear');
     Route::get('/editar/{id}', ClienteEditarLivewire::class)->name('editar');

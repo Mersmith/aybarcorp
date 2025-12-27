@@ -143,7 +143,7 @@
             },
             {
                 "id": 42,
-                "nombre": "Clientes",
+                "nombre": "Clientes(Slin)",
                 "ruta": "#",
                 "url": "#",
                 "icono": "fa-solid fa-users",
@@ -172,6 +172,47 @@
                         "nombre": "Crear",
                         "ruta": "admin.cliente.vista.crear",
                         "url": "/admin/cliente/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc",
+                            "atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 43,
+                "nombre": "Clientes(DB Antiguo)",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-users",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor atc",
+                    "atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.cliente-bd-antiguo.vista.todo",
+                        "url": "/admin/cliente-bd-antiguo",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "supervisor atc",
+                            "atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.cliente-bd-antiguo.vista.crear",
+                        "url": "/admin/cliente-bd-antiguo/crear",
                         "nivel": 3,
                         "roles": [
                             "super-admin",

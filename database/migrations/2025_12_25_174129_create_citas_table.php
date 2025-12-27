@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('unidad_negocio_id')->constrained('unidad_negocios')->cascadeOnDelete();
-            $table->foreignId('proyecto_id')->constrained('proyectos')->cascadeOnDelete();
+            $table->foreignId('unidad_negocio_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('proyecto_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete(); //quien es agendado
 
             $table->foreignId('usuario_solicita_id')->constrained('users')->onDelete('cascade'); //quien crea
