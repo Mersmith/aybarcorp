@@ -38,6 +38,13 @@ return new class extends Migration
             $table->string('nombres')->nullable();
             $table->string('origen')->nullable(); //antiguo:clientes_2 o slin
 
+            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->dateTime('fecha_validacion')->nullable();
+
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
+
             $table->timestamps();
             $table->softDeletes();
         });

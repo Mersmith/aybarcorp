@@ -47,4 +47,9 @@ class Proyecto extends Model
     {
         return $this->hasMany(EvidenciaPago::class);
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

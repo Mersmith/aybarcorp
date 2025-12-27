@@ -30,17 +30,30 @@ class Ticket extends Model
         'dni',
         'nombres',
         'origen',
+
+        // valida
+        'usuario_valida_id',
+        'fecha_validacion',
+
+        // auditoría
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $casts = [
         'lotes' => 'array',
     ];
 
-    const PRIORIDADES = [
-        1 => 'Alta',
-        2 => 'Media',
-        3 => 'Baja',
-    ];
+    public function unidadNegocio()
+    {
+        return $this->belongsTo(UnidadNegocio::class);
+    }
+
+    public function proyecto()
+    {
+        return $this->belongsTo(Proyecto::class);
+    }
 
     public function cliente()
     {
@@ -97,13 +110,50 @@ class Ticket extends Model
         return $this->morphMany(Archivo::class, 'archivable');
     }
 
-    public function getPrioridadNombreAttribute()
+    public function creador()
     {
-        return self::PRIORIDADES[$this->prioridad] ?? 'Desconocida';
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function eliminador()
+    {
+        return $this->belongsTo(User::class, 'deleted_by');
     }
 
     public function getTieneDerivadosAttribute()
     {
         return $this->derivados()->exists();
+    }
+
+    public function getTieneArchivosAttribute()
+    {
+        return $this->archivos()->exists();
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->created_by = auth()->id();
+            }
+        });
+
+        static::updating(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->updated_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->deleted_by = auth()->id();
+                $ticket->saveQuietly();
+            }
+        });
     }
 }

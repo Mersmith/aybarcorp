@@ -37,13 +37,31 @@
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
-                            <label>Área origen</label>
-                            <input type="text" disabled value="{{ $ticket->area->nombre ?? 'Sin asignar' }}">
+                            <label>Empresa</label>
+                            <input type="text" disabled value="{{ $ticket->unidadNegocio->nombre ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
+                            <label>Proyecto</label>
+                            <input type="text" disabled value="{{ $ticket->proyecto->nombre ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label>Área origen</label>
+                            <input type="text" disabled value="{{ $ticket->area->nombre ?? 'Sin asignar' }}">
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_4">
                             <label>Tipo solicitud</label>
                             <input type="text" disabled value="{{ $ticket->tipoSolicitud->nombre ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label>Sub tipo solicitud</label>
+                            <input type="text" disabled
+                                value="{{ $ticket->subTipoSolicitud->nombre ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
@@ -59,6 +77,13 @@
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
+                            <label for="usuario_asignado_id">
+                                Asignado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                            </label>
+                            <input type="text" disabled value="{{ $ticket->asignado->name ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
                             <label for="estado_ticket_id">
                                 Estado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
@@ -71,13 +96,6 @@
                             @error('estado_ticket_id')
                             <p class="mensaje_error">{{ $message }}</p>
                             @enderror
-                        </div>
-
-                        <div class="g_margin_bottom_10 g_columna_4">
-                            <label for="usuario_asignado_id">
-                                Asignado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
-                            </label>
-                            <input type="text" disabled value="{{ $ticket->asignado->name ?? 'Sin asignar' }}">
                         </div>
                     </div>
 

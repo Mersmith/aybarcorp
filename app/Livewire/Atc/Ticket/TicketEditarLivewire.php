@@ -192,16 +192,15 @@ class TicketEditarLivewire extends Component
             return;
         }
 
-        if ($ticket->derivados()->count() > 0) {
+        if ($ticket->tiene_derivados) {
             $this->dispatch('alertaLivewire', 'Este ticket tiene derivaciones. No se puede eliminar.');
             return;
         }
 
-        if ($ticket->archivos()->count() > 0) {
+        if ($ticket->tiene_archivos) {
             $this->dispatch('alertaLivewire', 'Este ticket tiene archivos adjuntos. Primero elimínalos.');
             return;
         }
-
 
         TicketHistorial::create([
             'ticket_id' => $ticket->id,
