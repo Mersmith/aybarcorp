@@ -16,8 +16,8 @@ return new class extends Migration
 
             $table->foreignId('unidad_negocio_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('proyecto_id')->nullable()->constrained()->nullOnDelete();
-
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete();
+
             $table->foreignId('area_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('tipo_solicitud_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('sub_tipo_solicitud_id')->nullable()->constrained()->nullOnDelete();
@@ -34,13 +34,16 @@ return new class extends Migration
             $table->string('asunto')->nullable();
             $table->text('descripcion')->nullable();
 
+            //DB ANTIGUO
             $table->string('dni')->nullable();
             $table->string('nombres')->nullable();
             $table->string('origen')->nullable(); //antiguo:clientes_2 o slin
 
+            //SUPERVISOR
             $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
             $table->dateTime('fecha_validacion')->nullable();
 
+            //AUDITORIA
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();

@@ -50,7 +50,7 @@
 
                         <div class="g_margin_bottom_10 g_columna_6">
                             <label>Cliente</label>
-                            <input type="text" disabled value="{{ $cita->receptor->name ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $cita->cliente->name ?? 'Sin asignar' }}">
                         </div>
                     </div>
 

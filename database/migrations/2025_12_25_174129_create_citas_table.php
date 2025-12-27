@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('unidad_negocio_id')->constrained('unidad_negocios')->cascadeOnDelete();
+            $table->foreignId('proyecto_id')->constrained('proyectos')->cascadeOnDelete();
+            $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete(); //quien es agendado
+
             $table->foreignId('usuario_solicita_id')->constrained('users')->onDelete('cascade'); //quien crea
-
-            $table->foreignId('usuario_recibe_id')->constrained('users')->onDelete('cascade'); //quien es agendado
-
             $table->foreignId('usuario_cierra_id')->nullable()->constrained('users')->nullOnDelete(); //quien atiende al cliente
 
             $table->foreignId('sede_id')->nullable()->constrained('sedes')->nullOnDelete();
@@ -35,6 +36,20 @@ return new class extends Migration
 
             $table->string('asunto_respuesta')->nullable();
             $table->text('descripcion_respuesta')->nullable();
+
+            //DB ANTIGUO
+            $table->string('dni')->nullable();
+            $table->string('nombres')->nullable();
+            $table->string('origen')->nullable(); //antiguo:clientes_2 o slin
+
+            //SUPERVISOR
+            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->dateTime('fecha_validacion')->nullable();
+
+            //AUDITORIA
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

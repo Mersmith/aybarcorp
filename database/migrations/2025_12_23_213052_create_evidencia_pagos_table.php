@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('unidad_negocio_id')->constrained('unidad_negocios')->cascadeOnDelete();
-
             $table->foreignId('proyecto_id')->constrained('proyectos')->cascadeOnDelete();
+            $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete();
 
             $table->string('path');
             $table->string('url');
@@ -31,16 +31,6 @@ return new class extends Migration
 
             $table->foreignId('estado_evidencia_pago_id')->default(1)->constrained('estado_evidencia_pagos')->onDelete('restrict');
 
-            $table->foreignId('cliente_id')
-                ->constrained('clientes')
-                ->onDelete('restrict');
-
-            $table->foreignId('usuario_valida_id')
-                ->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
-            $table->dateTime('fecha_validacion')->nullable();
-
             $table->string('codigo_cliente')->nullable();
             $table->string('razon_social')->nullable();
             $table->string('nombre_proyecto')->nullable();
@@ -49,6 +39,20 @@ return new class extends Migration
             $table->string('lote')->nullable();
             $table->string('codigo_cuota')->nullable();
             $table->string('numero_cuota')->nullable();
+
+            //DB ANTIGUO
+            $table->string('dni')->nullable();
+            $table->string('nombres')->nullable();
+            $table->string('origen')->nullable(); //antiguo:clientes_2 o slin
+
+            //SUPERVISOR
+            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->dateTime('fecha_validacion')->nullable();
+
+            //AUDITORIA
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

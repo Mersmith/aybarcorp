@@ -15,7 +15,7 @@ class CitaCrearLivewire extends Component
 {
     public $usuarios_admin, $usuario_solicita_id = '';
 
-    public $usuarios_cliente = [], $usuario_recibe_id = '';
+    public $usuarios_cliente = [], $cliente_id = '';
     public $buscar_cliente = '';
     public $select_cliente;
 
@@ -32,7 +32,7 @@ class CitaCrearLivewire extends Component
     {
         return [
             'usuario_solicita_id' => 'required',
-            'usuario_recibe_id' => 'required',
+            'cliente_id' => 'required',
             'sede_id' => 'required',
             'motivo_cita_id' => 'required',
             'fecha_inicio' => 'required',
@@ -45,7 +45,7 @@ class CitaCrearLivewire extends Component
 
     protected $validationAttributes = [
         'usuario_solicita_id' => 'admin',
-        'usuario_recibe_id' => 'cliente',
+        'cliente_id' => 'cliente',
     ];
 
     public function mount()
@@ -58,7 +58,7 @@ class CitaCrearLivewire extends Component
 
     public function seleccionarCliente($id)
     {
-        $this->usuario_recibe_id = $id;
+        $this->cliente_id = $id;
 
         $this->select_cliente = User::find($id);
     }
@@ -69,7 +69,7 @@ class CitaCrearLivewire extends Component
 
         $cita = Cita::create([
             'usuario_solicita_id' => $this->usuario_solicita_id,
-            'usuario_recibe_id' => $this->usuario_recibe_id,
+            'cliente_id' => $this->cliente_id,
             'sede_id' => $this->sede_id,
             'motivo_cita_id' => $this->motivo_cita_id,
             'estado_cita_id' => $this->estado_cita_id,

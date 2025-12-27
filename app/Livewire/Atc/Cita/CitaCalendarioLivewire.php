@@ -82,14 +82,14 @@ class CitaCalendarioLivewire extends Component
             'anio'   => $this->fechaActual->copy()->endOfYear(),
         };
 
-        $this->eventos = Cita::with(['receptor', 'sede', 'motivo'])
+        $this->eventos = Cita::with(['cliente', 'sede', 'motivo'])
             ->whereBetween('fecha_inicio', [$inicio, $fin])
             ->orderBy('fecha_inicio')
             ->get()
             ->map(fn($cita) => [
                 'id'        => $cita->id,
                 'title'     => $cita->motivo->nombre,
-                'cliente'   => $cita->receptor?->name,
+                'cliente'   => $cita->cliente?->name,
                 'sede'      => $cita->sede?->nombre,
                 'estado'    => $cita->estado,
                 'date'      => $cita->fecha_inicio->toDateString(),

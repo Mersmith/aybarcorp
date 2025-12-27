@@ -41,7 +41,7 @@ class CitaSeeder extends Seeder
 
             Cita::create([
                 'usuario_solicita_id' => $admin->id,
-                'usuario_recibe_id'   => $cliente->id,
+                'cliente_id'   => $cliente->id,
                 'sede_id'             => $sede->id,
                 'motivo_cita_id'      => $motivo->id,
                 'fecha_inicio'            => $start,
@@ -72,7 +72,7 @@ class CitaSeeder extends Seeder
 
             Cita::create([
                 'usuario_solicita_id' => $admin->id,
-                'usuario_recibe_id'   => $cliente->id,
+                'cliente_id'   => $cliente->id,
                 'sede_id'             => $sede->id,
                 'motivo_cita_id'      => $motivo->id,
                 'fecha_inicio'            => $start,

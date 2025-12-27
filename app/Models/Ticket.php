@@ -15,6 +15,7 @@ class Ticket extends Model
         'unidad_negocio_id',
         'proyecto_id',
         'cliente_id',
+
         'area_id',
         'tipo_solicitud_id',
         'sub_tipo_solicitud_id',
@@ -42,6 +43,7 @@ class Ticket extends Model
     ];
 
     protected $casts = [
+        'fecha_validacion' => 'datetime',
         'lotes' => 'array',
     ];
 
@@ -110,6 +112,23 @@ class Ticket extends Model
         return $this->morphMany(Archivo::class, 'archivable');
     }
 
+    public function getTieneDerivadosAttribute()
+    {
+        return $this->derivados()->exists();
+    }
+
+    public function getTieneArchivosAttribute()
+    {
+        return $this->archivos()->exists();
+    }
+
+    // valida
+    public function usuarioValida()
+    {
+        return $this->belongsTo(User::class, 'usuario_valida_id');
+    }
+
+    // auditoria
     public function creador()
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -123,16 +142,6 @@ class Ticket extends Model
     public function eliminador()
     {
         return $this->belongsTo(User::class, 'deleted_by');
-    }
-
-    public function getTieneDerivadosAttribute()
-    {
-        return $this->derivados()->exists();
-    }
-
-    public function getTieneArchivosAttribute()
-    {
-        return $this->archivos()->exists();
     }
 
     protected static function booted()

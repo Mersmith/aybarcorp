@@ -71,12 +71,12 @@
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_6">
-                            <label for="usuario_recibe_id">
+                            <label for="cliente_id">
                                 Cliente <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
                             <input type="text" disabled value="{{ $select_cliente?->name ?? 'Sin asignar' }}">
 
-                            @error('usuario_recibe_id')
+                            @error('cliente_id')
                             <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>

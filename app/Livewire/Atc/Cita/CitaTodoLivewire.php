@@ -65,7 +65,7 @@ class CitaTodoLivewire extends Component
                     ->orWhereHas('solicitante', function ($sub) {
                         $sub->where('name', 'like', "%{$this->buscar}%");
                     })
-                    ->orWhereHas('receptor', function ($sub) {
+                    ->orWhereHas('cliente', function ($sub) {
                         $sub->where('name', 'like', "%{$this->buscar}%");
                     });
             })

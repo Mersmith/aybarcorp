@@ -14,6 +14,8 @@ class EvidenciaPago extends Model
     protected $fillable = [
         'unidad_negocio_id',
         'proyecto_id',
+        'cliente_id',
+
         'path',
         'url',
         'extension',
@@ -23,7 +25,6 @@ class EvidenciaPago extends Model
         'fecha',
         'observacion',
         'estado_evidencia_pago_id',
-        'cliente_id',
         'usuario_valida_id',
         'fecha_validacion',
         'codigo_cliente',
@@ -34,6 +35,15 @@ class EvidenciaPago extends Model
         'lote',
         'codigo_cuota',
         'numero_cuota',
+
+        // valida
+        'usuario_valida_id',
+        'fecha_validacion',
+
+        // auditoría
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $casts = [
@@ -56,13 +66,52 @@ class EvidenciaPago extends Model
         return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 
+    public function estado()
+    {
+        return $this->belongsTo(EstadoEvidenciaPago::class, 'estado_evidencia_pago_id');
+    }
+
+    // valida
     public function usuarioValida()
     {
         return $this->belongsTo(User::class, 'usuario_valida_id');
     }
 
-    public function estado()
+    // auditoria
+    public function creador()
     {
-        return $this->belongsTo(EstadoEvidenciaPago::class, 'estado_evidencia_pago_id');
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function eliminador()
+    {
+        return $this->belongsTo(User::class, 'deleted_by');
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->created_by = auth()->id();
+            }
+        });
+
+        static::updating(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->updated_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->deleted_by = auth()->id();
+                $ticket->saveQuietly();
+            }
+        });
     }
 }

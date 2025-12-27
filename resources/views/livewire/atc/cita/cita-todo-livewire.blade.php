@@ -23,7 +23,7 @@
 
                 <div class="g_margin_bottom_10 g_columna_2">
                     <label>Buscar</label>
-                    <input type="text" wire:model.live.debounce.800ms="buscar" placeholder="Id, solicitante, receptor">
+                    <input type="text" wire:model.live.debounce.800ms="buscar" placeholder="Id, solicitante, cliente">
                 </div>
 
                 <div class="g_margin_bottom_10 g_columna_2">
@@ -87,7 +87,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Solicitante</th>
-                            <th>Receptor</th>
+                            <th>Cliente</th>
                             <th>Sede</th>
                             <th>Motivo</th>
                             <th>Inicio</th>
@@ -103,7 +103,7 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td class="g_negrita">{{ $item->solicitante->name }}</td>
-                            <td class="g_negrita">{{ $item->receptor->name }}</td>
+                            <td class="g_negrita">{{ $item->cliente->name }}</td>
                             <td>{{ $item->sede->nombre ?? '-' }}</td>
                             <td>
                                 <span style="color: {{ $item->motivo->color }};">

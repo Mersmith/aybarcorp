@@ -12,8 +12,11 @@ class Cita extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'unidad_negocio_id',
+        'proyecto_id',
+        'cliente_id',
+
         'usuario_solicita_id',
-        'usuario_recibe_id',
         'usuario_cierra_id',
         'sede_id',
         'motivo_cita_id',
@@ -25,22 +28,42 @@ class Cita extends Model
         'descripcion_solicitud',
         'asunto_respuesta',
         'descripcion_respuesta',
+
+        // valida
+        'usuario_valida_id',
+        'fecha_validacion',
+
+        // auditoría
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $casts = [
+        'fecha_validacion' => 'datetime',
         'fecha_inicio' => 'datetime',
         'fecha_fin'   => 'datetime',
         'fecha_cierre'   => 'datetime',
     ];
 
+    public function unidadNegocio()
+    {
+        return $this->belongsTo(UnidadNegocio::class);
+    }
+
+    public function proyecto()
+    {
+        return $this->belongsTo(Proyecto::class);
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(User::class, 'cliente_id');
+    }
+
     public function solicitante()
     {
         return $this->belongsTo(User::class, 'usuario_solicita_id');
-    }
-
-    public function receptor()
-    {
-        return $this->belongsTo(User::class, 'usuario_recibe_id');
     }
 
     public function cierrePor()
@@ -61,5 +84,49 @@ class Cita extends Model
     public function estado()
     {
         return $this->belongsTo(EstadoCita::class, 'estado_cita_id');
+    }
+
+    // valida
+    public function usuarioValida()
+    {
+        return $this->belongsTo(User::class, 'usuario_valida_id');
+    }
+
+    // auditoria
+    public function creador()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function eliminador()
+    {
+        return $this->belongsTo(User::class, 'deleted_by');
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->created_by = auth()->id();
+            }
+        });
+
+        static::updating(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->updated_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($ticket) {
+            if (auth()->check()) {
+                $ticket->deleted_by = auth()->id();
+                $ticket->saveQuietly();
+            }
+        });
     }
 }
