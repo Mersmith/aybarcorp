@@ -93,6 +93,9 @@ class SlinController extends Controller
     public function probarCliente()
     {
         $dni = "41870082";
+        //$dni = "71962580";
+        //$dni = "71962580";
+        //$dni = "47231144";
 
         $response = Http::get("{$this->remoteBase}/cliente/{$dni}");
 
@@ -105,6 +108,16 @@ class SlinController extends Controller
             "id_cliente" => "C00896",
             "id_empresa" => "019",
         ];
+
+        /*$params = [
+            "id_cliente" => "C18465",
+            "id_empresa" => "014",
+        ];*/
+
+        /*$params = [
+            "id_cliente" => "C10838",
+            "id_empresa" => "018",
+        ];*/
 
         $response = Http::get("{$this->remoteBase}/lotes", $params);
 
@@ -127,15 +140,15 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    public function probarEstadoCuenta()
+    /*public function probarEstadoCuenta()
     {
-        /*$params = [
+        $params = [
             'empresa' => '014',
             'lote' => '00101-A-0001', //proyecto/etapa-manza-lote
             'cliente' => 'C10838',
             'contrato' => '', //opcional//si es null, porque fue migrado
             'servicio' => '02', //default, solo para cuotas
-        ];*/
+        ];
 
         $params = [
             'empresa' => '019',
@@ -159,7 +172,45 @@ class SlinController extends Controller
             'status' => $response->status(),
             'data' => $response->json(),
         ]);
+    }*/
+
+    public function probarEstadoCuenta()
+    {
+        $params = [
+            'empresa'  => '019',
+            'lote'     => '00501-F-28.R',
+            'cliente'  => 'C00896',
+            'contrato' => '',
+            'servicio' => '02',
+        ];
+
+        $response = Http::acceptJson()
+            ->get("{$this->remoteBase}/estado-cuenta", $params);
+
+        if ($response->failed()) {
+            return response()->json([
+                'status' => $response->status(),
+                'error'  => $response->body(),
+            ]);
+        }
+
+        $payload = $response->json('data');   // JSON string
+        $data    = json_decode($payload, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json([
+                'status' => 500,
+                'error'  => 'Error al deserializar el campo data',
+                'raw'    => $payload,
+            ]);
+        }
+
+        return response()->json([
+            'status' => $response->status(),
+            'data'   => $data,
+        ]);
     }
+
 
     public function probarComprobante()
     {
@@ -167,6 +218,11 @@ class SlinController extends Controller
             'empresa' => '019',
             'comprobante' => '01-FF01-00000002',
         ];
+
+        /*$params = [
+            'empresa' => '019',
+            'comprobante' => '01-B0024-',
+        ];*/
 
         $response = Http::acceptJson()
             ->get("{$this->remoteBase}/comprobante", $params);
