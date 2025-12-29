@@ -167,6 +167,23 @@ class LoteTodoLivewire extends Component
         );
     }
 
+    public function descargarPDFestadoCuenta()
+    {
+        if (!$this->lote_select || empty($this->estado_cuenta)) {
+            session()->flash('error', 'Debe seleccionar un lote antes de descargar.');
+            return;
+        }
+
+        $pdf = Pdf::loadView('pdf.estado-cuenta', [
+            'estado_cuenta' => $this->estado_cuenta,
+        ]);
+
+        return response()->streamDownload(
+            fn() => print($pdf->output()),
+            'estado-cuenta-' . $this->lote_select['id_recaudo'] . '.pdf'
+        );
+    }
+
     public function render()
     {
         return view('livewire.cliente.lote.lote-todo-livewire');
