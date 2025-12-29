@@ -20,6 +20,9 @@ class LoteTodoLivewire extends Component
     public $lote_select = null;
 
     public $cronograma = [];
+    public $estado_cuenta = [];
+
+    public ?string $vista = null; // 'cronograma' | 'estado_cuenta'
 
     public function mount(SlinService $slinService)
     {
@@ -71,9 +74,10 @@ class LoteTodoLivewire extends Component
         $this->lote_select = null;
     }
 
-    public function seleccionarLote(array $lote, SlinService $slinService)
+    public function verCronograma(array $lote, SlinService $slinService)
     {
         $this->lote_select = $lote;
+        $this->vista = 'cronograma';
 
         $params = [
             'id_empresa' => $this->lote_select['id_empresa'],
@@ -96,7 +100,7 @@ class LoteTodoLivewire extends Component
         $this->cronograma = collect($cronograma)
             ->map(function ($item) {
                 return [
-                     ...$item,
+                    ...$item,
                     'estado' => match ($item['estado']) {
                         'PG PAGADA' => 'PAGADO',
                         'CR CARTERA' => 'PENDIENTE',
@@ -107,13 +111,40 @@ class LoteTodoLivewire extends Component
             ->toArray();
     }
 
-    public function cerrarCronograma()
+    public function verEstadoCuenta(array $lote, SlinService $slinService)
     {
-        $this->lote_select = null;
-        //$this->cronograma = [];
+        $this->lote_select = $lote;
+        $this->vista = 'estado_cuenta';
+
+        $params = [
+            'empresa' => $this->lote_select['id_empresa'],
+            'lote' => $this->lote_select['id_proyecto'] . '' . $this->lote_select['id_etapa'] . '-' . $this->lote_select['id_manzana'] . '-' . $this->lote_select['id_lote'],
+            'cliente' => $this->lote_select['id_cliente'],
+            'contrato' => $this->lote_select['contrato'] ?? '',
+            'servicio' => $this->lote_select['servicio'] ?? '02',
+        ];
+
+        $response = Http::get('https://aybarcorp.com/slin/estado-cuenta', $params);
+        $estado_cuenta = $response->successful() ? $response->json() : null;
+
+        if (empty($estado_cuenta)) {
+            $this->estado_cuenta = [];
+            session()->flash('error', 'Inténtelo más tarde, por favor.');
+            return;
+        }
+
+        $this->estado_cuenta = $estado_cuenta;
     }
 
-    public function descargarPDF()
+    public function cerrarVista()
+    {
+        $this->lote_select = null;
+        $this->cronograma = [];
+        $this->estado_cuenta = [];
+        $this->vista = null;
+    }
+
+    public function descargarPDFcronograma()
     {
         if (!$this->lote_select || empty($this->cronograma)) {
             session()->flash('error', 'Debe seleccionar un lote antes de descargar.');

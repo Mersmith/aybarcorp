@@ -1,5 +1,22 @@
 php artisan make:controller Cliente/InicioController
+php artisan make:controller Cliente/LoteController
+php artisan make:controller Cliente/DireccionController
 
 php artisan make:listener ClienteLoginListener
 
 php artisan make:notification ResetPasswordCustom
+
+
+
+php artisan make:livewire Cliente/Perfil/PerfilVerLivewire
+
+php artisan make:livewire Cliente/Direccion/DireccionTodoLivewire
+php artisan make:livewire Cliente/Direccion/DireccionCrearLivewire
+php artisan make:livewire Cliente/Direccion/DireccionEditarLivewire
+
+php artisan make:livewire Cliente/Lote/LoteTodoLivewire
+
+php artisan make:livewire Cliente/Cronograma/CronogramaVerLivewire
+php artisan make:livewire Cliente/EstadoCuenta/EstadoCuentaVerLivewire
+
+

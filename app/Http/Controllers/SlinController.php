@@ -7,16 +7,24 @@ use Illuminate\Support\Facades\Http;
 
 class SlinController extends Controller
 {
-    private $baseUrl = "https://cloudapp.slin.com.pe:7444/activity/v1/api/aybar";
-    private $user = "api_slin_aybar";
-    private $password = "S!lin_AyB@r2025#SecureX";
+    private string $baseUrl;
+    private string $baseUrlEstadoCuenta;
+    private string $baseUrlComprobante;
+    private string $remoteBase;
+    private string $user;
+    private string $password;
 
-    private $remoteBase = "https://aybarcorp.com/slin";
+    public function __construct()
+    {
+        $this->baseUrl = 'https://cloudapp.slin.com.pe:7444/activity/v1/api/aybar';
+        $this->baseUrlEstadoCuenta = 'https://cloudapp.slin.com.pe:7444/activity/api/v1/aybarweb/cronograma';
+        $this->baseUrlComprobante = 'https://prod.slin-ade.pe:8443/Utilidades/api/v1/aybarcorp/GetComprobantesBase64';
+        $this->remoteBase = 'https://aybarcorp.com/slin';
 
-    /**
-     * 1. CLIENTES
-     * GET /slin/cliente/{dni}
-     */
+        $this->user = config('services.slin.user');
+        $this->password = config('services.slin.password');
+    }
+
     public function getCliente($dni)
     {
         $response = Http::withBasicAuth($this->user, $this->password)
@@ -33,10 +41,6 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    /**
-     * 2. LOTES
-     * GET /slin/lotes?id_cliente=C00896&id_empresa=019
-     */
     public function getLotes(Request $request)
     {
         $request->validate([
@@ -61,10 +65,6 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    /**
-     * 3. CUOTAS
-     * GET /slin/cuotas?id_empresa=019&id_cliente=C00896&id_proyecto=005&id_etapa=01&id_manzana=F&id_lote=28.R
-     */
     public function getCuotas(Request $request)
     {
         $request->validate([
@@ -90,12 +90,88 @@ class SlinController extends Controller
         return $response->json();
     }
 
+    public function getEstadoCuenta(Request $request)
+    {
+        $request->validate([
+            'empresa'  => 'required|string',
+            'lote'     => 'required|string',
+            'cliente'  => 'required|string',
+            'contrato' => 'nullable|string',
+            'servicio' => 'required|string',
+        ]);
+
+        $params = [
+            'empresa'  => $request->empresa,
+            'lote'     => $request->lote,
+            'cliente'  => $request->cliente,
+            'contrato' => $request->contrato ?? '',
+            'servicio' => $request->servicio,
+        ];
+
+        $response = Http::withBasicAuth($this->user, $this->password)
+            ->acceptJson()
+            ->timeout(15)
+            ->get($this->baseUrlEstadoCuenta, $params);
+
+        if ($response->failed()) {
+            return response()->json([
+                'error'  => true,
+                'status' => $response->status(),
+                'detail' => $response->body(),
+            ], 502);
+        }
+
+        return response()->json($response->json());
+    }
+
+    public function getComprobante(Request $request)
+    {
+        $data = $request->validate([
+            'empresa'     => 'required|string',
+            'comprobante' => 'required|string',
+        ]);
+
+        try {
+            $url = sprintf(
+                '%s/%s/%s',
+                $this->baseUrlComprobante,
+                $data['empresa'],
+                $data['comprobante']
+            );
+
+            $response = Http::withBasicAuth($this->user, $this->password)
+                ->acceptJson()
+                ->timeout(20)
+                ->get($url);
+
+            if ($response->failed()) {
+                return response()->json([
+                    'error'   => true,
+                    'message' => 'Error consultando comprobante en SLIN',
+                    'status'  => $response->status(),
+                    'details' => $response->body(),
+                ], 502);
+            }
+
+            return response()->json($response->json());
+        } catch (\Throwable $e) {
+            \Log::error('SLIN GetComprobante error', [
+                'exception' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'error'   => true,
+                'message' => 'Error interno del servidor',
+            ], 500);
+        }
+    }
+
     public function probarCliente()
     {
-        $dni = "41870082";
+        //$dni = "41870082";
         //$dni = "71962580";
         //$dni = "71962580";
-        //$dni = "47231144";
+        $dni = "47231144";
 
         $response = Http::get("{$this->remoteBase}/cliente/{$dni}");
 
@@ -116,7 +192,7 @@ class SlinController extends Controller
 
         /*$params = [
             "id_cliente" => "C10838",
-            "id_empresa" => "018",
+            "id_empresa" => "014",
         ];*/
 
         $response = Http::get("{$this->remoteBase}/lotes", $params);
@@ -150,13 +226,13 @@ class SlinController extends Controller
             'servicio' => '02', //default, solo para cuotas
         ];
 
-        $params = [
+        /*$params = [
             'empresa' => '019',
             'lote' => '00501-F-28.R', //proyecto/etapa-manza-lote
             'cliente' => 'C00896',
             'contrato' => '', //opcional//si es null, porque fue migrado
             'servicio' => '02', //default, solo para cuotas
-        ];
+        ];*/
 
         $response = Http::acceptJson()
             ->get("{$this->remoteBase}/estado-cuenta", $params);

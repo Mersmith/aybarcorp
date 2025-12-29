@@ -11,12 +11,17 @@ class ComprobanteController extends Controller
 {
     public function ver(Request $request)
     {
-        $params = [
-            'empresa' => '019',
-            'comprobante' => '01-FF01-00000002',
-        ];
+        $empresa = $request->query('empresa');
+        $comprobante = $request->query('comprobante');
 
-        $response = Http::get('https://aybarcorp.com/slin/comprobante', $params);
+        if (!$empresa || !$comprobante) {
+            abort(400, 'Parámetros inválidos');
+        }
+
+        $response = Http::get('https://aybarcorp.com/slin/comprobante', [
+            'empresa' => $empresa,
+            'comprobante' => $comprobante,
+        ]);
 
         if ($response->failed()) {
             abort(404, 'No se pudo obtener el comprobante');
@@ -30,7 +35,7 @@ class ComprobanteController extends Controller
 
         $pdfBinary = base64_decode($json['base64']);
 
-        return response($pdfBinary)
+        return response($pdfBinary, 200)
             ->header('Content-Type', 'application/pdf')
             ->header('Content-Disposition', 'inline; filename="comprobante.pdf"');
     }
