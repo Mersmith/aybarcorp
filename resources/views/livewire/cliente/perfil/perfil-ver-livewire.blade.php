@@ -1,24 +1,24 @@
 <div class="g_gap_pagina">
     @if (session()->has('success'))
-        <div class="g_alerta_succes">
-            <i class="fa-solid fa-circle-check"></i>
-            {{ session('success') }}
-        </div>
+    <div class="g_alerta_succes">
+        <i class="fa-solid fa-circle-check"></i>
+        {{ session('success') }}
+    </div>
     @endif
 
     @if (session()->has('error'))
-        <div class="g_alerta_error">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            {{ session('error') }}
-        </div>
+    <div class="g_alerta_error">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        {{ session('error') }}
+    </div>
     @endif
 
     <div class="g_panel">
         <div class="g_panel_titulo">
             <h2>
                 {{ $cliente->user && $cliente->user->name
-                    ? 'Bienvenido, ' . collect(explode(' ', trim($cliente->user->name)))->last() . '!'
-                    : 'Mi perfil' }}
+                ? 'Bienvenido, ' . collect(explode(' ', trim($cliente->user->name)))->last() . '!'
+                : 'Mi perfil' }}
             </h2>
         </div>
 
@@ -33,10 +33,9 @@
             <div class="g_fila">
                 <div class="g_margin_top_20 g_columna_4">
                     <label for="dni">DNI</label>
-                    <input type="text" wire:model="dni" name="dni" id="dni" autocomplete="off" readonly
-                        disabled>
+                    <input type="text" wire:model="dni" name="dni" id="dni" autocomplete="off" readonly disabled>
                     @error('dni')
-                        <span class="mensaje_error">{{ $message }}</span>
+                    <span class="mensaje_error">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -48,10 +47,10 @@
 
                 <div class="g_margin_top_20 g_columna_4">
                     <label for="telefono_principal">Celular</label>
-                    <input type="text" wire:model="telefono_principal" name="telefono_principal"
-                        id="telefono_principal" autocomplete="tel">
+                    <input type="text" wire:model="telefono_principal" name="telefono_principal" id="telefono_principal"
+                        autocomplete="tel">
                     @error('telefono_principal')
-                        <span class="mensaje_error">{{ $message }}</span>
+                    <span class="mensaje_error">{{ $message }}</span>
                     @enderror
                 </div>
             </div>
@@ -74,7 +73,7 @@
                                 class="fa-solid fa-asterisk"></i></span></label>
                     <input type="password" wire:model="clave_actual" name="clave_actual" id="clave_actual">
                     @error('clave_actual')
-                        <span class="mensaje_error">{{ $message }}</span>
+                    <span class="mensaje_error">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -83,7 +82,7 @@
                                 class="fa-solid fa-asterisk"></i></span></label>
                     <input type="password" wire:model="clave_nueva" name="clave_nueva" id="clave_nueva">
                     @error('clave_nueva')
-                        <span class="mensaje_error">{{ $message }}</span>
+                    <span class="mensaje_error">{{ $message }}</span>
                     @enderror
                 </div>
             </div>
@@ -93,4 +92,7 @@
             </div>
         </form>
     </div>
+
+    @livewire('cliente.direccion.direccion-editar-livewire')
+
 </div>

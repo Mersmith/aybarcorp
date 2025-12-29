@@ -18,6 +18,7 @@ class SlinController extends Controller
     {
         $this->baseUrl = 'https://cloudapp.slin.com.pe:7444/activity/v1/api/aybar';
         $this->baseUrlEstadoCuenta = 'https://cloudapp.slin.com.pe:7444/activity/api/v1/aybarweb/cronograma';
+        //https://cloudapp.slin.com.pe:7444/activity/api/v1/aybarweb/estadocuenta?empresa=014&lote=02001-N-0005&cliente=C00065&servicio=02
         $this->baseUrlComprobante = 'https://prod.slin-ade.pe:8443/Utilidades/api/v1/aybarcorp/GetComprobantesBase64';
         $this->remoteBase = 'https://aybarcorp.com/slin';
 
@@ -180,20 +181,20 @@ class SlinController extends Controller
 
     public function probarLotes()
     {
-        $params = [
+        /*$params = [
             "id_cliente" => "C00896",
             "id_empresa" => "019",
-        ];
+        ];*/
 
         /*$params = [
             "id_cliente" => "C18465",
             "id_empresa" => "014",
         ];*/
 
-        /*$params = [
+        $params = [
             "id_cliente" => "C10838",
             "id_empresa" => "014",
-        ];*/
+        ];
 
         $response = Http::get("{$this->remoteBase}/lotes", $params);
 
@@ -278,3 +279,11 @@ class SlinController extends Controller
         ]);
     }
 }
+
+
+/// guiarse del   "saldo": "11,835.48",
+// si saldo es 0, es pagado
+// si saldo es 0, mostrar numero comprboante
+
+//Cuerpo (JSON): ```json { "lote": "string", "cliente": "string", "contrato": "string", "idcobranzas": "string", "base64Image": "string" }
+// contrato vacio,

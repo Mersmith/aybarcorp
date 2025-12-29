@@ -97,7 +97,9 @@ class LoteTodoLivewire extends Component
             return;
         }
 
-        $this->cronograma = collect($cronograma)
+        dd($cronograma);
+
+        /*$this->cronograma = collect($cronograma)
             ->map(function ($item) {
                 return [
                     ...$item,
@@ -108,7 +110,7 @@ class LoteTodoLivewire extends Component
                     },
                 ];
             })
-            ->toArray();
+            ->toArray();*/
     }
 
     public function verEstadoCuenta(array $lote, SlinService $slinService)
@@ -133,7 +135,9 @@ class LoteTodoLivewire extends Component
             return;
         }
 
-        $this->estado_cuenta = $estado_cuenta;
+        dd($estado_cuenta);
+
+        //$this->estado_cuenta = $estado_cuenta;
     }
 
     public function cerrarVista()

@@ -7,16 +7,20 @@ use App\Models\Region;
 use App\Models\Distrito;
 use App\Models\Provincia;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class DireccionEditarLivewire extends Component
 {
-    public $direccion_seleccionada;
+    public ?Direccion $direccion_seleccionada = null;
+
     public $departamentos = [];
     public $provincias = [];
     public $distritos = [];
+
     public $region_id;
     public $provincia_id;
     public $distrito_id;
+
     public $recibe_nombres;
     public $recibe_celular;
     public $direccion;
@@ -30,126 +34,102 @@ class DireccionEditarLivewire extends Component
     protected function rules()
     {
         return [
-            'recibe_nombres' => 'required',
-            'recibe_celular' => 'required',
-            'region_id' => 'required',
-            'provincia_id' => 'required',
-            'distrito_id' => 'required',
-            'direccion' => 'required',
-            'direccion_numero' => 'required',
-            'codigo_postal' => 'required',
+            'recibe_nombres'   => 'required|string',
+            'recibe_celular'   => 'required|string',
+            'region_id'        => 'required|integer',
+            'provincia_id'     => 'required|integer',
+            'distrito_id'      => 'required|integer',
+            'direccion'        => 'required|string',
+            'direccion_numero' => 'required|string',
+            'codigo_postal'    => 'required|string',
         ];
     }
 
-    public function mount($direccionId, $origen)
+    public function mount($origen = null)
     {
-        $this->editDireccion($direccionId);
         $this->origen = $origen;
         $this->departamentos = Region::all();
-    }
 
-    public function editDireccion($direccionId)
-    {
-        $this->direccion_seleccionada = Direccion::find($direccionId);
-        $this->recibe_nombres = $this->direccion_seleccionada->recibe_nombres;
-        $this->recibe_celular = $this->direccion_seleccionada->recibe_celular;
-        $this->direccion = $this->direccion_seleccionada->direccion;
-        $this->direccion_numero = $this->direccion_seleccionada->direccion_numero;
-        $this->codigo_postal = $this->direccion_seleccionada->codigo_postal;
-        $this->opcional = $this->direccion_seleccionada->opcional;
-        $this->instrucciones = $this->direccion_seleccionada->instrucciones;
+        $usuario = Auth::user();
 
-        $this->region_id = $this->direccion_seleccionada->region_id;
-        $this->loadProvincias();
-        $this->provincia_id = $this->direccion_seleccionada->provincia_id;
-        $this->loadDistritos();
-        $this->distrito_id = $this->direccion_seleccionada->distrito_id;
-    }
+        // Obtener primera dirección (si existe)
+        $this->direccion_seleccionada = $usuario->direcciones()->first();
 
-    public function updateDireccion()
-    {
-        $this->validate();
-
-        $this->direccion_seleccionada->recibe_nombres = $this->recibe_nombres;
-        $this->direccion_seleccionada->recibe_celular = $this->recibe_celular;
-        $this->direccion_seleccionada->direccion = $this->direccion;
-        $this->direccion_seleccionada->direccion_numero = $this->direccion_numero;
-        $this->direccion_seleccionada->codigo_postal = $this->codigo_postal;
-        $this->direccion_seleccionada->opcional = $this->opcional;
-        $this->direccion_seleccionada->instrucciones = $this->instrucciones;
-
-        $this->direccion_seleccionada->region_id = $this->region_id;
-        $this->direccion_seleccionada->provincia_id = $this->provincia_id;
-        $this->direccion_seleccionada->distrito_id = $this->distrito_id;
-
-        $this->direccion_seleccionada->save();
-
-        if ($this->origen == 'comprador-pagar') {
-            $this->dispatch('emitCompradorPagarRefreshDirecciones');
-        } else {
-            $this->dispatch('emitCompradorRefreshDirecciones');
-        }
-        $this->resetValuesForm();
-        $this->cerrarEditarModal();
-    }
-
-    public function updatedRegionId($value)
-    {
-        $this->provincia_id = null;
-        $this->provincias = [];
-        $this->distritos = [];
-        $this->distrito_id = null;
-
-        if ($value) {
-            $this->loadProvincias();
+        if ($this->direccion_seleccionada) {
+            $this->cargarDireccion();
         }
     }
 
-    public function updatedProvinciaId($value)
+    private function cargarDireccion()
     {
-        $this->distritos = [];
-        $this->distrito_id = null;
+        $dir = $this->direccion_seleccionada;
 
-        if ($value) {
-            $this->loadDistritos();
-        }
-    }
+        $this->recibe_nombres   = $dir->recibe_nombres;
+        $this->recibe_celular   = $dir->recibe_celular;
+        $this->direccion        = $dir->direccion;
+        $this->direccion_numero = $dir->direccion_numero;
+        $this->codigo_postal    = $dir->codigo_postal;
+        $this->opcional         = $dir->opcional;
+        $this->instrucciones    = $dir->instrucciones;
 
-    public function loadProvincias()
-    {
-        if (!is_null($this->region_id)) {
+        $this->region_id    = $dir->region_id;
+        $this->provincia_id = $dir->provincia_id;
+        $this->distrito_id  = $dir->distrito_id;
+
+        if ($this->region_id) {
             $this->provincias = Provincia::where('region_id', $this->region_id)->get();
         }
-    }
 
-    public function loadDistritos()
-    {
-        if (!is_null($this->provincia_id)) {
+        if ($this->provincia_id) {
             $this->distritos = Distrito::where('provincia_id', $this->provincia_id)->get();
         }
     }
 
-    public function cerrarEditarModal()
+    public function saveDireccion()
     {
-        if ($this->origen == 'comprador-pagar') {
-            $this->dispatch('emitCompradorPagarCerrarModalEditarDireccion');
-        } else {
-            $this->dispatch('emitCompradorCerrarModalEditarDireccion');
+        $this->validate();
+
+        if (!$this->direccion_seleccionada) {
+            $this->direccion_seleccionada = new Direccion();
+            $this->direccion_seleccionada->user_id = Auth::id();
+        }
+
+        $this->direccion_seleccionada->fill([
+            'recibe_nombres'   => $this->recibe_nombres,
+            'recibe_celular'   => $this->recibe_celular,
+            'direccion'        => $this->direccion,
+            'direccion_numero' => $this->direccion_numero,
+            'codigo_postal'    => $this->codigo_postal,
+            'opcional'         => $this->opcional,
+            'instrucciones'    => $this->instrucciones,
+            'region_id'        => $this->region_id,
+            'provincia_id'     => $this->provincia_id,
+            'distrito_id'      => $this->distrito_id,
+        ]);
+
+        $this->direccion_seleccionada->save();
+    }
+
+    public function updatedRegionId()
+    {
+        $this->provincia_id = null;
+        $this->distrito_id = null;
+        $this->provincias = [];
+        $this->distritos = [];
+
+        if ($this->region_id) {
+            $this->provincias = Provincia::where('region_id', $this->region_id)->get();
         }
     }
 
-    public function resetValuesForm()
+    public function updatedProvinciaId()
     {
-        $this->reset([
-            'recibe_nombres',
-            'recibe_celular',
-            'direccion',
-            'direccion_numero',
-            'codigo_postal',
-            'region_id',
-            'provincia_id',
-            'distrito_id',
-        ]);
+        $this->distrito_id = null;
+        $this->distritos = [];
+
+        if ($this->provincia_id) {
+            $this->distritos = Distrito::where('provincia_id', $this->provincia_id)->get();
+        }
     }
 
     public function render()
