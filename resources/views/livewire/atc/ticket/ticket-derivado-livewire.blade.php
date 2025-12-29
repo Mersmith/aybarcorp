@@ -95,7 +95,7 @@
 
                     <div class="g_columna_12 g_margin_bottom_10">
                         <label>Cliente</label>
-                        <input type="text" disabled value="{{ $ticket->cliente->name ?? 'Sin asignar' }}">
+                        <input type="text" disabled value="{{ $ticket->nombres ?? 'Sin asignar' }}">
                     </div>
 
                     <div class="g_columna_12 g_margin_bottom_10">

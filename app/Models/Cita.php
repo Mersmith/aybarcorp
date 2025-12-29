@@ -16,6 +16,8 @@ class Cita extends Model
         'proyecto_id',
         'cliente_id',
 
+        'ticket_id',
+
         'usuario_solicita_id',
         'usuario_cierra_id',
         'sede_id',
@@ -84,6 +86,11 @@ class Cita extends Model
     public function estado()
     {
         return $this->belongsTo(EstadoCita::class, 'estado_cita_id');
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
     }
 
     // valida

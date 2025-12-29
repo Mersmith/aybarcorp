@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="g_panel">
-                    <h4 class="g_panel_titulo">Detalle</h4>
+                    <h4 class="g_panel_titulo">Detalle para editar</h4>
                     <div class="g_fila">
                         <div class="g_columna_12">
                             <label for="asunto">Asunto <span class="obligatorio"><i

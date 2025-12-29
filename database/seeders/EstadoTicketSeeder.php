@@ -14,14 +14,14 @@ class EstadoTicketSeeder extends Seeder
     {
         EstadoTicket::insert([
             [
-                'nombre' => 'Abierto',
+                'nombre' => 'Nuevo',
                 'color' => '#3498db', // Azul
                 'icono' => 'fa-solid fa-envelope-open-text',
                 'activo' => true,
                 'created_at' => now(),
             ],
             [
-                'nombre' => 'En Progreso',
+                'nombre' => 'En Gestión',
                 'color' => '#f1c40f', // Amarillo
                 'icono' => 'fa-solid fa-spinner',
                 'activo' => true,
@@ -42,7 +42,7 @@ class EstadoTicketSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
-                'nombre' => 'En Espera Área',
+                'nombre' => 'Atendido',
                 'color' => '#95a5a6', // Gris
                 'icono' => 'fa-solid fa-building-circle-exclamation',
                 'activo' => true,

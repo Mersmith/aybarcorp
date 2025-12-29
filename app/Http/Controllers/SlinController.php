@@ -140,7 +140,7 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    /*public function probarEstadoCuenta()
+    public function probarEstadoCuenta()
     {
         $params = [
             'empresa' => '014',
@@ -172,45 +172,7 @@ class SlinController extends Controller
             'status' => $response->status(),
             'data' => $response->json(),
         ]);
-    }*/
-
-    public function probarEstadoCuenta()
-    {
-        $params = [
-            'empresa'  => '019',
-            'lote'     => '00501-F-28.R',
-            'cliente'  => 'C00896',
-            'contrato' => '',
-            'servicio' => '02',
-        ];
-
-        $response = Http::acceptJson()
-            ->get("{$this->remoteBase}/estado-cuenta", $params);
-
-        if ($response->failed()) {
-            return response()->json([
-                'status' => $response->status(),
-                'error'  => $response->body(),
-            ]);
-        }
-
-        $payload = $response->json('data');   // JSON string
-        $data    = json_decode($payload, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            return response()->json([
-                'status' => 500,
-                'error'  => 'Error al deserializar el campo data',
-                'raw'    => $payload,
-            ]);
-        }
-
-        return response()->json([
-            'status' => $response->status(),
-            'data'   => $data,
-        ]);
     }
-
 
     public function probarComprobante()
     {

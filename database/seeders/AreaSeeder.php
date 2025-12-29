@@ -13,12 +13,30 @@ class AreaSeeder extends Seeder
     public function run(): void
     {
         Area::insert([
-            ['nombre' => 'Soporte Técnico', 'activo' => true],
-            ['nombre' => 'Atención al Cliente', 'activo' => true],
-            ['nombre' => 'Ventas', 'activo' => true],
-            ['nombre' => 'Postventa', 'activo' => true],
-            ['nombre' => 'Facturación', 'activo' => true],
-            ['nombre' => 'Marketing', 'activo' => true],
+            [
+                'nombre' => 'ATC', // Atención al Cliente
+                'color'  => '#3498db', // Azul: comunicación, soporte
+                'icono'  => 'fa-solid fa-headset',
+                'activo' => true
+            ],
+            [
+                'nombre' => 'BACK OFFICE',
+                'color'  => '#2ecc71', // Verde: procesos internos, operaciones
+                'icono'  => 'fa-solid fa-gear',
+                'activo' => true
+            ],
+            [
+                'nombre' => 'LEGAL',
+                'color'  => '#8e44ad', // Morado: autoridad, formalidad
+                'icono'  => 'fa-solid fa-scale-balanced',
+                'activo' => true
+            ],
+            [
+                'nombre' => 'ARCHIVOS',
+                'color'  => '#f39c12', // Naranja: almacenamiento, gestión documental
+                'icono'  => 'fa-solid fa-folder-open',
+                'activo' => true
+            ],
         ]);
     }
 }

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('proyecto_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete(); //quien es agendado
 
+            $table->foreignId('ticket_id')->nullable()->constrained('tickets')->nullOnDelete();
+
             $table->foreignId('usuario_solicita_id')->constrained('users')->onDelete('cascade'); //quien crea
             $table->foreignId('usuario_cierra_id')->nullable()->constrained('users')->nullOnDelete(); //quien atiende al cliente
 

@@ -14,12 +14,11 @@ class CanalSeeder extends Seeder
     public function run(): void
     {
         Canal::insert([
-            ['nombre' => 'WhatsApp', 'activo' => true],
-            ['nombre' => 'Web', 'activo' => true],
             ['nombre' => 'Call Center', 'activo' => true],
+            ['nombre' => 'Whatsapp', 'activo' => true],
             ['nombre' => 'Presencial', 'activo' => true],
-            ['nombre' => 'Email', 'activo' => true],
-            ['nombre' => 'Facebook Messenger', 'activo' => true],
+            ['nombre' => 'Libro Reclamación', 'activo' => true],
+            ['nombre' => 'Redes Sociales', 'activo' => true],
         ]);
     }
 }

@@ -16,6 +16,8 @@ class Ticket extends Model
         'proyecto_id',
         'cliente_id',
 
+        'ticket_padre_id',
+
         'area_id',
         'tipo_solicitud_id',
         'sub_tipo_solicitud_id',
@@ -110,6 +112,21 @@ class Ticket extends Model
     public function archivos()
     {
         return $this->morphMany(Archivo::class, 'archivable');
+    }
+
+    public function padre()
+    {
+        return $this->belongsTo(Ticket::class, 'ticket_padre_id');
+    }
+
+    public function hijos()
+    {
+        return $this->hasMany(Ticket::class, 'ticket_padre_id');
+    }
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
     }
 
     public function getTieneDerivadosAttribute()

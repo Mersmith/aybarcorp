@@ -11,7 +11,12 @@ class Area extends Model
     /** @use HasFactory<\Database\Factories\AreaFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['nombre', 'activo'];
+    protected $fillable = [
+        'nombre',
+        'color',
+        'icono',
+        'activo',
+    ];
 
     public function usuarios()
     {
@@ -27,5 +32,4 @@ class Area extends Model
     {
         return $this->hasMany(Ticket::class);
     }
-
 }
