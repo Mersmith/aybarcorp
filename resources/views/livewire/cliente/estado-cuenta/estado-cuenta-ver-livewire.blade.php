@@ -94,14 +94,14 @@
                             <th>Nro</th>
                             <th>Fecha Venc.</th>
                             <th>Fecha Comp.</th>
-                            <th>Días Atra.</th>
+                            {{-- <th>Días Atra.</th> --}}
                             <th>Cuota</th>
-                            <th>Pen.</th>
+                            {{-- <th>Pen.</th> --}}
                             <th>Total</th>
                             <th>Comp.</th>
                             <th>Cuo. Pagado</th>
-                            <th>Pen. Pagado</th>
-                            <th>Pen.</th>
+                            {{-- <th>Pen. Pagado</th> --}}
+                            <th>Pend.</th>
                             <th>Boleta</th>
                         </tr>
                     </thead>
@@ -112,20 +112,31 @@
                             <td>{{ $item['NroCuota'] ?? '-' }}</td>
                             <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
                             <td>{{ $item['FecCompra'] ?? '-' }}</td>
-                            <td> {{ $item['DiasAtraso'] ?? 0 }}</td>
+                            {{-- <td> {{ $item['DiasAtraso'] ?? 0 }}</td> --}}
                             <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
-                            <td> S/ {{ $item['Penalidad'] ?? 0 }}</td>
+                            {{-- <td> S/ {{ $item['Penalidad'] ?? 0 }}</td> --}}
                             <td>S/ {{ $item['Total'] ?? 0 }}</td>
                             <td>S/ {{ $item['MontoComp'] ?? 0 }}</td>
                             <td>S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
-                            <td>S/ {{ $item['PenalPagada'] ?? 0 }}</td>
+                            {{-- <td>S/ {{ $item['PenalPagada'] ?? 0 }}</td> --}}
                             <td>S/ {{ $item['SaldoPendiente'] ?? 0 }}</td>
                             <td>
-                                @if (!empty($item['Comprobante']) && substr_count($item['Comprobante'], '-') === 2)
-                                <a href="{{ route('comprobante.ver', ['empresa' => $lote['id_empresa'], 'comprobante' => $item['Comprobante']]) }}"
+                                @if (!empty($item['Comprobante']))
+
+                                @if (substr_count($item['Comprobante'], '-') === 2)
+                                <a href="{{ route('comprobante.ver', [ 'empresa' => $lote['id_empresa'], 'comprobante' => $item['Comprobante'] ]) }}"
                                     target="_blank" class="g_boton g_boton_empresa_secundario">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </a>
+                                @else
+                                <x-tooltip text="Tu comprante esta siendo migrado!" />
+
+                                <span class="g_boton g_boton_empresa_primario"
+                                    style="cursor: not-allowed; pointer-events: none;">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                </span>
+                                @endif
+
                                 @endif
                             </td>
                         </tr>

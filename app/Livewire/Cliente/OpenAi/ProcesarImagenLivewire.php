@@ -208,7 +208,7 @@ NO agregues explicación ni texto adicional. Solo JSON.",
             'manzana' => $this->lote["id_manzana"] ?? null,
             'lote' => $this->lote["id_lote"] ?? null,
             'codigo_cuota' => $this->cuota["codigo"] ?? null,
-            'numero_cuota' => $this->cuota["cuota"] ?? null,
+            'numero_cuota' => $this->cuota["NroCuota"] ?? null,
         ]);
 
         session()->flash('success', 'Comprobante guardado correctamente 👍');

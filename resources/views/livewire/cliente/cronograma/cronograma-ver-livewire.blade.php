@@ -68,9 +68,10 @@
                             <th>Cuota</th>
                             <th>Mto. Amortizado</th>
                             <th>Saldo</th>
-                            <th>Penalidad</th>
-                            <th>Dias Atraso</th>
+                            {{--<th>Penalidad</th>
+                            <th>Dias Atraso</th>--}}
                             <th>Total</th>
+                            <th>Evidencia</th>
                         </tr>
                     </thead>
 
@@ -82,9 +83,36 @@
                             <td>S/ {{ $item['Montocuota'] ?? 0}}</td>
                             <td>S/ {{ $item['monto_amortizado'] ?? 0 }}</td>
                             <td>S/ {{ $item['saldo'] ?? 0 }}</td>
-                            <td> S/ {{ $item['penalidad'] ?? 0 }}</td>
-                            <td>{{ $item['dias_atraso'] ?? '-' }}</td>
+                            {{--<td> S/ {{ $item['penalidad'] ?? 0 }}</td>
+                            <td>{{ $item['dias_atraso'] ?? '-' }}</td>--}}
                             <td>S/ {{ $item['total'] ?? 0 }}</td>
+                            <td>
+                                @if (!$item['codigo'])
+                                <span class="g_boton g_boton_empresa_primario"
+                                    style="cursor: not-allowed; pointer-events: none;">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Comprobado
+                                </span>
+                                @else
+                                @if ($item['comprobantes_count'] == 2)
+                                <span class="g_boton g_boton_darkt">
+                                    <i class="fa-solid fa-image"></i>
+                                    En validación({{ $item['comprobantes_count'] }})
+                                </span>
+                                @elseif($item['comprobantes_count'] == 1)
+                                <button wire:click="seleccionarCuota({{ json_encode($item) }})"
+                                    class="g_boton g_boton_darkt">
+                                    <i class="fas fa-upload"></i> En validación
+                                    ({{ $item['comprobantes_count'] }})
+                                </button>
+                                @else
+                                <button wire:click="seleccionarCuota({{ json_encode($item) }})"
+                                    class="g_boton g_boton_empresa_secundario">
+                                    <i class="fas fa-upload"></i> Subir evidencia
+                                </button>
+                                @endif
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
