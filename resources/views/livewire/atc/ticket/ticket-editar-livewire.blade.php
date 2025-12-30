@@ -11,7 +11,10 @@
                 Inicio <i class="fa-solid fa-house"></i>
             </a>
 
-            <a href="{{ route('admin.ticket.vista.crear') }}" class="g_boton g_boton_primary">
+            <a href="{{ route('admin.ticket.vista.crear', $ticket->id) }}" class="g_boton g_boton_primary">
+                Ticket asociado <i class="fa-solid fa-square-plus"></i></a>
+
+            <a href="{{ route('admin.cita.vista.crear') }}" class="g_boton g_boton_primary">
                 Crear <i class="fa-solid fa-square-plus"></i></a>
 
             <button type="button" class="g_boton g_boton_danger" onclick="alertaEliminarTicket()">

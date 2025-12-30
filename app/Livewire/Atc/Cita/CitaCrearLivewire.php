@@ -13,6 +13,8 @@ use Livewire\Component;
 #[Layout('layouts.admin.layout-admin')]
 class CitaCrearLivewire extends Component
 {
+    public ?int $ticketId = null;
+
     public $usuarios_admin, $usuario_solicita_id = '';
 
     public $usuarios_cliente = [], $cliente_id = '';
@@ -48,8 +50,10 @@ class CitaCrearLivewire extends Component
         'cliente_id' => 'cliente',
     ];
 
-    public function mount()
+    public function mount($ticketId = null)
     {
+        $this->ticketId = $ticketId;
+
         $this->sedes = Sede::all();
         $this->motivos = MotivoCita::all();
         $this->estados = EstadoCita::all();
@@ -68,6 +72,8 @@ class CitaCrearLivewire extends Component
         $this->validate();
 
         $cita = Cita::create([
+            'ticket_id ' => $this->ticketId,
+
             'usuario_solicita_id' => $this->usuario_solicita_id,
             'cliente_id' => $this->cliente_id,
             'sede_id' => $this->sede_id,

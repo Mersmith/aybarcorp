@@ -3,7 +3,11 @@
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Crear cita</h2>
+        <h2>Crear cita
+            @if ($ticketId)
+            asociado al ticket #{{ $ticketId }}
+            @endif
+        </h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.cita.vista.todo') }}" class="g_boton g_boton_light">

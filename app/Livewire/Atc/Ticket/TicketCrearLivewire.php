@@ -20,6 +20,8 @@ use Livewire\Component;
 #[Layout('layouts.admin.layout-admin')]
 class TicketCrearLivewire extends Component
 {
+    public ?int $ticketPadreId = null;
+
     public $areas, $area_id = "";
     public $tipos_solicitudes = [], $tipo_solicitud_id = "";
     public $sub_tipos_solicitudes = [], $sub_tipo_solicitud_id = "";
@@ -57,8 +59,10 @@ class TicketCrearLivewire extends Component
         ];
     }
 
-    public function mount()
+    public function mount($ticketPadre = null)
     {
+        $this->ticketPadreId = $ticketPadre;
+
         $this->areas = Area::all();
         $this->canales = Canal::all();
         $this->empresas = UnidadNegocio::all();
@@ -116,6 +120,8 @@ class TicketCrearLivewire extends Component
         $estadoAbiertoId = EstadoTicket::where('nombre', 'Abierto')->value('id');
 
         $ticket = Ticket::create([
+            'ticket_padre_id' => $this->ticketPadreId,
+
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'proyecto_id' => $this->proyecto_id,
             'cliente_id' => $this->origen === 'slin' ? $this->cliente_id : null,

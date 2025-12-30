@@ -68,9 +68,8 @@ class TicketSeeder extends Seeder
                 'lotes' => [
                     [
                         "razon_social" => fake()->company(),
-                        "descripcion"  => fake()->sentence(4),
-                        "id_manzana"   => rand(1, 50),
-                        "id_lote"      => rand(1, 200),
+                        "proyecto"  => fake()->sentence(4),
+                        "numero_lote"   => rand(1, 50),
                     ]
                 ],
 

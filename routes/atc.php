@@ -135,7 +135,7 @@ Route::prefix('ticket')
     ->middleware(['role:super-admin|supervisor atc|atc'])
     ->group(function () {
         Route::get('/', TicketTodoLivewire::class)->name('todo');
-        Route::get('/crear', TicketCrearLivewire::class)->name('crear');
+        Route::get('/crear/{ticketPadre?}', TicketCrearLivewire::class)->name('crear');
         Route::get('/editar/{id}', TicketEditarLivewire::class)->name('editar');
         Route::get('/derivado/{id}', TicketDerivadoLivewire::class)->name('derivado');
     });
@@ -171,7 +171,7 @@ Route::prefix('cita')
     ->group(function () {
         Route::get('/', CitaTodoLivewire::class)->name('todo');
         Route::get('/calendario', CitaCalendarioLivewire::class)->name('calendario');
-        Route::get('/crear', CitaCrearLivewire::class)->name('crear');
+        Route::get('/crear/{ticketId?}', CitaCrearLivewire::class)->name('crear');
         Route::get('/editar/{id}', CitaEditarLivewire::class)->name('editar');
     });
 

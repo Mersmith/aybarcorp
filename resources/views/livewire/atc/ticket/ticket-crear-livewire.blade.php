@@ -4,7 +4,11 @@
 <div class="g_gap_pagina">
     <!-- CABECERA -->
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Crear ticket</h2>
+        <h2>Crear ticket
+            @if ($ticketPadreId)
+            asociado al ticket #{{ $ticketPadreId }}
+            @endif
+        </h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.ticket.vista.todo') }}" class="g_boton g_boton_light">
