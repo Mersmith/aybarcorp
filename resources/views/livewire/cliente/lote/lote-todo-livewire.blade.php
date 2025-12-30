@@ -1,4 +1,6 @@
 <div class="g_gap_pagina">
+    <x-loading-overlay message="Cargando..." />
+
     <div class="g_panel">
         <div class="g_panel_titulo">
             <h2>Mis proyectos</h2>
@@ -88,19 +90,19 @@
                             Selecciona una razón social para ver tus lotes.
                         </td>
                     </tr>
-                    @elseif (empty($lotes))
+                    @elseif (empty($lotes) || count($lotes) === 0)
                     <tr>
                         <td colspan="5" style="text-align: center; padding: 20px;">
                             No se encontraron lotes para esta razón social.
                         </td>
                     </tr>
                     @else
-                    @foreach ($lotes as $lote)
+                    @foreach (($lotes ?? []) as $lote)
                     <tr>
-                        <td>{{ $lote['id_cliente'] }}</td>
-                        <td>{{ $lote['descripcion'] }}</td>
-                        <td>{{ $lote['id_manzana'] }}</td>
-                        <td>{{ $lote['id_lote'] }}</td>
+                        <td>{{ $lote['id_cliente'] ?? '-' }}</td>
+                        <td>{{ $lote['descripcion'] ?? '-' }}</td>
+                        <td>{{ $lote['id_manzana'] ?? '-' }}</td>
+                        <td>{{ $lote['id_lote'] ?? '-' }}</td>
 
                         <td>
                             <button class="g_boton g_boton_empresa_primario"

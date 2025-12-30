@@ -129,7 +129,7 @@
                             </td>
 
                             <td>
-                                @if (!empty($item['Comprobante']))
+                                @if (!empty($item['Comprobante']) && substr_count($item['Comprobante'], '-') === 2)
                                 <a href="{{ route('comprobante.ver', ['empresa' => $lote['id_empresa'], 'comprobante' => $item['Comprobante']]) }}"
                                     target="_blank" class="g_boton g_boton_empresa_secundario">
                                     <i class="fas fa-file-invoice-dollar"></i>

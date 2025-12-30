@@ -284,3 +284,6 @@ class SlinController extends Controller
 
 //Cuerpo (JSON): ```json { "lote": "string", "cliente": "string", "contrato": "string", "idcobranzas": "string", "base64Image": "string" }
 // contrato vacio,
+
+// si el saldo es '0' esta pagado
+// si no tiene asterisco

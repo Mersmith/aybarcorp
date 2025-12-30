@@ -61,15 +61,21 @@ class LoteTodoLivewire extends Component
         ];
 
         $response = Http::get('https://aybarcorp.com/slin/lotes', $params);
-        $lotes = $response->successful() ? $response->json() : null;
 
-        if (empty($lotes)) {
+        if (!$response->successful()) {
             $this->lotes = [];
             session()->flash('error', 'Inténtelo más tarde, por favor.');
             return;
         }
 
-        $this->lotes = $lotes;
+        $lotesResponse = $response->json();
+        if (isset($lotesResponse['data']) && is_array($lotesResponse['data'])) {
+            $this->lotes = $lotesResponse['data'];
+        } elseif (is_array($lotesResponse)) {
+            $this->lotes = $lotesResponse;
+        } else {
+            $this->lotes = [];
+        }
 
         $this->lote_select = null;
     }
