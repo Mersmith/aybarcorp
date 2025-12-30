@@ -7,40 +7,40 @@
                     <tr>
                         <td class="label">Proyecto</td>
                         <td class="valor grande" colspan="3">
-                            {{ $estado_cuenta['datos_cabecera']['proyecto'] ?? '-' }}
+                            {{ $estado_cuenta['Proyecto'] ?? '-' }}
                         </td>
                     </tr>
 
                     <tr>
                         <td class="label">Etapa</td>
                         <td class="valor">
-                            {{ $estado_cuenta['datos_cabecera']['etapa'] ?? '-' }}
+                            {{ $estado_cuenta['Etapa'] ?? '-' }}
                         </td>
 
                         <td class="label">Manzana - Lote</td>
                         <td class="valor">
-                            {{ $estado_cuenta['datos_cabecera']['manzana'] ?? '-' }}
+                            {{ $estado_cuenta['Manzana'] ?? '-' }}
                             -
-                            {{ $estado_cuenta['datos_cabecera']['lote'] ?? '-' }}
+                            {{ $estado_cuenta['Lote'] ?? '-' }}
                         </td>
                     </tr>
 
                     <tr>
                         <td class="label">Nombre Cliente</td>
                         <td class="valor" colspan="3">
-                            {{ $estado_cuenta['datos_cabecera']['nombre_cliente'] ?? '-' }}
+                            {{ $estado_cuenta['Cliente'] ?? '-' }}
                         </td>
                     </tr>
 
                     <tr>
                         <td class="label">DNI</td>
                         <td class="valor">
-                            {{ $estado_cuenta['datos_cabecera']['dni'] ?? '-' }}
+                            {{ $estado_cuenta['DNI'] ?? '-' }}
                         </td>
 
                         <td class="label">Fecha emisión</td>
                         <td class="valor">
-                            {{ $estado_cuenta['datos_cabecera']['fecha_emision'] ?? '-' }}
+                            {{ $estado_cuenta['FecEmision'] ?? '-' }}
                         </td>
                     </tr>
 
@@ -48,13 +48,13 @@
                         <td class="label">Precio venta</td>
                         <td class="valor">
                             S/ {{ number_format((float)str_replace(',', '',
-                            $estado_cuenta['datos_cabecera']['precio_venta'] ?? 0), 2) }}
+                            $estado_cuenta['Venta'] ?? 0), 2) }}
                         </td>
 
                         <td class="label">Inicial pagado</td>
                         <td class="valor">
                             S/ {{ number_format((float)str_replace(',', '',
-                            $estado_cuenta['datos_cabecera']['inicial_pagado'] ?? 0), 2) }}
+                            $estado_cuenta['Inicial'] ?? 0), 2) }}
                         </td>
                     </tr>
 
@@ -62,13 +62,13 @@
                         <td class="label">Importe financiado</td>
                         <td class="valor">
                             S/ {{ number_format((float)str_replace(',', '',
-                            $estado_cuenta['datos_cabecera']['importe_financiado'] ?? 0), 2) }}
+                            $estado_cuenta['ImporteFinanciado'] ?? 0), 2) }}
                         </td>
 
-                        <td class="label">Importe amortizado</td>
+                        <td class="label">Capital Abonado</td>
                         <td class="valor">
                             S/ {{ number_format((float)str_replace(',', '',
-                            $estado_cuenta['datos_cabecera']['importe_amortizado'] ?? 0), 2) }}
+                            $estado_cuenta['CapitalAbonado'] ?? 0), 2) }}
                         </td>
                     </tr>
 
@@ -86,7 +86,7 @@
                             <th>Nro</th>
                             <th>Fecha Venc.</th>
                             <th>Cuota</th>
-                            <th>Mto. Amortizado</th>
+                            <th>Pagado</th>
                             <th>Saldo</th>
                             <th>Pen.</th>
                             <th>Días Atra.</th>
@@ -96,36 +96,36 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($estado_cuenta['detalle_cuotas'] as $item)
+                        @foreach (($estado_cuenta['Cuotas'] ?? []) as $item)
                         <tr>
                             <td>{{ $item['NroCuota'] ?? '-' }}</td>
 
                             <td>
-                                {{ $item['fecha_vencimiento'] ?? '-' }}
+                                {{ $item['FecVencimiento'] ?? '-' }}
                             </td>
 
                             <td>
-                                S/ {{ number_format((float)($item['Montocuota'] ?? 0), 2) }}
+                                S/ {{ number_format((float)($item['Cuota'] ?? 0), 2) }}
                             </td>
 
                             <td>
-                                S/ {{ number_format((float)($item['monto_amortizado'] ?? 0), 2) }}
+                                S/ {{ number_format((float)str_replace(',', '', $item['CuotaPagada'] ?? 0), 2) }}
                             </td>
 
                             <td>
-                                S/ {{ number_format((float)str_replace(',', '', $item['saldo'] ?? 0), 2) }}
+                                S/ {{ number_format((float)str_replace(',', '', $item['SaldoPendiente'] ?? 0), 2) }}
                             </td>
 
                             <td>
-                                S/ {{ number_format((float)($item['penalidad'] ?? 0), 2) }}
+                                S/ {{ number_format((float)($item['Penalidad'] ?? 0), 2) }}
                             </td>
 
                             <td>
-                                {{ $item['dias_atraso'] ?? 0 }}
+                                {{ $item['DiasAtraso'] ?? 0 }}
                             </td>
 
                             <td>
-                                S/ {{ number_format((float)($item['total'] ?? 0), 2) }}
+                                S/ {{ number_format((float)($item['Total'] ?? 0), 2) }}
                             </td>
 
                             <td>

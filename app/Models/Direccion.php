@@ -14,7 +14,7 @@ class Direccion extends Model
         'user_id',
         'recibe_nombres',
         'recibe_celular',
-        'departamento_id',
+        'region_id',
         'provincia_id',
         'distrito_id',
         'direccion',

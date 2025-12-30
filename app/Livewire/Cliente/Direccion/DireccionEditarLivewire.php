@@ -108,6 +108,8 @@ class DireccionEditarLivewire extends Component
         ]);
 
         $this->direccion_seleccionada->save();
+
+        session()->flash('success', 'Dirección actualizado correctamente.');
     }
 
     public function updatedRegionId()

@@ -25,56 +25,46 @@
                     </button>
 
                     <a href="https://aybarcorp.com/">
-                        <img class="logo" src="{{ asset('assets/imagen/logo-aybar-corp-blanco.png') }}"
-                            alt="Logo">
+                        <img class="logo" src="{{ asset('assets/imagen/logo-aybar-corp-blanco.png') }}" alt="Logo">
                     </a>
                 </div>
 
                 <ul class="menu_principal">
                     @guest
-                        <li class="menu_item">
-                            <a href="/ingresar" class="boton_personalizado boton_personalizado_amarillo_v2"><i
-                                    class="fa-solid fa-user-circle"></i> ZONA CLIENTE
-                                DIGITAL</a>
-                        </li>
+                    <li class="menu_item">
+                        <a href="/ingresar" class="boton_personalizado boton_personalizado_amarillo_v2"><i
+                                class="fa-solid fa-user-circle"></i> ZONA CLIENTE
+                            DIGITAL</a>
+                    </li>
                     @else
-                        @if (auth()->user()->rol === 'cliente')
-                            <li class="menu_item menu_cliente">
-                                <a href="{{ route('cliente.home') }}"
-                                    class="boton_personalizado boton_personalizado_amarillo_v2">
-                                    <i class="fa-solid fa-address-card"></i>
-                                    MI PERFIL
-                                </a>
-                            </li>
+                    @if (auth()->user()->rol === 'cliente')
+                    <li class="menu_item menu_cliente">
+                        <a href="{{ route('cliente.home') }}"
+                            class="boton_personalizado boton_personalizado_amarillo_v2">
+                            <i class="fa-solid fa-address-card"></i>
+                            MI PERFIL
+                        </a>
+                    </li>
 
-                            <li class="menu_item menu_cliente">
-                                <a href="{{ route('cliente.home') }}"
-                                    class="boton_personalizado boton_personalizado_blanco_v2">
-                                    <i class="fa-solid fa-border-all"></i>
-                                    MIS PROYECTOS
-                                </a>
-                            </li>
+                    <li class="menu_item menu_cliente">
+                        <a href="{{ route('cliente.home') }}" class="boton_personalizado boton_personalizado_blanco_v2">
+                            <i class="fa-solid fa-border-all"></i>
+                            MIS PROYECTOS
+                        </a>
+                    </li>
 
-                            <li class="menu_item menu_cliente">
-                                <a href="{{ route('cliente.home') }}"
-                                    class="boton_personalizado boton_personalizado_blanco_v2">
-                                    <i class="fa-solid fa-map-location"></i>
-                                    DIRECCIÓN
-                                </a>
-                            </li>
-
-                            <li class="menu_item menu_cliente">
-                                <a href="{{ route('cliente.home') }}" class="boton_personalizado boton_personalizado_negro">
-                                    <i class="fa-solid fa-power-off"></i>
-                                    CERRAR
-                                </a>
-                            </li>
-                        @elseif (auth()->user()->rol === 'admin')
-                            <li class="menu_item">
-                                <a href="{{ route('admin.home') }}"
-                                    class="boton_personalizado boton_personalizado_amarillo_v2">BACKOFFICE</a>
-                            </li>
-                        @endif
+                    <li class="menu_item menu_cliente">
+                        <a href="{{ route('cliente.home') }}" class="boton_personalizado boton_personalizado_negro">
+                            <i class="fa-solid fa-power-off"></i>
+                            CERRAR
+                        </a>
+                    </li>
+                    @elseif (auth()->user()->rol === 'admin')
+                    <li class="menu_item">
+                        <a href="{{ route('admin.home') }}"
+                            class="boton_personalizado boton_personalizado_amarillo_v2">BACKOFFICE</a>
+                    </li>
+                    @endif
                     @endguest
                 </ul>
             </nav>

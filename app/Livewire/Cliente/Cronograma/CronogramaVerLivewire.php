@@ -10,6 +10,8 @@ class CronogramaVerLivewire extends Component
 {
     public $lote;
     public $cronograma = [];
+    public $cabecera = [];
+    public $detalle = [];
     public $cuota = null;
 
     public $comprobantes;
@@ -21,9 +23,12 @@ class CronogramaVerLivewire extends Component
         $this->lote = $lote;
 
         $this->cronograma = $cronograma;
-        $this->total_pagados = collect($this->cronograma)
+        $this->cabecera = $cronograma['datos_cabecera'];
+        $this->detalle = $cronograma['detalle_cuotas'];
+
+        /*$this->total_pagados = collect($this->cronograma)
             ->where('estado', 'PAGADO')
-            ->count();
+            ->count();*/
 
         $this->loadComprobantesYActualizarCronograma();
     }
@@ -42,7 +47,7 @@ class CronogramaVerLivewire extends Component
             ->where('lote', $this->lote['id_lote'])
             ->get();
 
-        $this->cronograma = collect($this->cronograma)->map(function ($cuota) {
+        $this->detalle = collect($this->detalle)->map(function ($cuota) {
             $cuota['comprobantes_count'] = $this->comprobantes
                 ->where('codigo_cuota', $cuota['codigo'])
                 ->count();

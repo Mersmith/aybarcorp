@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
             RolesYPermisosSeeder::class,
             UserSeeder::class, //EVIDENCIA, TICKET, CITA
 
-            //PaisSeeder::class,
-            //RegionSeeder::class,
-            //ProvinciaSeeder::class,
-            //DistritoSeeder::class,
+            PaisSeeder::class,
+            RegionSeeder::class,
+            ProvinciaSeeder::class,
+            DistritoSeeder::class,
 
             //ImagenSeeder::class,
             //ArchivoSeeder::class,

@@ -80,12 +80,11 @@ class LoteTodoLivewire extends Component
         $this->vista = 'cronograma';
 
         $params = [
-            'id_empresa' => $this->lote_select['id_empresa'],
-            'id_cliente' => $this->lote_select['id_cliente'],
-            'id_proyecto' => $this->lote_select['id_proyecto'],
-            'id_etapa' => $this->lote_select['id_etapa'],
-            'id_manzana' => $this->lote_select['id_manzana'],
-            'id_lote' => $this->lote_select['id_lote'],
+            'empresa' => $this->lote_select['id_empresa'],
+            'lote' => $this->lote_select['id_proyecto'] . '' . $this->lote_select['id_etapa'] . '-' . $this->lote_select['id_manzana'] . '-' . $this->lote_select['id_lote'],
+            'cliente' => $this->lote_select['id_cliente'],
+            'contrato' => $this->lote_select['contrato'] ?? '',
+            'servicio' => $this->lote_select['servicio'] ?? '02',
         ];
 
         $response = Http::get('https://aybarcorp.com/slin/cuotas', $params);
@@ -97,20 +96,7 @@ class LoteTodoLivewire extends Component
             return;
         }
 
-        dd($cronograma);
-
-        /*$this->cronograma = collect($cronograma)
-            ->map(function ($item) {
-                return [
-                    ...$item,
-                    'estado' => match ($item['estado']) {
-                        'PG PAGADA' => 'PAGADO',
-                        'CR CARTERA' => 'PENDIENTE',
-                        default => 'OBSERVACIÓN',
-                    },
-                ];
-            })
-            ->toArray();*/
+        $this->cronograma = $cronograma;
     }
 
     public function verEstadoCuenta(array $lote, SlinService $slinService)
@@ -135,9 +121,7 @@ class LoteTodoLivewire extends Component
             return;
         }
 
-        dd($estado_cuenta);
-
-        //$this->estado_cuenta = $estado_cuenta;
+        $this->estado_cuenta = $estado_cuenta;
     }
 
     public function cerrarVista()

@@ -14,6 +14,8 @@ php artisan make:livewire Cliente/Direccion/DireccionTodoLivewire
 php artisan make:livewire Cliente/Direccion/DireccionCrearLivewire
 php artisan make:livewire Cliente/Direccion/DireccionEditarLivewire
 
+php artisan make:livewire Cliente/Cuenta/CuentaEditarLivewire
+
 php artisan make:livewire Cliente/Lote/LoteTodoLivewire
 
 php artisan make:livewire Cliente/Cronograma/CronogramaVerLivewire
