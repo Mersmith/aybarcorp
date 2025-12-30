@@ -63,22 +63,42 @@
 
     <tr>
         <th>Precio venta</th>
-        <td>S/ {{ number_format((float)str_replace(',', '',
-            $estado_cuenta['Venta'] ?? 0), 2) }}</td>
+        <td>S/ {{ $estado_cuenta['Venta'] ?? '-' }}</td>
 
-        <th>Inicial pagado</th>
-        <td>S/ {{ number_format((float)str_replace(',', '',
-            $estado_cuenta['Inicial'] ?? 0), 2) }}</td>
+        <th>Impor. Financiado</th>
+        <td>S/ {{ $estado_cuenta['ImporteFinanciado'] ?? '-' }}</td>
     </tr>
 
     <tr>
-        <th>Importe financiado</th>
-        <td>S/ {{ number_format((float)str_replace(',', '',
-            $estado_cuenta['ImporteFinanciado'] ?? 0), 2) }}</td>
+        <th>Inicial</th>
+        <td>S/ {{ $estado_cuenta['Inicial'] ?? '-' }}</td>
 
-        <th>Capital Abonado</th>
-        <td>S/ {{ number_format((float)str_replace(',', '',
-            $estado_cuenta['CapitalAbonado'] ?? 0), 2) }}</td>
+        <th>Exonerada</th>
+        <td>S/ {{ $estado_cuenta['Exonerado'] ?? '-' }}</td>
+    </tr>
+
+    <tr>
+        <th>Capital abonado</th>
+        <td>S/ {{ $estado_cuenta['CapitalAbonado'] ?? '-' }}</td>
+
+        <th>Penalidad abonado</th>
+        <td></td>
+    </tr>
+
+    <tr>
+        <th>Saldo total pend.</th>
+        <td>S/ {{ $estado_cuenta['SaldoTotalPendiente'] ?? '-' }}</td>
+
+        <th>Saldo capital pend.</th>
+        <td>S/ {{ $estado_cuenta['SaldoCapitalPendiente'] ?? '-' }}</td>
+    </tr>
+
+    <tr>
+        <th>Ult. Edición</th>
+        <td>S/ {{ $estado_cuenta['UltimaEdicion'] ?? '-' }}</td>
+
+        <th>N° Cuotas pend..</th>
+        <td>S/ {{ $estado_cuenta['NroCuotasPendiente'] ?? '-' }}</td>
     </tr>
 </table>
 
@@ -87,12 +107,15 @@
         <tr>
             <th>Nro</th>
             <th>Fecha Venc.</th>
-            <th>Cuota</th>
-            <th>Pagado</th>
-            <th>Saldo</th>
-            <th>Pen.</th>
+            <th>Fecha Comp.</th>
             <th>Días Atra.</th>
+            <th>Cuota</th>
+            <th>Pen.</th>
             <th>Total</th>
+            <th>Comp.</th>
+            <th>Cuo. Pagado</th>
+            <th>Pen. Pagado</th>
+            <th>Pen.</th>
         </tr>
     </thead>
     <tbody>
@@ -100,12 +123,15 @@
         <tr>
             <td>{{ $item['NroCuota'] ?? '-' }}</td>
             <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
-            <td>S/ {{ number_format((float)($item['Cuota'] ?? 0), 2) }}</td>
-            <td>S/ {{ number_format((float)str_replace(',', '', $item['CuotaPagada'] ?? 0), 2) }}</td>
-            <td>S/ {{ number_format((float)str_replace(',', '', $item['SaldoPendiente'] ?? 0), 2) }}</td>
-            <td>S/ {{ number_format((float)($item['Penalidad'] ?? 0), 2) }}</td>
-            <td>{{ $item['DiasAtraso'] ?? 0 }}</td>
-            <td>S/ {{ number_format((float)($item['Total'] ?? 0), 2) }}</td>
+            <td>{{ $item['FecCompra'] ?? '-' }}</td>
+            <td> {{ $item['DiasAtraso'] ?? 0 }}</td>
+            <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
+            <td> S/ {{ $item['Penalidad'] ?? 0 }}</td>
+            <td>S/ {{ $item['Total'] ?? 0 }}</td>
+            <td>S/ {{ $item['MontoComp'] ?? 0 }}</td>
+            <td>S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
+            <td>S/ {{ $item['PenalPagada'] ?? 0 }}</td>
+            <td>S/ {{ $item['SaldoPendiente'] ?? 0 }}</td>
         </tr>
         @endforeach
     </tbody>

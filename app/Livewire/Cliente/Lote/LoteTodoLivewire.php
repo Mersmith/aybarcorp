@@ -145,13 +145,12 @@ class LoteTodoLivewire extends Component
             return;
         }
 
-        $total_pagados = collect($this->cronograma)
-            ->where('estado', 'PAGADO')
-            ->count();
+        $total_pagados = 0;
 
         $pdf = Pdf::loadView('pdf.cronograma', [
             'lote' => $this->lote_select,
-            'cronograma' => $this->cronograma,
+            'cabecera' => $this->cronograma['datos_cabecera'],
+            'detalle' => $this->cronograma['detalle_cuotas'],
             'total_pagados' => $total_pagados,
         ]);
 

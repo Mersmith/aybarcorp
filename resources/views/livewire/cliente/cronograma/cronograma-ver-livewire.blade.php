@@ -34,18 +34,25 @@
                         <td class="label">DNI</td>
                         <td class="valor">{{ $cabecera['dni'] ?? '-' }}</td>
 
-                        <td class="label">Código pago</td>
-                        <td class="valor">{{ $lote['id_recaudo'] ?? '-' }}</td>
+                        <td class="label">Fecha Emisión</td>
+                        <td class="valor">{{ $cabecera['fecha_emision'] ?? '-' }}</td>
                     </tr>
 
                     <tr>
-                        <td class="label">N° Cuotas</td>
-                        <td class="valor">{{ $lote['nro_cuotas'] }}</td>
+                        <td class="label">Precio Venta</td>
+                        <td class="valor">S/ {{ $cabecera['precio_venta'] ?? '-' }}</td>
 
-                        <td class="label">Cuotas pagadas</td>
-                        <td class="valor">{{ $total_pagados }}</td>
+                        <td class="label">Impor. Financiado</td>
+                        <td class="valor">S/ {{ $cabecera['importe_financiado'] ?? '-' }}</td>
                     </tr>
 
+                    <tr>
+                        <td class="label">Inicial</td>
+                        <td class="valor">S/ {{ $cabecera['inicial_pagado'] ?? '-' }}</td>
+
+                        <td class="label">Impor. Amortizado</td>
+                        <td class="valor">S/ {{ $cabecera['importe_amortizado'] ?? '-' }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -61,8 +68,9 @@
                             <th>Cuota</th>
                             <th>Mto. Amortizado</th>
                             <th>Saldo</th>
-                            <th>Estado</th>
-                            <th>Evidencia</th>
+                            <th>Penalidad</th>
+                            <th>Dias Atraso</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
 
@@ -71,19 +79,12 @@
                         <tr>
                             <td>{{ $item['NroCuota'] ?? '-' }}</td>
                             <td>{{ $item['fecha_vencimiento'] ?? '-' }}</td>
-                            <td>
-                                S/ {{ number_format((float)($item['Montocuota'] ?? 0), 2) }}
-                            </td>
-                            <td>
-                                S/ {{ number_format((float)($item['monto_amortizado'] ?? 0), 2) }}
-                            </td>
-                            <td>
-                                S/ {{ number_format((float)str_replace(',', '', $item['saldo'] ?? 0), 2) }}
-                            </td>
-                            <td></td>
-                            <td>
-
-                            </td>
+                            <td>S/ {{ $item['Montocuota'] ?? 0}}</td>
+                            <td>S/ {{ $item['monto_amortizado'] ?? 0 }}</td>
+                            <td>S/ {{ $item['saldo'] ?? 0 }}</td>
+                            <td> S/ {{ $item['penalidad'] ?? 0 }}</td>
+                            <td>{{ $item['dias_atraso'] ?? '-' }}</td>
+                            <td>S/ {{ $item['total'] ?? 0 }}</td>
                         </tr>
                         @endforeach
                     </tbody>

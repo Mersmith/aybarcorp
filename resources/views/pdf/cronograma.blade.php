@@ -25,41 +25,53 @@
         margin-bottom: 15px;
     }
 </style>
-<h2>CRONOGRAMA</h2>
+<h2>CRONOGRAMA DE PAGOS</h2>
 
 <table>
     <tr>
         <th style="width: 25%;">Proyecto</th>
-        <td colspan="3">{{ $lote['descripcion'] }}</td>
+        <td colspan="3">{{ $cabecera['proyecto'] ?? '-' }}</td>
     </tr>
 
     <tr>
         <th>Etapa</th>
-        <td style="width: 25%;">{{ $lote['etapa'] ?? '01' }}</td>
+        <td style="width: 25%;">{{ $cabecera['etapa'] ?? '-' }}</td>
 
         <th>Manzana - Lote</th>
-        <td>{{ $lote['id_manzana'] }} - {{ $lote['id_lote'] }}</td>
+        <td>
+            {{ $cabecera['manzana'] ?? '-' }}
+            -
+            {{ $cabecera['lote'] ?? '-' }}
+        </td>
     </tr>
 
     <tr>
         <th>Nombre Cliente</th>
-        <td colspan="3">{{ $lote['apellidos_nombres'] }}</td>
+        <td colspan="3">{{ $cabecera['nombre_cliente'] ?? '-' }}</td>
     </tr>
 
     <tr>
         <th>DNI</th>
-        <td>{{ $lote['nit'] }}</td>
+        <td>{{ $cabecera['dni'] ?? '-' }}</td>
 
-        <th>Código pago</th>
-        <td>{{ $lote['id_recaudo'] }}</td>
+        <th>Fecha Emisión</th>
+        <td>{{ $cabecera['fecha_emision'] ?? '-' }}</td>
     </tr>
 
     <tr>
-        <th>N° Cuotas</th>
-        <td>{{ count($cronograma) }}</td>
+        <th>Precio Venta</th>
+        <td>S/ {{ $cabecera['precio_venta'] ?? '-' }}</td>
 
-        <th>Cuotas pagadas</th>
-        <td>{{ $total_pagados ?? '---' }}</td>
+        <th>Impor. Financiado</th>
+        <td>S/ {{ $cabecera['importe_financiado'] ?? '-' }}</td>
+    </tr>
+
+    <tr>
+        <th>Inicial</th>
+        <td>S/ {{ $cabecera['inicial_pagado'] ?? '-' }}</td>
+
+        <th>Impor. Amortizado</th>
+        <td>S/ {{ $cabecera['importe_amortizado'] ?? '-' }}</td>
     </tr>
 </table>
 
@@ -71,18 +83,22 @@
             <th>Cuota</th>
             <th>Mto. Amortizado</th>
             <th>Saldo</th>
-            <th>Estado</th>
+            <th>Penalidad</th>
+            <th>Dias Atraso</th>
+            <th>Total</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($cronograma as $item)
+        @foreach ($detalle as $item)
         <tr>
-            <td>{{ $item['cuota'] }}</td>
-            <td>{{ $item['fec_vencimiento'] }}</td>
-            <td>S/ {{ number_format($item['monto'], 2) }}</td>
-            <td>S/ {{ number_format($item['amortizacion'], 2) }}</td>
-            <td>S/ {{ number_format($item['saldo'], 2) }}</td>
-            <td>{{ $item['estado'] }}</td>
+            <td>{{ $item['NroCuota'] ?? '-' }}</td>
+            <td>{{ $item['fecha_vencimiento'] ?? '-' }}</td>
+            <td>S/ {{ $item['Montocuota'] ?? 0}}</td>
+            <td>S/ {{ $item['monto_amortizado'] ?? 0 }}</td>
+            <td>S/ {{ $item['saldo'] ?? 0 }}</td>
+            <td> S/ {{ $item['penalidad'] ?? 0 }}</td>
+            <td>{{ $item['dias_atraso'] ?? '-' }}</td>
+            <td>S/ {{ $item['total'] ?? 0 }}</td>
         </tr>
         @endforeach
     </tbody>

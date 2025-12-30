@@ -9,7 +9,6 @@ use Livewire\Component;
 class CronogramaVerLivewire extends Component
 {
     public $lote;
-    public $cronograma = [];
     public $cabecera = [];
     public $detalle = [];
     public $cuota = null;
@@ -22,7 +21,6 @@ class CronogramaVerLivewire extends Component
     {
         $this->lote = $lote;
 
-        $this->cronograma = $cronograma;
         $this->cabecera = $cronograma['datos_cabecera'];
         $this->detalle = $cronograma['detalle_cuotas'];
 
