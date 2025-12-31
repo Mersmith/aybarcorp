@@ -30,6 +30,7 @@ class Ticket extends Model
         'lotes',
         'asunto',
         'descripcion',
+        
         'dni',
         'nombres',
         'origen',

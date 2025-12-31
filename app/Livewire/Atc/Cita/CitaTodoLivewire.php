@@ -3,6 +3,9 @@
 namespace App\Livewire\Atc\Cita;
 
 use App\Models\Cita;
+use App\Models\UnidadNegocio;
+use App\Models\Proyecto;
+
 use App\Models\EstadoCita;
 use App\Models\MotivoCita;
 use App\Models\Sede;
@@ -16,10 +19,13 @@ class CitaTodoLivewire extends Component
 {
     use WithPagination;
 
+    public $empresas, $unidad_negocio_id = '';
+    public $proyectos = [], $proyecto_id = '';
+
     public $sedes, $sede_id = '';
     public $motivos, $motivo_cita_id = '';
     public $estados, $estado_cita_id = '';
-    public $usuarios_admin, $usuario_solicita_id = '';
+    public $usuarios_admin, $admin = '';
 
     public $buscar = '';
 
@@ -38,15 +44,36 @@ class CitaTodoLivewire extends Component
         $this->sedes = Sede::all();
         $this->estados = EstadoCita::all();
         $this->motivos = MotivoCita::all();
-        $this->usuarios_admin = User::where('rol', 'admin')->get();
+        $this->usuarios_admin = User::role(['atc', 'supervisor atc'])->get();
+
+        $this->empresas = UnidadNegocio::all();
+    }
+
+    public function updatedUnidadNegocioId($value)
+    {
+        $this->proyecto_id = '';
+        $this->proyectos = [];
+
+        if ($value) {
+            $this->loadProyectos();
+        }
+    }
+
+    public function loadProyectos()
+    {
+        if (!is_null($this->unidad_negocio_id)) {
+            $this->proyectos = Proyecto::where('unidad_negocio_id', $this->unidad_negocio_id)->get();
+        }
     }
 
     public function resetFiltros()
     {
         $this->reset([
+            'unidad_negocio_id',
+            'proyecto_id',
             'sede_id',
             'motivo_cita_id',
-            'usuario_solicita_id',
+            'admin',
             'estado_cita_id',
             'buscar',
             'fecha_inicio',
@@ -60,19 +87,18 @@ class CitaTodoLivewire extends Component
     public function render()
     {
         $citas = Cita::query()
-            ->when($this->buscar, function ($q) {
-                $q->where('id', 'like', "%{$this->buscar}%")
-                    ->orWhereHas('solicitante', function ($sub) {
-                        $sub->where('name', 'like', "%{$this->buscar}%");
-                    })
-                    ->orWhereHas('cliente', function ($sub) {
-                        $sub->where('name', 'like', "%{$this->buscar}%");
-                    });
+            ->when($this->buscar, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('id', 'like', "%{$this->buscar}%")
+                        ->orWhere('dni', 'like', "%{$this->buscar}%")
+                        ->orWhere('nombres', 'like', "%{$this->buscar}%");
+                });
             })
-
+            ->when($this->unidad_negocio_id, fn($q) => $q->where('unidad_negocio_id', $this->unidad_negocio_id))
+            ->when($this->proyecto_id, fn($q) => $q->where('proyecto_id', $this->proyecto_id))
             ->when($this->sede_id, fn($q) => $q->where('sede_id', $this->sede_id))
             ->when($this->motivo_cita_id, fn($q) => $q->where('motivo_cita_id', $this->motivo_cita_id))
-            ->when($this->usuario_solicita_id, fn($q) => $q->where('usuario_solicita_id', $this->usuario_solicita_id))
+            ->when($this->admin, fn($q) => $q->where('usuario_solicita_id', $this->admin))
             ->when($this->estado_cita_id, fn($q) => $q->where('estado_cita_id', $this->estado_cita_id))
 
             ->when(

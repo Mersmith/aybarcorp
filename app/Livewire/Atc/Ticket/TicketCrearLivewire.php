@@ -117,7 +117,7 @@ class TicketCrearLivewire extends Component
     {
         $this->validate();
 
-        $estadoAbiertoId = EstadoTicket::where('nombre', 'Abierto')->value('id');
+        $estadoAbiertoId = EstadoTicket::where('nombre', 'Nuevo')->value('id');
 
         $ticket = Ticket::create([
             'ticket_padre_id' => $this->ticketPadreId,
@@ -125,6 +125,7 @@ class TicketCrearLivewire extends Component
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'proyecto_id' => $this->proyecto_id,
             'cliente_id' => $this->origen === 'slin' ? $this->cliente_id : null,
+
             'area_id' => $this->area_id,
             'tipo_solicitud_id' => $this->tipo_solicitud_id,
             'sub_tipo_solicitud_id' => $this->sub_tipo_solicitud_id,
@@ -134,6 +135,7 @@ class TicketCrearLivewire extends Component
             'asunto_inicial' => $this->asunto_inicial,
             'descripcion_inicial' => $this->descripcion_inicial,
             'lotes' => $this->lotes_agregados,
+            
             'dni' => $this->cliente->dni,
             'nombres' => $this->cliente->nombre,
             'origen' => $this->origen,

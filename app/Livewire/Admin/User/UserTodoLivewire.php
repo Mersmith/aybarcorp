@@ -32,8 +32,9 @@ class UserTodoLivewire extends Component
     public function render()
     {
         $items = User::with('roles')
+            ->where('rol', 'admin')
             ->whereDoesntHave('roles', function ($q) {
-                $q->where('name', 'super-admin');
+                $q->whereIn('name', ['super-admin', 'cliente']);
             })
             ->where('name', 'like', '%' . $this->buscar . '%')
             ->orderByDesc('created_at')

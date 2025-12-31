@@ -6,6 +6,7 @@ use App\Models\Cita;
 use App\Models\EstadoCita;
 use App\Models\MotivoCita;
 use App\Models\Sede;
+use App\Models\Ticket;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -13,13 +14,10 @@ use Livewire\Component;
 #[Layout('layouts.admin.layout-admin')]
 class CitaCrearLivewire extends Component
 {
+    public $ticket;
     public ?int $ticketId = null;
 
     public $usuarios_admin, $usuario_solicita_id = '';
-
-    public $usuarios_cliente = [], $cliente_id = '';
-    public $buscar_cliente = '';
-    public $select_cliente;
 
     public $sedes, $sede_id = '';
     public $motivos, $motivo_cita_id = '';
@@ -34,7 +32,6 @@ class CitaCrearLivewire extends Component
     {
         return [
             'usuario_solicita_id' => 'required',
-            'cliente_id' => 'required',
             'sede_id' => 'required',
             'motivo_cita_id' => 'required',
             'fecha_inicio' => 'required',
@@ -47,12 +44,12 @@ class CitaCrearLivewire extends Component
 
     protected $validationAttributes = [
         'usuario_solicita_id' => 'admin',
-        'cliente_id' => 'cliente',
     ];
 
     public function mount($ticketId = null)
     {
         $this->ticketId = $ticketId;
+        $this->ticket = Ticket::findOrFail($ticketId);
 
         $this->sedes = Sede::all();
         $this->motivos = MotivoCita::all();
@@ -60,22 +57,20 @@ class CitaCrearLivewire extends Component
         $this->usuarios_admin = User::where('rol', 'admin')->get();
     }
 
-    public function seleccionarCliente($id)
-    {
-        $this->cliente_id = $id;
-
-        $this->select_cliente = User::find($id);
-    }
-
     public function store()
     {
         $this->validate();
 
         $cita = Cita::create([
-            'ticket_id ' => $this->ticketId,
+            'ticket_id' => $this->ticketId,
+
+            'unidad_negocio_id' => $this->ticket->unidad_negocio_id,
+            'proyecto_id' => $this->ticket->proyecto_id,
+            'cliente_id' => $this->ticket->origen === 'slin'
+            ? $this->ticket->cliente_id
+            : null,
 
             'usuario_solicita_id' => $this->usuario_solicita_id,
-            'cliente_id' => $this->cliente_id,
             'sede_id' => $this->sede_id,
             'motivo_cita_id' => $this->motivo_cita_id,
             'estado_cita_id' => $this->estado_cita_id,
@@ -83,6 +78,10 @@ class CitaCrearLivewire extends Component
             'fecha_fin' => $this->fecha_fin,
             'asunto_solicitud' => $this->asunto_solicitud,
             'descripcion_solicitud' => $this->descripcion_solicitud,
+
+            'dni' => $this->ticket->dni,
+            'nombres' => $this->ticket->nombres,
+            'origen' => $this->ticket->origen,
         ]);
 
         $this->dispatch('alertaLivewire', "Creado");
@@ -92,14 +91,6 @@ class CitaCrearLivewire extends Component
 
     public function render()
     {
-        $this->usuarios_cliente = User::where('rol', 'cliente')
-            ->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->buscar_cliente . '%')
-                    ->orWhere('email', 'like', '%' . $this->buscar_cliente . '%');
-            })
-            ->limit(5)
-            ->get();
-
         return view('livewire.atc.cita.cita-crear-livewire');
     }
 }

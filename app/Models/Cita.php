@@ -31,6 +31,10 @@ class Cita extends Model
         'asunto_respuesta',
         'descripcion_respuesta',
 
+        'dni',
+        'nombres',
+        'origen',
+        
         // valida
         'usuario_valida_id',
         'fecha_validacion',

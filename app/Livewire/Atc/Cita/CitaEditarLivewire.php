@@ -11,6 +11,8 @@ use Livewire\Component;
 #[Layout('layouts.admin.layout-admin')]
 class CitaEditarLivewire extends Component
 {
+    public $ticket;
+
     public $cita;
     public $estados, $estado_cita_id = '';
 
@@ -27,6 +29,8 @@ class CitaEditarLivewire extends Component
     public function mount($id)
     {
         $this->cita = Cita::findOrFail($id);
+        $this->ticket = $this->cita->ticket;
+
         $this->asunto_respuesta = $this->cita->asunto_respuesta;
         $this->descripcion_respuesta = $this->cita->descripcion_respuesta;
         $this->estado_cita_id = $this->cita->estado_cita_id;

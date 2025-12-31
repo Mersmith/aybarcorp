@@ -804,19 +804,6 @@
                             "atc"
                         ],
                         "submenus": []
-                    },
-                    {
-                        "id": 112,
-                        "nombre": "Crear",
-                        "ruta": "admin.cita.vista.crear",
-                        "url": "/admin/cita/crear",
-                        "nivel": 3,
-                        "roles": [
-                            "super-admin",
-                            "supervisor atc",
-                            "atc"
-                        ],
-                        "submenus": []
                     }
                 ]
             },
