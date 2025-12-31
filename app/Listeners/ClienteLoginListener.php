@@ -11,10 +11,17 @@ class ClienteLoginListener
     {
         $user = $event->user;
 
-        if (method_exists($user, 'hasRole') && $user->hasRole('cliente')) {
+        /*if (method_exists($user, 'hasRole') && $user->hasRole('cliente')) {
             Session::flash(
                 'bienvenida_cliente',
                 'ESTIMADO CLIENTE'
+            );
+        }*/
+
+        if ($user->rol === 'cliente') {
+            Session::flash(
+                'bienvenida_cliente',
+                '¡Bienvenido a tu plataforma digital!'
             );
         }
     }
