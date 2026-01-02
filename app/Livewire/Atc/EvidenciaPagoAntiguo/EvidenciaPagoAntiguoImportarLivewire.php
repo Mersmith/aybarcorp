@@ -7,6 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\EvidenciaPagoAntiguoImport;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoAntiguoImportarLivewire extends Component
@@ -21,9 +22,23 @@ class EvidenciaPagoAntiguoImportarLivewire extends Component
             'archivo' => 'required|mimes:xlsx,xls,csv'
         ]);
 
-        Excel::import(new EvidenciaPagoAntiguoImport, $this->archivo);
+        try {
+            Excel::import(new EvidenciaPagoAntiguoImport, $this->archivo);
 
-        $this->dispatch('alertaLivewire', 'Creado');
+            $this->dispatch('alertaLivewire', 'Creado');
+        } catch (ValidationException $e) {
+
+            $this->addError(
+                'archivo',
+                $e->errors()['archivo'][0] ?? 'Error en el archivo'
+            );
+        } catch (\Throwable $e) {
+
+            $this->addError(
+                'archivo',
+                'Ocurrió un error inesperado durante la importación'
+            );
+        }
     }
 
     public function render()

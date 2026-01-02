@@ -12,7 +12,12 @@ class EvidenciaPagoAntiguo extends Model
 
     protected $table = 'evidencia_pago_antiguos';
 
-    protected $fillable = [
+    public $incrementing = false;   // ⬅️ CLAVE
+    protected $keyType = 'int';
+
+    protected $guarded = [];
+
+    /*protected $fillable = [
         'unidad_negocio_id',
         'proyecto_id',
         'cliente_id',
@@ -56,7 +61,7 @@ class EvidenciaPagoAntiguo extends Model
         'created_by',
         'updated_by',
         'deleted_by',
-    ];
+    ];*/
 
     protected $casts = [
         'fecha_deposito'   => 'date',
