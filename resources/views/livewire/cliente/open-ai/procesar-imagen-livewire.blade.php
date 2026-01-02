@@ -4,7 +4,7 @@
         <p>{{ $this->lote['razon_social'] }}/{{ $this->lote['descripcion'] }}</p>
         <p>Mz. {{ $this->lote['id_manzana'] }}, Lt. {{ $this->lote['id_lote'] }}</p>
         <p>N° Cuota. {{ $this->cuota["NroCuota"] }}</p>
-        <p>Fech. Venc. {{ $this->cuota["fecha_vencimiento"] }}</p>
+        <p>Fech. Venc. {{ $this->cuota["FecVencimiento"] }}</p>
     </div>
 
     @if (session('success'))

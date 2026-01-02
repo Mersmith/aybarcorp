@@ -69,8 +69,12 @@
                     <i class="fa-solid fa-arrow-left"></i> REGRESAR
                 </button>
 
-                <button wire:click="descargarPDFcronograma" class="g_boton g_boton_empresa_primario">
-                    PDF <i class="fa-solid fa-file-pdf"></i>
+                <button wire:click="descargarPDFestadoCuenta" class="g_boton g_boton_empresa_primario">
+                    ESTADO CUENTA<i class="fa-solid fa-download"></i>
+                </button>
+
+                <button wire:click="descargarPDFcronograma" class="g_boton g_boton_empresa_secundario">
+                    CRONOGRAMA<i class="fa-solid fa-download"></i>
                 </button>
             </div>
 

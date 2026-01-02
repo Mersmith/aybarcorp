@@ -52,34 +52,9 @@
                         <td class="label">Inicial</td>
                         <td class="valor">S/ {{ $estado_cuenta['Inicial'] ?? '-' }}</td>
 
-                        <td class="label">Exonerada</td>
-                        <td class="valor">S/ {{ $estado_cuenta['Exonerado'] ?? '-' }}</td>
+                        <td class="label">Impor. Amortizado</td>
+                        <td class="valor">S/ {{ $estado_cuenta['importe_amortizado'] ?? '-' }}</td>
                     </tr>
-
-                    <tr>
-                        <td class="label">Capital abonado</td>
-                        <td class="valor">S/ {{ $estado_cuenta['CapitalAbonado'] ?? '-' }}</td>
-
-                        <td class="label">Penalidad abonado</td>
-                        <td class="valor"></td>
-                    </tr>
-
-                    <tr>
-                        <td class="label">Saldo total pend.</td>
-                        <td class="valor">S/ {{ $estado_cuenta['SaldoTotalPendiente'] ?? '-' }}</td>
-
-                        <td class="label">Saldo capital pend.</td>
-                        <td class="valor">S/ {{ $estado_cuenta['SaldoCapitalPendiente'] ?? '-' }}</td>
-                    </tr>
-
-                    <tr>
-                        <td class="label">Ult. Edición</td>
-                        <td class="valor">S/ {{ $estado_cuenta['UltimaEdicion'] ?? '-' }}</td>
-
-                        <td class="label">N° Cuotas pend.</td>
-                        <td class="valor">S/ {{ $estado_cuenta['NroCuotasPendiente'] ?? '-' }}</td>
-                    </tr>
-
                 </table>
 
             </div>
@@ -93,57 +68,89 @@
                         <tr>
                             <th>Nro</th>
                             <th>Fecha Venc.</th>
-                            <th>Fecha Comp.</th>
-                            {{-- <th>Días Atra.</th> --}}
                             <th>Cuota</th>
-                            {{-- <th>Pen.</th> --}}
-                            <th>Total</th>
-                            <th>Comp.</th>
-                            <th>Cuo. Pagado</th>
-                            {{-- <th>Pen. Pagado</th> --}}
-                            <th>Pend.</th>
+                            <th>Mto. Amortizado</th>
+                            <th>Dias Atraso</th>
+                            <th>Evidencia</th>
                             <th>Boleta</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach (($estado_cuenta['Cuotas'] ?? []) as $item)
-                        <tr>
-                            <td>{{ $item['NroCuota'] ?? '-' }}</td>
-                            <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
-                            <td>{{ $item['FecCompra'] ?? '-' }}</td>
-                            {{-- <td> {{ $item['DiasAtraso'] ?? 0 }}</td> --}}
-                            <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
-                            {{-- <td> S/ {{ $item['Penalidad'] ?? 0 }}</td> --}}
-                            <td>S/ {{ $item['Total'] ?? 0 }}</td>
-                            <td>S/ {{ $item['MontoComp'] ?? 0 }}</td>
-                            <td>S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
-                            {{-- <td>S/ {{ $item['PenalPagada'] ?? 0 }}</td> --}}
-                            <td>S/ {{ $item['SaldoPendiente'] ?? 0 }}</td>
-                            <td>
-                                @if (!empty($item['Comprobante']))
+                        @foreach ($detalle ?? [] as $item)
+                            <tr>
+                                <td>{{ $item['NroCuota'] ?? '-' }}</td>
+                                <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
+                                <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
+                                <td> S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
+                                <td> {{ $item['DiasAtraso'] ?? 0 }}</td>
+                                <td>
+                                    @if (!$item['codigo_cronograma'])
+                                        <span class="g_boton g_boton_empresa_primario"
+                                            style="cursor: not-allowed; pointer-events: none;">
+                                            <i class="fa-solid fa-circle-check"></i>
+                                            Comprobado
+                                        </span>
+                                    @else
+                                        @if ($item['comprobantes_count'] == 2)
+                                            <span class="g_boton g_boton_darkt">
+                                                <i class="fa-solid fa-image"></i>
+                                                En validación({{ $item['comprobantes_count'] }})
+                                            </span>
+                                        @elseif($item['comprobantes_count'] == 1)
+                                            <button wire:click="seleccionarCuota({{ json_encode($item) }})"
+                                                class="g_boton g_boton_darkt">
+                                                <i class="fas fa-upload"></i> En validación
+                                                ({{ $item['comprobantes_count'] }})
+                                            </button>
+                                        @else
+                                            <button wire:click="seleccionarCuota({{ json_encode($item) }})"
+                                                class="g_boton g_boton_empresa_secundario">
+                                                <i class="fas fa-upload"></i> Subir evidencia
+                                            </button>
+                                        @endif
+                                    @endif
+                                </td>
+                                <td>
+                                    @if (!empty($item['Comprobante']))
+                                        @if (substr_count($item['Comprobante'], '-') === 2)
+                                            <a href="{{ route('comprobante.ver', ['empresa' => $lote['id_empresa'], 'comprobante' => $item['Comprobante']]) }}"
+                                                target="_blank" class="g_boton g_boton_empresa_secundario">
+                                                <i class="fas fa-file-invoice-dollar"></i>
+                                            </a>
+                                        @else
+                                            <x-tooltip text="Tu comprante esta siendo migrado!" />
 
-                                @if (substr_count($item['Comprobante'], '-') === 2)
-                                <a href="{{ route('comprobante.ver', [ 'empresa' => $lote['id_empresa'], 'comprobante' => $item['Comprobante'] ]) }}"
-                                    target="_blank" class="g_boton g_boton_empresa_secundario">
-                                    <i class="fas fa-file-invoice-dollar"></i>
-                                </a>
-                                @else
-                                <x-tooltip text="Tu comprante esta siendo migrado!" />
-
-                                <span class="g_boton g_boton_empresa_primario"
-                                    style="cursor: not-allowed; pointer-events: none;">
-                                    <i class="fas fa-file-invoice-dollar"></i>
-                                </span>
-                                @endif
-
-                                @endif
-                            </td>
-                        </tr>
+                                            <span class="g_boton g_boton_empresa_primario"
+                                                style="cursor: not-allowed; pointer-events: none;">
+                                                <i class="fas fa-file-invoice-dollar"></i>
+                                            </span>
+                                        @endif
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    @if ($cuota)
+        <div class="g_modal">
+            <div class="modal_contenedor">
+                <div class="modal_cerrar">
+                    <button wire:click="cerrarModalEvidenciaPago"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="modal_titulo g_panel_titulo">
+                    <h2>Subir evidencia de pago</h2>
+                </div>
+
+                <div class="modal_cuerpo">
+                    @livewire('cliente.open-ai.procesar-imagen-livewire', ['cuota' => $cuota, 'lote' => $lote], key('cuota_' . $cuota['idCuota']))
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

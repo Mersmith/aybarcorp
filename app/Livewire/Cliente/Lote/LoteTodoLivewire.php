@@ -144,7 +144,7 @@ class LoteTodoLivewire extends Component
             'servicio' => $this->lote_select['servicio'] ?? '02',
         ];
 
-        $response = Http::get('https://aybarcorp.com/slin/estado-cuenta', $params);
+        $response = Http::get('https://aybarcorp.com/slin/cuota-estado-cuenta', $params);
         $cronograma_estado_cuenta = $response->successful() ? $response->json() : null;
 
         if (empty($cronograma_estado_cuenta)) {
@@ -167,18 +167,13 @@ class LoteTodoLivewire extends Component
 
     public function descargarPDFcronograma()
     {
-        if (!$this->lote_select || empty($this->cronograma)) {
+        if (!$this->lote_select || empty($this->cronograma_estado_cuenta)) {
             session()->flash('error', 'Debe seleccionar un lote antes de descargar.');
             return;
         }
 
-        $total_pagados = 0;
-
         $pdf = Pdf::loadView('pdf.cronograma', [
-            'lote' => $this->lote_select,
-            'cabecera' => $this->cronograma['datos_cabecera'],
-            'detalle' => $this->cronograma['detalle_cuotas'],
-            'total_pagados' => $total_pagados,
+            'estado_cuenta' => $this->cronograma_estado_cuenta,
         ]);
 
         return response()->streamDownload(
@@ -189,13 +184,13 @@ class LoteTodoLivewire extends Component
 
     public function descargarPDFestadoCuenta()
     {
-        if (!$this->lote_select || empty($this->estado_cuenta)) {
+        if (!$this->lote_select || empty($this->cronograma_estado_cuenta)) {
             session()->flash('error', 'Debe seleccionar un lote antes de descargar.');
             return;
         }
 
         $pdf = Pdf::loadView('pdf.estado-cuenta', [
-            'estado_cuenta' => $this->estado_cuenta,
+            'estado_cuenta' => $this->cronograma_estado_cuenta,
         ]);
 
         return response()->streamDownload(

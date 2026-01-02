@@ -1,6 +1,7 @@
 @extends('pdf.membrete.membrete')
 
 @section('content')
+
 <style>
     table {
         width: 100%;
@@ -29,49 +30,51 @@
 
 <table>
     <tr>
-        <th style="width: 25%;">Proyecto</th>
-        <td colspan="3">{{ $cabecera['proyecto'] ?? '-' }}</td>
+        <th style="width:25%;">Proyecto</th>
+        <td colspan="3">{{ $estado_cuenta['Proyecto'] ?? '-' }}</td>
     </tr>
 
     <tr>
         <th>Etapa</th>
-        <td style="width: 25%;">{{ $cabecera['etapa'] ?? '-' }}</td>
+        <td>{{ $estado_cuenta['Etapa'] ?? '-' }}</td>
 
         <th>Manzana - Lote</th>
         <td>
-            {{ $cabecera['manzana'] ?? '-' }}
+            {{ $estado_cuenta['Manzana'] ?? '-' }}
             -
-            {{ $cabecera['lote'] ?? '-' }}
+            {{ $estado_cuenta['Lote'] ?? '-' }}
         </td>
     </tr>
 
     <tr>
         <th>Nombre Cliente</th>
-        <td colspan="3">{{ $cabecera['nombre_cliente'] ?? '-' }}</td>
+        <td colspan="3">
+            {{ $estado_cuenta['Cliente'] ?? '-' }}
+        </td>
     </tr>
 
     <tr>
         <th>DNI</th>
-        <td>{{ $cabecera['dni'] ?? '-' }}</td>
+        <td>{{ $estado_cuenta['DNI'] ?? '-' }}</td>
 
-        <th>Fecha Emisión</th>
-        <td>{{ $cabecera['fecha_emision'] ?? '-' }}</td>
+        <th>Fecha emisión</th>
+        <td>{{ $estado_cuenta['FecEmision'] ?? '-' }}</td>
     </tr>
 
     <tr>
-        <th>Precio Venta</th>
-        <td>S/ {{ $cabecera['precio_venta'] ?? '-' }}</td>
+        <th>Precio venta</th>
+        <td>S/ {{ $estado_cuenta['Venta'] ?? '-' }}</td>
 
         <th>Impor. Financiado</th>
-        <td>S/ {{ $cabecera['importe_financiado'] ?? '-' }}</td>
+        <td>S/ {{ $estado_cuenta['ImporteFinanciado'] ?? '-' }}</td>
     </tr>
 
     <tr>
         <th>Inicial</th>
-        <td>S/ {{ $cabecera['inicial_pagado'] ?? '-' }}</td>
+        <td>S/ {{ $estado_cuenta['Inicial'] ?? '-' }}</td>
 
         <th>Impor. Amortizado</th>
-        <td>S/ {{ $cabecera['importe_amortizado'] ?? '-' }}</td>
+        <td>S/ {{ $estado_cuenta['importe_amortizado'] ?? '-' }}</td>
     </tr>
 </table>
 
@@ -82,23 +85,21 @@
             <th>Fecha Venc.</th>
             <th>Cuota</th>
             <th>Mto. Amortizado</th>
-            <th>Saldo</th>
             <th>Penalidad</th>
             <th>Dias Atraso</th>
             <th>Total</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($detalle as $item)
+        @foreach (($estado_cuenta['Cuotas'] ?? []) as $item)
         <tr>
             <td>{{ $item['NroCuota'] ?? '-' }}</td>
-            <td>{{ $item['fecha_vencimiento'] ?? '-' }}</td>
-            <td>S/ {{ $item['Montocuota'] ?? 0}}</td>
-            <td>S/ {{ $item['monto_amortizado'] ?? 0 }}</td>
-            <td>S/ {{ $item['saldo'] ?? 0 }}</td>
-            <td> S/ {{ $item['penalidad'] ?? 0 }}</td>
-            <td>{{ $item['dias_atraso'] ?? '-' }}</td>
-            <td>S/ {{ $item['total'] ?? 0 }}</td>
+            <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
+            <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
+            <td>S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
+            <td> S/ {{ $item['Penalidad'] ?? 0 }}</td>
+            <td> {{ $item['DiasAtraso'] ?? 0 }}</td>
+            <td>S/ {{ $item['Total'] ?? 0 }}</td>
         </tr>
         @endforeach
     </tbody>

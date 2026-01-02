@@ -207,7 +207,7 @@ NO agregues explicación ni texto adicional. Solo JSON.",
             'etapa' => $this->lote["id_etapa"] ?? null,
             'manzana' => $this->lote["id_manzana"] ?? null,
             'lote' => $this->lote["id_lote"] ?? null,
-            'codigo_cuota' => $this->cuota["codigo"] ?? null,
+            'codigo_cuota' => $this->cuota["idCuota"] ?? null,
             'numero_cuota' => $this->cuota["NroCuota"] ?? null,
         ]);
 
