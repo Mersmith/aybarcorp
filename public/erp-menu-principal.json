@@ -902,7 +902,7 @@
             },
             {
                 "id": 46,
-                "nombre": "Evidencias pago",
+                "nombre": "Evidencias pago(P)",
                 "ruta": "#",
                 "url": "#",
                 "icono": "fa-regular fa-image",
@@ -925,12 +925,27 @@
                             "gestor"
                         ],
                         "submenus": []
-                    },
+                    }
+                ]
+            },
+            {
+                "id": 47,
+                "nombre": "Evidencias pago(A)",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-regular fa-image",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "supervisor gestor",
+                    "gestor"
+                ],
+                "submenus": [
                     {
-                        "id": 113,
-                        "nombre": "Stock",
-                        "ruta": "admin.evidencia-pago.vista.todo",
-                        "url": "/admin/evidencia-pago",
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.evidencia-pago-antiguo.vista.todo",
+                        "url": "/admin/evidencia-pago-antiguo",
                         "nivel": 3,
                         "roles": [
                             "super-admin",
@@ -942,8 +957,8 @@
                     {
                         "id": 114,
                         "nombre": "Importar",
-                        "ruta": "admin.evidencia-pago.vista.importar-antiguo",
-                        "url": "/admin/evidencia-pago/importar-antiguo",
+                        "ruta": "admin.evidencia-pago-antiguo.vista.importar",
+                        "url": "/admin/evidencia-pago-antiguo/importar",
                         "nivel": 3,
                         "roles": [
                             "super-admin",
