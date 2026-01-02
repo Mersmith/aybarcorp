@@ -39,6 +39,8 @@ return new class extends Migration
             $table->string('codigo_cuota')->nullable();
             $table->string('numero_cuota')->nullable();
 
+            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete();
+
             //SUPERVISOR
             $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
             $table->dateTime('fecha_validacion')->nullable();

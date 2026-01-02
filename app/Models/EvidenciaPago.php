@@ -36,6 +36,8 @@ class EvidenciaPago extends Model
         'codigo_cuota',
         'numero_cuota',
 
+        'gestor_id',
+
         // valida
         'usuario_valida_id',
         'fecha_validacion',
@@ -69,6 +71,11 @@ class EvidenciaPago extends Model
     public function estado()
     {
         return $this->belongsTo(EstadoEvidenciaPago::class, 'estado_evidencia_pago_id');
+    }
+
+    public function gestor()
+    {
+        return $this->belongsTo(User::class, 'gestor_id');
     }
 
     // valida
