@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Spatie\Rol;
 
+use App\Exports\RolesExport;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 #[Layout('layouts.admin.layout-admin')]
@@ -27,6 +29,14 @@ class RolTodoLivewire extends Component
 
         $this->perPage = 20;
         $this->resetPage();
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new RolesExport($this->buscar),
+            'roles.xlsx'
+        );
     }
 
     public function render()

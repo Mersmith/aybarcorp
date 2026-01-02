@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Spatie\Permiso;
 
+use App\Exports\PermissionsExport;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Permission;
 
 #[Layout('layouts.admin.layout-admin')]
@@ -27,6 +29,14 @@ class PermisoTodoLivewire extends Component
 
         $this->perPage = 20;
         $this->resetPage();
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new PermissionsExport($this->buscar),
+            'permisos.xlsx'
+        );
     }
 
     public function render()
