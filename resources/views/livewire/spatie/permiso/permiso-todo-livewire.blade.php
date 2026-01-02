@@ -25,7 +25,6 @@
                 </button>
             </div>
 
-
             <div class="tabla_cabecera_buscar">
                 <form action="">
                     <input type="text" wire:model.live.debounce.1300ms="buscar" id="buscar" name="buscar"

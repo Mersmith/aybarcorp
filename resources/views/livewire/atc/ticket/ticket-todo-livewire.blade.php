@@ -16,6 +16,10 @@
             <button wire:click="resetFiltros" class="g_boton g_boton_danger">
                 Limpiar Filtros <i class="fa-solid fa-rotate-left"></i>
             </button>
+
+            <button wire:click="exportExcel" class="g_boton g_boton_excel">
+                EXCEL <i class="fa-regular fa-file-excel"></i>
+            </button>
         </div>
     </div>
 
@@ -32,7 +36,7 @@
                     <select wire:model.live="unidad_negocio_id">
                         <option value="">Todos</option>
                         @foreach ($empresas as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -42,7 +46,7 @@
                     <select wire:model.live="proyecto_id">
                         <option value="">Todos</option>
                         @foreach ($proyectos as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -52,7 +56,7 @@
                     <select wire:model.live="area">
                         <option value="">Todos</option>
                         @foreach ($areas as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -62,7 +66,7 @@
                     <select wire:model.live="estado">
                         <option value="">Todos</option>
                         @foreach ($estados as $estadoItem)
-                        <option value="{{ $estadoItem->id }}">{{ $estadoItem->nombre }}</option>
+                            <option value="{{ $estadoItem->id }}">{{ $estadoItem->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -74,7 +78,7 @@
                     <select wire:model.live="solicitud">
                         <option value="">Todos</option>
                         @foreach ($solicitudes as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -84,7 +88,7 @@
                     <select wire:model.live="sub_tipo_solicitud_id">
                         <option value="">Todos</option>
                         @foreach ($sub_tipos_solicitudes as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -94,7 +98,7 @@
                     <select wire:model.live="canal">
                         <option value="">Todos</option>
                         @foreach ($canales as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -104,7 +108,7 @@
                     <select wire:model.live="admin">
                         <option value="">Todos</option>
                         @foreach ($usuarios_admin as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -114,7 +118,7 @@
                     <select wire:model.live="prioridad">
                         <option value="">Todos</option>
                         @foreach ($prioridades as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -162,64 +166,67 @@
                     </thead>
 
                     @if ($tickets->count())
-                    <tbody>
-                        @foreach ($tickets as $index => $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td class="g_negrita g_resumir">{{ $item->nombres }}</td>
-                            <td>{{ $item->area->nombre }}</td>
-                            <td class="g_resumir g_inferior">{{ $item->tipoSolicitud->nombre }}</td>
-                            <td>{{ $item->canal->nombre }}</td>
-                            <td>
-                                <span style="color: {{ $item->estado->color }};">
-                                    <i class="{{ $item->estado->icono }}"></i> {{$item->estado->nombre }}
-                                </span>
-                            </td>
-                            <td class="g_negrita g_resumir">{{ $item->asignado->name }}</td>
-                            <td>
-                                <span class="g_boton"
-                                    style="background-color: {{ $item->prioridad->color }}; color: white;">
-                                    <i class="{{ $item->prioridad->icono }}"></i> {{$item->prioridad->nombre }}
-                                </span>
-                            </td>
+                        <tbody>
+                            @foreach ($tickets as $index => $item)
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td class="g_negrita g_resumir">{{ $item->nombres }}</td>
+                                    <td>{{ $item->area->nombre }}</td>
+                                    <td class="g_resumir g_inferior">{{ $item->tipoSolicitud->nombre }}</td>
+                                    <td>{{ $item->canal->nombre }}</td>
+                                    <td>
+                                        <span style="color: {{ $item->estado->color }};">
+                                            <i class="{{ $item->estado->icono }}"></i> {{ $item->estado->nombre }}
+                                        </span>
+                                    </td>
+                                    <td class="g_negrita g_resumir">{{ $item->asignado->name }}</td>
+                                    <td>
+                                        <span class="g_boton"
+                                            style="background-color: {{ $item->prioridad->color }}; color: white;">
+                                            <i class="{{ $item->prioridad->icono }}"></i>
+                                            {{ $item->prioridad->nombre }}
+                                        </span>
+                                    </td>
 
-                            <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->created_at }}</td>
 
-                            <td>
-                                @if($item->tiene_derivados)
-                                <span class="g_boton g_boton_danger">Sí</span>
-                                @else
-                                <span class="g_boton g_boton_light">No</span>
-                                @endif
-                            </td>
+                                    <td>
+                                        @if ($item->tiene_derivados)
+                                            <span class="g_boton g_boton_danger">Sí</span>
+                                        @else
+                                            <span class="g_boton g_boton_light">No</span>
+                                        @endif
+                                    </td>
 
-                            <td class="centrar_iconos">
-                                <a href="{{ route('admin.ticket.vista.editar', $item->id) }}" class="g_accion_editar">
-                                    <span><i class="fa-solid fa-pencil"></i></span>
-                                </a>
-                                <a href="{{ route('admin.ticket.vista.derivado', $item->id) }}" class="g_accion_ver">
-                                    <span><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                                    <td class="centrar_iconos">
+                                        <a href="{{ route('admin.ticket.vista.editar', $item->id) }}"
+                                            class="g_accion_editar">
+                                            <span><i class="fa-solid fa-pencil"></i></span>
+                                        </a>
+                                        <a href="{{ route('admin.ticket.vista.derivado', $item->id) }}"
+                                            class="g_accion_ver">
+                                            <span><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     @endif
                 </table>
             </div>
         </div>
 
         @if ($tickets->hasPages())
-        <div class="g_paginacion">
-            {{ $tickets->links('vendor.pagination.default-livewire') }}
-        </div>
+            <div class="g_paginacion">
+                {{ $tickets->links('vendor.pagination.default-livewire') }}
+            </div>
         @endif
 
         @if ($tickets->count() == 0)
-        <div class="g_vacio">
-            <p>No hay tickets disponibles.</p>
-            <i class="fa-regular fa-face-grin-wink"></i>
-        </div>
+            <div class="g_vacio">
+                <p>No hay tickets disponibles.</p>
+                <i class="fa-regular fa-face-grin-wink"></i>
+            </div>
         @endif
     </div>
 </div>

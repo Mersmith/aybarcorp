@@ -2,20 +2,22 @@
 
 namespace App\Livewire\Atc\Ticket;
 
-use App\Models\Ticket;
-use App\Models\EstadoTicket;
+use App\Exports\TicketsExport;
 use App\Models\Area;
-use App\Models\User;
-use App\Models\TipoSolicitud;
-use App\Models\PrioridadTicket;
 use App\Models\Canal;
+use App\Models\EstadoTicket;
+use App\Models\PrioridadTicket;
 use App\Models\Proyecto;
 use App\Models\SubTipoSolicitud;
+use App\Models\Ticket;
+use App\Models\TipoSolicitud;
 use App\Models\UnidadNegocio;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 #[Layout('layouts.admin.layout-admin')]
 class TicketTodoLivewire extends Component
@@ -51,6 +53,30 @@ class TicketTodoLivewire extends Component
         $this->fecha_fin = now()->toDateString();
 
         $this->empresas = UnidadNegocio::all();
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new TicketsExport(
+                $this->buscar,
+                $this->unidad_negocio_id,
+                $this->proyecto_id,
+                $this->estado,
+                $this->area,
+                $this->solicitud,
+                $this->sub_tipo_solicitud_id,
+                $this->canal,
+                $this->admin,
+                $this->prioridad,
+                $this->fecha_inicio,
+                $this->fecha_fin,
+                $this->con_derivados,
+                $this->perPage,
+                $this->getPage(),
+            ),
+            'tickets.xlsx'
+        );
     }
 
     public function updatedUnidadNegocioId($value)
@@ -180,16 +206,6 @@ class TicketTodoLivewire extends Component
                         ->orWhere('nombres', 'like', "%{$this->buscar}%");
                 });
             })
-            /*->when($this->buscar, function ($query) {
-                $query->where('id', 'like', "%{$this->buscar}%")
-                    ->orWhereHas('cliente', function ($q) {
-                        $q->where('name', 'like', "%{$this->buscar}%");
-                    })
-                    ->orWhereHas('cliente.cliente', function ($q) {
-                        $q->where('dni', 'like', "%{$this->buscar}%")
-                            ->orWhere('nombre_completo', 'like', "%{$this->buscar}%");
-                    });
-            })*/
             ->when($this->unidad_negocio_id, fn($q) => $q->where('unidad_negocio_id', $this->unidad_negocio_id))
             ->when($this->proyecto_id, fn($q) => $q->where('proyecto_id', $this->proyecto_id))
             ->when($this->estado, fn($q) => $q->where('estado_ticket_id', $this->estado))
