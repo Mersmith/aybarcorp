@@ -18,8 +18,8 @@ class Cita extends Model
 
         'ticket_id',
 
-        'usuario_solicita_id',
-        'usuario_cierra_id',
+        'usuario_crea_id',
+        'usuario_atiende_id',
         'sede_id',
         'motivo_cita_id',
         'estado_cita_id',
@@ -67,14 +67,14 @@ class Cita extends Model
         return $this->belongsTo(User::class, 'cliente_id');
     }
 
-    public function solicitante()
+    public function crea()
     {
-        return $this->belongsTo(User::class, 'usuario_solicita_id');
+        return $this->belongsTo(User::class, 'usuario_crea_id');
     }
 
-    public function cierrePor()
+    public function atiende()
     {
-        return $this->belongsTo(User::class, 'usuario_cierra_id');
+        return $this->belongsTo(User::class, 'usuario_atiende_id');
     }
 
     public function sede()

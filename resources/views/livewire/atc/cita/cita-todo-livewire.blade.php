@@ -103,7 +103,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Solicitante</th>
+                            <th>Crea</th>
                             <th>Cliente</th>
                             <th>Sede</th>
                             <th>Motivo</th>
@@ -119,7 +119,7 @@
                         @foreach ($citas as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td class="g_negrita">{{ $item->solicitante->name }}</td>
+                            <td class="g_negrita">{{ $item->crea->name }}</td>
                             <td class="g_negrita g_resumir">{{ $item->nombres }}</td>
                             <td>{{ $item->sede->nombre ?? '-' }}</td>
                             <td>

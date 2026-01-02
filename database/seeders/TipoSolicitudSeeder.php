@@ -12,49 +12,31 @@ class TipoSolicitudSeeder extends Seeder
      */
     public function run(): void
     {
-        TipoSolicitud::insert([
-            [
-                'id' => 1,
-                'nombre' => 'Reclamo',
-                'tiempo_solucion' => 72, // horas
-                'activo' => true,
-            ],
-            [
-                'id' => 2,
-                'nombre' => 'Consulta',
-                'tiempo_solucion' => 48,
-                'activo' => true,
-            ],
-            [
-                'id' => 3,
-                'nombre' => 'Falla técnica',
-                'tiempo_solucion' => 24,
-                'activo' => true,
-            ],
-            [
-                'id' => 4,
-                'nombre' => 'Solicitud de información',
-                'tiempo_solucion' => 48,
-                'activo' => true,
-            ],
-            [
-                'id' => 5,
-                'nombre' => 'Garantía',
+        $nombres_1 = [
+            'SOLICITUD DE LETRAS',
+            'CONSTANCIA DE NO ADEUDO',
+            'CERTIFICADO DE LOTE',
+            'ACTUALIZACION DE DATOS',
+            'DEVOLUCION DE PAGO EXTRA',
+            'SOLICITUD DE INFORMACION',
+            'PROGRAMACION DE VISITA AL PROYECTO',
+            'AVANCE DE PROYECTO',
+            'DESISTIMIENTOS',
+            'BOLETAS Y/O TICKETS DE PAGO',
+            'PAGOS',
+            'EE.CC',
+            'CONTRATO PREPARATORIO',
+            'FORMALIZACION',
+            'LETRAS',
+            'REQUERIMIENTO DE EXPEDIENTES (CONTRATO Y BOLETAS)',
+            'DIGITACION',
+        ];
+
+        foreach ($nombres_1 as $nombre) {
+            TipoSolicitud::factory()->create([
+                'nombre' => $nombre,
                 'tiempo_solucion' => 72,
-                'activo' => true,
-            ],
-            [
-                'id' => 6,
-                'nombre' => 'Queja',
-                'tiempo_solucion' => 72,
-                'activo' => true,
-            ],
-            [
-                'id' => 7,
-                'nombre' => 'Seguimiento de pedido',
-                'tiempo_solucion' => 24,
-                'activo' => true,
-            ],
-        ]);
+            ]);
+        }
     }
 }

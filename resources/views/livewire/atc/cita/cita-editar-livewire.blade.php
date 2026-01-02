@@ -42,7 +42,7 @@
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_6">
                             <label>Admin</label>
-                            <input type="text" disabled value="{{ $cita->solicitante->name ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $cita->crea->name ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_6">

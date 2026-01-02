@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Cita;
-use App\Models\User;
-use App\Models\Sede;
 use App\Models\MotivoCita;
+use App\Models\Sede;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class CitaSeeder extends Seeder
 {
@@ -40,13 +40,13 @@ class CitaSeeder extends Seeder
             $end = (clone $start)->modify("+{$duracion} minutes");
 
             Cita::create([
-                'usuario_solicita_id' => $admin->id,
-                'cliente_id'   => $cliente->id,
-                'sede_id'             => $sede->id,
-                'motivo_cita_id'      => $motivo->id,
-                'fecha_inicio'            => $start,
-                'fecha_fin'              => $end,
-                'estado_cita_id'              => $estados[array_rand($estados)],
+                'usuario_crea_id' => fake()->numberBetween(5, 19),
+                'cliente_id' => $cliente->id,
+                'sede_id' => $sede->id,
+                'motivo_cita_id' => $motivo->id,
+                'fecha_inicio' => $start,
+                'fecha_fin' => $end,
+                'estado_cita_id' => $estados[array_rand($estados)],
             ]);
         }
 
@@ -71,13 +71,13 @@ class CitaSeeder extends Seeder
             }
 
             Cita::create([
-                'usuario_solicita_id' => $admin->id,
-                'cliente_id'   => $cliente->id,
-                'sede_id'             => $sede->id,
-                'motivo_cita_id'      => $motivo->id,
-                'fecha_inicio'            => $start,
-                'fecha_fin'              => $end,
-                'estado_cita_id'              => 2,
+                'usuario_crea_id' => fake()->numberBetween(5, 19),
+                'cliente_id' => $cliente->id,
+                'sede_id' => $sede->id,
+                'motivo_cita_id' => $motivo->id,
+                'fecha_inicio' => $start,
+                'fecha_fin' => $end,
+                'estado_cita_id' => 2,
             ]);
 
             // mover horaActual para próxima cita

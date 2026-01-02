@@ -60,16 +60,16 @@
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_6">
-                            <label for="usuario_solicita_id">
+                            <label for="usuario_crea_id">
                                 Creador <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
-                            <select id="usuario_solicita_id" wire:model.live="usuario_solicita_id" required>
+                            <select id="usuario_crea_id" wire:model.live="usuario_crea_id" required>
                                 <option value="" selected disabled>Seleccionar un asignado</option>
                                 @foreach ($usuarios_admin as $usuario)
                                     <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                                 @endforeach
                             </select>
-                            @error('usuario_solicita_id')
+                            @error('usuario_crea_id')
                                 <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>

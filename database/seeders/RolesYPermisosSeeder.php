@@ -75,11 +75,15 @@ class RolesYPermisosSeeder extends Seeder
         // ----------------------------------------
         $roles = [
             'super-admin',
-            'supervisor gestor',
-            'gestor',
+            'admin',
             'supervisor atc',
             'atc',
-            //'cliente',
+            'supervisor backoffice',
+            'backoffice',
+            'supervisor legal',
+            'legal',
+            'supervisor archivo',
+            'archivo',
         ];
 
         foreach ($roles as $rol) {
@@ -88,8 +92,8 @@ class RolesYPermisosSeeder extends Seeder
 
         // Obtener instancias
         $superAdmin = Role::findByName('super-admin');
-        $supervisorGestor = Role::findByName('supervisor gestor');
-        $gestor = Role::findByName('gestor');
+        $supervisorArchivo = Role::findByName('supervisor archivo');
+        $archivo = Role::findByName('archivo');
         $supervisorAtc = Role::findByName('supervisor atc');
         $atc = Role::findByName('atc');
         //$cliente = Role::findByName('cliente');
@@ -99,7 +103,7 @@ class RolesYPermisosSeeder extends Seeder
         // ----------------------------------------
         $superAdmin->syncPermissions(Permission::all());
 
-        $supervisorGestor->givePermissionTo([
+        $supervisorArchivo->givePermissionTo([
             'estado-evidencia-pago-ver',
             'estado-evidencia-pago-crear',
             'estado-evidencia-pago-editar',
@@ -108,7 +112,7 @@ class RolesYPermisosSeeder extends Seeder
             'evidencia-pago-validar',
         ]);
 
-        $gestor->givePermissionTo([
+        $archivo->givePermissionTo([
             'evidencia-pago-ver',
             'evidencia-pago-crear',
             'evidencia-pago-editar',

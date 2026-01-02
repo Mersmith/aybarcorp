@@ -75,14 +75,14 @@ class ReporteCitaLivewire extends Component
 
     private function loadRankingUsuarios()
     {
-        $data = Cita::select('usuario_cierra_id', DB::raw('count(*) as total'))
-            ->whereNotNull('usuario_cierra_id')
-            ->groupBy('usuario_cierra_id')
+        $data = Cita::select('usuario_atiende_id', DB::raw('count(*) as total'))
+            ->whereNotNull('usuario_atiende_id')
+            ->groupBy('usuario_atiende_id')
             ->orderByDesc('total')
             ->take(5)->get();
 
         $this->rankingUsuarios = [
-            'labels' => $data->map(fn($i) => User::find($i->usuario_cierra_id)?->name ?? "Usuario"),
+            'labels' => $data->map(fn($i) => User::find($i->usuario_atiende_id)?->name ?? "Usuario"),
             'data'   => $data->pluck('total'),
         ];
     }

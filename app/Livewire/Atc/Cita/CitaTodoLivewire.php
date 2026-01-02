@@ -98,7 +98,7 @@ class CitaTodoLivewire extends Component
             ->when($this->proyecto_id, fn($q) => $q->where('proyecto_id', $this->proyecto_id))
             ->when($this->sede_id, fn($q) => $q->where('sede_id', $this->sede_id))
             ->when($this->motivo_cita_id, fn($q) => $q->where('motivo_cita_id', $this->motivo_cita_id))
-            ->when($this->admin, fn($q) => $q->where('usuario_solicita_id', $this->admin))
+            ->when($this->admin, fn($q) => $q->where('usuario_crea_id', $this->admin))
             ->when($this->estado_cita_id, fn($q) => $q->where('estado_cita_id', $this->estado_cita_id))
 
             ->when(

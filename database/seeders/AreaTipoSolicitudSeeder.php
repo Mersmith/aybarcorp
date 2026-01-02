@@ -4,31 +4,31 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Area;
-use App\Models\TipoSolicitud;
 
 class AreaTipoSolicitudSeeder extends Seeder
 {
     public function run(): void
     {
-        $areas = Area::pluck('id')->toArray();
-        $tipos = TipoSolicitud::pluck('id')->toArray();
+        $data = [
+            ['area_id' => 1, 'tipo_solicitud_id' => 1],
+            ['area_id' => 1, 'tipo_solicitud_id' => 2],
+            ['area_id' => 1, 'tipo_solicitud_id' => 3],
+            ['area_id' => 1, 'tipo_solicitud_id' => 4],
+            ['area_id' => 1, 'tipo_solicitud_id' => 5],
+            ['area_id' => 1, 'tipo_solicitud_id' => 6],
+            ['area_id' => 1, 'tipo_solicitud_id' => 7],
+            ['area_id' => 1, 'tipo_solicitud_id' => 8],
+            ['area_id' => 1, 'tipo_solicitud_id' => 9],
+            ['area_id' => 2, 'tipo_solicitud_id' => 10],
+            ['area_id' => 2, 'tipo_solicitud_id' => 11],
+            ['area_id' => 2, 'tipo_solicitud_id' => 12],
+            ['area_id' => 3, 'tipo_solicitud_id' => 13],
+            ['area_id' => 3, 'tipo_solicitud_id' => 14],
+            ['area_id' => 4, 'tipo_solicitud_id' => 15],
+            ['area_id' => 4, 'tipo_solicitud_id' => 16],
+            ['area_id' => 4, 'tipo_solicitud_id' => 17],
+        ];
 
-        foreach ($areas as $areaId) {
-
-            // Seleccionar entre 1 y N tipos de solicitud aleatorios
-            $cantidad = rand(1, min(7, count($tipos)));
-
-            $tiposAleatorios = collect($tipos)->random($cantidad);
-
-            foreach ($tiposAleatorios as $tipoId) {
-                DB::table('area_tipo_solicitud')->insert([
-                    'area_id' => $areaId,
-                    'tipo_solicitud_id' => $tipoId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
-        }
+        DB::table('area_tipo_solicitud')->insert($data);
     }
 }

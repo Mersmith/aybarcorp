@@ -18,7 +18,17 @@
     </div>
 
     <div class="g_panel">
-        <div class="tabla_cabecera">     
+        <div class="tabla_cabecera">
+            <div class="tabla_cabecera_botones">
+                <button class="g_boton g_boton_pdf">
+                    PDF <i class="fa-solid fa-file-pdf"></i>
+                </button>
+
+                <button class="g_boton g_boton_excel">
+                    EXCEL <i class="fa-regular fa-file-excel"></i>
+                </button>
+            </div>
+
             <div class="tabla_cabecera_buscar">
                 <form action="">
                     <input type="text" wire:model.live.debounce.1300ms="buscar" id="buscar" name="buscar"
@@ -27,7 +37,7 @@
                 </form>
             </div>
         </div>
-
+        
         <div class="tabla_contenido">
             <div class="contenedor_tabla">
                 <table class="tabla">
@@ -41,36 +51,36 @@
                     </thead>
 
                     @if ($items->count())
-                    <tbody>
-                        @foreach ($items as $index => $item)
-                        <tr>
-                            <td>{{ $items->firstItem() + $index }}</td>
-                            <td class="g_resaltar">{{ $item->name }}</td>
-                            <td class="g_resaltar">{{ $item->created_at }}</td>
-                            <td class="centrar_iconos">
-                                <a href="{{ route('admin.rol.vista.editar', $item) }}" class="g_accion_editar">
-                                    <span><i class="fa-solid fa-pencil"></i></span>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                        <tbody>
+                            @foreach ($items as $index => $item)
+                                <tr>
+                                    <td>{{ $items->firstItem() + $index }}</td>
+                                    <td class="g_resaltar">{{ $item->name }}</td>
+                                    <td class="g_resaltar">{{ $item->created_at }}</td>
+                                    <td class="centrar_iconos">
+                                        <a href="{{ route('admin.rol.vista.editar', $item) }}" class="g_accion_editar">
+                                            <span><i class="fa-solid fa-pencil"></i></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     @endif
                 </table>
             </div>
         </div>
 
         @if ($items->hasPages())
-        <div class="g_paginacion">
-            {{ $items->links('vendor.pagination.default-livewire') }}
-        </div>
+            <div class="g_paginacion">
+                {{ $items->links('vendor.pagination.default-livewire') }}
+            </div>
         @endif
 
         @if ($items->count() == 0)
-        <div class="g_vacio">
-            <p>No hay items disponibles.</p>
-            <i class="fa-regular fa-face-grin-wink"></i>
-        </div>
+            <div class="g_vacio">
+                <p>No hay items disponibles.</p>
+                <i class="fa-regular fa-face-grin-wink"></i>
+            </div>
         @endif
 
     </div>

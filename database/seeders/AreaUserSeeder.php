@@ -4,31 +4,37 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use App\Models\Area;
 
 class AreaUserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Obtener todas las áreas
-        $areas = Area::pluck('id')->toArray();
+        for ($userId = 5; $userId <= 19; $userId++) {
+            DB::table('area_user')->insert([
+                'area_id' => 1,
+                'user_id' => $userId,
+            ]);
+        }
 
-        // Obtener solo usuarios admin
-        $admins = User::where('rol', 'admin')->pluck('id')->toArray();
+        for ($userId = 20; $userId <= 36; $userId++) {
+            DB::table('area_user')->insert([
+                'area_id' => 2,
+                'user_id' => $userId,
+            ]);
+        }
 
-        foreach ($admins as $adminId) {
-            // Elegir entre 1 y 3 áreas aleatorias
-            $areasAsignadas = collect($areas)->random(rand(1, min(6, count($areas))));
+        for ($userId = 37; $userId <= 47; $userId++) {
+            DB::table('area_user')->insert([
+                'area_id' => 3,
+                'user_id' => $userId,
+            ]);
+        }
 
-            foreach ($areasAsignadas as $areaId) {
-                DB::table('area_user')->insert([
-                    'area_id' => $areaId,
-                    'user_id' => $adminId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
+        for ($userId = 48; $userId <= 52; $userId++) {
+            DB::table('area_user')->insert([
+                'area_id' => 4,
+                'user_id' => $userId,
+            ]);
         }
     }
 }

@@ -2,20 +2,20 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Ticket;
-use App\Models\User;
 use App\Models\Area;
-use App\Models\TipoSolicitud;
 use App\Models\Canal;
 use App\Models\EstadoTicket;
+use App\Models\Ticket;
+use App\Models\TipoSolicitud;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class TicketSeeder extends Seeder
 {
     public function run(): void
     {
         $clientes = User::where('rol', 'cliente')->pluck('id')->toArray();
-        $admins   = User::where('rol', 'admin')->pluck('id')->toArray();
+        //$admins   = User::where('rol', 'admin')->pluck('id')->toArray();
 
         $areas = Area::pluck('id')->toArray();
         $canales = Canal::pluck('id')->toArray();
@@ -49,28 +49,28 @@ class TicketSeeder extends Seeder
             $tipoId = $tipos ? fake()->randomElement($tipos) : TipoSolicitud::inRandomOrder()->value('id');
 
             Ticket::create([
-                'cliente_id'          => fake()->randomElement($clientes),
-                'area_id'             => $areaId,
-                'tipo_solicitud_id'   => $tipoId,
-                'canal_id'            => fake()->randomElement($canales),
-                'estado_ticket_id'    => fake()->randomElement($estados),
+                'cliente_id' => fake()->randomElement($clientes),
+                'area_id' => $areaId,
+                'tipo_solicitud_id' => $tipoId,
+                'canal_id' => fake()->randomElement($canales),
+                'estado_ticket_id' => fake()->randomElement($estados),
 
-                'prioridad_ticket_id'           => fake()->randomElement([1, 2, 3]),
+                'prioridad_ticket_id' => fake()->randomElement([1, 2, 3]),
 
-                'usuario_asignado_id' => fake()->randomElement($admins),
+                'usuario_asignado_id' => fake()->numberBetween(5, 19),
 
-                'asunto_inicial'      => fake()->randomElement($asuntos),
+                'asunto_inicial' => fake()->randomElement($asuntos),
                 'descripcion_inicial' => fake()->randomElement($descripciones),
 
-                'asunto'              => fake()->boolean(40) ? fake()->sentence() : null,
-                'descripcion'         => fake()->boolean(40) ? fake()->paragraph() : null,
+                'asunto' => fake()->boolean(40) ? fake()->sentence() : null,
+                'descripcion' => fake()->boolean(40) ? fake()->paragraph() : null,
 
                 'lotes' => [
                     [
                         "razon_social" => fake()->company(),
-                        "proyecto"  => fake()->sentence(4),
-                        "numero_lote"   => rand(1, 50),
-                    ]
+                        "proyecto" => fake()->sentence(4),
+                        "numero_lote" => rand(1, 50),
+                    ],
                 ],
 
                 'created_at' => now(),

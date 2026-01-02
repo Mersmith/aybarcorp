@@ -20,8 +20,8 @@ return new class extends Migration
 
             $table->foreignId('ticket_id')->nullable()->constrained('tickets')->nullOnDelete();
 
-            $table->foreignId('usuario_solicita_id')->constrained('users')->onDelete('cascade'); //quien crea
-            $table->foreignId('usuario_cierra_id')->nullable()->constrained('users')->nullOnDelete(); //quien atiende al cliente
+            $table->foreignId('usuario_crea_id')->constrained('users')->onDelete('cascade'); //quien crea
+            $table->foreignId('usuario_atiende_id')->nullable()->constrained('users')->nullOnDelete(); //quien atiende al cliente
 
             $table->foreignId('sede_id')->nullable()->constrained('sedes')->nullOnDelete();
 
