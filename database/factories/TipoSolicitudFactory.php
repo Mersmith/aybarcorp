@@ -17,7 +17,7 @@ class TipoSolicitudFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'activo' => true,
         ];
     }
 }

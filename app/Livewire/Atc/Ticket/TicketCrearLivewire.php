@@ -117,8 +117,8 @@ class TicketCrearLivewire extends Component
     {
         $this->validate();
 
-        $estadoAbiertoId = EstadoTicket::where('nombre', 'Nuevo')->value('id');
-
+        $estadoAbiertoId = EstadoTicket::orderBy('id')->value('id');
+        
         $ticket = Ticket::create([
             'ticket_padre_id' => $this->ticketPadreId,
 

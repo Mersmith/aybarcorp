@@ -5,7 +5,8 @@
     <div class="g_panel cabecera_titulo_pagina">
         <h2>Crear cita
             @if ($ticketId)
-                asociado al ticket #{{ $ticketId }}
+                asociado al ticket 
+                <a href="{{ route('admin.ticket.vista.editar', $ticketId) }}">#{{ $ticketId }}</a>                
             @endif
         </h2>
 

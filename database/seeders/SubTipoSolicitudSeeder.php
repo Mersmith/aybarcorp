@@ -76,7 +76,7 @@ class SubTipoSolicitudSeeder extends Seeder
         ];
 
         foreach ($nombres_1 as $nombre) {
-            SubTipoSolicitud::create($nombre);
+            SubTipoSolicitud::factory()->create($nombre);
         }
 
     }

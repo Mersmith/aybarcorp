@@ -132,7 +132,7 @@
                             <td>{{ $d->created_at->format('d/m/Y H:i') }}</td>
                             <td>{{ $d->deArea->nombre ?? 'Sin asignar' }}</td>
                             <td>{{ $d->aArea->nombre ?? 'Sin asignar' }}</td>
-                            <td>{{ $d->usuarioDeriva->name ?? ($d->usuarioRecibe->name ?? 'Sistema') }}</td>
+                            <td>{{ $d->usuarioRecibe->name ?? ($d->usuarioRecibe->name ?? 'Sistema') }}</td>
                         </tr>
                         @empty
                         <tr>

@@ -4,7 +4,11 @@
 <div class="g_gap_pagina">
 
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Editar cita</h2>
+        <h2>Editar cita @if ($ticket)
+                asociado al ticket
+                <a href="{{ route('admin.ticket.vista.editar', $ticket->id) }}">#{{ $ticket->id }}</a>
+            @endif
+        </h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.cita.vista.todo') }}" class="g_boton g_boton_light">
