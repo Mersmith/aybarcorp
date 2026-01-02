@@ -34,8 +34,8 @@ class DireccionEditarLivewire extends Component
     protected function rules()
     {
         return [
-            'recibe_nombres'   => 'required|string',
-            'recibe_celular'   => 'required|string',
+            'recibe_nombres'   => 'nullable|string',
+            'recibe_celular'   => 'nullable|string',
             'region_id'        => 'required|integer',
             'provincia_id'     => 'required|integer',
             'distrito_id'      => 'required|integer',

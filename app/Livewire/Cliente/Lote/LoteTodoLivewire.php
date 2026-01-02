@@ -27,6 +27,11 @@ class LoteTodoLivewire extends Component
 
     public function mount(SlinService $slinService)
     {
+        if (auth()->user()->necesitaActualizarDatosPersonales() || auth()->user()->necesitaActualizarDirecciones()) {
+            session()->flash('error', 'Necesitas actualizar tu celular y dirección!');
+            return;
+        }
+
         $dni = Auth::user()->cliente->dni;
 
         $cliente = Http::get("https://aybarcorp.com/slin/cliente/{$dni}")->json();

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('direccions', function (Blueprint $table) {
             $table->id();
-            
+
             $table->unsignedBigInteger('user_id');
-            $table->string('recibe_nombres');
-            $table->string('recibe_celular');
+            $table->string('recibe_nombres')->nullable();
+            $table->string('recibe_celular')->nullable();
 
             $table->unsignedBigInteger('region_id');
             $table->unsignedBigInteger('provincia_id');

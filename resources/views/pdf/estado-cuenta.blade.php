@@ -95,10 +95,10 @@
 
     <tr>
         <th>Ult. Edición</th>
-        <td>S/ {{ $estado_cuenta['UltimaEdicion'] ?? '-' }}</td>
+        <td>{{ $estado_cuenta['UltimaEdicion'] ?? '-' }}</td>
 
         <th>N° Cuotas pend..</th>
-        <td>S/ {{ $estado_cuenta['NroCuotasPendiente'] ?? '-' }}</td>
+        <td>{{ $estado_cuenta['NroCuotasPendiente'] ?? '-' }}</td>
     </tr>
 </table>
 

@@ -5,9 +5,9 @@ namespace App\Imports;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use App\Models\ComprobantePagoAntiguo;
+use App\Models\EvidenciaPagoAntiguo;
 
-class ComprobantePagoAntiguoImport implements ToCollection, WithHeadingRow
+class EvidenciaPagoAntiguoImport implements ToCollection, WithHeadingRow
 {
     /**
      * @param Collection $collection
@@ -21,7 +21,7 @@ class ComprobantePagoAntiguoImport implements ToCollection, WithHeadingRow
                 continue;
             }
 
-            ComprobantePagoAntiguo::create([
+            EvidenciaPagoAntiguo::create([
                 'imagen_url'           => $row['imagen_url'],
                 'fecha_deposito'       => $this->parseFecha($row['fecha_deposito'] ?? null),
                 'union'                => $row['union'] ?? null,
@@ -46,7 +46,7 @@ class ComprobantePagoAntiguoImport implements ToCollection, WithHeadingRow
                 'gestor_id'      => $row['gestor_id'] ?? null,
                 'fecha_registro'  => $this->parseFecha($row['fecha_registro'] ?? null),
                 'observacion'          => $row['observacion'] ?? null,
-                'validador_id'  => $row['validador_id'] ?? null,
+                'usuario_valida_id'  => $row['usuario_valida_id'] ?? null,
                 'validador' => $row['validador'] ?? null,
                 'fecha_validacion'  => $this->parseFecha($row['fecha_validacion'] ?? null),
             ]);

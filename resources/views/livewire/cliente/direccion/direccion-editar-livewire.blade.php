@@ -12,7 +12,7 @@
 
     <div class="formulario">
         <div class="g_fila">
-            <div class="g_margin_top_20 g_columna_6">
+            {{--<div class="g_margin_top_20 g_columna_6">
                 <label for="recibe_nombres">Nombres de quién recibe <span class="obligatorio"><i
                             class="fa-solid fa-asterisk"></i></span></label>
                 <input type="text" wire:model.live="recibe_nombres" id="recibe_nombres" name="recibe_nombres">
@@ -28,7 +28,7 @@
                 @error('recibe_celular')
                 <span class="mensaje_error">{{ $message }}</span>
                 @enderror
-            </div>
+            </div>--}}
         </div>
 
         <div class="g_fila">
@@ -117,9 +117,9 @@
 
         <div class="g_fila">
             <div class="g_margin_top_20 g_columna_12">
-                <label for="instrucciones">Instrucción para la entrega</label>
+                <label for="instrucciones">Referencia de la ubicación</label>
                 <textarea id="instrucciones" name="instrucciones" wire:model.live="instrucciones" rows="3"
-                    placeholder="Detalle para el delivery o entrega de..."></textarea>
+                    placeholder="Referencia..."></textarea>
                 @error('instrucciones')
                 <span class="mensaje_error">{{ $message }}</span>
                 @enderror

@@ -28,7 +28,6 @@ return new class extends Migration
             $table->date('fecha')->nullable();
 
             $table->text('observacion')->nullable();
-
             $table->foreignId('estado_evidencia_pago_id')->default(1)->constrained('estado_evidencia_pagos')->onDelete('restrict');
 
             $table->string('codigo_cliente')->nullable();
@@ -39,11 +38,6 @@ return new class extends Migration
             $table->string('lote')->nullable();
             $table->string('codigo_cuota')->nullable();
             $table->string('numero_cuota')->nullable();
-
-            //DB ANTIGUO
-            $table->string('dni')->nullable();
-            $table->string('nombres')->nullable();
-            $table->string('origen')->nullable(); //antiguo:clientes_2 o slin
 
             //SUPERVISOR
             $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
