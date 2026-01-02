@@ -44,8 +44,8 @@ return new class extends Migration
             $table->string('lote')->nullable();
             $table->string('numero_cuota')->nullable();
 
-            $table->string('gestor')->nullable();
             $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('gestor')->nullable();
             $table->date('fecha_registro')->nullable();
 
             //SUPERVISOR

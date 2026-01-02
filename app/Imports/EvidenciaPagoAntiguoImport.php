@@ -22,10 +22,12 @@ class EvidenciaPagoAntiguoImport implements ToCollection, WithHeadingRow
             }
 
             EvidenciaPagoAntiguo::create([
+                'id'           => $row['id'],
                 'imagen_url'           => $row['imagen_url'],
                 'fecha_deposito'       => $this->parseFecha($row['fecha_deposito'] ?? null),
                 'union'                => $row['union'] ?? null,
                 'codigo_cliente'       => $row['codigo_cliente'] ?? null,
+                'proyecto_id'             => $row['proyecto_id'] ?? null,
                 'proyecto_nombre'             => $row['proyecto'] ?? null,
                 'etapa'                => $row['etapa'] ?? null,
                 'lote'                 => $row['lote'] ?? null,
@@ -39,11 +41,13 @@ class EvidenciaPagoAntiguoImport implements ToCollection, WithHeadingRow
                 'nombre_archivo'       => $row['nombre_archivo'] ?? null,
                 'numero_cuota'              => $row['numero_cuota'] ?? null,
                 'moneda'               => $row['moneda'] ?? null,
+                'unidad_negocio_id'         => $row['unidad_negocio_id'] ?? null,
                 'razon_social'         => $row['razon_social'] ?? null,
                 'medio_pago'           => $row['medio_pago'] ?? null,
+                'estado_evidencia_pago_id'      => $row['estado_evidencia_pago_id'] ?? null,
                 'estado_registro'      => $row['estado_registro'] ?? null,
-                'gestor'      => $row['gestor'] ?? null,
                 'gestor_id'      => $row['gestor_id'] ?? null,
+                'gestor'      => $row['gestor'] ?? null,
                 'fecha_registro'  => $this->parseFecha($row['fecha_registro'] ?? null),
                 'observacion'          => $row['observacion'] ?? null,
                 'usuario_valida_id'  => $row['usuario_valida_id'] ?? null,
