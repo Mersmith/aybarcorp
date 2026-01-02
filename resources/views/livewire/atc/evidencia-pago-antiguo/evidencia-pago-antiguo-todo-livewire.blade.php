@@ -1,4 +1,4 @@
-@section('tituloPagina', 'Evidencias pago')
+@section('tituloPagina', 'Evidencias pago antiguo')
 
 @section('anchoPantalla', '100%')
 
@@ -64,7 +64,7 @@
                             <th>Id</th>
                             <th>Razón S.</th>
                             <th>Proyecto</th>
-                            <th>Mz.</th>
+                            <th>Etapa</th>
                             <th>Lt.</th>
                             <th>N° Cuota</th>
                             <th>Imagen</th>
@@ -86,7 +86,7 @@
                             <td> {{ $index + 1 }} </td>
                             <td class="g_resumir">{{ $item->unidadNegocio?->nombre }}</td>
                             <td class="g_resumir">{{ $item->proyecto?->nombre }}</td>
-                            <td class="g_resumir">{{ $item->manzana }}</td>
+                            <td class="g_resumir">{{ $item->etapa }}</td>
                             <td class="g_resumir">{{ $item->lote }}</td>
                             <td class="g_resumir">{{ $item->numero_cuota }}</td>
                             <td>
@@ -100,18 +100,18 @@
                                 @endif
                             </td>
                             <td class="g_negrita g_resumir">{{ $item->nombres_cliente }}</td>
-                            <td>{{ $item->codigo_cliente }}</td>
-                            <td>{{ $item->numero_operacion }}</td>
+                            <td>{{ $item->dni_cliente }}</td>
+                            <td>{{ $item->operacion_numero }}</td>
                             <td>{{ $item->banco }}</td>
                             <td>{{ $item->monto}}</td>
-                            <td>{{ $item->fecha}}</td>
+                            <td>{{ $item->fecha_deposito}}</td>
                             <td>
                                 <span style="color: {{ $item->estado->color }};">
                                     <i class="{{ $item->estado->icono }}"></i> {{$item->estado->nombre }}
                                 </span>
                             </td>
                             <td class="centrar_iconos">
-                                <a href="{{ route('admin.evidencia-pago.vista.editar', $item->id) }}"
+                                <a href="{{ route('admin.evidencia-pago-antiguo.vista.editar', $item->id) }}"
                                     class="g_accion_editar">
                                     <span><i class="fa-solid fa-pencil"></i></span>
                                 </a>

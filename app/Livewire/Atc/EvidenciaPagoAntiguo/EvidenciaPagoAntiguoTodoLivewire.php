@@ -60,7 +60,6 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
         $this->resetPage();
     }
 
-
     public function render()
     {
         $evidencias = EvidenciaPagoAntiguo::query()
@@ -78,8 +77,6 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
             ->when($this->proyecto_id, fn($q) => $q->where('proyecto_id', $this->proyecto_id))
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
-
-        //dd($evidencias);
 
         return view('livewire.atc.evidencia-pago-antiguo.evidencia-pago-antiguo-todo-livewire', compact('evidencias'));
     }
