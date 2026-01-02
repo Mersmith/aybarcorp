@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Admin\User;
 
+use App\Exports\AdminsExport;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 #[Layout('layouts.admin.layout-admin')]
 class UserTodoLivewire extends Component
@@ -27,6 +29,18 @@ class UserTodoLivewire extends Component
 
         $this->perPage = 20;
         $this->resetPage();
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new AdminsExport(
+                $this->buscar,
+                $this->perPage,
+                $this->getPage()
+            ),
+            'admins.xlsx'
+        );
     }
 
     public function render()
