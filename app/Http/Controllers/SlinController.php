@@ -19,7 +19,7 @@ class SlinController extends Controller
     {
         $this->baseUrl = 'https://cloudapp.slin.com.pe:7444/activity/v1/api/aybar'; //cliente y lotes
         $this->baseUrlCronograma = 'https://cloudapp.slin.com.pe:7444/activity/api/v1/aybarweb/cronograma';
-        $this->baseUrlEstadoCuenta =  'https://cloudapp.slin.com.pe:7444/activity/api/v1/aybarweb/estadocuenta';
+        $this->baseUrlEstadoCuenta = 'https://cloudapp.slin.com.pe:7444/activity/api/v1/aybarweb/estadocuenta';
         $this->baseUrlComprobante = 'https://prod.slin-ade.pe:8443/Utilidades/api/v1/aybarcorp/GetComprobantesBase64';
         $this->remoteBase = 'https://aybarcorp.com/slin';
 
@@ -70,17 +70,17 @@ class SlinController extends Controller
     public function getCuotas(Request $request)
     {
         $request->validate([
-            'empresa'  => 'required|string',
-            'lote'     => 'required|string',
-            'cliente'  => 'required|string',
+            'empresa' => 'required|string',
+            'lote' => 'required|string',
+            'cliente' => 'required|string',
             'contrato' => 'nullable|string',
             'servicio' => 'required|string',
         ]);
 
         $params = [
-            'empresa'  => $request->empresa,
-            'lote'     => $request->lote,
-            'cliente'  => $request->cliente,
+            'empresa' => $request->empresa,
+            'lote' => $request->lote,
+            'cliente' => $request->cliente,
             'contrato' => $request->contrato ?? '',
             'servicio' => $request->servicio,
         ];
@@ -92,7 +92,7 @@ class SlinController extends Controller
 
         if ($response->failed()) {
             return response()->json([
-                'error'  => true,
+                'error' => true,
                 'status' => $response->status(),
                 'detail' => $response->body(),
             ], 502);
@@ -104,17 +104,17 @@ class SlinController extends Controller
     public function getEstadoCuenta(Request $request)
     {
         $request->validate([
-            'empresa'  => 'required|string',
-            'lote'     => 'required|string',
-            'cliente'  => 'required|string',
+            'empresa' => 'required|string',
+            'lote' => 'required|string',
+            'cliente' => 'required|string',
             'contrato' => 'nullable|string',
             'servicio' => 'required|string',
         ]);
 
         $params = [
-            'empresa'  => $request->empresa,
-            'lote'     => $request->lote,
-            'cliente'  => $request->cliente,
+            'empresa' => $request->empresa,
+            'lote' => $request->lote,
+            'cliente' => $request->cliente,
             'contrato' => $request->contrato ?? '',
             'servicio' => $request->servicio,
         ];
@@ -126,7 +126,7 @@ class SlinController extends Controller
 
         if ($response->failed()) {
             return response()->json([
-                'error'  => true,
+                'error' => true,
                 'status' => $response->status(),
                 'detail' => $response->body(),
             ], 502);
@@ -135,10 +135,109 @@ class SlinController extends Controller
         return response()->json($response->json());
     }
 
+    public function getCuotaEstadoCuenta(Request $request)
+    {
+        $request->validate([
+            'empresa' => 'required|string',
+            'lote' => 'required|string',
+            'cliente' => 'required|string',
+            'contrato' => 'nullable|string',
+            'servicio' => 'required|string',
+        ]);
+
+        $params = [
+            'empresa' => $request->empresa,
+            'lote' => $request->lote,
+            'cliente' => $request->cliente,
+            'contrato' => $request->contrato ?? '',
+            'servicio' => $request->servicio,
+        ];
+
+        $lote = $params['lote'];
+
+        /* ===============================
+         * CRONOGRAMA
+         * =============================== */
+        $cronogramaResp = Http::withBasicAuth($this->user, $this->password)
+            ->acceptJson()
+            ->timeout(15)
+            ->get($this->baseUrlCronograma, $params);
+
+        if ($cronogramaResp->failed()) {
+            return response()->json([
+                'error' => true,
+                'origen' => 'cronograma',
+                'status' => $cronogramaResp->status(),
+                'detail' => $cronogramaResp->body(),
+            ], 502);
+        }
+
+        $cronograma = $cronogramaResp->json();
+
+        $cronogramaCuotas = collect($cronograma['detalle_cuotas'] ?? [])
+            ->keyBy('NroCuota');
+
+        /* ===============================
+         * ESTADO DE CUENTA
+         * =============================== */
+        $estadoResp = Http::withBasicAuth($this->user, $this->password)
+            ->acceptJson()
+            ->timeout(15)
+            ->get($this->baseUrlEstadoCuenta, $params);
+
+        if ($estadoResp->failed()) {
+            return response()->json([
+                'error' => true,
+                'origen' => 'estado_cuenta',
+                'status' => $estadoResp->status(),
+                'detail' => $estadoResp->body(),
+            ], 502);
+        }
+
+        $estadoCuentaApi = $estadoResp->json();
+
+        /* ===============================
+         * UNIFICACIÓN DE CUOTAS
+         * =============================== */
+        $cuotasUnificadas = collect($estadoCuentaApi['Cuotas'] ?? [])
+            ->map(function ($cuota) use ($cronogramaCuotas, $lote) {
+
+                $nroCuota = $cuota['NroCuota'];
+                $cronograma = $cronogramaCuotas->get($nroCuota);
+
+                return array_merge($cuota, [
+                    'idCuota' => "{$lote}-{$nroCuota}",
+                    'saldo_cronograma' => $cronograma['saldo'] ?? null,
+                    'monto_cronograma' => $cronograma['Montocuota'] ?? null,
+                    'codigo_cronograma' => $cronograma['codigo'] ?? null,
+                ]);
+            })
+            ->values();
+
+        /* ===============================
+         * ESTRUCTURA FINAL
+         * =============================== */
+
+        // Mantener cabecera original del estado de cuenta
+        $unificado = $estadoCuentaApi;
+
+        // Agregar datos financieros reales desde cronograma
+        $unificado['importe_financiado']
+        = $cronograma['datos_cabecera']['importe_financiado'] ?? null;
+
+        $unificado['importe_amortizado']
+        = $cronograma['datos_cabecera']['importe_amortizado'] ?? null;
+
+        // Reemplazar cuotas por versión unificada
+        $unificado['Cuotas'] = $cuotasUnificadas;
+
+        return response()->json($unificado);
+    }
+
     public function getComprobante(Request $request)
     {
         $data = $request->validate([
-            'empresa'     => 'required|string',
+            'empresa' => 'required|string',
             'comprobante' => 'required|string',
         ]);
 
@@ -157,9 +256,9 @@ class SlinController extends Controller
 
             if ($response->failed()) {
                 return response()->json([
-                    'error'   => true,
+                    'error' => true,
                     'message' => 'Error consultando comprobante en SLIN',
-                    'status'  => $response->status(),
+                    'status' => $response->status(),
                     'details' => $response->body(),
                 ], 502);
             }
@@ -171,7 +270,7 @@ class SlinController extends Controller
             ]);
 
             return response()->json([
-                'error'   => true,
+                'error' => true,
                 'message' => 'Error interno del servidor',
             ], 500);
         }
@@ -213,20 +312,6 @@ class SlinController extends Controller
         return $response->json();
     }
 
-    /*public function probarCuotas()
-    {
-        $params = [
-            "id_empresa" => "019",
-            "id_cliente" => "C00896",
-            "id_proyecto" => "005",
-            "id_etapa" => "01",
-            "id_manzana" => "F",
-            "id_lote" => "28.R",
-        ];
-        $response = Http::get("{$this->remoteBase}/cuotas", $params);
-        return $response->json();
-    }*/
-
     public function probarEstadoCuenta()
     {
         $params = [
@@ -239,6 +324,32 @@ class SlinController extends Controller
 
         $response = Http::acceptJson()
             ->get("{$this->remoteBase}/estado-cuenta", $params);
+
+        if ($response->failed()) {
+            return response()->json([
+                'status' => $response->status(),
+                'error' => $response->body(),
+            ]);
+        }
+
+        return response()->json([
+            'status' => $response->status(),
+            'data' => $response->json(),
+        ]);
+    }
+
+    public function probarCuotaEstadoCuenta()
+    {
+        $params = [
+            'empresa' => '014',
+            'lote' => '00101-A-0001', //proyecto/etapa-manza-lote
+            'cliente' => 'C10838',
+            'contrato' => '', //opcional//si es null, porque fue migrado
+            'servicio' => '02', //default, solo para cuotas
+        ];
+
+        $response = Http::acceptJson()
+            ->get("{$this->remoteBase}/cuota-estado-cuenta", $params);
 
         if ($response->failed()) {
             return response()->json([
@@ -276,7 +387,6 @@ class SlinController extends Controller
         ]);
     }
 }
-
 
 /// guiarse del   "saldo": "11,835.48",
 // si saldo es 0, es pagado

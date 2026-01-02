@@ -20,5 +20,5 @@ php artisan make:livewire Cliente/Lote/LoteTodoLivewire
 
 php artisan make:livewire Cliente/Cronograma/CronogramaVerLivewire
 php artisan make:livewire Cliente/EstadoCuenta/EstadoCuentaVerLivewire
-
+php artisan make:livewire Cliente/CronogramaEstadoCuenta/CronogramaEstadoCuentaVerLivewire
 

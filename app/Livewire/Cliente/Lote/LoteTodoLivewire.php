@@ -21,8 +21,9 @@ class LoteTodoLivewire extends Component
 
     public $cronograma = [];
     public $estado_cuenta = [];
+    public $cronograma_estado_cuenta = [];
 
-    public ?string $vista = null; // 'cronograma' | 'estado_cuenta'
+    public ?string $vista = null; // 'cronograma' | 'estado_cuenta' | 'cronograma_estado_cuenta'
 
     public function mount(SlinService $slinService)
     {
@@ -130,11 +131,37 @@ class LoteTodoLivewire extends Component
         $this->estado_cuenta = $estado_cuenta;
     }
 
+    public function verCronogramaEstadoCuenta(array $lote, SlinService $slinService)
+    {
+        $this->lote_select = $lote;
+        $this->vista = 'cronograma_estado_cuenta';
+
+        $params = [
+            'empresa' => $this->lote_select['id_empresa'],
+            'lote' => $this->lote_select['id_proyecto'] . '' . $this->lote_select['id_etapa'] . '-' . $this->lote_select['id_manzana'] . '-' . $this->lote_select['id_lote'],
+            'cliente' => $this->lote_select['id_cliente'],
+            'contrato' => $this->lote_select['contrato'] ?? '',
+            'servicio' => $this->lote_select['servicio'] ?? '02',
+        ];
+
+        $response = Http::get('https://aybarcorp.com/slin/estado-cuenta', $params);
+        $cronograma_estado_cuenta = $response->successful() ? $response->json() : null;
+
+        if (empty($cronograma_estado_cuenta)) {
+            $this->cronograma_estado_cuenta = [];
+            session()->flash('error', 'Inténtelo más tarde, por favor.');
+            return;
+        }
+
+        $this->cronograma_estado_cuenta = $cronograma_estado_cuenta;
+    }
+
     public function cerrarVista()
     {
         $this->lote_select = null;
         $this->cronograma = [];
         $this->estado_cuenta = [];
+        $this->cronograma_estado_cuenta = [];
         $this->vista = null;
     }
 
