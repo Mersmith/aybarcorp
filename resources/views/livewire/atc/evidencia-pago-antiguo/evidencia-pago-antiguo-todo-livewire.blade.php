@@ -84,14 +84,14 @@
                         @foreach ($evidencias as $index => $item)
                         <tr>
                             <td> {{ $index + 1 }} </td>
-                            <td class="g_resumir">{{ $item->unidadNegocio->nombre }}</td>
-                            <td class="g_resumir">{{ $item->proyecto->nombre }}</td>
+                            <td class="g_resumir">{{ $item->unidadNegocio?->nombre }}</td>
+                            <td class="g_resumir">{{ $item->proyecto?->nombre }}</td>
                             <td class="g_resumir">{{ $item->manzana }}</td>
                             <td class="g_resumir">{{ $item->lote }}</td>
                             <td class="g_resumir">{{ $item->numero_cuota }}</td>
                             <td>
-                                @if ($item->url)
-                                <a href="{{ $item->url }}" target="_blank" class="g_accion_editar"
+                                @if ($item->imagen_url)
+                                <a href="{{ $item->imagen_url }}" target="_blank" class="g_accion_editar"
                                     title="Ver evidencia">
                                     <i class="fa-regular fa-file-image fa-xl"></i>
                                 </a>
@@ -99,8 +99,8 @@
                                 <span class="g_texto_secundario">Sin imagen</span>
                                 @endif
                             </td>
-                            <td class="g_negrita g_resumir">{{ $item->cliente->user->name }}</td>
-                            <td>{{ $item->cliente->dni }}</td>
+                            <td class="g_negrita g_resumir">{{ $item->nombres_cliente }}</td>
+                            <td>{{ $item->codigo_cliente }}</td>
                             <td>{{ $item->numero_operacion }}</td>
                             <td>{{ $item->banco }}</td>
                             <td>{{ $item->monto}}</td>

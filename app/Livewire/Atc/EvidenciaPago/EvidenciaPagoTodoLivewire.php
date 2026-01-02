@@ -76,7 +76,7 @@ class EvidenciaPagoTodoLivewire extends Component
                 });
             })
             ->when($this->estado_id, function ($q) {
-                $q->where('estado_comprobante_pago_id', $this->estado_id);
+                $q->where('estado_evidencia_pago_id', $this->estado_id);
             })
             ->when($this->unidad_negocio_id, fn($q) => $q->where('unidad_negocio_id', $this->unidad_negocio_id))
             ->when($this->proyecto_id, fn($q) => $q->where('proyecto_id', $this->proyecto_id))

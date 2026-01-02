@@ -36,7 +36,7 @@ class EvidenciaPagoEditarLivewire extends Component
     public function mount($id)
     {
         $this->evidencia = EvidenciaPago::findOrFail($id);
-        $this->estado_id = $this->evidencia->estado_comprobante_pago_id;
+        $this->estado_id = $this->evidencia->estado_evidencia_pago_id;
         $this->observacion = $this->evidencia->observacion;
         $this->unidad_negocio_id = $this->evidencia->unidad_negocio_id;
         $this->proyecto_id = $this->evidencia->proyecto_id;
@@ -67,7 +67,7 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->validate();
 
         $this->evidencia->update([
-            'estado_comprobante_pago_id' => $this->estado_id,
+            'estado_evidencia_pago_id' => $this->estado_id,
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'proyecto_id' => $this->proyecto_id,
         ]);

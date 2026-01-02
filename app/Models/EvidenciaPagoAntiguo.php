@@ -36,7 +36,7 @@ class EvidenciaPagoAntiguo extends Model
         'estado_registro',
 
         'codigo_cliente',
-        'cliente',
+        'nombres_cliente',
         'razon_social',
         'proyecto',
         'etapa',
@@ -68,7 +68,7 @@ class EvidenciaPagoAntiguo extends Model
 
     public function unidadNegocio()
     {
-        return $this->belongsTo(UnidadNegocio::class);
+        return $this->belongsTo(UnidadNegocio::class, 'unidad_negocio_id');
     }
 
     public function proyecto()
@@ -78,7 +78,7 @@ class EvidenciaPagoAntiguo extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
+        return $this->belongsTo(User::class, 'cliente_id');
     }
 
     public function estado()

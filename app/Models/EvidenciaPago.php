@@ -63,7 +63,7 @@ class EvidenciaPago extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
+        return $this->belongsTo(User::class, 'cliente_id');
     }
 
     public function estado()

@@ -37,9 +37,9 @@ return new class extends Migration
             $table->string('estado_registro')->default('PENDIENTE');
 
             $table->string('codigo_cliente')->nullable();
-            $table->string('cliente')->nullable();
+            $table->string('nombres_cliente')->nullable();
             $table->string('razon_social')->nullable();
-            $table->string('proyecto')->nullable();
+            $table->string('proyecto_nombre')->nullable();
             $table->string('etapa')->nullable();
             $table->string('lote')->nullable();
             $table->string('numero_cuota')->nullable();

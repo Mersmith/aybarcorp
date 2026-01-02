@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Atc\EvidenciaPagoAntiguo;
 
-use App\Models\EvidenciaPago;
 use App\Models\EstadoEvidenciaPago;
+use App\Models\EvidenciaPagoAntiguo;
 use App\Models\Proyecto;
 use App\Models\UnidadNegocio;
 use Livewire\Attributes\Layout;
@@ -63,26 +63,23 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
 
     public function render()
     {
-        $evidencias = EvidenciaPago::query()
-            ->with(['cliente.user', 'estado'])
-            ->when($this->buscar, function ($q) {
-                $q->where(function ($sub) {
-                    $sub->where('id', 'like', "%{$this->buscar}%")
-                        ->orWhereHas('cliente.user', function ($sub2) {
-                            $sub2->where('name', 'like', "%{$this->buscar}%");
-                        })
-                        ->orWhereHas('cliente', function ($sub3) {
-                            $sub3->where('dni', 'like', "%{$this->buscar}%");
-                        });
+        $evidencias = EvidenciaPagoAntiguo::query()
+            ->when($this->buscar, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('id', 'like', "%{$this->buscar}%")
+                        ->orWhere('codigo_cliente', 'like', "%{$this->buscar}%")
+                        ->orWhere('nombres_cliente', 'like', "%{$this->buscar}%");
                 });
             })
             ->when($this->estado_id, function ($q) {
-                $q->where('estado_comprobante_pago_id', $this->estado_id);
+                $q->where('estado_evidencia_pago_id', $this->estado_id);
             })
             ->when($this->unidad_negocio_id, fn($q) => $q->where('unidad_negocio_id', $this->unidad_negocio_id))
             ->when($this->proyecto_id, fn($q) => $q->where('proyecto_id', $this->proyecto_id))
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
+
+        //dd($evidencias);
 
         return view('livewire.atc.evidencia-pago-antiguo.evidencia-pago-antiguo-todo-livewire', compact('evidencias'));
     }
