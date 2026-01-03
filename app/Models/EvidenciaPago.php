@@ -35,6 +35,8 @@ class EvidenciaPago extends Model
         'lote',
         'codigo_cuota',
         'numero_cuota',
+        'transaccion_id',
+        'lote_completo',
 
         'gestor_id',
 

@@ -38,6 +38,8 @@ return new class extends Migration
             $table->string('lote')->nullable();
             $table->string('codigo_cuota')->nullable();
             $table->string('numero_cuota')->nullable();
+            $table->string('transaccion_id')->nullable(); //idcobranzas
+            $table->string('lote_completo')->nullable();
 
             $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete();
 
