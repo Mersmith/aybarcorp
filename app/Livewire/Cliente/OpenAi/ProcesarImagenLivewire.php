@@ -199,7 +199,7 @@ NO agregues explicación ni texto adicional. Solo JSON.",
             'banco' => $this->datos["banco"] ?? null,
             'monto' => $monto,
             'fecha' => $fecha,
-            'cliente_id' => Auth::user()->cliente->id,
+            'cliente_id' => Auth::user()->id,
 
             'codigo_cliente' => $this->lote["id_cliente"] ?? null,
             'razon_social' => $this->lote["razon_social"] ?? null,

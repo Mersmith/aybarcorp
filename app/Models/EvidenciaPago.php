@@ -65,7 +65,7 @@ class EvidenciaPago extends Model
         return $this->belongsTo(Proyecto::class);
     }
 
-    public function cliente()
+    public function userCliente()
     {
         return $this->belongsTo(User::class, 'cliente_id');
     }

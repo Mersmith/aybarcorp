@@ -26,18 +26,18 @@
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Cliente</label>
-                            <input type="text" disabled
-                                value="{{ $evidencia->cliente->user->name ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->userCliente->name ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>DNI</label>
-                            <input type="text" disabled value="{{ $evidencia->cliente->dni ?? 'Sin asignar' }}">
+                            <input type="text" disabled
+                                value="{{ $evidencia->userCliente->cliente->dni ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Email</label>
-                            <input type="text" disabled value="{{ $evidencia->cliente->email ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->userCliente->email ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
@@ -231,6 +231,26 @@
             </div>
 
             <div class="g_columna_4 g_gap_pagina g_columna_invertir">
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Enviar a SLIN</h4>
+
+                    <div class="g_panel_parrafo">
+                        <p>Lote:{{ $evidencia->lote_completo ?? 'Sin asignar'}}</p>
+                        <p>Cliente cod.:{{ $evidencia->codigo_cliente ?? 'Sin asignar'}}</p>
+                        <p>ID Cobranza/Transacción:{{ $evidencia->transaccion_id ?? 'Sin asignar'}}</p>
+                    </div>
+
+                    <div class="g_margin_bottom_10">
+                        <div class="formulario_botones">
+                            <button wire:click="enviarSlin" class="guardar" wire:loading.attr="disabled"
+                                wire:target="enviarSlin">
+                                <span wire:loading.remove wire:target="enviarSlin">Enviar</span>
+                                <span wire:loading wire:target="enviarSlin">Enviando...</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="g_panel">
                     <h4 class="g_panel_titulo">Validar evidencia pago</h4>
 

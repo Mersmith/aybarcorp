@@ -86,6 +86,8 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->dispatch('alertaLivewire', "Validado");
     }
 
+    public function enviarSlin() {}
+
     public function enviarCorreo()
     {
         $this->validate([
@@ -96,7 +98,7 @@ class EvidenciaPagoEditarLivewire extends Component
             'observacion' => $this->observacion,
         ]);
 
-        $emailDestino = $this->evidencia->cliente->email;
+        $emailDestino = $this->evidencia->userCliente->email;
 
         Mail::to($emailDestino)
             ->send(new EvidenciaPagoObservacionMail($this->evidencia));

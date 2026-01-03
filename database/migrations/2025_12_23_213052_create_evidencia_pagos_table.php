@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignId('unidad_negocio_id')->constrained('unidad_negocios')->cascadeOnDelete();
             $table->foreignId('proyecto_id')->constrained('proyectos')->cascadeOnDelete();
-            $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete(); //user_id
 
             $table->string('path');
             $table->string('url');

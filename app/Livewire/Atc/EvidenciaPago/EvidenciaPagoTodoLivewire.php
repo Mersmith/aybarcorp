@@ -63,24 +63,39 @@ class EvidenciaPagoTodoLivewire extends Component
     public function render()
     {
         $evidencias = EvidenciaPago::query()
-            ->with(['cliente.user', 'estado'])
+            ->with(['userCliente.cliente', 'estado'])
             ->when($this->buscar, function ($q) {
-                $q->where(function ($sub) {
-                    $sub->where('id', 'like', "%{$this->buscar}%")
-                        ->orWhereHas('cliente.user', function ($sub2) {
-                            $sub2->where('name', 'like', "%{$this->buscar}%");
+                $buscar = $this->buscar;
+
+                $q->where(function ($sub) use ($buscar) {
+
+                    $sub->where('evidencia_pagos.id', 'like', "%{$buscar}%")
+
+                        ->orWhereHas('userCliente', function ($qUser) use ($buscar) {
+                            $qUser->where('name', 'like', "%{$buscar}%");
                         })
-                        ->orWhereHas('cliente', function ($sub3) {
-                            $sub3->where('dni', 'like', "%{$this->buscar}%");
+
+                        ->orWhereHas('userCliente.cliente', function ($qCliente) use ($buscar) {
+                            $qCliente->where('dni', 'like', "%{$buscar}%");
                         });
                 });
             })
-            ->when($this->estado_id, function ($q) {
-                $q->where('estado_evidencia_pago_id', $this->estado_id);
-            })
-            ->when($this->unidad_negocio_id, fn($q) => $q->where('unidad_negocio_id', $this->unidad_negocio_id))
-            ->when($this->proyecto_id, fn($q) => $q->where('proyecto_id', $this->proyecto_id))
-            ->orderBy('created_at', 'desc')
+            ->when(
+                $this->estado_id,
+                fn($q) =>
+                $q->where('estado_evidencia_pago_id', $this->estado_id)
+            )
+            ->when(
+                $this->unidad_negocio_id,
+                fn($q) =>
+                $q->where('unidad_negocio_id', $this->unidad_negocio_id)
+            )
+            ->when(
+                $this->proyecto_id,
+                fn($q) =>
+                $q->where('proyecto_id', $this->proyecto_id)
+            )
+            ->orderByDesc('created_at')
             ->paginate($this->perPage);
 
         return view('livewire.atc.evidencia-pago.evidencia-pago-todo-livewire', compact('evidencias'));

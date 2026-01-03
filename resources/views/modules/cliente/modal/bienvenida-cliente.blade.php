@@ -1,20 +1,26 @@
 <div>
     <p class="r_parrafo minimo justify color_1">
-        Bienvenido a su plataforma digital. Le informamos que es <span class="r_negrita">importante actualizar
-            sus datos personales y de dirección</span> con el fin de mantener un contacto directo y poder
-        brindarle un servicio eficiente y de calidad.
+        Queremos brindarte información clara y una atención más oportuna.
     </p>
-    <br>
     <p class="r_parrafo minimo justify color_1">
-        En esta plataforma <span class="r_negrita">podrá visualizar sus proyectos y su cronograma de
-            pagos.</span> Cualquier
-        novedad será comunicada. Seguimos trabajando para ofrecerle un mejor servicio.
+        Por ello, es importante que mantengas tus datos personales actualizados.
     </p>
     <br>
-    <div class="g_centrar_elemento">
+    <p><span class="r_negrita">Importante</span></p>
+    <br>
+    <p class="r_parrafo minimo justify color_1">Estamos optimizando nuestros procesos para ofrecerte una comunicación
+        más ágil y transparente. Te pedimos revisar
+        que la información mostrada sea correcta.
+        Si detectas alguna inconsistencia, podrás adjuntar las evidencias correspondientes o comunicarte con nuestro
+        equipo de Atención al Cliente (ATC), que estará disponible para apoyarte.
+    </p>
+    <br>
+    <p class="r_parrafo minimo justify color_1">Gracias por ayudarnos a mejorar tu experiencia.</p>
+    <br>
+    {{--<div class="g_centrar_elemento">
         <p class="r_parrafo minimo left color_1">
             Atentamente,
         </p>
         <img src="{{ asset('assets/imagen/logo-aybar-corp-verde.png') }}" alt="" style="width: 200px;">
-    </div>
+    </div>--}}
 </div>

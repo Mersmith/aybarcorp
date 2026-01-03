@@ -21,7 +21,7 @@ class ClienteLoginListener
         if ($user->rol === 'cliente') {
             Session::flash(
                 'bienvenida_cliente',
-                '¡Bienvenido a tu plataforma digital!'
+                'Bienvenido(a) al Portal del Cliente'
             );
         }
     }

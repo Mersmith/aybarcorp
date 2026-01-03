@@ -11,6 +11,7 @@ class SlinController extends Controller
     private string $baseUrlCronograma;
     private string $baseUrlEstadoCuenta;
     private string $baseUrlComprobante;
+    private string $baseUrlGuardarEvidencia;
     private string $remoteBase;
     private string $user;
     private string $password;
@@ -21,6 +22,7 @@ class SlinController extends Controller
         $this->baseUrlCronograma = 'https://cloudapp.slin.com.pe:7444/activity/api/v1/aybarweb/cronograma';
         $this->baseUrlEstadoCuenta = 'https://cloudapp.slin.com.pe:7444/activity/api/v1/aybarweb/estadocuenta';
         $this->baseUrlComprobante = 'https://prod.slin-ade.pe:8443/Utilidades/api/v1/aybarcorp/GetComprobantesBase64';
+        $this->baseUrlGuardarEvidencia = 'https://prod.slin-ade.pe:8443/Utilidades/api/v1/aybarcorp/GuardarEvidencia';
         $this->remoteBase = 'https://aybarcorp.com/slin';
 
         $this->user = config('services.slin.user');
@@ -223,10 +225,10 @@ class SlinController extends Controller
 
         // Agregar datos financieros reales desde cronograma
         $unificado['importe_financiado']
-        = $cronograma['datos_cabecera']['importe_financiado'] ?? null;
+            = $cronograma['datos_cabecera']['importe_financiado'] ?? null;
 
         $unificado['importe_amortizado']
-        = $cronograma['datos_cabecera']['importe_amortizado'] ?? null;
+            = $cronograma['datos_cabecera']['importe_amortizado'] ?? null;
 
         // Reemplazar cuotas por versión unificada
         $unificado['Cuotas'] = $cuotasUnificadas;
@@ -274,6 +276,44 @@ class SlinController extends Controller
                 'message' => 'Error interno del servidor',
             ], 500);
         }
+    }
+
+    public function postGuardarEvidencia(Request $request)
+    {
+        $request->validate([
+            'lote'          => 'required|string',
+            'cliente'       => 'required|string',
+            'contrato'      => 'nullable|string',
+            'idcobranzas'   => 'required|string',
+            'base64Image'   => 'required|string',
+        ]);
+
+        $payload = [
+            'lote'        => $request->lote,
+            'cliente'     => $request->cliente,
+            'contrato'    => $request->contrato ?? '',
+            'idcobranzas' => $request->idcobranzas,
+            'base64Image' => $request->base64Image,
+        ];
+
+        $response = Http::withBasicAuth($this->user, $this->password)
+            ->acceptJson()
+            ->contentType('application/json')
+            ->timeout(30)
+            ->post($this->baseUrlGuardarEvidencia, $payload);
+
+        if ($response->failed()) {
+            return response()->json([
+                'error'  => true,
+                'status' => $response->status(),
+                'detail' => $response->body(),
+            ], 502);
+        }
+
+        return response()->json([
+            'error' => false,
+            'data'  => $response->json(),
+        ]);
     }
 
     public function probarCliente()
@@ -385,6 +425,21 @@ class SlinController extends Controller
             'status' => $response->status(),
             'data' => $response->json(),
         ]);
+    }
+
+    public function probarEvidencia()
+    {
+        $params = [
+            'lote' => '02003-N3-0006',
+            'cliente' => 'C03704',
+            'contrato' => '', //opcional//si es null, porque fue migrado
+            'idcobranzas' => '02*02003-N3-0006*C03704-021',
+            'base64Image' => '/9j/4}',
+        ];
+
+        $response = Http::post("{$this->remoteBase}/evidencia", $params);
+
+        return $response->json();
     }
 }
 

@@ -99,8 +99,8 @@
                                 <span class="g_texto_secundario">Sin imagen</span>
                                 @endif
                             </td>
-                            <td class="g_negrita g_resumir">{{ $item->cliente->user->name }}</td>
-                            <td>{{ $item->cliente->dni }}</td>
+                            <td class="g_negrita g_resumir">{{ $item->userCliente->name }}</td>
+                            <td> {{ $item->userCliente?->cliente?->dni ?? '—' }}</td>
                             <td>{{ $item->numero_operacion }}</td>
                             <td>{{ $item->banco }}</td>
                             <td>{{ $item->monto}}</td>
