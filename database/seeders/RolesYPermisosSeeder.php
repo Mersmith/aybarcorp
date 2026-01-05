@@ -17,16 +17,6 @@ class RolesYPermisosSeeder extends Seeder
         // 1. LISTA DE PERMISOS DEL SISTEMA
         // ----------------------------------------
         $permisos = [
-            'estado-evidencia-pago-ver',
-            'estado-evidencia-pago-crear',
-            'estado-evidencia-pago-editar',
-            'estado-evidencia-pago-eliminar',
-            'evidencia-pago-ver',
-            'evidencia-pago-crear',
-            'evidencia-pago-editar',
-            'evidencia-pago-eliminar',
-            'evidencia-pago-validar',
-            /* */
             'tipo-solicitud-ver',
             'tipo-solicitud-crear',
             'tipo-solicitud-editar',
@@ -49,6 +39,7 @@ class RolesYPermisosSeeder extends Seeder
             'ticket-eliminar',
             'ticket-derivar-ver',
             'ticket-reporte-ver',
+            'ticket-validar',
             /* */
             'motivo-cita-ver',
             'motivo-cita-crear',
@@ -64,6 +55,18 @@ class RolesYPermisosSeeder extends Seeder
             'cita-eliminar',
             'calendario-ver',
             'cita-reporte-ver',
+            'cita-validar',
+            /* */
+            'estado-evidencia-pago-ver',
+            'estado-evidencia-pago-crear',
+            'estado-evidencia-pago-editar',
+            'estado-evidencia-pago-eliminar',
+            'evidencia-pago-ver',
+            'evidencia-pago-crear',
+            'evidencia-pago-editar',
+            'evidencia-pago-eliminar',
+            'evidencia-pago-validar',
+            'evidencia-pago-reporte-ver',
         ];
 
         foreach ($permisos as $permiso) {
@@ -76,14 +79,14 @@ class RolesYPermisosSeeder extends Seeder
         $roles = [
             'super-admin',
             'admin',
-            'supervisor atc',
-            'atc',
-            'supervisor backoffice',
-            'backoffice',
-            'supervisor legal',
-            'legal',
-            'supervisor archivo',
-            'archivo',
+            'supervisor-atc',
+            'asesor-atc',
+            'supervisor-backoffice',
+            'asesor-backoffice',
+            'supervisor-legal',
+            'asesor-legal',
+            'supervisor-archivo',
+            'asesor-archivo',
         ];
 
         foreach ($roles as $rol) {
@@ -91,34 +94,22 @@ class RolesYPermisosSeeder extends Seeder
         }
 
         // Obtener instancias
-        $superAdmin = Role::findByName('super-admin');
-        $supervisorArchivo = Role::findByName('supervisor archivo');
-        $archivo = Role::findByName('archivo');
-        $supervisorAtc = Role::findByName('supervisor atc');
-        $atc = Role::findByName('atc');
-        //$cliente = Role::findByName('cliente');
+        $super_admin = Role::findByName('super-admin');
+        $admin = Role::findByName('admin');
+
+        $supervisor_atc = Role::findByName('supervisor-atc');
+        $atc = Role::findByName('asesor-atc');
+
+        $supervisor_backoffice = Role::findByName('supervisor-backoffice');
+        $backoffice = Role::findByName('asesor-backoffice');
 
         // ----------------------------------------
         // 3. ASIGNACIÓN DE PERMISOS POR ROL
         // ----------------------------------------
-        $superAdmin->syncPermissions(Permission::all());
+        $super_admin->syncPermissions(Permission::all());
+        $admin->syncPermissions(Permission::all());
 
-        $supervisorArchivo->givePermissionTo([
-            'estado-evidencia-pago-ver',
-            'estado-evidencia-pago-crear',
-            'estado-evidencia-pago-editar',
-            'estado-evidencia-pago-eliminar',
-            'evidencia-pago-eliminar',
-            'evidencia-pago-validar',
-        ]);
-
-        $archivo->givePermissionTo([
-            'evidencia-pago-ver',
-            'evidencia-pago-crear',
-            'evidencia-pago-editar',
-        ]);
-
-        $supervisorAtc->givePermissionTo([
+        $supervisor_atc->givePermissionTo([
             'tipo-solicitud-ver',
             'tipo-solicitud-crear',
             'tipo-solicitud-editar',
@@ -135,7 +126,9 @@ class RolesYPermisosSeeder extends Seeder
             'canal-crear',
             'canal-editar',
             'canal-eliminar',
+
             'ticket-reporte-ver',
+            'ticket-validar',
             /* */
             'motivo-cita-ver',
             'motivo-cita-crear',
@@ -145,12 +138,11 @@ class RolesYPermisosSeeder extends Seeder
             'estado-cita-crear',
             'estado-cita-editar',
             'estado-cita-eliminar',
-            'cita-ver',
-            'cita-crear',
-            'cita-editar',
-            'cita-eliminar',
-            'calendario-ver',
             'cita-reporte-ver',
+            'cita-validar',
+            /* */
+            'evidencia-pago-reporte-ver',
+            'evidencia-pago-validar',
         ]);
 
         $atc->givePermissionTo([
@@ -158,12 +150,29 @@ class RolesYPermisosSeeder extends Seeder
             'ticket-crear',
             'ticket-editar',
             'ticket-eliminar',
+            'ticket-derivar-ver',
             /* */
             'cita-ver',
             'cita-crear',
             'cita-editar',
             'cita-eliminar',
             'calendario-ver',
+        ]);
+
+        $supervisor_backoffice->givePermissionTo([
+            'estado-evidencia-pago-ver',
+            'estado-evidencia-pago-crear',
+            'estado-evidencia-pago-editar',
+            'estado-evidencia-pago-eliminar',
+            'evidencia-pago-reporte-ver',
+            'evidencia-pago-eliminar',
+            'evidencia-pago-validar',
+        ]);
+
+        $backoffice->givePermissionTo([
+            'evidencia-pago-ver',
+            'evidencia-pago-crear',
+            'evidencia-pago-editar',
         ]);
     }
 }

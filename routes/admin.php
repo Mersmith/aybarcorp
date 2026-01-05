@@ -44,7 +44,6 @@ Route::prefix('sede')->name('sede.vista.')->group(function () {
 
 Route::prefix('proyecto')
     ->name('proyecto.vista.')
-    ->middleware(['role:super-admin'])
     ->group(function () {
         Route::get('/', ProyectoTodoLivewire::class)->name('todo');
         Route::get('/crear', ProyectoCrearLivewire::class)->name('crear');

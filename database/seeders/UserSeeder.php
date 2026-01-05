@@ -14,42 +14,45 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 2; $i++) {
-            $user_super_admin = User::create([
-                'name' => "Super Admin $i",
-                'email' => "super_admin$i@aybarsac.com",
+        //SUPER ADMINS
+        $super_admin = [
+            ['name' => 'Emerson Smith', 'email' => 'programador@aybarsac.com'],
+            ['name' => 'Luis Julio', 'email' => 'luiscarrizales@aybarsac.com'],
+        ];
+
+        foreach ($super_admin as $data) {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
                 'password' => Hash::make('123456'),
                 'rol' => 'admin',
                 'activo' => true,
             ]);
 
-            $user_super_admin->assignRole('super-admin');
+            $user->assignRole('super-admin');
         }
 
-        for ($i = 1; $i <= 2; $i++) {
-            $user_admin = User::create([
-                'name' => "Admin $i",
-                'email' => "admin$i@aybarsac.com",
-                'password' => Hash::make('123456'),
-                'rol' => 'admin',
-                'activo' => true,
-            ]);
+        //ADMIN
+        $admin = User::create([
+            'name' => 'Rosario',
+            'email' => 'gestiondeprocesos@aybarsac.com',
+            'password' => Hash::make('123456'),
+            'rol' => 'admin',
+            'activo' => true,
+        ]);
 
-            $user_admin->assignRole('admin');
-        }
+        $admin->assignRole('admin');
 
         //ATC
-        for ($i = 1; $i <= 2; $i++) {
-            $supervisor_atc = User::create([
-                'name' => "Supervisor Atc $i",
-                'email' => "supervisor_atc$i@aybarsac.com",
-                'password' => Hash::make('123456'),
-                'rol' => 'admin',
-                'activo' => true,
-            ]);
+        $supervisor_atc = User::create([
+            'name' => 'PINO SONO PAULO CESAR',
+            'email' => 'p.pino@aybarsac.com',
+            'password' => Hash::make('123456'),
+            'rol' => 'admin',
+            'activo' => true,
+        ]);
 
-            $supervisor_atc->syncRoles(['supervisor atc', 'supervisor archivo']);
-        }
+        $supervisor_atc->syncRoles(['supervisor-atc', 'asesor-atc']);
 
         $atc = [
             ['name' => 'Chunga Palomino Ximena', 'email' => 'x.chunga@aybarsac.com'],
@@ -76,12 +79,28 @@ class UserSeeder extends Seeder
                 'activo' => true,
             ]);
 
-            $user->assignRole('atc');
+            $user->assignRole('asesor-atc');
         }
 
         //BACKOFFICE
-        $backoffice = [
+        $supervisor_backoffice = [
+            ['name' => 'Pedro', 'email' => 'pedro@aybarsac.com'],
             ['name' => 'RAMON ALBERTO MARTINEZ CONTRERA', 'email' => 'RAMONMARTINEZ@aybarsac.com'],
+        ];
+
+        foreach ($supervisor_backoffice as $data) {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make('123456'),
+                'rol' => 'admin',
+                'activo' => true,
+            ]);
+
+            $user->syncRoles(['supervisor-backoffice', 'asesor-backoffice', 'supervisor-atc']);
+        }
+
+        $backoffice = [
             ['name' => 'ALEXANDRA GRETTEL REYES CUSTODIO', 'email' => 'acgestor02@aybarsac.com'],
             ['name' => 'ALESSANDRA MARIEL MENACHO MARTICEZ', 'email' => 'acgestor06@aybarsac.com'],
             ['name' => 'MARCO ANTONIO UMERES CONDORI', 'email' => 'acgestor04@aybarsac.com'],
@@ -109,13 +128,28 @@ class UserSeeder extends Seeder
                 'activo' => true,
             ]);
 
-            $user->syncRoles(['atc', 'backoffice']);
+            $user->syncRoles(['asesor-backoffice', 'asesor-atc']);
         }
 
         //LEGAL
-        $legal = [
+        $supervisor_legal = [
             ['name' => 'GEMA CACERES VARGAS', 'email' => 'GEMACACERESVARGAS@aybarsac.com'],
             ['name' => 'FLOR ALLCCA', 'email' => 'FLORALLCCA@aybarsac.com'],
+        ];
+
+        foreach ($supervisor_legal as $data) {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make('123456'),
+                'rol' => 'admin',
+                'activo' => true,
+            ]);
+
+            $user->syncRoles(['supervisor-legal', 'asesor-legal', 'supervisor-atc']);
+        }
+
+        $legal = [
             ['name' => 'JACKELYNE RAMOS', 'email' => 'JACKELYNERAMOS@aybarsac.com'],
             ['name' => 'RICARDO ORTIZ', 'email' => 'RICARDOORTIZ@aybarsac.com'],
             ['name' => 'MILAGROS YAÑEZ', 'email' => 'MILAGROSYANEZ@aybarsac.com'],
@@ -136,29 +170,26 @@ class UserSeeder extends Seeder
                 'activo' => true,
             ]);
 
-            $user->syncRoles(['atc', 'legal']);
+            $user->syncRoles(['asesor-legal', 'asesor-atc']);
         }
 
         //ARCHIVO
-        for ($i = 1; $i <= 2; $i++) {
-            $supervisor_gestor = User::create([
-                'name' => "Supervisor Archivo $i",
-                'email' => "supervisor_archivo$i@aybarsac.com",
-                'password' => Hash::make('123456'),
-                'rol' => 'admin',
-                'activo' => true,
-            ]);
+        $supervisor_archivo = User::create([
+            'name' => 'GWENDOLYNE ACCOTUPA CHAVEZ',
+            'email' => 'AUXILIARARCHIVO@AYBARSAC.COM',
+            'password' => Hash::make('123456'),
+            'rol' => 'admin',
+            'activo' => true,
+        ]);
 
-            $supervisor_gestor->assignRole(['supervisor archivo']);
-        }
+        $supervisor_archivo->syncRoles(['supervisor-archivo', 'asesor-archivo', 'supervisor-atc']);
 
-        $arhivo = [
+        $archivo = [
             ['name' => 'archivo', 'email' => 'ARCHIVO365@AYBARSAC.COM'],
-            ['name' => 'GWENDOLYNE ACCOTUPA CHAVEZ', 'email' => 'AUXILIARARCHIVO@AYBARSAC.COM'],
             ['name' => 'IRWIN CHIRINOS CABREJOS', 'email' => 'GWENDOLYNEACCOSTUPA@AYBARSAC.COM'],
         ];
 
-        foreach ($arhivo as $data) {
+        foreach ($archivo as $data) {
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
@@ -167,7 +198,7 @@ class UserSeeder extends Seeder
                 'activo' => true,
             ]);
 
-            $user->assignRole('archivo');
+            $user->syncRoles(['asesor-archivo', 'asesor-atc']);
         }
 
         //CLIENTE

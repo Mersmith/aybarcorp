@@ -29,7 +29,8 @@
         "nivel": 1,
         "roles": [
             "super-admin",
-            "supervisor atc",
+            "admin",
+            "supervisor-atc",
             "atc"
         ],
         "submenus": [
@@ -41,7 +42,8 @@
                 "icono": "fa-solid fa-user-shield",
                 "nivel": 2,
                 "roles": [
-                    "super-admin"
+                    "super-admin",
+                    "admin"
                 ],
                 "submenus": [
                     {
@@ -51,7 +53,8 @@
                         "url": "/admin/rol",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin"
                         ],
                         "submenus": []
                     },
@@ -62,7 +65,8 @@
                         "url": "/admin/rol/crear",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin"
                         ],
                         "submenus": []
                     }
@@ -76,7 +80,8 @@
                 "icono": "fa-solid fa-user-cog",
                 "nivel": 2,
                 "roles": [
-                    "super-admin"
+                    "super-admin",
+                    "admin"
                 ],
                 "submenus": [
                     {
@@ -86,7 +91,8 @@
                         "url": "/admin/permiso",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin"
                         ],
                         "submenus": []
                     },
@@ -97,7 +103,8 @@
                         "url": "/admin/permiso/crear",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin"
                         ],
                         "submenus": []
                     }
@@ -112,7 +119,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -123,7 +131,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     },
@@ -135,7 +144,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -150,7 +160,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc",
+                    "admin",
+                    "supervisor-atc",
                     "atc"
                 ],
                 "submenus": [
@@ -162,7 +173,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc",
+                            "admin",
+                            "supervisor-atc",
                             "atc"
                         ],
                         "submenus": []
@@ -175,7 +187,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc",
+                            "admin",
+                            "supervisor-atc",
                             "atc"
                         ],
                         "submenus": []
@@ -191,7 +204,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc",
+                    "admin",
+                    "supervisor-atc",
                     "atc"
                 ],
                 "submenus": [
@@ -203,7 +217,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc",
+                            "admin",
+                            "supervisor-atc",
                             "atc"
                         ],
                         "submenus": []
@@ -216,7 +231,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc",
+                            "admin",
+                            "supervisor-atc",
                             "atc"
                         ],
                         "submenus": []
@@ -234,7 +250,9 @@
         "nivel": 1,
         "roles": [
             "super-admin",
-            "supervisor atc"
+            "admin",
+            "supervisor-atc",
+            "asesor-atc"
         ],
         "submenus": [
             {
@@ -281,7 +299,7 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin"
                 ],
                 "submenus": [
                     {
@@ -292,7 +310,7 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin"
                         ],
                         "submenus": []
                     },
@@ -318,7 +336,7 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin"
                 ],
                 "submenus": [
                     {
@@ -329,7 +347,7 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin"
                         ],
                         "submenus": []
                     },
@@ -340,7 +358,8 @@
                         "url": "/admin/area/crear",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin"
                         ],
                         "submenus": []
                     }
@@ -354,7 +373,10 @@
                 "icono": "fa-solid fa-shapes",
                 "nivel": 2,
                 "roles": [
-                    "super-admin"
+                    "super-admin",
+                    "admin",
+                    "supervisor-atc",
+                    "asesor-atc"
                 ],
                 "submenus": [
                     {
@@ -364,7 +386,10 @@
                         "url": "/admin/proyecto",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc",
+                            "asesor-atc"
                         ],
                         "submenus": []
                     },
@@ -375,7 +400,9 @@
                         "url": "/admin/proyecto/crear",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -392,7 +419,7 @@
         "nivel": 1,
         "roles": [
             "super-admin",
-            "supervisor atc"
+            "admin"
         ],
         "submenus": [
             {
@@ -416,7 +443,7 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin"
                 ],
                 "submenus": []
             }
@@ -431,8 +458,9 @@
         "nivel": 1,
         "roles": [
             "super-admin",
-            "supervisor atc",
-            "atc"
+            "admin",
+            "supervisor-atc",
+            "asesor-atc"
         ],
         "submenus": [
             {
@@ -444,7 +472,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -455,7 +484,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     },
@@ -467,7 +497,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -482,7 +513,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -493,7 +525,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     },
@@ -505,7 +538,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -520,7 +554,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -531,7 +566,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     },
@@ -543,7 +579,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -558,7 +595,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -569,7 +607,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     },
@@ -581,7 +620,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -596,7 +636,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -607,7 +648,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     },
@@ -619,7 +661,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -634,8 +677,9 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc",
-                    "atc"
+                    "admin",
+                    "supervisor-atc",
+                    "asesor-atc"
                 ],
                 "submenus": [
                     {
@@ -646,8 +690,9 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc",
-                            "atc"
+                            "admin",
+                            "supervisor-atc",
+                            "asesor-atc"
                         ],
                         "submenus": []
                     },
@@ -659,8 +704,9 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc",
-                            "atc"
+                            "admin",
+                            "supervisor-atc",
+                            "asesor-atc"
                         ],
                         "submenus": []
                     }
@@ -675,7 +721,9 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc",
+                    "asesor-atc"
                 ],
                 "submenus": [
                     {
@@ -686,7 +734,9 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc",
+                            "asesor-atc"
                         ],
                         "submenus": []
                     }
@@ -703,8 +753,9 @@
         "nivel": 1,
         "roles": [
             "super-admin",
-            "supervisor atc",
-            "atc"
+            "admin",
+            "supervisor-atc",
+            "asesor-atc"
         ],
         "submenus": [
             {
@@ -716,7 +767,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -726,7 +778,9 @@
                         "url": "/admin/motivo-cita",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     },
@@ -737,7 +791,9 @@
                         "url": "/admin/motivo-cita/crear",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -752,7 +808,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -762,7 +819,9 @@
                         "url": "/admin/estado-cita",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     },
@@ -773,7 +832,9 @@
                         "url": "/admin/estado-cita/crear",
                         "nivel": 3,
                         "roles": [
-                            "super-admin"
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -788,8 +849,9 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc",
-                    "atc"
+                    "admin",
+                    "supervisor-atc",
+                    "asesor-atc"
                 ],
                 "submenus": [
                     {
@@ -800,8 +862,9 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc",
-                            "atc"
+                            "admin",
+                            "supervisor-atc",
+                            "asesor-atc"
                         ],
                         "submenus": []
                     }
@@ -816,8 +879,9 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc",
-                    "atc"
+                    "admin",
+                    "supervisor-atc",
+                    "asesor-atc"
                 ],
                 "submenus": []
             },
@@ -830,7 +894,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor atc"
+                    "admin",
+                    "supervisor-atc"
                 ],
                 "submenus": [
                     {
@@ -841,7 +906,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor atc"
+                            "admin",
+                            "supervisor-atc"
                         ],
                         "submenus": []
                     }
@@ -858,8 +924,9 @@
         "nivel": 1,
         "roles": [
             "super-admin",
-            "supervisor gestor",
-            "gestor"
+            "admin",
+            "supervisor-backoffice",
+            "asesor-backoffice"
         ],
         "submenus": [
             {
@@ -871,7 +938,8 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor gestor"
+                    "admin",
+                    "supervisor-backoffice"
                 ],
                 "submenus": [
                     {
@@ -882,7 +950,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor gestor"
+                            "admin",
+                            "supervisor-backoffice"
                         ],
                         "submenus": []
                     },
@@ -894,7 +963,8 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor gestor"
+                            "admin",
+                            "supervisor-backoffice"
                         ],
                         "submenus": []
                     }
@@ -909,8 +979,9 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor gestor",
-                    "gestor"
+                    "admin",
+                    "supervisor-backoffice",
+                    "asesor-backoffice"
                 ],
                 "submenus": [
                     {
@@ -921,8 +992,9 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor gestor",
-                            "gestor"
+                            "admin",
+                            "supervisor-backoffice",
+                            "asesor-backoffice"
                         ],
                         "submenus": []
                     }
@@ -937,8 +1009,9 @@
                 "nivel": 2,
                 "roles": [
                     "super-admin",
-                    "supervisor gestor",
-                    "gestor"
+                    "admin",
+                    "supervisor-backoffice",
+                    "asesor-backoffice"
                 ],
                 "submenus": [
                     {
@@ -949,8 +1022,9 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor gestor",
-                            "gestor"
+                            "admin",
+                            "supervisor-backoffice",
+                            "asesor-backoffice"
                         ],
                         "submenus": []
                     },
@@ -962,8 +1036,9 @@
                         "nivel": 3,
                         "roles": [
                             "super-admin",
-                            "supervisor gestor",
-                            "gestor"
+                            "admin",
+                            "supervisor-backoffice",
+                            "asesor-backoffice"
                         ],
                         "submenus": []
                     }

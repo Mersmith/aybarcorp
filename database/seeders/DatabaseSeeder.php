@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             SedeSeeder::class, //CITA
             MotivoCitaSeeder::class, //CITA
             EstadoCitaSeeder::class, //CITA
-            //CitaSeeder::class, //CITA
+            //CitaSeeder::class, //CITA*/
 
         ]);
     }

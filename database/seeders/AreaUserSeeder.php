@@ -30,7 +30,7 @@ class AreaUserSeeder extends Seeder
             ]);
         }
 
-        for ($userId = 48; $userId <= 52; $userId++) {
+        for ($userId = 48; $userId <= 49; $userId++) {
             DB::table('area_user')->insert([
                 'area_id' => 4,
                 'user_id' => $userId,

@@ -71,7 +71,7 @@ Route::prefix('area')->name('area.vista.')->group(function () {
 
 Route::prefix('estado-evidencia-pago')
     ->name('estado-evidencia-pago.vista.')
-    ->middleware(['role:super-admin|supervisor gestor'])
+    ->middleware(['role:super-admin|admin|supervisor-backoffice'])
     ->group(function () {
         Route::get('/', EstadoEvidenciaPagoTodoLivewire::class)->name('todo');
         Route::get('/crear', EstadoEvidenciaPagoCrearLivewire::class)->name('crear');
@@ -80,7 +80,7 @@ Route::prefix('estado-evidencia-pago')
 
 Route::prefix('evidencia-pago')
     ->name('evidencia-pago.vista.')
-    ->middleware(['role:super-admin|supervisor gestor|gestor'])
+    ->middleware(['role:super-admin|admin|supervisor-backoffice|asesor-backoffice'])
     ->group(function () {
         Route::get('/', EvidenciaPagoTodoLivewire::class)->name('todo');
         Route::get('/editar/{id}', EvidenciaPagoEditarLivewire::class)->name('editar');
@@ -88,7 +88,7 @@ Route::prefix('evidencia-pago')
 
 Route::prefix('evidencia-pago-antiguo')
     ->name('evidencia-pago-antiguo.vista.')
-    ->middleware(['role:super-admin|supervisor gestor|gestor'])
+    ->middleware(['role:super-admin|admin|supervisor-backoffice|asesor-backoffice'])
     ->group(function () {
         Route::get('/', EvidenciaPagoAntiguoTodoLivewire::class)->name('todo');
         Route::get('/editar/{id}', EvidenciaPagoAntiguoEditarLivewire::class)->name('editar');
@@ -97,7 +97,7 @@ Route::prefix('evidencia-pago-antiguo')
 
 Route::prefix('tipo-solicitud')
     ->name('tipo-solicitud.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', TipoSolicitudTodoLivewire::class)->name('todo');
         Route::get('/crear', TipoSolicitudCrearLivewire::class)->name('crear');
@@ -106,7 +106,7 @@ Route::prefix('tipo-solicitud')
 
 Route::prefix('sub-tipo-solicitud')
     ->name('sub-tipo-solicitud.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', SubTipoSolicitudTodoLivewire::class)->name('todo');
         Route::get('/crear', SubTipoSolicitudCrearLivewire::class)->name('crear');
@@ -115,7 +115,7 @@ Route::prefix('sub-tipo-solicitud')
 
 Route::prefix('estado-ticket')
     ->name('estado-ticket.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', EstadoTicketTodoLivewire::class)->name('todo');
         Route::get('/crear', EstadoTicketCrearLivewire::class)->name('crear');
@@ -124,7 +124,7 @@ Route::prefix('estado-ticket')
 
 Route::prefix('prioridad-ticket')
     ->name('prioridad-ticket.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', PrioridadTicketTodoLivewire::class)->name('todo');
         Route::get('/crear', PrioridadTicketCrearLivewire::class)->name('crear');
@@ -133,7 +133,7 @@ Route::prefix('prioridad-ticket')
 
 Route::prefix('canal')
     ->name('canal.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', CanalTodoLivewire::class)->name('todo');
         Route::get('/crear', CanalCrearLivewire::class)->name('crear');
@@ -142,7 +142,7 @@ Route::prefix('canal')
 
 Route::prefix('ticket')
     ->name('ticket.vista.')
-    ->middleware(['role:super-admin|supervisor atc|atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc|asesor-atc'])
     ->group(function () {
         Route::get('/', TicketTodoLivewire::class)->name('todo');
         Route::get('/crear/{ticketPadre?}', TicketCrearLivewire::class)->name('crear');
@@ -152,14 +152,14 @@ Route::prefix('ticket')
 
 Route::prefix('reporte-ticket')
     ->name('reporte-ticket.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', ReporteLivewire::class)->name('todo');
     });
 
 Route::prefix('motivo-cita')
     ->name('motivo-cita.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', MotivoCitaTodoLivewire::class)->name('todo');
         Route::get('/crear', MotivoCitaCrearLivewire::class)->name('crear');
@@ -168,7 +168,7 @@ Route::prefix('motivo-cita')
 
 Route::prefix('estado-cita')
     ->name('estado-cita.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', EstadoCitaTodoLivewire::class)->name('todo');
         Route::get('/crear', EstadoCitaCrearLivewire::class)->name('crear');
@@ -177,7 +177,7 @@ Route::prefix('estado-cita')
 
 Route::prefix('cita')
     ->name('cita.vista.')
-    ->middleware(['role:super-admin|supervisor atc|atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc|asesor-atc'])
     ->group(function () {
         Route::get('/', CitaTodoLivewire::class)->name('todo');
         Route::get('/calendario', CitaCalendarioLivewire::class)->name('calendario');
@@ -187,7 +187,7 @@ Route::prefix('cita')
 
 Route::prefix('reporte-cita')
     ->name('reporte-cita.vista.')
-    ->middleware(['role:super-admin|supervisor atc'])
+    ->middleware(['role:super-admin|admin|supervisor-atc'])
     ->group(function () {
         Route::get('/', ReporteCitaLivewire::class)->name('todo');
     });
