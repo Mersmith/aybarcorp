@@ -11,6 +11,12 @@
             {{ $cliente->user && $cliente->user->name
             ? 'Bienvenido, ' . collect(explode(' ', trim($cliente->user->name)))->last() . '!'
             : 'Mi perfil' }}
+
+            {{--@auth
+            @if (auth()->user()->necesitaActualizarDatosPersonales())
+            <span class="g_menu_badge warning">Actualiza</span>
+            @endif
+            @endauth--}}
         </h2>
     </div>
 

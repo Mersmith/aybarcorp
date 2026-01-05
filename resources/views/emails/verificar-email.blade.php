@@ -19,7 +19,7 @@
 
         <!-- LOGO -->
         <div style="text-align:center;">
-            <img src="https://aybarcorp.com/assets/imagen/logo-2.png" alt="Aybar Corp"
+            <img src="https://aybarcorp.com/public/logo-aybar-corp-verde.png" alt="Aybar Corp"
                 style="width:160px; margin-bottom:20px;">
         </div>
 

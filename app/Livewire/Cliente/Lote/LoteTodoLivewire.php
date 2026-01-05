@@ -28,7 +28,7 @@ class LoteTodoLivewire extends Component
     public function mount(SlinService $slinService)
     {
         if (auth()->user()->necesitaActualizarDatosPersonales() || auth()->user()->necesitaActualizarDirecciones()) {
-            session()->flash('error', 'Necesitas actualizar tu celular y dirección!');
+            session()->flash('error', 'Para poder acceder a tus proyectos, es obligatorio que actualices tus datos.');
             return;
         }
 

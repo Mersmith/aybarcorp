@@ -47,4 +47,10 @@ return [
         'url' => env('SLIN_URL'),
     ],
 
+    'canvia' => [
+        'url' => env('CANVIA_SOAP_URL'),
+        'user' => env('CANVIA_SOAP_USER'),
+        'password' => env('CANVIA_SOAP_PASSWORD'),
+    ],
+
 ];

@@ -3,7 +3,7 @@
 
     <div class="g_panel">
         @if (session()->has('error'))
-        <div class="g_alerta_error">
+        <div class="g_alerta_info">
             <i class="fa-solid fa-circle-check"></i>
             {{ session('error') }}
         </div>

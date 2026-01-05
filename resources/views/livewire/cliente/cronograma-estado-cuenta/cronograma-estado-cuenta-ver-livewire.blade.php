@@ -115,13 +115,13 @@
                                 @if (!empty($item['Comprobante']))
                                 @if (substr_count($item['Comprobante'], '-') === 2)
                                 <a href="{{ route('comprobante.ver', ['empresa' => $lote['id_empresa'], 'comprobante' => $item['Comprobante']]) }}"
-                                    target="_blank" class="g_boton g_boton_empresa_secundario">
+                                    target="_blank" class="g_boton g_boton_empresa_primario">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </a>
                                 @else
-                                <x-tooltip text="Tu comprante esta siendo migrado!" />
+                                <x-tooltip text="Tu comprobante está siendo migrado!" />
 
-                                <span class="g_boton g_boton_empresa_primario"
+                                <span class="g_boton g_boton_empresa_secundario"
                                     style="cursor: not-allowed; pointer-events: none;">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </span>
