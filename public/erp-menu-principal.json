@@ -1040,6 +1040,20 @@
                             "asesor-backoffice"
                         ],
                         "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Reporte",
+                        "ruta": "admin.evidencia-pago.vista.reporte",
+                        "url": "/admin/evidencia-pago/reporte",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "admin",
+                            "supervisor-backoffice",
+                            "asesor-backoffice"
+                        ],
+                        "submenus": []
                     }
                 ]
             },
@@ -1090,6 +1104,20 @@
                         "nombre": "Importar",
                         "ruta": "admin.evidencia-pago-antiguo.vista.importar",
                         "url": "/admin/evidencia-pago-antiguo/importar",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "admin",
+                            "supervisor-backoffice",
+                            "asesor-backoffice"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 115,
+                        "nombre": "Reporte",
+                        "ruta": "admin.evidencia-pago-antiguo.vista.reporte",
+                        "url": "/admin/evidencia-pago-antiguo/reporte",
                         "nivel": 3,
                         "roles": [
                             "super-admin",

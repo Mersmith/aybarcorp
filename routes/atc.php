@@ -12,7 +12,7 @@ use App\Livewire\Atc\EstadoEvidenciaPago\EstadoEvidenciaPagoTodoLivewire;
 
 use App\Livewire\Atc\EvidenciaPago\EvidenciaPagoEditarLivewire;
 use App\Livewire\Atc\EvidenciaPago\EvidenciaPagoTodoLivewire;
-use App\Livewire\Atc\EvidenciaPago\ImportarEvidenciaAntiguoLivewire;
+use App\Livewire\Atc\EvidenciaPago\EvidenciaPagoReporteLivewire;
 
 use App\Livewire\Atc\TipoSolicitud\TipoSolicitudTodoLivewire;
 use App\Livewire\Atc\TipoSolicitud\TipoSolicitudCrearLivewire;
@@ -53,11 +53,13 @@ use App\Livewire\Atc\Cita\CitaTodoLivewire;
 use App\Livewire\Atc\Cita\CitaCalendarioLivewire;
 use App\Livewire\Atc\Cita\CitaCrearLivewire;
 use App\Livewire\Atc\Cita\CitaEditarLivewire;
+use App\Livewire\Atc\ReporteCita\ReporteCitaLivewire;
+
 use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoTodoLivewire;
 use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoCrearLivewire;
 use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoEditarLivewire;
 use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoImportarLivewire;
-use App\Livewire\Atc\ReporteCita\ReporteCitaLivewire;
+use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoReporteLivewire;
 
 
 use Illuminate\Support\Facades\Route;
@@ -85,6 +87,7 @@ Route::prefix('evidencia-pago')
     ->group(function () {
         Route::get('/', EvidenciaPagoTodoLivewire::class)->name('todo');
         Route::get('/editar/{id}', EvidenciaPagoEditarLivewire::class)->name('editar');
+        Route::get('/reporte', EvidenciaPagoReporteLivewire::class)->name('reporte');
     });
 
 Route::prefix('evidencia-pago-antiguo')
@@ -95,6 +98,7 @@ Route::prefix('evidencia-pago-antiguo')
         Route::get('/crear', EvidenciaPagoAntiguoCrearLivewire::class)->name('crear');
         Route::get('/editar/{id}', EvidenciaPagoAntiguoEditarLivewire::class)->name('editar');
         Route::get('/importar', EvidenciaPagoAntiguoImportarLivewire::class)->name('importar');
+        Route::get('/reporte', EvidenciaPagoAntiguoReporteLivewire::class)->name('reporte');
     });
 
 Route::prefix('tipo-solicitud')
