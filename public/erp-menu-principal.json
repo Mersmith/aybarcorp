@@ -153,7 +153,7 @@
             },
             {
                 "id": 42,
-                "nombre": "Clientes(Slin)",
+                "nombre": "Clientes(Web)",
                 "ruta": "#",
                 "url": "#",
                 "icono": "fa-solid fa-users",
@@ -1015,7 +1015,7 @@
             },
             {
                 "id": 46,
-                "nombre": "Evidencias pago(P)",
+                "nombre": "Evidencias pago(Web)",
                 "ruta": "#",
                 "url": "#",
                 "icono": "fa-regular fa-image",
@@ -1045,7 +1045,7 @@
             },
             {
                 "id": 47,
-                "nombre": "Evidencias pago(A)",
+                "nombre": "Evidencias pago(Stock)",
                 "ruta": "#",
                 "url": "#",
                 "icono": "fa-regular fa-image",
@@ -1062,6 +1062,20 @@
                         "nombre": "Todo",
                         "ruta": "admin.evidencia-pago-antiguo.vista.todo",
                         "url": "/admin/evidencia-pago-antiguo",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "admin",
+                            "supervisor-backoffice",
+                            "asesor-backoffice"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.evidencia-pago-antiguo.vista.crear",
+                        "url": "/admin/evidencia-pago-antiguo/crear",
                         "nivel": 3,
                         "roles": [
                             "super-admin",

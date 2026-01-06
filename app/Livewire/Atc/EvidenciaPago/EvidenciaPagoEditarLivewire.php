@@ -2,15 +2,17 @@
 
 namespace App\Livewire\Atc\EvidenciaPago;
 
+use App\Mail\EvidenciaPagoObservacionMail;
+use App\Models\EstadoEvidenciaPago;
 use App\Models\EvidenciaPago;
 use App\Models\Proyecto;
 use App\Models\UnidadNegocio;
-use App\Models\EstadoEvidenciaPago;
-use Livewire\Attributes\Layout;
-use App\Mail\EvidenciaPagoObservacionMail;
-use Illuminate\Support\Facades\Mail;
-use Livewire\Component;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoEditarLivewire extends Component
@@ -86,7 +88,54 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->dispatch('alertaLivewire', "Validado");
     }
 
-    public function enviarSlin() {}
+    public function enviarSlin()
+    {
+        // 1. Verificar archivo
+        if (!Storage::disk('public')->exists($this->evidencia->path)) {
+            $this->dispatch('alertaLivewire', 'Error');
+            return;
+        }
+
+        // 2. Obtener imagen
+        $imageContent = Storage::disk('public')->get($this->evidencia->path);
+
+        // 3. Payload EXACTO como lo pide el proveedor
+        $params = [
+            'lote' => (string) $this->evidencia->lote_completo,
+            'cliente' => (string) $this->evidencia->codigo_cliente,
+            'contrato' => '', // nullable|string → enviar vacío
+            'idcobranzas' => (string) $this->evidencia->transaccion_id,
+            'base64Image' => base64_encode($imageContent),
+        ];
+
+        // 4. Llamada al backend del proveedor
+        $response = Http::acceptJson()
+            ->contentType('application/json')
+            ->timeout(30)
+            ->post(
+                'https://aybarcorp.com/api/slin/guardar-evidencia',
+                $params
+            );
+
+        // 5. Manejo de error
+        if ($response->failed()) {
+            logger()->error('Error SLIN', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+
+            $this->dispatch('alertaLivewire', 'Error');
+            return;
+        }
+
+        // 6. Marcar como enviado
+        $this->evidencia->update([
+            'enviado_slin' => true,
+            'fecha_envio_slin' => now(),
+        ]);
+
+        $this->dispatch('alertaLivewire', 'Enviado');
+    }
 
     public function enviarCorreo()
     {

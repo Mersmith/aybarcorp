@@ -20,5 +20,6 @@ php artisan make:model MotivoCita -mfsc
 php artisan make:model EstadoCita -mfsc
 
 php artisan make:livewire Atc/EvidenciaPagoAntiguo/EvidenciaPagoAntiguoTodoLivewire
+php artisan make:livewire Atc/EvidenciaPagoAntiguo/EvidenciaPagoAntiguoCrearLivewire
 php artisan make:livewire Atc/EvidenciaPagoAntiguo/EvidenciaPagoAntiguoEditarLivewire
 php artisan make:livewire Atc/EvidenciaPagoAntiguo/EvidenciaPagoAntiguoImportarLivewire

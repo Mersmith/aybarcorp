@@ -47,7 +47,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
         $this->empresas = UnidadNegocio::all();
         $this->loadProyectos();
 
-        $this->usuarios = User::role('atc')->get();
+        $this->usuarios = User::role('asesor-atc')->get();
         $this->usuario_asignado_id = $this->evidencia->gestor_id;
     }
 

@@ -53,9 +53,10 @@ use App\Livewire\Atc\Cita\CitaTodoLivewire;
 use App\Livewire\Atc\Cita\CitaCalendarioLivewire;
 use App\Livewire\Atc\Cita\CitaCrearLivewire;
 use App\Livewire\Atc\Cita\CitaEditarLivewire;
+use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoTodoLivewire;
+use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoCrearLivewire;
 use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoEditarLivewire;
 use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoImportarLivewire;
-use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoTodoLivewire;
 use App\Livewire\Atc\ReporteCita\ReporteCitaLivewire;
 
 
@@ -91,6 +92,7 @@ Route::prefix('evidencia-pago-antiguo')
     ->middleware(['role:super-admin|admin|supervisor-backoffice|asesor-backoffice'])
     ->group(function () {
         Route::get('/', EvidenciaPagoAntiguoTodoLivewire::class)->name('todo');
+        Route::get('/crear', EvidenciaPagoAntiguoCrearLivewire::class)->name('crear');
         Route::get('/editar/{id}', EvidenciaPagoAntiguoEditarLivewire::class)->name('editar');
         Route::get('/importar', EvidenciaPagoAntiguoImportarLivewire::class)->name('importar');
     });

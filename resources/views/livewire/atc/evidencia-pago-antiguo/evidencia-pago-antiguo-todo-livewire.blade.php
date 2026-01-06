@@ -4,7 +4,7 @@
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Evidencias pago antiguo</h2>
+        <h2>Evidencia pago stock</h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.evidencia-pago.vista.todo') }}" class="g_boton g_boton_light">
