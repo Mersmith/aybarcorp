@@ -7,9 +7,9 @@ use App\Models\User;
 use App\Services\SlinService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
-use Illuminate\Support\Facades\Password;
 use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
@@ -24,20 +24,22 @@ class ClienteCrearLivewire extends Component
 
     public function buscarCliente(SlinService $slinService)
     {
+        $this->resetAntesDeBuscar();
+
         $this->validate([
             'dni' => 'required',
         ]);
 
         $response = Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}");
 
-        if (! $response->ok()) {
+        if (!$response->ok()) {
             session()->flash('error', 'Error al consultar el servicio.');
             return;
         }
 
         $cliente = $response->json();
 
-        if (! is_array($cliente)) {
+        if (!is_array($cliente)) {
             session()->flash('error', 'Respuesta inválida del servicio.');
             return;
         }
@@ -54,6 +56,20 @@ class ClienteCrearLivewire extends Component
             $this->mostrar_form_email = false;
             session()->flash('success', 'Cliente encontrado en el API Slin');
         }
+    }
+
+    public function resetAntesDeBuscar()
+    {
+        $this->reset([
+            'cliente_encontrado',
+            'razones_sociales',
+            'existingCliente',
+            'email',
+            'mostrar_form_email',
+        ]);
+
+        $this->resetValidation();
+        session()->forget(['success', 'error', 'info']);
     }
 
     public function registrarClienteNuevo()

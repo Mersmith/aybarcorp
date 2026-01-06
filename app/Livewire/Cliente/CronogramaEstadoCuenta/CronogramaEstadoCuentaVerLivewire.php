@@ -28,6 +28,10 @@ class CronogramaEstadoCuentaVerLivewire extends Component
 
     public function seleccionarCuota($cuota)
     {
+        if (auth()->user()->rol !== 'cliente') {
+            abort(403, 'No autorizado.');
+        }
+
         $this->cuota = $cuota;
     }
 

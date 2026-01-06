@@ -23,3 +23,6 @@
 @import "./components/grid-instagram.css";
 
 @import "./components/calendario.css";
+
+@import "../generales/spinner.css";
+@import "../cliente/reportes/cronograma.css";

@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Cliente\Lote;
 
-use App\Services\SlinService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -25,27 +24,32 @@ class LoteTodoLivewire extends Component
 
     public ?string $vista = null; // 'cronograma' | 'estado_cuenta' | 'cronograma_estado_cuenta'
 
-    public function mount(SlinService $slinService)
+    public function mount($clienteEncontradoCrear = null, $razonesSocialesCrear = null)
     {
-        if (auth()->user()->necesitaActualizarDatosPersonales() || auth()->user()->necesitaActualizarDirecciones()) {
-            session()->flash('error', 'Para poder acceder a tus proyectos, es obligatorio que actualices tus datos.');
-            return;
+        if ($clienteEncontradoCrear && $razonesSocialesCrear) {
+            $this->cliente_encontrado = $clienteEncontradoCrear;
+            $this->razones_sociales = $razonesSocialesCrear;
+        } else {
+            if (auth()->user()->necesitaActualizarDatosPersonales() || auth()->user()->necesitaActualizarDirecciones()) {
+                session()->flash('error', 'Para poder acceder a tus proyectos, es obligatorio que actualices tus datos.');
+                return;
+            }
+
+            $dni = Auth::user()->cliente->dni;
+
+            $cliente = Http::get("https://aybarcorp.com/slin/cliente/{$dni}")->json();
+
+            if (empty($cliente)) {
+                session()->flash('error', 'Inténtelo más tarde, por favor.');
+                return;
+            }
+
+            $this->cliente_encontrado = $cliente;
+            $this->razones_sociales = $cliente['empresas'] ?? [];
         }
-
-        $dni = Auth::user()->cliente->dni;
-
-        $cliente = Http::get("https://aybarcorp.com/slin/cliente/{$dni}")->json();
-
-        if (empty($cliente)) {
-            session()->flash('error', 'Inténtelo más tarde, por favor.');
-            return;
-        }
-
-        $this->cliente_encontrado = $cliente;
-        $this->razones_sociales = $cliente['empresas'] ?? [];
     }
 
-    public function updatedRazonSocialId($value, SlinService $slinService)
+    public function updatedRazonSocialId($value)
     {
         if (empty($value)) {
             $this->razon_social_select = null;
@@ -86,7 +90,7 @@ class LoteTodoLivewire extends Component
         $this->lote_select = null;
     }
 
-    public function verCronograma(array $lote, SlinService $slinService)
+    public function verCronograma(array $lote)
     {
         $this->lote_select = $lote;
         $this->vista = 'cronograma';
@@ -111,7 +115,7 @@ class LoteTodoLivewire extends Component
         $this->cronograma = $cronograma;
     }
 
-    public function verEstadoCuenta(array $lote, SlinService $slinService)
+    public function verEstadoCuenta(array $lote)
     {
         $this->lote_select = $lote;
         $this->vista = 'estado_cuenta';
@@ -136,7 +140,7 @@ class LoteTodoLivewire extends Component
         $this->estado_cuenta = $estado_cuenta;
     }
 
-    public function verCronogramaEstadoCuenta(array $lote, SlinService $slinService)
+    public function verCronogramaEstadoCuenta(array $lote)
     {
         $this->lote_select = $lote;
         $this->vista = 'cronograma_estado_cuenta';

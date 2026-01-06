@@ -79,31 +79,7 @@
                 </div>
 
                 @if ($cliente_encontrado)
-                    <div class="g_panel">
-                        <h4 class="g_panel_titulo">Razón social</h4>
-
-                        <div class="tabla_contenido">
-                            <div class="contenedor_tabla">
-                                <table class="tabla">
-                                    <thead>
-                                        <tr>
-                                            <th>Nº</th>
-                                            <th>Nombre</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($razones_sociales as $index => $empresa)
-                                            <tr>
-                                                <td> {{ $index + 1 }} </td>
-                                                <td class="g_resaltar">{{ $empresa['razon_social'] }}</td>
-
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    @livewire('cliente.lote.lote-todo-livewire', ['clienteEncontradoCrear' => $cliente_encontrado, 'razonesSocialesCrear' => $razones_sociales])
                 @endif
             </div>
 
