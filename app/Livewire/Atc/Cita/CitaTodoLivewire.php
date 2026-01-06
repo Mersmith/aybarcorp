@@ -44,7 +44,7 @@ class CitaTodoLivewire extends Component
         $this->sedes = Sede::all();
         $this->estados = EstadoCita::all();
         $this->motivos = MotivoCita::all();
-        $this->usuarios_admin = User::role(['atc', 'supervisor atc'])->get();
+        $this->usuarios_admin = User::role(['asesor-atc', 'supervisor-atc'])->get();
 
         $this->empresas = UnidadNegocio::all();
     }

@@ -1,8 +1,8 @@
-@section('tituloPagina', 'Crear cliente')
+@section('tituloPagina', 'Crear cliente antiguo')
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Crear cliente Slin</h2>
+        <h2>Crear cliente antiguo</h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_light">
@@ -44,8 +44,7 @@
                     <div class="g_margin_bottom_10">
                         <label for="dni">DNI/CE/RUC <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <input type="text" id="dni" wire:model.live="dni"
-                            x-on:input="$el.value = $el.value.replace(/[^0-9]/g, '')" required>
+                        <input type="text" id="dni" wire:model.live="dni" required>
                         @error('dni')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
@@ -58,29 +57,11 @@
                             <span wire:loading wire:target="buscarCliente">Buscando...</span>
                         </button>
                     </div>
-
-                    @if ($mostrar_form_email)
-                        <div class="g_margin_bottom_10">
-                            <label for="email">Email <span class="obligatorio">*</span></label>
-                            <input type="email" id="email" wire:model="email" required>
-                            @error('email')
-                                <p class="mensaje_error">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="formulario_botones">
-                            <button wire:click="registrarClienteNuevo" class="guardar" wire:loading.attr="disabled"
-                                wire:target="registrarClienteNuevo">
-                                <span wire:loading.remove wire:target="registrarClienteNuevo">Registrar cliente</span>
-                                <span wire:loading wire:target="registrarClienteNuevo">Registrando...</span>
-                            </button>
-                        </div>
-                    @endif
                 </div>
 
-                @if ($cliente_encontrado)
+                @if ($informaciones->isNotEmpty())
                     <div class="g_panel">
-                        <h4 class="g_panel_titulo">Razón social</h4>
+                        <h4 class="g_panel_titulo">Proyectos</h4>
 
                         <div class="tabla_contenido">
                             <div class="contenedor_tabla">
@@ -88,14 +69,24 @@
                                     <thead>
                                         <tr>
                                             <th>Nº</th>
+                                            <th>Razón Social</th>
+                                            <th>Proyecto</th>
+                                            <th>N° Lote</th>
                                             <th>Nombre</th>
+                                            <th>Código</th>
+                                            <th>DNI/RUC</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($razones_sociales as $index => $empresa)
+                                        @foreach ($informaciones as $index => $informacion)
                                             <tr>
                                                 <td> {{ $index + 1 }} </td>
-                                                <td class="g_resaltar">{{ $empresa['razon_social'] }}</td>
+                                                <td class="g_resaltar">{{ $informacion->razon_social }}</td>
+                                                <td class="g_resaltar">{{ $informacion->proyecto }}</td>
+                                                <td class="g_resaltar">{{ $informacion->numero_lote }}</td>
+                                                <td class="g_resaltar">{{ $informacion->nombre }}</td>
+                                                <td class="g_resaltar">{{ $informacion->codigo_cliente }}</td>
+                                                <td class="g_resaltar">{{ $informacion->dni }}</td>
 
                                             </tr>
                                         @endforeach
@@ -106,7 +97,6 @@
                     </div>
                 @endif
             </div>
-
         </div>
     </div>
 

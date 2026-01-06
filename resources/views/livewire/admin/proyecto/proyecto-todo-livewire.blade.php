@@ -66,8 +66,8 @@
                                         </a>
 
                                         <a href="{{ route('admin.proyecto.vista.seccion', $item->id) }}"
-                                            class="g_accion_editar">
-                                            <span><i class="fa-solid fa-pencil"></i></span>
+                                            class="g_accion_ver">
+                                            <span><i class="fa-solid fa-code"></i></span>
                                         </a>
                                     </td>
                                 </tr>

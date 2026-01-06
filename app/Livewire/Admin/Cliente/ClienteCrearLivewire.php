@@ -52,7 +52,7 @@ class ClienteCrearLivewire extends Component
             session()->flash('info', 'Cliente nuevo. Ingrese un correo para registrarlo.');
         } else {
             $this->mostrar_form_email = false;
-            session()->flash('success', 'Cliente encontrado en el sistema.');
+            session()->flash('success', 'Cliente encontrado en el API Slin');
         }
     }
 

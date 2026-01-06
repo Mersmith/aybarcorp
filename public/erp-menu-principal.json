@@ -367,10 +367,53 @@
             },
             {
                 "id": 42,
+                "nombre": "Grupo proyecto",
+                "ruta": "#",
+                "url": "#",
+                "icono": "fa-solid fa-layer-group",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "admin",
+                    "supervisor-atc",
+                    "asesor-atc"
+                ],
+                "submenus": [
+                    {
+                        "id": 111,
+                        "nombre": "Todo",
+                        "ruta": "admin.proyecto.vista.todo",
+                        "url": "/admin/proyecto",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc",
+                            "asesor-atc"
+                        ],
+                        "submenus": []
+                    },
+                    {
+                        "id": 112,
+                        "nombre": "Crear",
+                        "ruta": "admin.proyecto.vista.crear",
+                        "url": "/admin/proyecto/crear",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc"
+                        ],
+                        "submenus": []
+                    }
+                ]
+            },
+            {
+                "id": 43,
                 "nombre": "Proyecto",
                 "ruta": "#",
                 "url": "#",
-                "icono": "fa-solid fa-shapes",
+                "icono": "fa-solid fa-diagram-project",
                 "nivel": 2,
                 "roles": [
                     "super-admin",

@@ -19,20 +19,66 @@
         </div>
     </div>
 
+    {{--<div class="g_panel_4_grid">
+        <div class="g_panel g_panel_dashboard">
+            <div class="g_panel_dashboard_1">
+                <span>Total</span>
+                <span class="g_negrita">{{ $totalUsers }}</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-rotate-left"></i>
+            </div>
+        </div>
+        <div class="g_panel g_panel_dashboard">
+            <div class="g_panel_dashboard_1">
+                <span>Activos</span>
+                <span class="g_negrita">{{ $totalUsersActivo }}</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-rotate-left"></i>
+            </div>
+        </div>
+    </div>--}}
+
     <div class="g_panel">
-        <div class="tabla_cabecera">
-            <div class="tabla_cabecera_botones">
+        {{-- <div class="tabla_cabecera">
+             <div class="tabla_cabecera_botones">
                 <button wire:click="exportExcel" class="g_boton g_boton_excel">
                     EXCEL <i class="fa-regular fa-file-excel"></i>
                 </button>
-            </div>
+            </div> 
+        </div> --}}
 
-            <div class="tabla_cabecera_buscar">
-                <form action="">
-                    <input type="text" wire:model.live.debounce.1300ms="buscar" id="buscar" name="buscar"
-                        placeholder="Buscar...">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </form>
+        <div class="formulario">
+            <div class="g_fila">
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Admin/Nombres</label>
+                    <input type="text" wire:model.live.debounce.1300ms="buscar" id="buscar" name="buscar">
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Admin/Email</label>
+                    <input type="text" wire:model.live.debounce.1300ms="email" id="email" name="buscar">
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Rol </label>
+                    <select wire:model.live="rol">
+                        <option value="">Todos</option>
+                        @foreach ($roles as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Activo</label>
+                    <select wire:model.live="activo">
+                        <option value="">Todos</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
             </div>
         </div>
 

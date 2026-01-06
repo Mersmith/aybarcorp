@@ -21,7 +21,7 @@
 
     <div class="g_panel">
         <div class="tabla_cabecera">
-            <div class="tabla_cabecera_botones">
+            {{--<div class="tabla_cabecera_botones">
                 <button class="g_boton g_boton_pdf">
                     PDF <i class="fa-solid fa-file-pdf"></i>
                 </button>
@@ -29,7 +29,7 @@
                 <button class="g_boton g_boton_excel">
                     EXCEL <i class="fa-regular fa-file-excel"></i>
                 </button>
-            </div>
+            </div>--}}
 
             <div class="tabla_cabecera_buscar">
                 <form action="">

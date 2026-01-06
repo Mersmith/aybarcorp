@@ -1,0 +1,38 @@
+persmisos///esta
+roles///esta
+users->admins, clientes///esta
+clientes->slin, antiguo///esta
+
+unidad_negocio///esta
+grupo_proyectos*********************
+proyectos///esta
+direccion*********************
+imagenes
+archivos///esta
+areas///esta
+estado_evidencia_pagos///esta
+evidencia_pagos///esta
+evidencia_pagos_antiguo///esta
+tipo_solicitud///esta
+sub_tipo_solicitud///esta
+estado_tickets///esta
+prioridad_tickets///esta
+canal///esta
+tickets///esta
+sedes///esta
+motivo_citas///esta
+estado_citas///esta
+citas///esta
+
+*********************
+REPORTES Y EXCEL
+admins
+clientes
+tickets
+citas
+evidencia_pagos
+
+*********************
+crear clientes db antiguo
+crear evidencia pago antiguo
+editar imagen para cliente y correo de evidencia
