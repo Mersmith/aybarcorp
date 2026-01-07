@@ -62,7 +62,7 @@ class ClienteRegistrarLivewire extends Component
             return;
         }
 
-        session()->flash('status', 'Ahora si puede crear tu cuenta');
+        session()->flash('status', 'Ahora si puedes crear tu cuenta');
 
         $this->cliente_encontrado = $cliente;
     }

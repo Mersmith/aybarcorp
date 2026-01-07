@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Admin\Proyecto;
 
+use App\Models\GrupoProyecto;
 use App\Models\Proyecto;
+use App\Models\UnidadNegocio;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -11,6 +13,9 @@ use Livewire\Component;
 #[Layout('layouts.admin.layout-admin')]
 class ProyectoCrearLivewire extends Component
 {
+    public $unidad_negocios, $unidad_negocio_id = "";
+    public $grupo_proyectos, $grupo_proyecto_id = "";
+
     public $nombre;
     public $slug;
     public $imagen;
@@ -25,18 +30,30 @@ class ProyectoCrearLivewire extends Component
     protected function rules()
     {
         return [
+            'unidad_negocio_id' => 'required',
+            'grupo_proyecto_id' => 'required',
             'nombre' => 'required|string|max:255',
             'slug' => 'required|unique:proyectos,slug',
             'imagen' => 'required|string|max:255',
-            'contenido' => 'required|string',
+            'contenido' => 'nullable|string',
             'meta_title' => 'required|string|max:255',
             'meta_description' => 'required|string|max:255',
             'meta_image' => 'required|string|max:255',
             'activo' => 'required|boolean',
+            // 👇 lista es opcional
+            'lista' => 'nullable|array',
+
+            // 👇 solo se validan si existen
             'lista.*.id' => 'required|integer',
             'lista.*.texto' => 'required|string',
             'lista.*.link' => 'required|string',
         ];
+    }
+
+    public function mount()
+    {
+        $this->unidad_negocios = UnidadNegocio::all();
+        $this->grupo_proyectos = GrupoProyecto::all();
     }
 
     public function updatedNombre($value)
@@ -63,11 +80,13 @@ class ProyectoCrearLivewire extends Component
         array_splice($this->lista, $index, 1);
     }
 
-    public function crearPost()
+    public function store()
     {
         $this->validate();
 
         Proyecto::create([
+            'unidad_negocio_id' => $this->unidad_negocio_id,
+            'grupo_proyecto_id' => $this->grupo_proyecto_id,
             'nombre' => $this->nombre,
             'slug' => $this->slug,
             'contenido' => $this->contenido,

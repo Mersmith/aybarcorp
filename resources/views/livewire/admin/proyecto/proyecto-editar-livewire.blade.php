@@ -26,6 +26,36 @@
         <div class="g_fila">
             <div class="g_columna_8 g_gap_pagina">
                 <div class="g_panel">
+                    <div class="g_margin_bottom_10">
+                        <label for="unidad_negocio_id">
+                            Empresa <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                        </label>
+                        <select id="unidad_negocio_id" wire:model.live="unidad_negocio_id" required>
+                            <option value="" selected disabled>Seleccionar una empresa</option>
+                            @foreach ($unidad_negocios as $item)
+                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            @endforeach
+                        </select>
+                        @error('unidad_negocio_id')
+                            <p class="mensaje_error">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="g_margin_bottom_10">
+                        <label for="grupo_proyecto_id">
+                            Grupo proyecto<span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                        </label>
+                        <select id="grupo_proyecto_id" wire:model.live="grupo_proyecto_id" required>
+                            <option value="" selected disabled>Seleccionar un grupo</option>
+                            @foreach ($grupo_proyectos as $item)
+                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            @endforeach
+                        </select>
+                        @error('grupo_proyecto_id')
+                            <p class="mensaje_error">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <!-- Titulo -->
                     <div class="g_margin_bottom_10">
                         <label for="nombre">Nombre <span class="obligatorio"><i

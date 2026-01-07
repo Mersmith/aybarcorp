@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Admin\Proyecto;
 
+use App\Models\GrupoProyecto;
+use App\Models\UnidadNegocio;
 use App\Models\Proyecto;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
@@ -11,6 +13,9 @@ use Livewire\Component;
 #[Layout('layouts.admin.layout-admin')]
 class ProyectoEditarLivewire extends Component
 {
+    public $unidad_negocios, $unidad_negocio_id = "";
+    public $grupo_proyectos, $grupo_proyecto_id = "";
+
     public $proyecto;
 
     public $nombre;
@@ -27,14 +32,20 @@ class ProyectoEditarLivewire extends Component
     protected function rules()
     {
         return [
+            'unidad_negocio_id' => 'required',
+            'grupo_proyecto_id' => 'required',
             'nombre' => 'required|string|max:255',
-            'slug' => 'required|unique:blogs,slug,' . $this->proyecto->id,
+            'slug' => 'required|unique:proyectos,slug,' . $this->proyecto->id,
             'imagen' => 'required|string|max:255',
-            'contenido' => 'required|string',
+            'contenido' => 'nullable|string',
             'meta_title' => 'required|string|max:255',
             'meta_description' => 'required|string|max:255',
             'meta_image' => 'required|string|max:255',
             'activo' => 'required|boolean',
+            // 👇 lista es opcional
+            'lista' => 'nullable|array',
+
+            // 👇 solo se validan si existen
             'lista.*.id' => 'required|integer',
             'lista.*.texto' => 'required|string',
             'lista.*.link' => 'required|string',
@@ -45,6 +56,8 @@ class ProyectoEditarLivewire extends Component
     {
         $this->proyecto = Proyecto::findOrFail($id);
 
+        $this->unidad_negocio_id = $this->proyecto->unidad_negocio_id;
+        $this->grupo_proyecto_id = $this->proyecto->grupo_proyecto_id;
         $this->nombre = $this->proyecto->nombre;
         $this->slug = $this->proyecto->slug;
         $this->imagen = $this->proyecto->imagen;
@@ -53,6 +66,9 @@ class ProyectoEditarLivewire extends Component
         $this->meta_description = $this->proyecto->meta_description;
         $this->meta_image = $this->proyecto->meta_image;
         $this->activo = $this->proyecto->activo;
+
+        $this->unidad_negocios = UnidadNegocio::all();
+        $this->grupo_proyectos = GrupoProyecto::all();
 
         $documento = $this->proyecto->documento ?? [];
 
@@ -100,6 +116,8 @@ class ProyectoEditarLivewire extends Component
         $this->validate();
 
         $this->proyecto->update([
+            'unidad_negocio_id' => $this->unidad_negocio_id,
+            'grupo_proyecto_id' => $this->grupo_proyecto_id,
             'nombre' => $this->nombre,
             'slug' => $this->slug,
             'contenido' => $this->contenido,

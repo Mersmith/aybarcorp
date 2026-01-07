@@ -6,11 +6,11 @@
         <h2>Crear cliente antiguo</h2>
 
         <div class="cabecera_titulo_botones">
-            <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_light">
+            <a href="{{ route('admin.cliente-bd-antiguo.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i>
             </a>
 
-            <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_darkt">
+            <a href="{{ route('admin.cliente-bd-antiguo.vista.todo') }}" class="g_boton g_boton_darkt">
                 <i class="fa-solid fa-arrow-left"></i> Regresar
             </a>
         </div>
