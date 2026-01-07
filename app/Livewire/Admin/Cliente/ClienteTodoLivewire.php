@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Admin\Cliente;
 
+use App\Exports\ClientesWebExport;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 #[Layout('layouts.admin.layout-admin')]
 class ClienteTodoLivewire extends Component
@@ -65,17 +67,36 @@ class ClienteTodoLivewire extends Component
     {
         $this->reset([
             'buscar',
+            'email',
             'activo',
             'verificado',
             'tratamiento',
             'politica',
-            'email',
             'fecha_inicio',
             'fecha_fin',
         ]);
 
         $this->perPage = 20;
         $this->resetPage();
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new ClientesWebExport(
+                $this->buscar,
+                $this->email,
+                $this->activo,
+                $this->verificado,
+                $this->tratamiento,
+                $this->politica,
+                $this->fecha_inicio,
+                $this->fecha_fin,
+                $this->perPage,
+                $this->getPage()
+            ),
+            'clientes_web.xlsx'
+        );
     }
 
     public function render()
@@ -103,15 +124,11 @@ class ClienteTodoLivewire extends Component
                     $query->whereNull('email_verified_at'); // Usuarios no verificados
                 }
             })
-            ->when(
-                $this->fecha_inicio,
-                fn($q) =>
-                $q->whereDate('created_at', '>=', $this->fecha_inicio)
+            ->when($this->fecha_inicio, fn($q) =>
+                $q->whereDate('users.created_at', '>=', $this->fecha_inicio)
             )
-            ->when(
-                $this->fecha_fin,
-                fn($q) =>
-                $q->whereDate('created_at', '<=', $this->fecha_fin)
+            ->when($this->fecha_fin, fn($q) =>
+                $q->whereDate('users.created_at', '<=', $this->fecha_fin)
             )
             ->where('users.email', 'like', '%' . $this->email . '%') // ← aquí
             ->select('users.*')

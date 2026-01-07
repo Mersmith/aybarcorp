@@ -23,7 +23,7 @@ class PermisoEditarLivewire extends Component
     public function store()
     {
         $this->validate([
-            'permiso.name' => 'required|unique:permissions,name,' . $this->permiso->id,
+            'name' => 'required|unique:permissions,name,' . $this->permiso->id,
         ]);
 
         $this->permiso->update([

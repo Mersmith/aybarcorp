@@ -13,6 +13,10 @@
             <a href="{{ route('admin.cliente.vista.crear') }}" class="g_boton g_boton_primary">
                 Crear <i class="fa-solid fa-square-plus"></i></a>
 
+            <button wire:click="exportExcel" class="g_boton g_boton_excel">
+                Excel <i class="fa-regular fa-file-excel"></i>
+            </button>
+
             <button wire:click="resetFiltros" class="g_boton g_boton_danger">
                 Limpiar Filtros <i class="fa-solid fa-rotate-left"></i>
             </button>
@@ -20,26 +24,6 @@
     </div>
 
     <div class="g_panel">
-        {{-- <div class="tabla_cabecera">
-            <div class="tabla_cabecera_botones">
-                <button class="g_boton g_boton_pdf">
-                    PDF <i class="fa-solid fa-file-pdf"></i>
-                </button>
-
-                <button class="g_boton g_boton_excel">
-                    EXCEL <i class="fa-regular fa-file-excel"></i>
-                </button>
-            </div>
-
-            <div class="tabla_cabecera_buscar">
-                <form action="">
-                    <input type="text" wire:model.live.debounce.1300ms="buscar" id="buscar" name="buscar"
-                        placeholder="Buscar...">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </form>
-            </div>
-        </div> --}}
-
         <div class="formulario">
             <div class="g_fila">
                 <div class="g_margin_bottom_10 g_columna_3">

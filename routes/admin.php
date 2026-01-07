@@ -20,14 +20,17 @@ use App\Livewire\Admin\Sede\SedeTodoLivewire;
 use App\Livewire\Admin\UnidadNegocio\UnidadNegocioCrearLivewire;
 use App\Livewire\Admin\UnidadNegocio\UnidadNegocioEditarLivewire;
 use App\Livewire\Admin\UnidadNegocio\UnidadNegocioTodoLivewire;
+use App\Livewire\Admin\User\UserCrearLivewire;
+use App\Livewire\Admin\User\UserEditarLivewire;
+use App\Livewire\Admin\User\UserTodoLivewire;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/perfil', InicioLivewire::class)->name('home');
+Route::get('/perfil', InicioLivewire::class)->name('home'); //ok
 
-Route::prefix('unidad-negocio')->name('unidad-negocio.vista.')->group(function () {
-    Route::get('/', UnidadNegocioTodoLivewire::class)->name('todo');
-    Route::get('/crear', UnidadNegocioCrearLivewire::class)->name('crear');
-    Route::get('/editar/{id}', UnidadNegocioEditarLivewire::class)->name('editar');
+Route::prefix('usuario')->name('usuario.vista.')->group(function () { //ok
+    Route::get('/', UserTodoLivewire::class)->name('todo');
+    Route::get('/crear', UserCrearLivewire::class)->name('crear');
+    Route::get('/editar/{id}', UserEditarLivewire::class)->name('editar');
 });
 
 Route::prefix('cliente')->name('cliente.vista.')->group(function () {
@@ -40,6 +43,12 @@ Route::prefix('cliente-bd-antiguo')->name('cliente-bd-antiguo.vista.')->group(fu
     Route::get('/', ClienteAntiguoTodoLivewire::class)->name('todo');
     Route::get('/crear', ClienteAntiguoCrearLivewire::class)->name('crear');
     Route::get('/editar/{id}', ClienteAntiguoEditarLivewire::class)->name('editar');
+});
+
+Route::prefix('unidad-negocio')->name('unidad-negocio.vista.')->group(function () {
+    Route::get('/', UnidadNegocioTodoLivewire::class)->name('todo');
+    Route::get('/crear', UnidadNegocioCrearLivewire::class)->name('crear');
+    Route::get('/editar/{id}', UnidadNegocioEditarLivewire::class)->name('editar');
 });
 
 Route::prefix('sede')->name('sede.vista.')->group(function () {

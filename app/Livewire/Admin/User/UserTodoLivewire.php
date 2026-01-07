@@ -20,25 +20,9 @@ class UserTodoLivewire extends Component
     public $roles, $rol = '';
     public $activo = '';
 
-    public $totalUsers = 0;
-    public $totalUsersActivo = 0;
-
     public function mount()
     {
         $this->roles = Role::whereNotIn('name', ['super-admin'])->get();
-
-        /*$this->totalUsers = User::where('rol', 'admin')
-            ->whereDoesntHave('roles', function ($q) {
-                $q->whereIn('name', ['super-admin', 'cliente']);
-            })
-            ->count();
-
-        $this->totalUsersActivo = User::where('rol', 'admin')
-            ->where('activo', 1)
-            ->whereDoesntHave('roles', function ($q) {
-                $q->whereIn('name', ['super-admin', 'cliente']);
-            })
-            ->count();*/
     }
 
     public function updatingRol()
@@ -65,9 +49,9 @@ class UserTodoLivewire extends Component
     {
         $this->reset([
             'buscar',
+            'email',
             'rol',
             'activo',
-            'email',
         ]);
 
         $this->perPage = 20;
@@ -79,6 +63,9 @@ class UserTodoLivewire extends Component
         return Excel::download(
             new AdminsExport(
                 $this->buscar,
+                $this->email,
+                $this->rol !== '' ? (int) $this->rol : null,
+                $this->activo,
                 $this->perPage,
                 $this->getPage()
             ),

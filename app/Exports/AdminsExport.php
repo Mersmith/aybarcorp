@@ -10,14 +10,20 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class AdminsExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     protected string $buscar;
+    protected string $email;
+    protected ?int $rol;
+    protected string $activo;
     protected int $perPage;
     protected int $page;
 
-    public function __construct(string $buscar, int $perPage, int $page)
+    public function __construct(string $buscar, string $email, ?int $rol, string $activo, int $perPage, int $page)
     {
-        $this->buscar  = $buscar;
+        $this->buscar = $buscar;
+        $this->email = $email;
+        $this->rol = $rol;
+        $this->activo = $activo;
         $this->perPage = $perPage;
-        $this->page    = $page;
+        $this->page = $page;
     }
 
     public function collection()
@@ -27,19 +33,28 @@ class AdminsExport implements FromCollection, WithHeadings, ShouldAutoSize
             ->whereDoesntHave('roles', function ($q) {
                 $q->whereIn('name', ['super-admin', 'cliente']);
             })
+            ->when($this->rol, function ($query) {
+                $query->whereHas('roles', function ($q) {
+                    $q->where('id', $this->rol);
+                });
+            })
+            ->when($this->activo !== '', function ($query) {
+                $query->where('activo', $this->activo);
+            })
             ->where('name', 'like', "%{$this->buscar}%")
+            ->where('email', 'like', "%{$this->email}%")
             ->orderByDesc('created_at')
-            ->skip(($this->page - 1) * $this->perPage)
-            ->take($this->perPage)
             ->get()
-            ->map(fn ($user) => [
-                $user->id,
-                $user->name,
-                $user->email,
-                $user->roles->pluck('name')->implode(', '),
-                $user->activo ? 'Activo' : 'Inactivo',
-                $user->created_at->format('Y-m-d H:i'),
-            ]);
+            ->map(function ($user) {
+                return [
+                    $user->id,
+                    $user->name,
+                    $user->email,
+                    $user->roles->pluck('name')->implode(', '),
+                    $user->activo ? 'Activo' : 'Inactivo',
+                    $user->created_at->format('Y-m-d H:i'),
+                ];
+            });
     }
 
     public function headings(): array

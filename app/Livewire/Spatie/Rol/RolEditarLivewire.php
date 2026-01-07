@@ -27,10 +27,13 @@ class RolEditarLivewire extends Component
     public function store()
     {
         $this->validate([
-            'role.name' => 'required|unique:roles,name,' . $this->role->id,
+            'name' => 'required|unique:roles,name,' . $this->role->id,
         ]);
 
-        $this->role->save();
+        $this->role->update([
+            'name' => $this->name,
+        ]);
+
         $this->role->syncPermissions($this->permisosSeleccionados);
 
         $this->dispatch('alertaLivewire', 'Actualizado');

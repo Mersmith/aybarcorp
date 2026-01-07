@@ -13,42 +13,17 @@
             <a href="{{ route('admin.usuario.vista.crear') }}" class="g_boton g_boton_primary">
                 Crear <i class="fa-solid fa-square-plus"></i></a>
 
+            <button wire:click="exportExcel" class="g_boton g_boton_excel">
+                Excel <i class="fa-regular fa-file-excel"></i>
+            </button>
+
             <button wire:click="resetFiltros" class="g_boton g_boton_danger">
                 Limpiar Filtros <i class="fa-solid fa-rotate-left"></i>
             </button>
         </div>
     </div>
 
-    {{--<div class="g_panel_4_grid">
-        <div class="g_panel g_panel_dashboard">
-            <div class="g_panel_dashboard_1">
-                <span>Total</span>
-                <span class="g_negrita">{{ $totalUsers }}</span>
-            </div>
-            <div>
-                <i class="fa-solid fa-rotate-left"></i>
-            </div>
-        </div>
-        <div class="g_panel g_panel_dashboard">
-            <div class="g_panel_dashboard_1">
-                <span>Activos</span>
-                <span class="g_negrita">{{ $totalUsersActivo }}</span>
-            </div>
-            <div>
-                <i class="fa-solid fa-rotate-left"></i>
-            </div>
-        </div>
-    </div>--}}
-
     <div class="g_panel">
-        {{-- <div class="tabla_cabecera">
-             <div class="tabla_cabecera_botones">
-                <button wire:click="exportExcel" class="g_boton g_boton_excel">
-                    EXCEL <i class="fa-regular fa-file-excel"></i>
-                </button>
-            </div> 
-        </div> --}}
-
         <div class="formulario">
             <div class="g_fila">
                 <div class="g_margin_bottom_10 g_columna_3">
