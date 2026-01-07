@@ -24,7 +24,8 @@
                     <h4 class="g_panel_titulo">Datos del usuario</h4>
 
                     <div class="g_margin_bottom_10">
-                        <label for="name">Nombre</label>
+                        <label for="name">Nombre <span class="obligatorio"><i
+                                    class="fa-solid fa-asterisk"></i></span></label>
                         <input type="text" id="name" wire:model.live="name">
                         @error('name')
                             <p class="mensaje_error">{{ $message }}</p>
@@ -32,7 +33,8 @@
                     </div>
 
                     <div class="g_margin_bottom_10">
-                        <label for="email">Correo electrónico</label>
+                        <label for="email">Correo electrónico <span class="obligatorio"><i
+                                    class="fa-solid fa-asterisk"></i></span></label>
                         <input type="email" id="email" wire:model.live="email">
                         @error('email')
                             <p class="mensaje_error">{{ $message }}</p>
@@ -40,23 +42,13 @@
                     </div>
 
                     <div class="g_margin_bottom_10">
-                        <label for="password">Contraseña</label>
+                        <label for="password">Contraseña <span class="obligatorio"><i
+                                    class="fa-solid fa-asterisk"></i></span></label>
                         <input type="password" id="password" wire:model.live="password">
                         @error('password')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
-                    </div>
-
-                    {{--<div>
-                        <label for="rol">Rol</label>
-                        <select id="rol" wire:model.live="rol">
-                            <option value="cliente">Cliente</option>
-                            <option value="admin">Administrador</option>
-                        </select>
-                        @error('rol')
-                            <p class="mensaje_error">{{ $message }}</p>
-                        @enderror
-                    </div>--}}
+                    </div>                 
                 </div>
             </div>
 
