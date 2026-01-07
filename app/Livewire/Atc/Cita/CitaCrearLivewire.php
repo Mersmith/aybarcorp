@@ -54,7 +54,7 @@ class CitaCrearLivewire extends Component
         $this->sedes = Sede::all();
         $this->motivos = MotivoCita::all();
         $this->estados = EstadoCita::all();
-        $this->usuarios_admin = User::role('atc')
+        $this->usuarios_admin = User::role('asesor-atc')
             ->where('rol', 'admin')
             ->get();
     }

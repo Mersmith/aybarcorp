@@ -16,8 +16,7 @@ class UserEditarLivewire extends Component
 
     public $name;
     public $email;
-    public $password;
-    public $rol = 'admin';
+    public $password = '';
 
     public $roles;
     public $selectedRoles = [];
@@ -29,8 +28,6 @@ class UserEditarLivewire extends Component
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $this->user->id,
-            'password' => 'required|min:6',
-            'rol' => 'required|in:admin,cliente',
         ];
     }
 
@@ -43,10 +40,7 @@ class UserEditarLivewire extends Component
 
         $this->name = $this->user->name;
         $this->email = $this->user->email;
-        $this->password = $this->user->password;
-        $this->rol = $this->user->rol;
         $this->activo = $this->user->activo;
-
     }
 
     public function store()
@@ -56,12 +50,23 @@ class UserEditarLivewire extends Component
         $this->user->update([
             'name' => $this->name,
             'email' => $this->email,
-            'password' => Hash::make($this->password),
-            'rol' => $this->rol,
             'activo' => $this->activo,
         ]);
 
         $this->user->syncRoles($this->selectedRoles);
+
+        $this->dispatch('alertaLivewire', 'Actualizado');
+    }
+
+    public function actualizarClave()
+    {
+        $this->validate([
+            'password' => 'required|min:6',
+        ]);
+
+        $this->user->update([
+            'password' => Hash::make($this->password),
+        ]);
 
         $this->dispatch('alertaLivewire', 'Actualizado');
     }

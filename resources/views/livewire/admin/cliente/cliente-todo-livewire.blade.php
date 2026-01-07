@@ -20,8 +20,8 @@
     </div>
 
     <div class="g_panel">
-        <div class="tabla_cabecera">
-            {{--<div class="tabla_cabecera_botones">
+        {{-- <div class="tabla_cabecera">
+            <div class="tabla_cabecera_botones">
                 <button class="g_boton g_boton_pdf">
                     PDF <i class="fa-solid fa-file-pdf"></i>
                 </button>
@@ -29,7 +29,7 @@
                 <button class="g_boton g_boton_excel">
                     EXCEL <i class="fa-regular fa-file-excel"></i>
                 </button>
-            </div>--}}
+            </div>
 
             <div class="tabla_cabecera_buscar">
                 <form action="">
@@ -37,6 +37,67 @@
                         placeholder="Buscar...">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </form>
+            </div>
+        </div> --}}
+
+        <div class="formulario">
+            <div class="g_fila">
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Cliente/Nombres/Dni</label>
+                    <input type="text" wire:model.live.debounce.1300ms="buscar" id="buscar" name="buscar">
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Cliente/Email</label>
+                    <input type="text" wire:model.live.debounce.1300ms="email" id="email" name="buscar">
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Activo</label>
+                    <select wire:model.live="activo">
+                        <option value="">Todos</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Verificado</label>
+                    <select wire:model.live="verificado">
+                        <option value="">Todos</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="g_fila">
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Tratamiento D.P</label>
+                    <select wire:model.live="tratamiento">
+                        <option value="">Todos</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>P. Comercial</label>
+                    <select wire:model.live="politica">
+                        <option value="">Todos</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Fecha inicio</label>
+                    <input type="date" wire:model.live="fecha_inicio">
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_3">
+                    <label>Fecha fin</label>
+                    <input type="date" wire:model.live="fecha_fin">
+                </div>
             </div>
         </div>
 

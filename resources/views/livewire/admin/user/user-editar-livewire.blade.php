@@ -24,29 +24,37 @@
     </div>
 
     <!-- FORMULARIO -->
-    <form wire:submit.prevent="store" class="formulario">
-        <div class="g_fila">
-            <div class="g_columna_8 g_gap_pagina">
-                <div class="g_panel">
-                    <h4 class="g_panel_titulo">Datos del usuario</h4>
+    <div class="g_fila formulario">
+        <form wire:submit.prevent="store" class="g_columna_8 g_gap_pagina">
+            <div class="g_panel">
+                <h4 class="g_panel_titulo">Activo</h4>
 
-                    <div class="g_margin_bottom_10">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="name" wire:model.live="name">
-                        @error('name')
-                            <p class="mensaje_error">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <select id="activo" name="activo" wire:model.live="activo">
+                    <option value="0">DESACTIVADO</option>
+                    <option value="1">ACTIVO</option>
+                </select>
+            </div>
 
-                    <div class="g_margin_bottom_10">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" id="email" wire:model.live="email">
-                        @error('email')
-                            <p class="mensaje_error">{{ $message }}</p>
-                        @enderror
-                    </div>
+            <div class="g_panel">
+                <h4 class="g_panel_titulo">Datos del usuario</h4>
 
-                    <div class="g_margin_bottom_10">
+                <div class="g_margin_bottom_10">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" wire:model.live="name">
+                    @error('name')
+                        <p class="mensaje_error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="g_margin_bottom_10">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" wire:model.live="email">
+                    @error('email')
+                        <p class="mensaje_error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- <div class="g_margin_bottom_10">
                         <label for="password">Contraseña</label>
                         <input type="password" id="password" wire:model.live="password">
                         @error('password')
@@ -54,7 +62,7 @@
                         @enderror
                     </div>
 
-                    {{--<div>
+                    <div>
                         <label for="rol">Rol</label>
                         <select id="rol" wire:model.live="rol">
                             <option value="cliente">Cliente</option>
@@ -63,36 +71,20 @@
                         @error('rol')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
-                    </div>--}}
-                </div>
-
-                <div class="g_panel">
-                    <h4 class="g_panel_titulo">Roles</h4>
-
-                    @foreach ($roles as $rol)
-                        <label>
-                            <input type="checkbox" wire:model.live="selectedRoles" value="{{ $rol->name }}">
-                            {{ $rol->name }}
-                        </label>
-                    @endforeach
-                </div>
+                    </div> --}}
             </div>
 
-            <!-- COLUMNA DERECHA -->
-            <div class="g_columna_4 g_gap_pagina g_columna_invertir">
-                <!-- ACTIVO -->
-                <div class="g_panel">
-                    <h4 class="g_panel_titulo">Activo</h4>
+            <div class="g_panel">
+                <h4 class="g_panel_titulo">Roles</h4>
 
-                    <select id="activo" name="activo" wire:model.live="activo">
-                        <option value="0">DESACTIVADO</option>
-                        <option value="1">ACTIVO</option>
-                    </select>
-                </div>
+                @foreach ($roles as $rol)
+                    <label>
+                        <input type="checkbox" wire:model.live="selectedRoles" value="{{ $rol->name }}">
+                        {{ $rol->name }}
+                    </label>
+                @endforeach
             </div>
-        </div>
 
-        <div class="g_margin_top_20">
             <div class="formulario_botones">
                 <button type="submit" class="guardar" wire:loading.attr="disabled" wire:target="store">
                     <span wire:loading.remove wire:target="store">Actualizar</span>
@@ -101,8 +93,26 @@
 
                 <a href="{{ route('admin.usuario.vista.todo') }}" class="cancelar">Cancelar</a>
             </div>
-        </div>
-    </form>
+        </form>
+        <!-- COLUMNA DERECHA -->
+        <form wire:submit.prevent="actualizarClave" class="g_columna_4 g_gap_pagina">
+            <div class="g_panel">
+                <h4 class="g_panel_titulo">Seguridad</h4>
+                <label for="password">Nueva contraseña</label>
+                <input type="password" id="password" wire:model.live="password">
+                @error('password')
+                    <p class="mensaje_error">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="formulario_botones">
+                <button type="submit" class="guardar" wire:loading.attr="disabled" wire:target="actualizarClave">
+                    <span wire:loading.remove wire:target="actualizarClave">Cambiar contraseña</span>
+                    <span wire:loading wire:target="actualizarClave">Cambiando...</span>
+                </button>
+            </div>
+        </form>
+    </div>
 
     <script>
         function alertaEliminarUser() {
