@@ -1,5 +1,4 @@
 @section('tituloPagina', 'Crear sede')
-@section('anchoPantalla', '100%')
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
@@ -16,7 +15,7 @@
         </div>
     </div>
 
-    <form wire:submit.prevent="store" class="formulario">
+    <div class="formulario">
         <div class="g_fila">
             <div class="g_columna_8 g_gap_pagina">
                 <div class="g_panel">
@@ -41,29 +40,27 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="g_columna_4 g_gap_pagina g_columna_invertir">
-            <div class="g_panel">
-                <h4 class="g_panel_titulo">Activo</h4>
-                <select id="activo" wire:model.live="activo">
-                    <option value="0">DESACTIVADO</option>
-                    <option value="1">ACTIVO</option>
-                </select>
+            <div class="g_columna_4 g_gap_pagina g_columna_invertir">
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Activo</h4>
+                    <select id="activo" wire:model.live="activo">
+                        <option value="0">DESACTIVADO</option>
+                        <option value="1">ACTIVO</option>
+                    </select>
+                </div>
             </div>
         </div>
-</div>
+        <div class="g_margin_top_20">
+            <div class="formulario_botones">
+                <button wire:click="store" class="guardar" wire:loading.attr="disabled" wire:target="store">
+                    <span wire:loading.remove wire:target="store">Crear</span>
+                    <span wire:loading wire:target="store">Creando...</span>
+                </button>
 
-<div class="g_margin_top_20">
-    <div class="formulario_botones">
-        <button type="submit" class="guardar" wire:loading.attr="disabled" wire:target="store">
-            <span wire:loading.remove wire:target="store">Crear</span>
-            <span wire:loading wire:target="store">Guardando...</span>
-        </button>
+                <a href="{{ route('admin.sede.vista.todo') }}" class="cancelar">Cancelar</a>
+            </div>
+        </div>
 
-        <a href="{{ route('admin.sede.vista.todo') }}" class="cancelar">Cancelar</a>
     </div>
-</div>
-
-</form>
 </div>

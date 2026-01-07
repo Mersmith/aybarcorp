@@ -1,4 +1,7 @@
-<div>
+@section('tituloPagina', 'Area admin')
+@section('anchoPantalla', '100%')
+
+<div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
         <div>
             <h2>Área: {{ $area->nombre }}</h2>
@@ -118,7 +121,9 @@
                         </table>
                     </div>
 
-                    {{ $usuariosDisponibles->links() }}
+                    <div class="g_paginacion">
+                        {{ $usuariosDisponibles->links('vendor.pagination.default-livewire') }}
+                    </div>
                 @else
                     <div class="g_vacio">
                         <p>No hay usuarios disponibles.</p>
