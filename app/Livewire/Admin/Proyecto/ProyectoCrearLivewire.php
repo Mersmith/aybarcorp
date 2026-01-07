@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Proyecto;
 
+use App\Models\Proyecto;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -82,7 +83,7 @@ class ProyectoCrearLivewire extends Component
 
         $this->dispatch('alertaLivewire', "Creado");
 
-        return redirect()->route('admin.blog.vista.todo');
+        return redirect()->route('admin.proyecto.vista.todo');
     }
 
     #[On('handleProyectoCrearOn')]

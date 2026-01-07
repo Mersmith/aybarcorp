@@ -382,8 +382,8 @@
                     {
                         "id": 111,
                         "nombre": "Todo",
-                        "ruta": "admin.proyecto.vista.todo",
-                        "url": "/admin/proyecto",
+                        "ruta": "admin.grupo-proyecto.vista.todo",
+                        "url": "/admin/grupo-proyecto",
                         "nivel": 3,
                         "roles": [
                             "super-admin",
@@ -396,8 +396,8 @@
                     {
                         "id": 112,
                         "nombre": "Crear",
-                        "ruta": "admin.proyecto.vista.crear",
-                        "url": "/admin/proyecto/crear",
+                        "ruta": "admin.grupo-proyecto.vista.crear",
+                        "url": "/admin/grupo-proyecto/crear",
                         "nivel": 3,
                         "roles": [
                             "super-admin",

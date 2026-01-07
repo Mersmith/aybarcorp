@@ -1,11 +1,14 @@
 <?php
 
-use App\Livewire\Admin\Cliente\ClienteCrearLivewire;
-use App\Livewire\Admin\Cliente\ClienteEditarLivewire;
-use App\Livewire\Admin\Cliente\ClienteTodoLivewire;
 use App\Livewire\Admin\ClienteAntiguo\ClienteAntiguoCrearLivewire;
 use App\Livewire\Admin\ClienteAntiguo\ClienteAntiguoEditarLivewire;
 use App\Livewire\Admin\ClienteAntiguo\ClienteAntiguoTodoLivewire;
+use App\Livewire\Admin\Cliente\ClienteCrearLivewire;
+use App\Livewire\Admin\Cliente\ClienteEditarLivewire;
+use App\Livewire\Admin\Cliente\ClienteTodoLivewire;
+use App\Livewire\Admin\GrupoProyecto\GrupoProyectoCrearLivewire;
+use App\Livewire\Admin\GrupoProyecto\GrupoProyectoEditarLivewire;
+use App\Livewire\Admin\GrupoProyecto\GrupoProyectoTodoLivewire;
 use App\Livewire\Admin\Inicio\InicioLivewire;
 use App\Livewire\Admin\Proyecto\ProyectoCrearLivewire;
 use App\Livewire\Admin\Proyecto\ProyectoEditarLivewire;
@@ -44,6 +47,14 @@ Route::prefix('sede')->name('sede.vista.')->group(function () {
     Route::get('/crear', SedeCrearLivewire::class)->name('crear');
     Route::get('/editar/{id}', SedeEditarLivewire::class)->name('editar');
 });
+
+Route::prefix('grupo-proyecto')
+    ->name('grupo-proyecto.vista.')
+    ->group(function () {
+        Route::get('/', GrupoProyectoTodoLivewire::class)->name('todo');
+        Route::get('/crear', GrupoProyectoCrearLivewire::class)->name('crear');
+        Route::get('/editar/{id}', GrupoProyectoEditarLivewire::class)->name('editar');
+    });
 
 Route::prefix('proyecto')
     ->name('proyecto.vista.')
