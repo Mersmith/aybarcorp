@@ -23,90 +23,92 @@
 
             @if (!$cliente_encontrado)
 
-            @if (session('error'))
-            <div class="g_alerta_error">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <div>{{ session('error') }}</div>
-            </div>
-            @endif
+                @if (session('error'))
+                    <div class="g_alerta_error">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div>{{ session('error') }}</div>
+                    </div>
+                @endif
 
-            <div class="formulario_flex formulario">
-                <div class="g_margin_top_20">
-                    <label>Ingresa tu DNI</label>
-                    <input type="text" wire:model="dni" x-on:input="$el.value = $el.value.replace(/[^0-9]/g, '')"
-                        class="form-control">
-                    @error('dni')
-                    <div class="mensaje_error">{{ $message }}</div>
-                    @enderror
-                </div>
+                <div class="formulario_flex formulario">
+                    <div class="g_margin_top_20">
+                        <label>Ingresa tu DNI/RUC</label>
+                        <input type="text" wire:model="dni" x-on:input="$el.value = $el.value.replace(/[^0-9]/g, '')"
+                            class="form-control">
+                        @error('dni')
+                            <div class="mensaje_error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="g_margin_top_20 formulario_botones centrar">
-                    <button wire:click="buscarCliente" class="guardar">Validar DNI</button>
+                    <div class="g_margin_top_20 formulario_botones centrar">
+                        <button wire:click="buscarCliente" class="guardar">Validar DNI</button>
+                    </div>
                 </div>
-            </div>
             @endif
 
             @if ($cliente_encontrado)
-            @if (session('status'))
-            <div class="g_alerta_succes">
-                <i class="fa-solid fa-circle-check"></i>
-                {{ session('status') }}
-            </div>
-            @endif
+                @if (session('status'))
+                    <div class="g_alerta_succes">
+                        <i class="fa-solid fa-circle-check"></i>
+                        ¡{{ $this->cliente_encontrado['apellidos_nombres'] }}!, {{ session('status') }}
+                    </div>
+                @endif
 
-            <form wire:submit.prevent="registrar" class="formulario_flex formulario">
+                <form wire:submit.prevent="registrar" class="formulario_flex formulario">
 
-                <div class="g_margin_top_20">
-                    <label>Correo electrónico</label>
-                    <input type="email" wire:model="email" required>
-                    @error('email')
-                    <div class="mensaje_error">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="g_margin_top_20">
+                        <label>Correo electrónico</label>
+                        <input type="email" wire:model="email" required>
+                        @error('email')
+                            <div class="mensaje_error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="g_margin_top_20">
-                    <label>Contraseña</label>
-                    <input type="password" wire:model="password" required>
-                    @error('password')
-                    <div class="mensaje_error">{{ $message }}</div>
-                    @enderror
-                </div>
+                    <div class="g_margin_top_20">
+                        <label>Contraseña</label>
+                        <input type="password" wire:model="password" required>
+                        @error('password')
+                            <div class="mensaje_error">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="g_margin_top_20">
-                    <label>Repetir contraseña</label>
-                    <input type="password" wire:model="password_confirmation" required>
-                </div>
+                    <div class="g_margin_top_20">
+                        <label>Repetir contraseña</label>
+                        <input type="password" wire:model="password_confirmation" required>
+                    </div>
 
-                <div class="g_margin_top_20">
-                    <label>
-                        <input type="checkbox" wire:model="politica_uno">
-                        <span>He leído y acepto el <a href="https://aybarcorp.com/tratamiento-de-datos-personales"
-                                target="_blank" rel="noopener noreferrer"> <u>Tratamiento de mis datos personales</u>.
-                            </a></span>
-                    </label>
-                    @error('politica_uno')
-                    <p class="mensaje_error">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <div class="g_margin_top_20">
+                        <label>
+                            <input type="checkbox" wire:model="politica_uno">
+                            <span>He leído y acepto el <a href="https://aybarcorp.com/tratamiento-de-datos-personales"
+                                    target="_blank" rel="noopener noreferrer"> <u>Tratamiento de mis datos
+                                        personales</u>.
+                                </a></span>
+                        </label>
+                        @error('politica_uno')
+                            <p class="mensaje_error">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <div>
-                    <label>
-                        <input type="checkbox" wire:model="politica_dos">
-                        <span>He leído y acepto la <a href="https://aybarcorp.com/politica-comunicaciones-comerciales"
-                                target="_blank" rel="noopener noreferrer"> <u>Política para envío de comunicaciones
-                                    comerciales</u>.
-                            </a></span>
-                    </label>
-                    @error('politica_dos')
-                    <p class="mensaje_error">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <div>
+                        <label>
+                            <input type="checkbox" wire:model="politica_dos">
+                            <span>He leído y acepto la <a
+                                    href="https://aybarcorp.com/politica-comunicaciones-comerciales" target="_blank"
+                                    rel="noopener noreferrer"> <u>Política para envío de comunicaciones
+                                        comerciales</u>.
+                                </a></span>
+                        </label>
+                        @error('politica_dos')
+                            <p class="mensaje_error">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <div class="g_margin_top_20 formulario_botones centrar">
-                    <button type="submit" class="guardar">Crear cuenta</button>
-                </div>
+                    <div class="g_margin_top_20 formulario_botones centrar">
+                        <button type="submit" class="guardar">Crear cuenta</button>
+                    </div>
 
-            </form>
+                </form>
             @endif
 
         </div>
