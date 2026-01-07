@@ -4,7 +4,6 @@ namespace App\Livewire\Admin\Cliente;
 
 use App\Models\Cliente;
 use App\Models\User;
-use App\Services\SlinService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Password;
@@ -22,7 +21,7 @@ class ClienteCrearLivewire extends Component
     public $cliente_encontrado = null;
     public $razones_sociales = [];
 
-    public function buscarCliente(SlinService $slinService)
+    public function buscarCliente()
     {
         $this->resetAntesDeBuscar();
 

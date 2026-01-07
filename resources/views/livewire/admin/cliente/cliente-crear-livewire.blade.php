@@ -79,7 +79,14 @@
                 </div>
 
                 @if ($cliente_encontrado)
-                    @livewire('cliente.lote.lote-todo-livewire', ['clienteEncontradoCrear' => $cliente_encontrado, 'razonesSocialesCrear' => $razones_sociales])
+                    @livewire(
+                        'cliente.lote.lote-todo-livewire',
+                        [
+                            'clienteEncontradoCrear' => $cliente_encontrado,
+                            'razonesSocialesCrear' => $razones_sociales,
+                        ],
+                        key($dni)
+                    )
                 @endif
             </div>
 

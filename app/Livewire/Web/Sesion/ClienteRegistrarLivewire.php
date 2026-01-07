@@ -87,7 +87,8 @@ class ClienteRegistrarLivewire extends Component
 
         Cliente::create([
             'user_id' => $user->id,
-            'email' => $user->email,
+            'nombre' => $user->name,
+            'email' => $this->email,
             'dni' => $this->dni,
         ]);
 
