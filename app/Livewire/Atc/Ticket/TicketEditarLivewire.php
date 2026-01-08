@@ -33,7 +33,7 @@ class TicketEditarLivewire extends Component
     public $mapEstados = [];
 
     protected $rules = [
-        'archivo' => 'required|file|max:51200|mimes:pdf,docx,xlsx,pptx',
+        'archivo' => 'required|file|max:51200|mimes:pdf,docx,xlsx,pptx,jpg,jpeg,png',
         'descripcion_archivo' => 'nullable|string|max:2000',
     ];
 

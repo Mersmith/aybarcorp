@@ -18,7 +18,7 @@ return new class extends Migration
                 ->constrained('tipo_solicituds')
                 ->cascadeOnDelete();
 
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->integer('tiempo_solucion')->nullable(); // si es null, hereda del tipo
             $table->boolean('activo')->default(true);
 

@@ -192,7 +192,7 @@
             <div class="g_columna_4 g_gap_pagina g_columna_invertir">
                 <div class="g_panel">
                     <div class="">
-                        <input type="file" id="fileUpload" wire:model="archivo" accept=".docx,.xlsx,.pptx,.pdf"
+                        <input type="file" id="fileUpload" wire:model="archivo" accept=".pdf,.docx,.xlsx,.pptx,.jpg,.jpeg,.png"
                             style="display: none;">
 
                         <div class="contenedor_dropzone" onclick="document.getElementById('fileUpload').click()">
@@ -271,7 +271,7 @@
                                             <td>{{ $file->descripcion }}</td>
                                             <td>{{ $file->extension }}</td>
                                             <td class="centrar_iconos">
-                                                <a href="{{ $file->url }}" class="g_accion_editar">
+                                                <a href="{{ $file->url }}" target="_blank" rel="noopener noreferrer" class="g_accion_editar">
                                                     <span><i class="fa-solid fa-eye"></i></span>
                                                 </a>
                                                 <button onclick="alertaEliminarArchivo({{ $file->id }})"

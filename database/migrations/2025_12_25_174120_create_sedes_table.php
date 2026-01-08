@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sedes', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->string('direccion')->nullable();
             $table->boolean('activo')->default(true);
 

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->foreignId('estado_ticket_id')->default(1)->constrained('estado_tickets')->cascadeOnDelete();
             $table->foreignId('prioridad_ticket_id')->default(3)->constrained('prioridad_tickets')->cascadeOnDelete();
 
-            $table->foreignId('usuario_asignado_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('usuario_asignado_id')->nullable()->constrained('users')->nullOnDelete();//asignado
 
             $table->string('asunto_inicial');
             $table->text('descripcion_inicial');

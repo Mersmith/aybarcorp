@@ -25,6 +25,9 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['email', 'deleted_at']);
+            $table->unique(['dni', 'deleted_at']);
         });
     }
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tipo_solicituds', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->integer('tiempo_solucion')->nullable(); // tiempo por defecto (en horas)
             $table->boolean('activo')->default(false);
 

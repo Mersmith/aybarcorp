@@ -50,7 +50,7 @@ return new class extends Migration
             $table->date('fecha_registro')->nullable(); //ok
 
             //SUPERVISOR
-            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete(); //asignado
             $table->string('validador')->nullable(); //ok
             $table->date('fecha_validacion')->nullable(); //ok
 

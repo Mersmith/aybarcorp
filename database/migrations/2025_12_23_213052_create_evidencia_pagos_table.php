@@ -41,7 +41,7 @@ return new class extends Migration
             $table->string('transaccion_id')->nullable(); //idcobranzas
             $table->string('lote_completo')->nullable();
 
-            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //asignado
 
             //SUPERVISOR
             $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('canals', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->boolean('activo')->default(false);
 
             $table->timestamps();
