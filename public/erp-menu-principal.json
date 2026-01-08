@@ -48,7 +48,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.rol.vista.todo",
                         "url": "/admin/rol",
                         "nivel": 3,
@@ -86,7 +86,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.permiso.vista.todo",
                         "url": "/admin/permiso",
                         "nivel": 3,
@@ -125,7 +125,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.usuario.vista.todo",
                         "url": "/admin/usuario",
                         "nivel": 3,
@@ -167,7 +167,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.cliente.vista.todo",
                         "url": "/admin/cliente",
                         "nivel": 3,
@@ -211,7 +211,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.cliente-bd-antiguo.vista.todo",
                         "url": "/admin/cliente-bd-antiguo",
                         "nivel": 3,
@@ -268,7 +268,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.unidad-negocio.vista.todo",
                         "url": "/admin/unidad-negocio",
                         "nivel": 3,
@@ -304,7 +304,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.sede.vista.todo",
                         "url": "/admin/sede",
                         "nivel": 3,
@@ -341,7 +341,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.area.vista.todo",
                         "url": "/admin/area",
                         "nivel": 3,
@@ -381,7 +381,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.grupo-proyecto.vista.todo",
                         "url": "/admin/grupo-proyecto",
                         "nivel": 3,
@@ -424,7 +424,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.proyecto.vista.todo",
                         "url": "/admin/proyecto",
                         "nivel": 3,
@@ -521,7 +521,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.tipo-solicitud.vista.todo",
                         "url": "/admin/tipo-solicitud",
                         "nivel": 3,
@@ -562,7 +562,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.sub-tipo-solicitud.vista.todo",
                         "url": "/admin/sub-tipo-solicitud",
                         "nivel": 3,
@@ -603,7 +603,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.prioridad-ticket.vista.todo",
                         "url": "/admin/prioridad-ticket",
                         "nivel": 3,
@@ -644,7 +644,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.estado-ticket.vista.todo",
                         "url": "/admin/estado-ticket",
                         "nivel": 3,
@@ -685,7 +685,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.canal.vista.todo",
                         "url": "/admin/canal",
                         "nivel": 3,
@@ -727,7 +727,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.ticket.vista.todo",
                         "url": "/admin/ticket",
                         "nivel": 3,
@@ -771,7 +771,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.reporte-ticket.vista.todo",
                         "url": "/admin/reporte-ticket",
                         "nivel": 3,
@@ -816,7 +816,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.motivo-cita.vista.todo",
                         "url": "/admin/motivo-cita",
                         "nivel": 3,
@@ -857,7 +857,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.estado-cita.vista.todo",
                         "url": "/admin/estado-cita",
                         "nivel": 3,
@@ -899,7 +899,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.cita.vista.todo",
                         "url": "/admin/cita",
                         "nivel": 3,
@@ -943,7 +943,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.reporte-cita.vista.todo",
                         "url": "/admin/reporte-cita",
                         "nivel": 3,
@@ -987,7 +987,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.estado-evidencia-pago.vista.todo",
                         "url": "/admin/estado-evidencia-pago",
                         "nivel": 3,
@@ -1029,7 +1029,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.evidencia-pago.vista.todo",
                         "url": "/admin/evidencia-pago",
                         "nivel": 3,
@@ -1073,7 +1073,7 @@
                 "submenus": [
                     {
                         "id": 111,
-                        "nombre": "Todo",
+                        "nombre": "Lista",
                         "ruta": "admin.evidencia-pago-antiguo.vista.todo",
                         "url": "/admin/evidencia-pago-antiguo",
                         "nivel": 3,

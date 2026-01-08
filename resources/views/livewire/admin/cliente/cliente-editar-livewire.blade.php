@@ -4,7 +4,7 @@
 
     <!-- CABECERA -->
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Editar cliente web</h2>
+        <h2>Editar cliente portal</h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_light">
@@ -86,7 +86,7 @@
         <!-- COLUMNA DERECHA -->
         <form wire:submit.prevent="enviarRecuperarClave" class="g_columna_4 g_gap_pagina">
             <div class="g_panel">
-                <h4 class="g_panel_titulo">Enviar recuperar contraseña</h4>
+                <h4 class="g_panel_titulo">Enviar email recuperar contraseña</h4>
                 <div class="g_margin_bottom_10">
                     <label>Email</label>
                     <input type="text" disabled value="{{ $email }}">

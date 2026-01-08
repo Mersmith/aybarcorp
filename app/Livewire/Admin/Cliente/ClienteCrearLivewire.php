@@ -91,7 +91,7 @@ class ClienteCrearLivewire extends Component
 
         $cliente_nuevo = Cliente::create([
             'user_id' => $user->id,
-            'nombre' => $$user->name,
+            'nombre' => $user->name,
             'email' => $this->email,
             'dni' => $this->dni,
         ]);

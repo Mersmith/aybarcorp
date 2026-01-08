@@ -15,7 +15,7 @@ class ClienteEditarLivewire extends Component
 
     public $name;
     public $email;
-    public $dni;
+    public $dni = '';
     public $telefono_principal;
 
     public $rol = 'cliente';
@@ -39,8 +39,8 @@ class ClienteEditarLivewire extends Component
         $this->email = $this->user->email;
         $this->activo = $this->user->activo;
 
-        $this->dni = $this->user->cliente->dni;
-        $this->telefono_principal = $this->user->cliente->telefono_principal;
+        $this->dni = $this->user->cliente?->dni ?? '';
+        $this->telefono_principal = $this->user->cliente?->telefono_principal ?? '';
     }
 
     public function store()
