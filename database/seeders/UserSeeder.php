@@ -94,7 +94,7 @@ class UserSeeder extends Seeder
                 'email' => $data['email'],
                 'password' => Hash::make('123456'),
                 'rol' => 'admin',
-                'activo' => true,
+                'activo' => (bool) rand(0, 1),
             ]);
 
             $user->syncRoles(['supervisor-backoffice', 'asesor-backoffice', 'supervisor-atc']);
@@ -202,13 +202,17 @@ class UserSeeder extends Seeder
         }
 
         //CLIENTE
-        for ($i = 1; $i <= 2; $i++) {
+        for ($i = 1; $i <= 30; $i++) {
             $cliente = User::create([
                 'name' => "Cliente $i",
                 'email' => "cliente$i@example.com",
                 'password' => Hash::make('123456'),
                 'rol' => 'cliente',
                 'activo' => true,
+
+                'email_verified_at' => rand(0, 1) ? now() : null,
+                'politica_uno' => (bool) rand(0, 1),
+                'politica_dos' => (bool) rand(0, 1),
             ]);
 
             //$cliente->assignRole('cliente');

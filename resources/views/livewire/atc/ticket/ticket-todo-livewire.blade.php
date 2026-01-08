@@ -13,12 +13,12 @@
             <a href="{{ route('admin.ticket.vista.crear') }}" class="g_boton g_boton_primary">
                 Crear <i class="fa-solid fa-square-plus"></i></a>
 
-            <button wire:click="resetFiltros" class="g_boton g_boton_danger">
-                Limpiar Filtros <i class="fa-solid fa-rotate-left"></i>
-            </button>
-
             <button wire:click="exportExcel" class="g_boton g_boton_excel">
                 EXCEL <i class="fa-regular fa-file-excel"></i>
+            </button>
+
+            <button wire:click="resetFiltros" class="g_boton g_boton_danger">
+                Limpiar Filtros <i class="fa-solid fa-rotate-left"></i>
             </button>
         </div>
     </div>

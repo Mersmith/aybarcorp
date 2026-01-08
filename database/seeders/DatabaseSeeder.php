@@ -39,14 +39,14 @@ class DatabaseSeeder extends Seeder
             TipoSolicitudSeeder::class, //TICKET
             SubTipoSolicitudSeeder::class, //TICKET
             AreaTipoSolicitudSeeder::class, //TICKET
-            //TicketSeeder::class, //TICKET
-            //TicketHistorialSeeder::class, //TICKET
-            //TicketDerivadoSeeder::class, //TICKET
+            TicketSeeder::class, //TICKET
+            TicketHistorialSeeder::class, //TICKET
+            TicketDerivadoSeeder::class, //TICKET
 
             SedeSeeder::class, //CITA
             MotivoCitaSeeder::class, //CITA
-            EstadoCitaSeeder::class, //CITA
-            //CitaSeeder::class, //CITA*/
+            EstadoCitaSeeder::class, //CITAs
+            CitaSeeder::class, //CITA*/
 
         ]);
     }

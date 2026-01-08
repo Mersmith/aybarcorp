@@ -14,7 +14,7 @@ class TicketSeeder extends Seeder
 {
     public function run(): void
     {
-        $clientes = User::where('rol', 'cliente')->pluck('id')->toArray();
+        //$clientes = User::where('rol', 'cliente')->pluck('id')->toArray();
         //$admins   = User::where('rol', 'admin')->pluck('id')->toArray();
 
         $areas = Area::pluck('id')->toArray();
@@ -49,7 +49,9 @@ class TicketSeeder extends Seeder
             $tipoId = $tipos ? fake()->randomElement($tipos) : TipoSolicitud::inRandomOrder()->value('id');
 
             Ticket::create([
-                'cliente_id' => fake()->randomElement($clientes),
+                'unidad_negocio_id' => rand(1, 3),
+                'proyecto_id' => rand(1, 33),
+                'cliente_id' => rand(50, 70),
                 'area_id' => $areaId,
                 'tipo_solicitud_id' => $tipoId,
                 'canal_id' => fake()->randomElement($canales),
@@ -57,7 +59,7 @@ class TicketSeeder extends Seeder
 
                 'prioridad_ticket_id' => fake()->randomElement([1, 2, 3]),
 
-                'usuario_asignado_id' => fake()->numberBetween(5, 19),
+                'usuario_asignado_id' => fake()->numberBetween(4, 20),
 
                 'asunto_inicial' => fake()->randomElement($asuntos),
                 'descripcion_inicial' => fake()->randomElement($descripciones),

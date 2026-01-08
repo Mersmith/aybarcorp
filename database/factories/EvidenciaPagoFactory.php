@@ -17,7 +17,13 @@ class EvidenciaPagoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'observacion' => $this->faker->sentence(3),
+
+            'codigo_cliente' => $this->faker->unique()->numerify('########'),
+            'razon_social' => $this->faker->name(),
+            'nombre_proyecto' => $this->faker->sentence(2),
+            'etapa' => $this->faker->sentence(1),
+            'manzana' => $this->faker->sentence(1),
         ];
     }
 }

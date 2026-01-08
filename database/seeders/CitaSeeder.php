@@ -40,8 +40,12 @@ class CitaSeeder extends Seeder
             $end = (clone $start)->modify("+{$duracion} minutes");
 
             Cita::create([
-                'usuario_crea_id' => fake()->numberBetween(5, 19),
+                'unidad_negocio_id' => rand(1, 3),
+                'proyecto_id' => rand(1, 33),
                 'cliente_id' => $cliente->id,
+
+                'usuario_crea_id' => fake()->numberBetween(5, 19),
+                'usuario_atiende_id' => fake()->numberBetween(5, 50),
                 'sede_id' => $sede->id,
                 'motivo_cita_id' => $motivo->id,
                 'fecha_inicio' => $start,
@@ -71,7 +75,12 @@ class CitaSeeder extends Seeder
             }
 
             Cita::create([
+                'unidad_negocio_id' => rand(1, 3),
+                'proyecto_id' => rand(1, 33),
+                'cliente_id' => $cliente->id,
+
                 'usuario_crea_id' => fake()->numberBetween(5, 19),
+                'usuario_atiende_id' => fake()->numberBetween(5, 50),
                 'cliente_id' => $cliente->id,
                 'sede_id' => $sede->id,
                 'motivo_cita_id' => $motivo->id,

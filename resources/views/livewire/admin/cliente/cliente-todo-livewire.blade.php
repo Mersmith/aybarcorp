@@ -4,7 +4,7 @@
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Clientes web</h2>
+        <h2>Clientes portal</h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_light">
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="g_margin_bottom_10 g_columna_3">
-                    <label>Verificado</label>
+                    <label>Email verificado</label>
                     <select wire:model.live="verificado">
                         <option value="">Todos</option>
                         <option value="1">Si</option>
@@ -95,7 +95,7 @@
                             <th>Email</th>
                             <th>Dni</th>
                             <th>Fecha Creación</th>
-                            <th>Verificado</th>
+                            <th>Email verificado</th>
                             <th>Tratamiento D.P.</th>
                             <th>P. Comercial</th>
                             <th>Activo</th>

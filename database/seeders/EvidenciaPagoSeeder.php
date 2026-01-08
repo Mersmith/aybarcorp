@@ -38,15 +38,17 @@ class EvidenciaPagoSeeder extends Seeder
         $url = Storage::url($storagePath);
 
         // Obtener un cliente cualquiera o null si no existe
-        $clienteId = Cliente::inRandomOrder()->value('id') ?? null;
+        //$clienteId = Cliente::inRandomOrder()->value('id') ?? null;
 
         $estados = [1, 2, 3, 4];
 
         // Insertar registros de prueba
-        foreach (range(1, 30) as $i) {
-            EvidenciaPago::create([
+        foreach (range(1, 40) as $i) {
+            EvidenciaPago::factory()->create([
                 'unidad_negocio_id' => rand(1, 3),
-                'proyecto_id' => rand(1, 10),
+                'proyecto_id' => rand(1, 33),
+                'cliente_id' => rand(50, 70),
+
                 'path' => $storagePath,
                 'url' => $url,
                 'extension' => 'jpg',
@@ -57,7 +59,8 @@ class EvidenciaPagoSeeder extends Seeder
                 'fecha' => fake()->date(),
 
                 'estado_evidencia_pago_id' => $estados[array_rand($estados)],
-                'cliente_id' => $clienteId,
+
+                'gestor_id' =>  rand(40, 49),
                 'usuario_valida_id' => null,
             ]);
         }
