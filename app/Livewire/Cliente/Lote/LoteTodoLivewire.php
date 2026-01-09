@@ -200,13 +200,14 @@ class LoteTodoLivewire extends Component
 
         $pdf = Pdf::loadView('pdf.estado-cuenta', [
             'estado_cuenta' => $this->cronograma_estado_cuenta,
-        ]);
+        ])->setPaper('a4', 'landscape'); // 🔥 HORIZONTAL
 
         return response()->streamDownload(
             fn() => print($pdf->output()),
             'estado-cuenta-' . $this->lote_select['id_recaudo'] . '.pdf'
         );
     }
+
 
     public function render()
     {

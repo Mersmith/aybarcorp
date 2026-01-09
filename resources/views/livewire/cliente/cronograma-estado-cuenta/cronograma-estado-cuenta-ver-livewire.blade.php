@@ -72,7 +72,7 @@
                             <th>Mto. Amortizado</th>
                             <th>Evidencia</th>
                             <th>Boleta</th>
-                            {{-- <th>Letra</th> --}}
+                            <th>Letra digital</th>
                         </tr>
                     </thead>
 
@@ -127,14 +127,14 @@
                                 @endif
                                 @endif
                             </td>
-                            {{--<td>
+                            <td>
                                 @if (!empty($item['NroCavali']))
                                 <a href="{{ route('cavali.constancia.ver', $item['NroCavali']) }}" target="_blank"
                                     class="g_boton g_boton_empresa_primario" title="Ver letra digital firmada">
                                     <i class="fas fa-file-shield"></i>
                                 </a>
                                 @endif
-                            </td>--}}
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -105,33 +105,33 @@
 <table>
     <thead>
         <tr>
-            <th>Nro</th>
+            <th>N°</th>
+            <th>Fecha Compra</th>
             <th>Fecha Venc.</th>
-            <th>Fecha Comp.</th>
-            <th>Días Atra.</th>
             <th>Cuota</th>
-            <th>Pen.</th>
+            <th>Días de Atrazo</th>
+            <th>Penalidad</th>
             <th>Total</th>
-            <th>Comp.</th>
-            <th>Cuo. Pagado</th>
-            <th>Pen. Pagado</th>
-            <th>Pen.</th>
+            <th>Cuota Pagada</th>
+            <th>Penalidad Pagada</th>
+            <th>Monto Total Pagado</th>
+            {{-- <th>Penalidad</th> --}}
         </tr>
     </thead>
     <tbody>
         @foreach (($estado_cuenta['Cuotas'] ?? []) as $item)
         <tr>
             <td>{{ $item['NroCuota'] ?? '-' }}</td>
-            <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
             <td>{{ $item['FecCompra'] ?? '-' }}</td>
-            <td> {{ $item['DiasAtraso'] ?? 0 }}</td>
+            <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
             <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
+            <td> {{ $item['DiasAtraso'] ?? 0 }}</td>
             <td> S/ {{ $item['Penalidad'] ?? 0 }}</td>
             <td>S/ {{ $item['Total'] ?? 0 }}</td>
-            <td>S/ {{ $item['MontoComp'] ?? 0 }}</td>
             <td>S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
             <td>S/ {{ $item['PenalPagada'] ?? 0 }}</td>
-            <td>S/ {{ $item['SaldoPendiente'] ?? 0 }}</td>
+            <td>S/ {{ $item['MontoComp'] ?? 0 }}</td>
+            {{--<td>S/ {{ $item['SaldoPendiente'] ?? 0 }}</td>--}}
         </tr>
         @endforeach
     </tbody>
