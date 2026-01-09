@@ -3,6 +3,7 @@
 namespace App\Livewire\Atc\EstadoTicket;
 
 use App\Models\EstadoTicket;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -24,7 +25,12 @@ class EstadoTicketCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         EstadoTicket::create([
             'nombre' => $this->nombre,
@@ -33,7 +39,7 @@ class EstadoTicketCrearLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.estado-ticket.vista.todo');
     }

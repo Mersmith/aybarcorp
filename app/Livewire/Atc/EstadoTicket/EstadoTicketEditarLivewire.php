@@ -3,6 +3,7 @@
 namespace App\Livewire\Atc\EstadoTicket;
 
 use App\Models\EstadoTicket;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -38,7 +39,12 @@ class EstadoTicketEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->estado_ticket->update([
             'nombre' => $this->nombre,
@@ -47,7 +53,7 @@ class EstadoTicketEditarLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('eliminarEstadoTicketOn')]

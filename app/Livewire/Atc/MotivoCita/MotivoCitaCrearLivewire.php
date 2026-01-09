@@ -5,6 +5,7 @@ namespace App\Livewire\Atc\MotivoCita;
 use App\Models\MotivoCita;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class MotivoCitaCrearLivewire extends Component
@@ -24,7 +25,12 @@ class MotivoCitaCrearLivewire extends Component
 
     public function crearTipoSolicitud()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         MotivoCita::create([
             'nombre' => $this->nombre,
@@ -33,7 +39,7 @@ class MotivoCitaCrearLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.motivo-cita.vista.todo');
     }

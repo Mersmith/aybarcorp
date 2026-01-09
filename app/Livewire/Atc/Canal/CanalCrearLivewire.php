@@ -5,6 +5,7 @@ namespace App\Livewire\Atc\Canal;
 use App\Models\Canal;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class CanalCrearLivewire extends Component
@@ -22,14 +23,19 @@ class CanalCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         Canal::create([
             'nombre' => $this->nombre,
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.canal.vista.todo');
     }

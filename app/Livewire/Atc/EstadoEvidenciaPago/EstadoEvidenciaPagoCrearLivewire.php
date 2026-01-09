@@ -5,6 +5,7 @@ namespace App\Livewire\Atc\EstadoEvidenciaPago;
 use App\Models\EstadoEvidenciaPago;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class EstadoEvidenciaPagoCrearLivewire extends Component
@@ -24,7 +25,12 @@ class EstadoEvidenciaPagoCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         EstadoEvidenciaPago::create([
             'nombre' => $this->nombre,
@@ -33,7 +39,7 @@ class EstadoEvidenciaPagoCrearLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.estado-evidencia-pago.vista.todo');
     }

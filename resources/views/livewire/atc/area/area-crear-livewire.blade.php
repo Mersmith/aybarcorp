@@ -45,7 +45,7 @@
         <!-- BOTONES -->
         <div class="g_margin_top_20">
             <div class="formulario_botones">
-                <button wire:click="crearArea" class="guardar" wire:loading.attr="disabled">Guardar</button>
+                <button wire:click="store" class="guardar" wire:loading.attr="disabled">Guardar</button>
                 <a href="{{ route('admin.area.vista.todo') }}" class="cancelar">Cancelar</a>
             </div>
         </div>

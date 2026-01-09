@@ -21,7 +21,7 @@ class AreaCrearLivewire extends Component
         ];
     }
 
-    public function crearArea()
+    public function store()
     {
         try {
             $this->validate();

@@ -39,8 +39,8 @@
                             <th>Acción</th>
                         </tr>
                     </thead>
+                    
                     @if ($items->count())
-
                         <tbody>
                             @foreach ($items as $index => $item)
                                 <tr>

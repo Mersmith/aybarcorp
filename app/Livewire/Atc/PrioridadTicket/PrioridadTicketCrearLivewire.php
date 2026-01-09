@@ -3,6 +3,7 @@
 namespace App\Livewire\Atc\PrioridadTicket;
 
 use App\Models\PrioridadTicket;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -24,7 +25,12 @@ class PrioridadTicketCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         PrioridadTicket::create([
             'nombre' => $this->nombre,
@@ -33,7 +39,7 @@ class PrioridadTicketCrearLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.prioridad-ticket.vista.todo');
     }

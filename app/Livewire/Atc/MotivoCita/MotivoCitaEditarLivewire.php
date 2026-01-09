@@ -6,6 +6,7 @@ use App\Models\MotivoCita;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class MotivoCitaEditarLivewire extends Component
@@ -38,7 +39,12 @@ class MotivoCitaEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->motivo->update([
             'nombre' => $this->nombre,
@@ -47,7 +53,7 @@ class MotivoCitaEditarLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('eliminarMotivoCitaOn')]
