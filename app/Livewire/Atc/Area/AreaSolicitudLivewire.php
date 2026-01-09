@@ -18,19 +18,19 @@ class AreaSolicitudLivewire extends Component
     public string $searchDisponibles = '';
     public string $searchAgregados = '';
 
-    public $pageDisponibles = 1;
+    public $perPageDisponibles = 20;
 
     public function mount($id)
     {
         $this->area = Area::findOrFail($id);
     }
 
-    public function updatingSearchDisponibles()
+    public function updatingSearchAgregados()
     {
-        $this->reset('pageDisponibles');
+        $this->resetPage();
     }
 
-    public function updatingSearchAgregados()
+    public function updatingSearchDisponibles()
     {
         $this->resetPage();
     }
@@ -39,14 +39,14 @@ class AreaSolicitudLivewire extends Component
     {
         $this->area->tipos()->syncWithoutDetaching([$tipoId]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Agregado', 'text' => 'Se agrego correctamente.']);
     }
 
     public function quitarTipo($tipoId)
     {
         $this->area->tipos()->detach($tipoId);
 
-        $this->dispatch('alertaLivewire', "Eliminado");
+        $this->dispatch('alertaLivewire', ['title' => 'Quitado', 'text' => 'Se quito correctamente.']);
     }
 
     public function render()
@@ -64,7 +64,7 @@ class AreaSolicitudLivewire extends Component
         $tiposDisponibles = TipoSolicitud::whereNotIn('id', $idsAgregados)
             ->where('nombre', 'like', '%' . $this->searchDisponibles . '%')
             ->orderBy('nombre')
-            ->paginate(20, ['*'], 'pageDisponibles');
+            ->paginate($this->perPageDisponibles);
 
         return view('livewire.atc.area.area-solicitud-livewire', [
             'tiposAgregados' => $tiposAgregados,

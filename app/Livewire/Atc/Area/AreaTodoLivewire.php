@@ -21,10 +21,10 @@ class AreaTodoLivewire extends Component
 
     public function render()
     {
-        $areas = Area::where('nombre', 'like', '%' . $this->buscar . '%')
+        $items = Area::where('nombre', 'like', '%' . $this->buscar . '%')
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
-        return view('livewire.atc.area.area-todo-livewire', compact('areas'));
+        return view('livewire.atc.area.area-todo-livewire', compact('items'));
     }
 }

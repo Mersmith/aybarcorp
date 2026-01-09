@@ -18,20 +18,19 @@ class AreaUserLivewire extends Component
     public string $searchDisponibles = '';
     public string $searchAgregados = '';
 
-    public $pageDisponibles = 1;
+    public $perPageDisponibles = 20;
 
     public function mount($id)
     {
         $this->area = Area::findOrFail($id);
     }
 
-    public function updatingSearchDisponibles()
+    public function updatingSearchAgregados()
     {
         $this->resetPage();
-        $this->reset('pageDisponibles');
     }
 
-    public function updatingSearchAgregados()
+    public function updatingSearchDisponibles()
     {
         $this->resetPage();
     }
@@ -40,19 +39,19 @@ class AreaUserLivewire extends Component
     {
         $this->area->usuarios()->syncWithoutDetaching([$userId]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Agregado', 'text' => 'Se agrego correctamente.']);
     }
 
     public function quitarUsuario($userId)
     {
         $this->area->usuarios()->detach($userId);
 
-        $this->dispatch('alertaLivewire', "Eliminado");
+        $this->dispatch('alertaLivewire', ['title' => 'Quitado', 'text' => 'Se quito correctamente.']);
     }
 
     public function render()
     {
-        $idsAgregados = $this->area->usuarios->pluck('id');
+        $idsAgregados = $this->area->usuarios()->pluck('users.id');
 
         $usuariosAgregados = User::whereIn('id', $idsAgregados)
             ->where('rol', 'admin')
@@ -64,11 +63,12 @@ class AreaUserLivewire extends Component
             ->where('rol', 'admin')
             ->where('name', 'like', '%' . $this->searchDisponibles . '%')
             ->orderBy('name')
-            ->paginate(20, ['*'], 'pageDisponibles');
+            ->paginate($this->perPageDisponibles);
 
-        return view('livewire.atc.area.area-user-livewire', [
-            'usuariosAgregados' => $usuariosAgregados,
-            'usuariosDisponibles' => $usuariosDisponibles,
-        ]);
+        return view('livewire.atc.area.area-user-livewire', compact(
+            'usuariosAgregados',
+            'usuariosDisponibles'
+        ));
     }
+
 }

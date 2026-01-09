@@ -29,21 +29,22 @@
                 </form>
             </div>
         </div>
-        @if ($areas->count())
-            <!--TABLA CONTENIDO-->
-            <div class="tabla_contenido g_margin_bottom_20">
-                <div class="contenedor_tabla">
-                    <table class="tabla">
-                        <thead>
-                            <tr>
-                                <th>Nº</th>
-                                <th>Nombre</th>
-                                <th>Activo</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
+
+        <div class="tabla_contenido g_margin_bottom_20">
+            <div class="contenedor_tabla">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Nombre</th>
+                            <th>Activo</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+
+                    @if ($items->count())
                         <tbody>
-                            @foreach ($areas as $index => $item)
+                            @foreach ($items as $index => $item)
                                 <tr>
                                     <td> {{ $index + 1 }} </td>
                                     <td class="g_resaltar">ID: {{ $item->id }} - {{ $item->nombre }}</td>
@@ -59,8 +60,7 @@
                                             <span><i class="fa-solid fa-pencil"></i></span>
                                         </a>
 
-                                        <a href="{{ route('admin.area.vista.user', $item->id) }}"
-                                            class="g_activo">
+                                        <a href="{{ route('admin.area.vista.user', $item->id) }}" class="g_activo">
                                             <span><i class="fas fa-user-plus"></i></span>
                                         </a>
 
@@ -72,18 +72,20 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
-                </div>
+                    @endif
+                </table>
             </div>
+        </div>
 
-            @if ($areas->hasPages())
-                <div class="g_paginacion">
-                    {{ $areas->links('vendor.pagination.default-livewire') }}
-                </div>
-            @endif
-        @else
+        @if ($items->hasPages())
+            <div class="g_paginacion">
+                {{ $areas->links('vendor.pagination.default-livewire') }}
+            </div>
+        @endif
+
+        @if ($items->count() == 0)
             <div class="g_vacio">
-                <p>No hay areas disponibles.</p>
+                <p>No hay items disponibles.</p>
                 <i class="fa-regular fa-face-grin-wink"></i>
             </div>
         @endif

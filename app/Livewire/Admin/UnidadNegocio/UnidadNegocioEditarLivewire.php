@@ -3,9 +3,10 @@
 namespace App\Livewire\Admin\UnidadNegocio;
 
 use App\Models\UnidadNegocio;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
-use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
 class UnidadNegocioEditarLivewire extends Component
@@ -18,7 +19,7 @@ class UnidadNegocioEditarLivewire extends Component
     protected function rules()
     {
         return [
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:unidad_negocios,nombre,' . $this->unidad_negocio->id,
             'razon_social' => 'required|string|max:255',
         ];
     }
@@ -27,20 +28,25 @@ class UnidadNegocioEditarLivewire extends Component
     {
         $this->unidad_negocio = UnidadNegocio::findOrFail($id);
 
-        $this->nombre  = $this->unidad_negocio->nombre ;
+        $this->nombre = $this->unidad_negocio->nombre;
         $this->razon_social = $this->unidad_negocio->razon_social;
     }
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->unidad_negocio->update([
             'nombre' => $this->nombre,
             'razon_social' => $this->razon_social,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('eliminarUnidadNegocioOn')]

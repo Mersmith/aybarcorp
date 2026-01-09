@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Sede;
 
 use App\Models\Sede;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -37,7 +38,12 @@ class SedeEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->sede->update([
             'nombre' => $this->nombre,
@@ -45,9 +51,9 @@ class SedeEditarLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
-    
+
     #[On('eliminarSedeOn')]
     public function eliminarSedeOn()
     {

@@ -38,17 +38,18 @@
                     </div>
                 </div>
 
-                @if ($usuariosAgregados->count())
-                    <div class="tabla_contenido g_margin_bottom_20">
-                        <table class="tabla">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
+                <div class="tabla_contenido g_margin_bottom_20">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+
+                        @if ($usuariosAgregados->count())
                             <tbody>
                                 @foreach ($usuariosAgregados as $index => $user)
                                     <tr>
@@ -65,9 +66,11 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                        </table>
-                    </div>
-                @else
+                        @endif
+                    </table>
+                </div>               
+
+                @if ($usuariosAgregados->count() == 0)
                     <div class="g_vacio">
                         <p>No hay usuarios asignados.</p>
                         <i class="fa-regular fa-face-grin-wink"></i>
@@ -91,17 +94,18 @@
                     </div>
                 </div>
 
-                @if ($usuariosDisponibles->count())
-                    <div class="tabla_contenido g_margin_bottom_20">
-                        <table class="tabla">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
+                <div class="tabla_contenido g_margin_bottom_20">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+
+                        @if ($usuariosDisponibles->count())
                             <tbody>
                                 @foreach ($usuariosDisponibles as $index => $user)
                                     <tr>
@@ -118,13 +122,17 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                        </table>
-                    </div>
+                        @endif
+                    </table>
+                </div>
 
+                @if ($usuariosDisponibles->hasPages())
                     <div class="g_paginacion">
                         {{ $usuariosDisponibles->links('vendor.pagination.default-livewire') }}
                     </div>
-                @else
+                @endif
+
+                @if ($usuariosDisponibles->count() == 0)
                     <div class="g_vacio">
                         <p>No hay usuarios disponibles.</p>
                         <i class="fa-regular fa-face-grin-wink"></i>

@@ -3,6 +3,7 @@
 namespace App\Livewire\Atc\Area;
 
 use App\Models\Area;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -15,21 +16,26 @@ class AreaCrearLivewire extends Component
     protected function rules()
     {
         return [
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:areas,nombre',
             'activo' => 'required|boolean',
         ];
     }
 
     public function crearArea()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         Area::create([
             'nombre' => $this->nombre,
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.area.vista.todo');
     }

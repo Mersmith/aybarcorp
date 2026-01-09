@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Sede;
 
 use App\Models\Sede;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -24,7 +25,12 @@ class SedeCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         Sede::create([
             'nombre' => $this->nombre,
@@ -32,7 +38,7 @@ class SedeCrearLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.sede.vista.todo');
     }

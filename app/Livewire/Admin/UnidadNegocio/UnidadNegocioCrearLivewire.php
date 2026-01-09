@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\UnidadNegocio;
 
 use App\Models\UnidadNegocio;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -15,21 +16,26 @@ class UnidadNegocioCrearLivewire extends Component
     protected function rules()
     {
         return [
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:unidad_negocios,nombre',
             'razon_social' => 'required|string|max:255',
         ];
     }
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         UnidadNegocio::create([
             'nombre' => $this->nombre,
             'razon_social' => $this->razon_social,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.unidad-negocio.vista.todo');
     }

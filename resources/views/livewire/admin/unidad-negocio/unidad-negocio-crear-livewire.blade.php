@@ -1,5 +1,4 @@
 @section('tituloPagina', 'Crear unidad negocio')
-@section('anchoPantalla', '100%')
 
 <div class="g_gap_pagina">
     <!-- CABECERA -->
@@ -21,7 +20,7 @@
     <form wire:submit.prevent="store" class="formulario">
         <div class="g_fila">
             <!-- IZQUIERDA -->
-            <div class="g_columna_8 g_gap_pagina">
+            <div class="g_columna_12">
                 <div class="g_panel">
                     <h4 class="g_panel_titulo">General</h4>
 
@@ -44,12 +43,6 @@
                             @enderror
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- DERECHA -->
-            <div class="g_columna_4 g_gap_pagina g_columna_invertir">
-                <div class="g_panel">
                 </div>
             </div>
         </div>

@@ -452,46 +452,7 @@
                 ]
             }
         ]
-    },
-    {
-        "id": 47,
-        "nombre": "47",
-        "ruta": "#",
-        "url": "#",
-        "icono": "fa-solid fa-photo-film",
-        "nivel": 1,
-        "roles": [
-            "super-admin",
-            "admin"
-        ],
-        "submenus": [
-            {
-                "id": 41,
-                "nombre": "Imagen",
-                "ruta": "admin.imagen.vista.todo",
-                "url": "/admin/imagen",
-                "icono": "fa-regular fa-image",
-                "nivel": 2,
-                "roles": [
-                    "super-admin"
-                ],
-                "submenus": []
-            },
-            {
-                "id": 42,
-                "nombre": "Archivo",
-                "ruta": "admin.archivo.vista.todo",
-                "url": "/admin/archivo",
-                "icono": "fa-solid fa-file-lines text-gray-600",
-                "nivel": 2,
-                "roles": [
-                    "super-admin",
-                    "admin"
-                ],
-                "submenus": []
-            }
-        ]
-    },
+    },   
     {
         "id": 14,
         "nombre": "14",

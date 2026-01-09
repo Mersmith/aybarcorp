@@ -37,16 +37,18 @@
                     </div>
                 </div>
 
-                @if ($tiposAgregados->count())
-                    <div class="tabla_contenido g_margin_bottom_20">
-                        <table class="tabla">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Tipo de Solicitud</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
+                <div class="tabla_contenido g_margin_bottom_20">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tipo de Solicitud</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+
+                        @if ($tiposAgregados->count())
+
                             <tbody>
                                 @foreach ($tiposAgregados as $index => $tipo)
                                     <tr>
@@ -62,9 +64,11 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                        </table>
-                    </div>
-                @else
+                        @endif
+                    </table>
+                </div>
+
+                @if ($tiposAgregados->count() == 0)
                     <div class="g_vacio">
                         <p>No hay tipos asignados.</p>
                         <i class="fa-regular fa-face-grin-wink"></i>
@@ -89,16 +93,17 @@
                     </div>
                 </div>
 
-                @if ($tiposDisponibles->count())
-                    <div class="tabla_contenido g_margin_bottom_20">
-                        <table class="tabla">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Tipo de Solicitud</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
+                <div class="tabla_contenido g_margin_bottom_20">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tipo de Solicitud</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+
+                        @if ($tiposDisponibles->count())
                             <tbody>
                                 @foreach ($tiposDisponibles as $index => $tipo)
                                     <tr>
@@ -114,13 +119,17 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                        </table>
-                    </div>
+                        @endif
+                    </table>
+                </div>
 
+                @if ($tiposDisponibles->hasPages())
                     <div class="g_paginacion">
                         {{ $tiposDisponibles->links('vendor.pagination.default-livewire') }}
                     </div>
-                @else
+                @endif
+                
+                @if ($tiposDisponibles->count() == 0)
                     <div class="g_vacio">
                         <p>No hay tipos disponibles.</p>
                         <i class="fa-regular fa-face-grin-wink"></i>

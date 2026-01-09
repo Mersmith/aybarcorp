@@ -3,6 +3,7 @@
 namespace App\Livewire\Atc\Area;
 
 use App\Models\Area;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -34,14 +35,19 @@ class AreaEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->area->update([
             'nombre' => $this->nombre,
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('eliminarAreaOn')]
