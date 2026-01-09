@@ -145,7 +145,7 @@ class ProyectoSeccionLivewire extends Component
             ],
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     public function render()

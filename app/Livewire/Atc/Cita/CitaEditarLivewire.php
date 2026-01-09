@@ -45,7 +45,7 @@ class CitaEditarLivewire extends Component
             'estado_cita_id' => $this->estado_cita_id,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('eliminarCitaOn')]

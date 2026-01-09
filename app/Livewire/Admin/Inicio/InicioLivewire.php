@@ -50,7 +50,7 @@ class InicioLivewire extends Component
         $this->usuario->load('areas');
         $this->areasUsuario = $this->usuario->areas()->withPivot('created_at')->get();
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
 

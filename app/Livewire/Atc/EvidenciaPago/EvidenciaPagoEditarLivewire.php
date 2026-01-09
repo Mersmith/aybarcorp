@@ -74,7 +74,7 @@ class EvidenciaPagoEditarLivewire extends Component
             'proyecto_id' => $this->proyecto_id,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     public function validar()
@@ -85,7 +85,7 @@ class EvidenciaPagoEditarLivewire extends Component
             'fecha_validacion' => now(),
         ]);
         $this->evidencia->refresh();
-        $this->dispatch('alertaLivewire', "Validado");
+        $this->dispatch('alertaLivewire', ['title' => 'Validado', 'text' => 'Se validó correctamente.']);
     }
 
     public function enviarSlin()
@@ -134,7 +134,7 @@ class EvidenciaPagoEditarLivewire extends Component
             'fecha_envio_slin' => now(),
         ]);
 
-        $this->dispatch('alertaLivewire', 'Enviado');
+        $this->dispatch('alertaLivewire', ['title' => 'Enviado', 'text' => 'Se envió correctamente.']);
     }
 
     public function enviarCorreo()
@@ -152,8 +152,8 @@ class EvidenciaPagoEditarLivewire extends Component
         Mail::to($emailDestino)
             ->send(new EvidenciaPagoObservacionMail($this->evidencia));
 
-        $this->dispatch('alertaLivewire', "Enviado");
-    }
+            $this->dispatch('alertaLivewire', ['title' => 'Enviado', 'text' => 'Se envió correctamente.']);
+        }
 
     public function render()
     {

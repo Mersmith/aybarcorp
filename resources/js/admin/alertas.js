@@ -29,7 +29,7 @@ function alertaNormal(mensaje) {
 Livewire.on("alertaLivewire", (data) => {
     const payload = data[0];
 
-    const successTitles = ["Creado", "Actualizado", "Agregado", "Validado", "Enviado"];
+    const successTitles = ["Creado", "Actualizado", "Agregado", "Derivado", "Adjuntado", "Validado", "Enviado"];
     const errorTitles = ["Error", "Eliminado", "Quitado"];
     const warningTitles = ["Advertencia"];
 

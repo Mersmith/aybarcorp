@@ -16,6 +16,7 @@ use App\Services\ConsultaClienteService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class TicketCrearLivewire extends Component
@@ -115,7 +116,12 @@ class TicketCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $estadoAbiertoId = EstadoTicket::orderBy('id')->value('id');
         
@@ -148,7 +154,7 @@ class TicketCrearLivewire extends Component
             'detalle' => 'Ticket creado con estado: Abierto',
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.ticket.vista.todo');
     }

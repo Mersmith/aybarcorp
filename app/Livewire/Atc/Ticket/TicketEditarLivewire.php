@@ -91,7 +91,7 @@ class TicketEditarLivewire extends Component
 
         $this->historial = $this->ticket->historial()->latest()->get();
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     protected function nombreCampo($campo)
@@ -142,7 +142,7 @@ class TicketEditarLivewire extends Component
 
         $this->archivos_existentes = $this->ticket->archivos()->get();
 
-        $this->dispatch('alertaLivewire', 'Creado');
+        $this->dispatch('alertaLivewire', ['title' => 'Adjuntado', 'text' => 'Se agrego correctamente.']);
     }
 
     public function cancelar()
@@ -158,7 +158,7 @@ class TicketEditarLivewire extends Component
         $archivo = Archivo::find($id);
 
         if (!$archivo) {
-            $this->dispatch('alertaLivewire', 'Error');
+            $this->dispatch('alertaLivewire', ['title' => 'Error', 'text' => 'No se encontró el archivo.']);
             return;
         }
 
@@ -178,8 +178,6 @@ class TicketEditarLivewire extends Component
         $this->historial = $this->ticket->historial()->latest()->get();
 
         $this->archivos_existentes = $this->ticket->archivos()->get();
-
-        $this->dispatch('alertaLivewire', 'Eliminado');
     }
 
     #[On('eliminarTicketOn')]
@@ -188,17 +186,17 @@ class TicketEditarLivewire extends Component
         $ticket = $this->ticket->fresh();
 
         if ($ticket->estado_ticket_id != 1) {
-            $this->dispatch('alertaLivewire', 'Solo se pueden eliminar tickets en estado ABIERTO.');
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Solo se pueden eliminar tickets en estado ABIERTO.']);
             return;
         }
 
         if ($ticket->tiene_derivados) {
-            $this->dispatch('alertaLivewire', 'Este ticket tiene derivaciones. No se puede eliminar.');
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Este ticket tiene derivaciones. No se puede eliminar.']);
             return;
         }
 
         if ($ticket->tiene_archivos) {
-            $this->dispatch('alertaLivewire', 'Este ticket tiene archivos adjuntos. Primero elimínalos.');
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Este ticket tiene archivos adjuntos. Primero elimínalos.']);
             return;
         }
 

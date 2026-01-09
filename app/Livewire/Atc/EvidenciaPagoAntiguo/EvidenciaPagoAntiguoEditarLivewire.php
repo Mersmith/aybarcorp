@@ -79,7 +79,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
             'observacion' => $this->observacion,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     public function validar()
@@ -90,7 +90,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
             'fecha_validacion' => now(),
         ]);
         $this->evidencia->refresh();
-        $this->dispatch('alertaLivewire', "Validado");
+        $this->dispatch('alertaLivewire', ['title' => 'Validado', 'text' => 'Se validó correctamente.']);
     }
 
     public function render()

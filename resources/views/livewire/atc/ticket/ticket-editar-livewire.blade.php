@@ -6,7 +6,7 @@
     <div class="g_panel cabecera_titulo_pagina">
         <h2>Editar ticket @if ($ticket->padre)
                 asociado al ticket                 
-                <a href="{{ route('admin.ticket.vista.editar', $ticket->padre->id) }}">#{{ $ticket->padre->id }}</a>                
+                <a href="{{ route('admin.ticket.vista.editar', $ticket->padre->id) }}" target="_blank">#{{ $ticket->padre->id }}</a>                
             @endif
         </h2>
 

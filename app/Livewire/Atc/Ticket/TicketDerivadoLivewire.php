@@ -157,7 +157,7 @@ class TicketDerivadoLivewire extends Component
         $this->usuario_recibe_id = "";
         $this->motivo = null;
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Derivado', 'text' => 'Se derivó correctamente.']);
     }
 
     public function render()

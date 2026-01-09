@@ -86,7 +86,7 @@ class CitaCrearLivewire extends Component
             'origen' => $this->ticket->origen,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.cita.vista.todo');
     }
