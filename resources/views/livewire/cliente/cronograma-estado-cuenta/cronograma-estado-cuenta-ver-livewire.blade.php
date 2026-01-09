@@ -84,7 +84,7 @@
                             <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
                             <td> S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
                             <td>
-                                @if (!$item['codigo_cronograma'] || $item['Comprobante'])
+                                @if ($item['EvidPago'])
                                 <span class="g_boton g_boton_empresa_primario"
                                     style="cursor: not-allowed; pointer-events: none;">
                                     <i class="fa-solid fa-circle-check"></i>

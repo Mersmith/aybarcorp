@@ -99,16 +99,13 @@ class EvidenciaPagoEditarLivewire extends Component
 
     public function enviarSlin()
     {
-        // 1. Verificar archivo
         if (!Storage::disk('public')->exists($this->evidencia->path)) {
             $this->dispatch('alertaLivewire', 'Error');
             return;
         }
 
-        // 2. Obtener imagen
         $imageContent = Storage::disk('public')->get($this->evidencia->path);
 
-        // 3. Payload EXACTO como lo pide el proveedor
         $params = [
             'lote' => (string) $this->evidencia->lote_completo,
             'cliente' => (string) $this->evidencia->codigo_cliente,
@@ -117,7 +114,6 @@ class EvidenciaPagoEditarLivewire extends Component
             'base64Image' => base64_encode($imageContent),
         ];
 
-        // 4. Llamada al backend del proveedor
         $response = Http::acceptJson()
             ->contentType('application/json')
             ->timeout(30)
@@ -126,24 +122,43 @@ class EvidenciaPagoEditarLivewire extends Component
                 $params
             );
 
-        // 5. Manejo de error
+        $body = $response->json();
+
         if ($response->failed()) {
-            logger()->error('Error SLIN', [
+            logger()->error('Error SLIN HTTP', [
                 'status' => $response->status(),
-                'body' => $response->body(),
+                'body'   => $response->body(),
             ]);
 
-            $this->dispatch('alertaLivewire', 'Error');
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Error',
+                'text'  => 'Error de comunicación con SLIN'
+            ]);
+
             return;
         }
 
-        // 6. Marcar como enviado
+        if (
+            isset($body['data']['success']) &&
+            $body['data']['success'] === false
+        ) {
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Error',
+                'text'  => $body['data']['message'] ?? 'Error en SLIN'
+            ]);
+
+            return;
+        }
+
         $this->evidencia->update([
             'enviado_slin' => true,
             'fecha_envio_slin' => now(),
         ]);
 
-        $this->dispatch('alertaLivewire', ['title' => 'Enviado', 'text' => 'Se envió correctamente.']);
+        $this->dispatch('alertaLivewire', [
+            'title' => 'Enviado',
+            'text'  => 'Se envió correctamente.'
+        ]);
     }
 
     public function enviarCorreo()
