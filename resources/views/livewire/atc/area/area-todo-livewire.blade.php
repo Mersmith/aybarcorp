@@ -38,7 +38,7 @@
                             <th>Nº</th>
                             <th>Nombre</th>
                             <th>Activo</th>
-                            <th>Acción</th>
+                            <th></th>
                         </tr>
                     </thead>
 

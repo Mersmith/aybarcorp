@@ -3,9 +3,10 @@
 namespace App\Livewire\Admin\Proyecto;
 
 use App\Models\GrupoProyecto;
-use App\Models\UnidadNegocio;
 use App\Models\Proyecto;
+use App\Models\UnidadNegocio;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -34,18 +35,16 @@ class ProyectoEditarLivewire extends Component
         return [
             'unidad_negocio_id' => 'required',
             'grupo_proyecto_id' => 'required',
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:proyectos,nombre,' . $this->proyecto->id,
             'slug' => 'required|unique:proyectos,slug,' . $this->proyecto->id,
-            'imagen' => 'required|string|max:255',
+            'imagen' => 'nullable|string|max:255',
             'contenido' => 'nullable|string',
-            'meta_title' => 'required|string|max:255',
-            'meta_description' => 'required|string|max:255',
-            'meta_image' => 'required|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'meta_image' => 'nullable|string|max:255',
             'activo' => 'required|boolean',
-            // 👇 lista es opcional
             'lista' => 'nullable|array',
 
-            // 👇 solo se validan si existen
             'lista.*.id' => 'required|integer',
             'lista.*.texto' => 'required|string',
             'lista.*.link' => 'required|string',
@@ -54,21 +53,22 @@ class ProyectoEditarLivewire extends Component
 
     public function mount($id)
     {
+        $this->unidad_negocios = UnidadNegocio::all();
+        $this->grupo_proyectos = GrupoProyecto::all();
+        
         $this->proyecto = Proyecto::findOrFail($id);
-
+        
         $this->unidad_negocio_id = $this->proyecto->unidad_negocio_id;
         $this->grupo_proyecto_id = $this->proyecto->grupo_proyecto_id;
         $this->nombre = $this->proyecto->nombre;
         $this->slug = $this->proyecto->slug;
-        $this->imagen = $this->proyecto->imagen;
+        $this->activo = $this->proyecto->activo;
+
+        /*$this->imagen = $this->proyecto->imagen;
         $this->contenido = $this->proyecto->contenido;
         $this->meta_title = $this->proyecto->meta_title;
         $this->meta_description = $this->proyecto->meta_description;
-        $this->meta_image = $this->proyecto->meta_image;
-        $this->activo = $this->proyecto->activo;
-
-        $this->unidad_negocios = UnidadNegocio::all();
-        $this->grupo_proyectos = GrupoProyecto::all();
+        $this->meta_image = $this->proyecto->meta_image;        
 
         $documento = $this->proyecto->documento ?? [];
 
@@ -84,7 +84,7 @@ class ProyectoEditarLivewire extends Component
                     'boton_color' => '#000000',
                 ],
             ];
-        }
+        }*/
     }
 
     public function updatedNombre($value)
@@ -113,25 +113,30 @@ class ProyectoEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->proyecto->update([
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'grupo_proyecto_id' => $this->grupo_proyecto_id,
             'nombre' => $this->nombre,
             'slug' => $this->slug,
-            'contenido' => $this->contenido,
+            'activo' => $this->activo,
+            /*'contenido' => $this->contenido,
             'imagen' => $this->imagen,
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
             'meta_image' => $this->meta_image,
-            'activo' => $this->activo,
             'documento' => [
                 'lista' => $this->lista,
-            ],
+            ],*/
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('handleProyectoEditarOn')]

@@ -29,30 +29,29 @@
                 </form>
             </div>
         </div>
-        @if ($items->count())
-            <!--TABLA CONTENIDO-->
-            <div class="tabla_contenido g_margin_bottom_20">
-                <div class="contenedor_tabla">
-                    <table class="tabla">
-                        <thead>
-                            <tr>
-                                <th>Nº</th>
-                                <th>Negocio</th>
-                                <th>Imagen</th>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
-                                <th>Activo</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
+
+        <div class="tabla_contenido g_margin_bottom_20">
+            <div class="contenedor_tabla">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Grupo</th>
+                            <th>Empresa</th>
+                            <th>Proyecto</th>
+                            <th>Activo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    @if ($items->count())
                         <tbody>
                             @foreach ($items as $index => $item)
                                 <tr>
                                     <td> {{ $index + 1 }} </td>
-                                    <td class="g_resaltar">ID: {{ $item->unidadNegocio->id }} - {{ $item->unidadNegocio->nombre }}</td>
-                                    <td><img src="{{ $item->imagen }}"></td>
-                                    <td class="g_resaltar">ID: {{ $item->id }} - {{ $item->nombre }}</td>
-                                    <td class="g_inferior g_resumir">{{ $item->meta_description }}</td>
+                                    <td class="g_resaltar">{{ $item->grupoProyecto->nombre }}</td>
+                                    <td class="g_resaltar">{{ $item->unidadNegocio->nombre }}</td>
+                                    <td class="g_resaltar">{{ $item->nombre }}</td>
                                     <td>
                                         <span class="estado {{ $item->activo ? 'g_activo' : 'g_desactivado' }}"><i
                                                 class="fa-solid fa-circle"></i></span>
@@ -64,25 +63,22 @@
                                             class="g_accion_editar">
                                             <span><i class="fa-solid fa-pencil"></i></span>
                                         </a>
-
-                                        <a href="{{ route('admin.proyecto.vista.seccion', $item->id) }}"
-                                            class="g_accion_ver">
-                                            <span><i class="fa-solid fa-code"></i></span>
-                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
-                </div>
+                    @endif
+                </table>
             </div>
+        </div>
 
-            @if ($items->hasPages())
-                <div class="g_paginacion">
-                    {{ $items->links('vendor.pagination.default-livewire') }}
-                </div>
-            @endif
-        @else
+        @if ($items->hasPages())
+            <div class="g_paginacion">
+                {{ $items->links('vendor.pagination.default-livewire') }}
+            </div>
+        @endif
+
+        @if ($items->count() == 0)
             <div class="g_vacio">
                 <p>No hay items disponibles.</p>
                 <i class="fa-regular fa-face-grin-wink"></i>

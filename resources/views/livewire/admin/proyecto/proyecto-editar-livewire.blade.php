@@ -1,5 +1,4 @@
 @section('tituloPagina', 'Editar proyecto')
-@section('anchoPantalla', '100%')
 
 <div x-data="dataProyectoEditar" class="g_gap_pagina">
     <!-- CABECERA -->
@@ -78,17 +77,17 @@
                     </div>
 
                     <!-- Imagen -->
-                    <div class="g_margin_bottom_10">
+                    {{--<div class="g_margin_bottom_10">
                         <label for="imagen">Imagen <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
                         <input type="text" id="imagen" wire:model.live="imagen" required>
                         @error('imagen')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div>--}}
                 </div>
 
-                <div class="g_panel">
+                {{--<div class="g_panel">
                     <!-- contenido -->
                     <div wire:ignore style="g_ckeditor">
                         <label for="contenido">Contenido</label>
@@ -184,7 +183,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div>--}}
 
             </div>
 
@@ -198,7 +197,7 @@
                     </select>
                 </div>
 
-                <div class="g_panel">
+                {{--<div class="g_panel">
                     <!-- Titulo -->
                     <div class="g_margin_bottom_10">
                         <label for="meta_title">Meta titulo <span class="obligatorio"><i
@@ -228,7 +227,7 @@
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
 

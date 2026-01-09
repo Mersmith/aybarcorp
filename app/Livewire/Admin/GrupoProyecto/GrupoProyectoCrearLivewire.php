@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Admin\GrupoProyecto;
 
+use App\Models\GrupoProyecto;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use App\Models\GrupoProyecto;
 
 #[Layout('layouts.admin.layout-admin')]
 class GrupoProyectoCrearLivewire extends Component
@@ -19,7 +20,7 @@ class GrupoProyectoCrearLivewire extends Component
     protected function rules()
     {
         return [
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:grupo_proyectos,nombre',
             'slug' => 'required|unique:grupo_proyectos,slug',
             'titulo' => 'required|string|max:255',
             'subtitulo' => 'required|string|max:255',
@@ -34,7 +35,12 @@ class GrupoProyectoCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         GrupoProyecto::create([
             'nombre' => $this->nombre,
@@ -44,7 +50,7 @@ class GrupoProyectoCrearLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.grupo-proyecto.vista.todo');
     }

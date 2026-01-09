@@ -18,7 +18,7 @@ class ProyectoFactory extends Factory
     public function definition(): array
     {
 
-        $banner_imagen = asset('assets/imagenes/banner/banner-1.jpg');
+        /*$banner_imagen = asset('assets/imagenes/banner/banner-1.jpg');
 
         $banner_youtube = '<iframe width="560" height="315"
             src="https://www.youtube.com/embed/rdxrSIrZISE"
@@ -123,18 +123,18 @@ class ProyectoFactory extends Factory
         ];
 
         $nombre = $this->faker->sentence(6);
-        $contenido = '<p>Primero, agradezco la fe que muchos peruanos</p>';
+        $contenido = '<p>Primero, agradezco la fe que muchos peruanos</p>';*/
         return [
             //'nombre' => $nombre,
             //'slug' => Str::slug($nombre),
-            'contenido' => $contenido,
-            'secciones' => $secciones,
-            'imagen' =>  asset('assets/imagenes/proyectos/proyecto-1.jpg'),
-            'publicado_en' => now(),
+            //'contenido' => $contenido,
+            //'secciones' => $secciones,
+            //'imagen' =>  asset('assets/imagenes/proyectos/proyecto-1.jpg'),
+            //'publicado_en' => now(),
             'activo' => true,
             //'meta_title' => $nombre,
-            'meta_description' => $this->faker->sentence(1),
-            'meta_image' =>  asset('assets/imagen/default.jpg'),
+            //'meta_description' => $this->faker->sentence(1),
+            //'meta_image' =>  asset('assets/imagen/default.jpg'),
         ];
     }
 }

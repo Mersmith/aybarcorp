@@ -3,10 +3,11 @@
 namespace App\Livewire\Admin\GrupoProyecto;
 
 use App\Models\GrupoProyecto;
-use Livewire\Attributes\Layout;
-use Livewire\Component;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
 class GrupoProyectoEditarLivewire extends Component
@@ -22,7 +23,7 @@ class GrupoProyectoEditarLivewire extends Component
     protected function rules()
     {
         return [
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:grupo_proyectos,nombre,' . $this->grupo_proyecto->id,
             'slug' => 'required|unique:grupo_proyectos,slug,' . $this->grupo_proyecto->id,
             'titulo' => 'required|string|max:255',
             'subtitulo' => 'required|string|max:255',
@@ -48,7 +49,12 @@ class GrupoProyectoEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->grupo_proyecto->update([
             'nombre' => $this->nombre,
@@ -58,7 +64,7 @@ class GrupoProyectoEditarLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('eliminarGrupoProyectoOn')]

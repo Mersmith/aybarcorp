@@ -6,6 +6,7 @@ use App\Models\GrupoProyecto;
 use App\Models\Proyecto;
 use App\Models\UnidadNegocio;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -32,18 +33,16 @@ class ProyectoCrearLivewire extends Component
         return [
             'unidad_negocio_id' => 'required',
             'grupo_proyecto_id' => 'required',
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:proyectos,nombre',
             'slug' => 'required|unique:proyectos,slug',
-            'imagen' => 'required|string|max:255',
+            'imagen' => 'nullable|string|max:255',
             'contenido' => 'nullable|string',
-            'meta_title' => 'required|string|max:255',
-            'meta_description' => 'required|string|max:255',
-            'meta_image' => 'required|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'meta_image' => 'nullable|string|max:255',
             'activo' => 'required|boolean',
-            // 👇 lista es opcional
             'lista' => 'nullable|array',
 
-            // 👇 solo se validan si existen
             'lista.*.id' => 'required|integer',
             'lista.*.texto' => 'required|string',
             'lista.*.link' => 'required|string',
@@ -82,25 +81,30 @@ class ProyectoCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         Proyecto::create([
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'grupo_proyecto_id' => $this->grupo_proyecto_id,
             'nombre' => $this->nombre,
             'slug' => $this->slug,
-            'contenido' => $this->contenido,
+            'activo' => $this->activo,
+            /*'contenido' => $this->contenido,
             'imagen' => $this->imagen,
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
             'meta_image' => $this->meta_image,
-            'activo' => $this->activo,
             'documento' => [
                 'lista' => $this->lista,
-            ],
+            ],*/
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.proyecto.vista.todo');
     }
