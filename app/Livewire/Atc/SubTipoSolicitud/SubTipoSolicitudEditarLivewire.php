@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Atc\SubTipoSolicitud;
 
-use Livewire\Component;
-use App\Models\TipoSolicitud;
 use App\Models\SubTipoSolicitud;
+use App\Models\TipoSolicitud;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
 class SubTipoSolicitudEditarLivewire extends Component
@@ -22,7 +23,7 @@ class SubTipoSolicitudEditarLivewire extends Component
     {
         return [
             'tipo_solicitud_id' => 'required',
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:sub_tipo_solicituds,nombre,' . $this->sub_tipo->id,
             'tiempo_solucion' => 'nullable|integer|min:1',
             'activo' => 'required|boolean',
         ];
@@ -42,16 +43,21 @@ class SubTipoSolicitudEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->sub_tipo->update([
             'tipo_solicitud_id' => $this->tipo_solicitud_id,
             'nombre' => $this->nombre,
-            'tiempo_solucion' => $this->tiempo_solucion,
+            //'tiempo_solucion' => $this->tiempo_solucion,
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Actualizado");
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('eliminarSubTipoSolicitudOn')]

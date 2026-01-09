@@ -2,8 +2,9 @@
 
 namespace App\Livewire\Atc\SubTipoSolicitud;
 
-use App\Models\TipoSolicitud;
 use App\Models\SubTipoSolicitud;
+use App\Models\TipoSolicitud;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -20,7 +21,7 @@ class SubTipoSolicitudCrearLivewire extends Component
     {
         return [
             'tipo_solicitud_id' => 'required',
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|unique:sub_tipo_solicituds,nombre',
             'tiempo_solucion' => 'nullable|integer|min:1',
             'activo' => 'required|boolean',
         ];
@@ -33,16 +34,21 @@ class SubTipoSolicitudCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         SubTipoSolicitud::create([
             'tipo_solicitud_id' => $this->tipo_solicitud_id,
             'nombre' => $this->nombre,
-            'tiempo_solucion' => $this->tiempo_solucion,
+            //'tiempo_solucion' => $this->tiempo_solucion,
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', "Creado");
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.sub-tipo-solicitud.vista.todo');
     }

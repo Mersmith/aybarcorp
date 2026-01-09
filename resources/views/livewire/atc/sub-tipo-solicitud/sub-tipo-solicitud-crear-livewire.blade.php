@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="g_margin_bottom_10 g_columna_6">
+                    {{--<div class="g_margin_bottom_10 g_columna_6">
                         <label for="tiempo_solucion">Horas solución</label>
 
                         <input type="number" id="tiempo_solucion" wire:model.live="tiempo_solucion" min="1" step="1"
@@ -53,7 +53,7 @@
                         @error('tiempo_solucion')
                         <p class="mensaje_error">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div>--}}
                 </div>
             </div>
 

@@ -31,7 +31,6 @@
                         <tr>
                             <th>Nº</th>
                             <th>Nombre</th>
-                            <th>Tiempo(hrs.)</th>
                             <th>Activo</th>
                             <th></th>
                         </tr>
@@ -43,7 +42,6 @@
                         <tr>
                             <td> {{ $index + 1 }} </td>
                             <td class="g_resaltar">{{ $item->nombre }}</td>
-                            <td class="g_resaltar">{{ $item->tiempo_solucion }}</td>
                             <td>
                                 <span class="g_estado {{ $item->activo ? 'g_activo' : 'g_desactivado' }}"><i
                                         class="fa-solid fa-circle"></i></span>{{ $item->activo ? 'Activo' : 'Desactivo'
