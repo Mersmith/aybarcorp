@@ -318,7 +318,8 @@ class SlinController extends Controller
 
     public function probarCliente()
     {
-        $dni = "47231144";
+        //$dni = "47693208";//desmaterializada
+        $dni = "72397392"; //desmaterializada
 
         $response = Http::get("{$this->remoteBase}/cliente/{$dni}");
 
@@ -327,8 +328,13 @@ class SlinController extends Controller
 
     public function probarLotes()
     {
+        /*$params = [
+            "id_cliente" => "C14022",
+            "id_empresa" => "014",
+        ];*/
+
         $params = [
-            "id_cliente" => "C10838",
+            "id_cliente" => "C19471",
             "id_empresa" => "014",
         ];
 
@@ -380,10 +386,18 @@ class SlinController extends Controller
 
     public function probarCuotaEstadoCuenta()
     {
+        /*$params = [
+            'empresa' => '014',
+            'lote' => '02503-Y3-0017', //proyecto/etapa-manza-lote
+            'cliente' => 'C14022',
+            'contrato' => '', //opcional//si es null, porque fue migrado
+            'servicio' => '02', //default, solo para cuotas
+        ];*/
+
         $params = [
             'empresa' => '014',
-            'lote' => '00101-A-0001', //proyecto/etapa-manza-lote
-            'cliente' => 'C10838',
+            'lote' => '02503-S3-0016', //proyecto/etapa-manza-lote
+            'cliente' => 'C19471',
             'contrato' => '', //opcional//si es null, porque fue migrado
             'servicio' => '02', //default, solo para cuotas
         ];
