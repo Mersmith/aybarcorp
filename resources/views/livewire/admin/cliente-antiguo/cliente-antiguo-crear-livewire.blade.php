@@ -60,7 +60,7 @@
                     </div>
                 </div>
 
-                @if ($informaciones->isNotEmpty())
+                @if ($informaciones && $informaciones->isNotEmpty())
                     <div class="g_panel">
                         <h4 class="g_panel_titulo">Proyectos</h4>
 
@@ -103,12 +103,12 @@
             <div class="g_columna_4 g_gap_pagina g_columna_invertir">
                 <div class="g_panel">
 
-                    <h4 class="g_panel_titulo">Cliente</h4>
+                    <h4 class="g_panel_titulo">Crear proyecto del cliente</h4>
 
                     <div class="g_margin_bottom_10">
                         <label for="razon_social">Razón Social <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <input type="text" id="razon_social" wire:model.live="razon_social">
+                        <input type="text" id="razon_social" wire:model.live="razon_social" placeholder="LOTES DEL PERU S.A.C">
                         @error('razon_social')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
@@ -117,7 +117,7 @@
                     <div class="g_margin_bottom_10">
                         <label for="proyecto">Proyecto <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <input type="text" id="proyecto" wire:model.live="proyecto">
+                        <input type="text" id="proyecto" wire:model.live="proyecto" placeholder="CAMTABRIA LAGOONS">
                         @error('proyecto')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
@@ -126,34 +126,34 @@
                     <div class="g_margin_bottom_10">
                         <label for="etapa">Etapa <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <input type="text" id="etapa" wire:model.live="etapa">
+                        <input type="text" id="etapa" wire:model.live="etapa" placeholder="1">
                         @error('etapa')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="g_margin_bottom_10">
-                        <label for="lote">Lote <span class="obligatorio"><i
+                        <label for="lote">Manzana-Lote <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <input type="text" id="lote" wire:model.live="lote">
+                        <input type="text" id="lote" wire:model.live="lote" placeholder="1">
                         @error('lote')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="g_margin_bottom_10">
-                        <label for="nombre">Nombre <span class="obligatorio"><i
+                        <label for="nombre">Nombre del cliente completo <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <input type="text" id="nombre" wire:model.live="nombre">
+                        <input type="text" id="nombre" wire:model.live="nombre" placeholder="YEP TAY FELIX WINGNAM">
                         @error('nombre')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="g_margin_bottom_10">
-                        <label for="codigo">Codigo <span class="obligatorio"><i
+                        <label for="codigo">Codigo cliente <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <input type="text" id="codigo" wire:model.live="codigo">
+                        <input type="text" id="codigo" wire:model.live="codigo" placeholder="CTL1H16">
                         @error('codigo')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror

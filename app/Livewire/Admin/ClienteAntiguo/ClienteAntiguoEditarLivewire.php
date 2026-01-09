@@ -3,8 +3,10 @@
 namespace App\Livewire\Admin\ClienteAntiguo;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Throwable;
 
 #[Layout('layouts.admin.layout-admin')]
 class ClienteAntiguoEditarLivewire extends Component
@@ -43,7 +45,7 @@ class ClienteAntiguoEditarLivewire extends Component
             ->where('dni', '!=', '')
             ->where('dni', $this->dni)
             ->get();
-            
+
         if ($this->informaciones->isEmpty()) {
             session()->flash('error', 'No se encontró información para el DNI/RUC ingresado.');
         } else {
@@ -53,15 +55,20 @@ class ClienteAntiguoEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate([
-            'dni' => 'required',
-            'razon_social' => 'required',
-            'proyecto' => 'required',
-            'etapa' => 'required',
-            'lote' => 'required',
-            'nombre' => 'required',
-            'codigo' => 'required',
-        ]);
+        try {
+            $this->validate([
+                'dni' => 'required',
+                'razon_social' => 'required',
+                'proyecto' => 'required',
+                'etapa' => 'required',
+                'lote' => 'required',
+                'nombre' => 'required',
+                'codigo' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         try {
             DB::table('clientes_2')
@@ -76,7 +83,6 @@ class ClienteAntiguoEditarLivewire extends Component
                     'dni' => $this->dni,
                 ]);
 
-            // 🔄 refrescar datos
             $this->registro = DB::table('clientes_2')
                 ->where('id', $this->registro->id)
                 ->first();
@@ -85,11 +91,11 @@ class ClienteAntiguoEditarLivewire extends Component
                 ->where('dni', $this->dni)
                 ->get();
 
-            $this->dispatch('alertaLivewire', 'Actualizado');
+            $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
 
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             report($e);
-            $this->dispatch('alertaLivewire', 'Error');
+            $this->dispatch('alertaLivewire', ['title' => 'Error', 'text' => 'Ocurrió un problema al procesar la solicitud.']);
         }
     }
 

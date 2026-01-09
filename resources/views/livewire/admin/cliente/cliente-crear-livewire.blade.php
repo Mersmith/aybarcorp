@@ -69,10 +69,10 @@
                         </div>
 
                         <div class="formulario_botones">
-                            <button wire:click="registrarClienteNuevo" class="guardar" wire:loading.attr="disabled"
-                                wire:target="registrarClienteNuevo">
-                                <span wire:loading.remove wire:target="registrarClienteNuevo">Registrar cliente</span>
-                                <span wire:loading wire:target="registrarClienteNuevo">Registrando...</span>
+                            <button wire:click="store" class="guardar" wire:loading.attr="disabled"
+                                wire:target="store">
+                                <span wire:loading.remove wire:target="store">Registrar cliente</span>
+                                <span wire:loading wire:target="store">Registrando...</span>
                             </button>
                         </div>
                     @endif

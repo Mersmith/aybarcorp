@@ -26,42 +26,43 @@ function alertaNormal(mensaje) {
     }
 }
 
-Livewire.on("alertaLivewire", (mensaje) => {
-    if (
-        mensaje == "Creado" ||
-        mensaje == "Actualizado" ||
-        mensaje == "Validado" ||
-        mensaje == "Enviado"
-    ) {
-        Swal.fire({
-            icon: "success",
-            title: mensaje,
-            showConfirmButton: false,
-            timer: 2500,
-        });
-    } else if (mensaje == "Error") {
-        Swal.fire({
-            icon: "error",
-            title: "¡Alto!",
-            text: mensaje,
-            showConfirmButton: false,
-            timer: 2500,
-        });
-    } else if (mensaje == "Eliminado") {
-        Swal.fire({
-            icon: "error",
-            title: mensaje,
-            text: mensaje,
-            showConfirmButton: false,
-            timer: 2500,
-        });
-    } else {
-        Swal.fire({
-            icon: "error",
-            title: "¡Alto!",
-            text: mensaje,
-            showConfirmButton: true,
-            timer: 2500,
-        });
+Livewire.on("alertaLivewire", (data) => {
+    const payload = data[0];
+
+    const successTitles = ["Creado", "Actualizado", "Validado", "Enviado"];
+    const errorTitles = ["Error", "Eliminado"];
+    const warningTitles = ["Advertencia"];
+
+    let icon = "info";
+    let timer = payload.timer ?? 2500;
+
+    // 1. Icono y comportamiento por tipo
+    if (successTitles.includes(payload.title)) {
+        icon = "success";
+    } else if (errorTitles.includes(payload.title)) {
+        icon = "error";
+    } else if (warningTitles.includes(payload.title)) {
+        icon = "warning";
     }
+
+    // 2. Confirm button (backend tiene prioridad)
+    const showConfirmButton =
+        payload.showConfirmButton !== undefined
+            ? payload.showConfirmButton
+            : errorTitles.includes(payload.title) || warningTitles.includes(payload.title);
+
+    // 3. Regla UX: si hay confirmación, no hay timer
+    if (showConfirmButton === true) {
+        timer = null;
+    }
+
+    Swal.fire({
+        icon,
+        title: payload.title ?? "",
+        text: payload.text ?? "",
+        showConfirmButton,
+        timer,
+    });
 });
+
+

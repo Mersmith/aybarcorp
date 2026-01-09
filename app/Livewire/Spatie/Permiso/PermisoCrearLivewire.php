@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Spatie\Permiso;
 
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
@@ -13,13 +14,19 @@ class PermisoCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required|unique:permissions,name',
-        ]);
+        try {
+
+            $this->validate([
+                'name' => 'required|unique:permissions,name',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         Permission::create(['name' => $this->name]);
 
-        $this->dispatch('alertaLivewire', 'Creado');
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.permiso.vista.todo');
     }

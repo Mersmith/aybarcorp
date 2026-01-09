@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             //ImagenSeeder::class,
             //ArchivoSeeder::class,
 
-            UnidadNegocioSeeder::class, //EVIDENCIA
+            /*UnidadNegocioSeeder::class, //EVIDENCIA
             GrupoProyectoSeeder::class, //EVIDENCIA
             ProyectoSeeder::class, //EVIDENCIA
 

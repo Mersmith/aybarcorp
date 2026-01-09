@@ -19,11 +19,6 @@
 
     <div class="g_panel">
         <div class="tabla_cabecera">
-            {{--<div class="tabla_cabecera_botones">
-                <button wire:click="exportExcel" class="g_boton g_boton_excel">
-                    EXCEL <i class="fa-regular fa-file-excel"></i>
-                </button>
-            </div>--}}
 
             <div class="tabla_cabecera_buscar">
                 <form action="">
@@ -41,7 +36,7 @@
                         <tr>
                             <th>Nº</th>
                             <th>Nombre</th>
-                            <th>Fecha Creación</th>
+                            <th>Fecha creación</th>
                             <th></th>
                         </tr>
                     </thead>

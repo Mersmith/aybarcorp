@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Spatie\Permiso;
 
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
@@ -22,15 +23,20 @@ class PermisoEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required|unique:permissions,name,' . $this->permiso->id,
-        ]);
+        try {
+            $this->validate([
+                'name' => 'required|unique:permissions,name,' . $this->permiso->id,
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->permiso->update([
             'name' => $this->name,
         ]);
 
-        $this->dispatch('alertaLivewire', 'Actualizado');
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     public function render()

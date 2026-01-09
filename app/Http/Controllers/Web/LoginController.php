@@ -46,12 +46,14 @@ class LoginController extends Controller
 
             if (Auth::user()->rol === 'cliente') {
                 return redirect()->route('cliente.home');
+            } elseif (Auth::user()->rol === 'admin') {
+                return redirect()->route('admin.home');
+            } else {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Acceso denegado. Solo clientes pueden ingresar aquí.',
+                ]);
             }
-
-            Auth::logout();
-            return back()->withErrors([
-                'email' => 'Acceso denegado. Solo clientes pueden ingresar aquí.',
-            ]);
         }
 
         return back()->withErrors([

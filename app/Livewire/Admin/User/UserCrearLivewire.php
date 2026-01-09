@@ -3,9 +3,10 @@
 namespace App\Livewire\Admin\User;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Illuminate\Support\Facades\Hash;
 
 #[Layout('layouts.admin.layout-admin')]
 class UserCrearLivewire extends Component
@@ -29,7 +30,12 @@ class UserCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         User::create([
             'name' => $this->name,
@@ -39,7 +45,7 @@ class UserCrearLivewire extends Component
             'activo' => $this->activo,
         ]);
 
-        $this->dispatch('alertaLivewire', 'Creado');
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.usuario.vista.todo');
     }

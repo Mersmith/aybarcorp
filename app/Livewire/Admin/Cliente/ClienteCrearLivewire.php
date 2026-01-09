@@ -4,18 +4,20 @@ namespace App\Livewire\Admin\Cliente;
 
 use App\Models\Cliente;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
 class ClienteCrearLivewire extends Component
 {
-    public $existingCliente;
     public $dni;
+    public $existingCliente;
     public $email;
     public $mostrar_form_email = false;
     public $cliente_encontrado = null;
@@ -25,21 +27,41 @@ class ClienteCrearLivewire extends Component
     {
         $this->resetAntesDeBuscar();
 
-        $this->validate([
-            'dni' => 'required',
-        ]);
+        try {
+            $this->validate([
+                'dni' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
-        $response = Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}");
+        try {
+            $response = Http::timeout(10)
+                ->get("https://aybarcorp.com/slin/cliente/{$this->dni}");
+        } catch (Exception $e) {
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Error',
+                'text' => 'No fue posible conectarse con el servicio.',
+            ]);
+            return;
+        }
 
         if (!$response->ok()) {
-            session()->flash('error', 'Error al consultar el servicio.');
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Error',
+                'text' => 'No se encontro cliente en SLIN',
+            ]);
             return;
         }
 
         $cliente = $response->json();
 
         if (!is_array($cliente)) {
-            session()->flash('error', 'Respuesta inválida del servicio.');
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Error',
+                'text' => 'Respuesta inválida del servicio.',
+            ]);
             return;
         }
 
@@ -53,8 +75,51 @@ class ClienteCrearLivewire extends Component
             session()->flash('info', 'Cliente nuevo. Ingrese un correo para registrarlo.');
         } else {
             $this->mostrar_form_email = false;
-            session()->flash('success', 'Cliente encontrado en el API Slin');
+            session()->flash('success', 'Cliente ya registrado en el Portal Cliente.');
         }
+    }
+
+    public function store()
+    {
+        try {
+            $this->validate([
+                'email' => 'required|email|unique:users,email',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
+
+        $tempPassword = Str::random(8);
+
+        $user = User::create([
+            'name' => $this->cliente_encontrado['apellidos_nombres'],
+            'email' => $this->email,
+            'password' => Hash::make($tempPassword),
+            'must_change_password' => true,
+            'password_changed_at' => null,
+            'politica_uno' => true,
+            'rol' => 'cliente',
+            'activo' => true,
+        ]);
+
+        $cliente_nuevo = Cliente::create([
+            'user_id' => $user->id,
+            'nombre' => $user->name,
+            'email' => $this->email,
+            'dni' => $this->dni,
+        ]);
+
+        Password::sendResetLink(['email' => $user->email]);
+
+        $this->dispatch('alertaLivewire', [
+            'title' => 'Creado',
+            'text' => 'Cliente registrado. Contraseña temporal enviada al correo ' . $user->email . '',
+            'showConfirmButton' => true,
+        ]);
+
+        $this->existingCliente = $cliente_nuevo;
+        $this->mostrar_form_email = false;
     }
 
     public function resetAntesDeBuscar()
@@ -69,39 +134,6 @@ class ClienteCrearLivewire extends Component
 
         $this->resetValidation();
         session()->forget(['success', 'error', 'info']);
-    }
-
-    public function registrarClienteNuevo()
-    {
-        $this->validate([
-            'email' => 'required|email|unique:users,email',
-        ]);
-
-        $tempPassword = Str::random(8);
-
-        $user = User::create([
-            'name' => $this->cliente_encontrado['apellidos_nombres'],
-            'email' => $this->email,
-            'password' => Hash::make($tempPassword),
-            'must_change_password' => true,
-            'password_changed_at' => null,
-            'rol' => 'cliente',
-            'activo' => true,
-        ]);
-
-        $cliente_nuevo = Cliente::create([
-            'user_id' => $user->id,
-            'nombre' => $user->name,
-            'email' => $this->email,
-            'dni' => $this->dni,
-        ]);
-
-        Password::sendResetLink(['email' => $user->email]);
-
-        session()->flash('success', "Cliente registrado. Contraseña temporal enviada al correo.");
-
-        $this->existingCliente = $cliente_nuevo;
-        $this->mostrar_form_email = false;
     }
 
     public function render()

@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -45,7 +46,12 @@ class UserEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->user->update([
             'name' => $this->name,
@@ -55,20 +61,25 @@ class UserEditarLivewire extends Component
 
         $this->user->syncRoles($this->selectedRoles);
 
-        $this->dispatch('alertaLivewire', 'Actualizado');
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     public function actualizarClave()
     {
-        $this->validate([
-            'password' => 'required|min:6',
-        ]);
+        try {
+            $this->validate([
+                'password' => 'required|min:6',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->user->update([
             'password' => Hash::make($this->password),
         ]);
 
-        $this->dispatch('alertaLivewire', 'Actualizado');
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     #[On('eliminarUserOn')]

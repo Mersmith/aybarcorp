@@ -3,13 +3,15 @@
 namespace App\Livewire\Admin\ClienteAntiguo;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Throwable;
 
 #[Layout('layouts.admin.layout-admin')]
 class ClienteAntiguoCrearLivewire extends Component
 {
-    public $dni;
+    public $dni = '';
     public $informaciones;
 
     public $razon_social = '';
@@ -26,9 +28,16 @@ class ClienteAntiguoCrearLivewire extends Component
 
     public function buscarCliente()
     {
-        $this->validate([
-            'dni' => 'required',
-        ]);
+        $this->resetAntesDeBuscar();
+
+        try {
+            $this->validate([
+                'dni' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->informaciones = DB::table('clientes_2')
             ->where('dni', $this->dni)
@@ -46,15 +55,20 @@ class ClienteAntiguoCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate([
-            'dni' => 'required',
-            'razon_social' => 'required',
-            'proyecto' => 'required',
-            'etapa' => 'required',
-            'lote' => 'required',
-            'nombre' => 'required',
-            'codigo' => 'required',
-        ]);
+        try {
+            $this->validate([
+                'dni' => 'required',
+                'razon_social' => 'required',
+                'proyecto' => 'required',
+                'etapa' => 'required',
+                'lote' => 'required',
+                'nombre' => 'required',
+                'codigo' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         try {
             DB::table('clientes_2')->insert([
@@ -66,20 +80,39 @@ class ClienteAntiguoCrearLivewire extends Component
                 'etapa' => $this->etapa,
                 'numero_lote' => $this->lote,
                 'estado_lote' => null,
-                'dni' => $this->dni, // IMPORTANTE si estás buscando por dni
+                'dni' => $this->dni,
             ]);
 
-            // 🔄 refrescar informaciones
             $this->informaciones = DB::table('clientes_2')
                 ->where('dni', $this->dni)
                 ->get();
 
-            $this->dispatch('alertaLivewire', 'Creado');
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Creado',
+                'text' => 'Se guardó el registro correctamente.',
+                'showConfirmButton' => true,
+            ]);
 
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             report($e);
-            $this->dispatch('alertaLivewire', 'Error');
+            $this->dispatch('alertaLivewire', ['title' => 'Error', 'text' => 'Ocurrió un problema al procesar la solicitud.']);
         }
+    }
+
+    public function resetAntesDeBuscar()
+    {
+        $this->reset([
+            'informaciones',
+            'razon_social',
+            'proyecto',
+            'etapa',
+            'lote',
+            'nombre',
+            'codigo',
+        ]);
+
+        $this->resetValidation();
+        session()->forget(['success', 'error', 'info']);
     }
 
     public function render()

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Spatie\Rol;
 
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
@@ -15,15 +16,20 @@ class RolCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required|unique:roles,name',
-        ]);
+        try {
+            $this->validate([
+                'name' => 'required|unique:roles,name',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $rol = Role::create(['name' => $this->name]);
 
         $rol->syncPermissions($this->permisosSeleccionados);
 
-        $this->dispatch('alertaLivewire', 'Creado');
+        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
 
         return redirect()->route('admin.rol.vista.todo');
     }

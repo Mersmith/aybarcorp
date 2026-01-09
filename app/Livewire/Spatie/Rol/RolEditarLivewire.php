@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Spatie\Rol;
 
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
@@ -18,7 +19,7 @@ class RolEditarLivewire extends Component
     public function mount($id)
     {
         $this->role = Role::findOrFail($id);
-        
+
         $this->name = $this->role->name;
 
         $this->permisosSeleccionados = $this->role->permissions->pluck('name')->toArray();
@@ -26,9 +27,14 @@ class RolEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate([
-            'name' => 'required|unique:roles,name,' . $this->role->id,
-        ]);
+        try {
+            $this->validate([
+                'name' => 'required|unique:roles,name,' . $this->role->id,
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->role->update([
             'name' => $this->name,
@@ -36,7 +42,7 @@ class RolEditarLivewire extends Component
 
         $this->role->syncPermissions($this->permisosSeleccionados);
 
-        $this->dispatch('alertaLivewire', 'Actualizado');
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     public function render()

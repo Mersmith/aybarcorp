@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Cliente;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -45,7 +46,12 @@ class ClienteEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->user->update([
             'name' => $this->name,
@@ -61,16 +67,27 @@ class ClienteEditarLivewire extends Component
             'telefono_principal' => $this->telefono_principal,
         ]);
 
-        $this->dispatch('alertaLivewire', 'Actualizado');
+        $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
     }
 
     public function enviarRecuperarClave()
     {
-        $this->validate([
-            'email' => 'required',
-        ]);
+        try {
+            $this->validate([
+                'email' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         Password::sendResetLink(['email' => $this->email]);
+
+        $this->dispatch('alertaLivewire', [
+            'title' => 'Enviado',
+            'text' => 'Se envio cambiar contraseña al correo ' . $this->email . '',
+            'showConfirmButton' => true,
+        ]);
     }
 
     #[On('eliminarClienteOn')]
