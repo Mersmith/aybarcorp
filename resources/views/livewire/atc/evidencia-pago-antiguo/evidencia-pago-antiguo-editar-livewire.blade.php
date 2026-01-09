@@ -26,8 +26,7 @@
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Cliente</label>
-                            <input type="text" disabled
-                                value="{{ $evidencia->cliente->user->name ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $evidencia->cliente->user->name ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
@@ -190,15 +189,14 @@
                         <div class="g_margin_bottom_20 g_columna_4">
                             <label for="unidad_negocio_id">Razón Social <span class="obligatorio"><i
                                         class="fa-solid fa-asterisk"></i></span></label>
-                            <select wire:model.live="unidad_negocio_id" id="unidad_negocio_id"
-                                name="unidad_negocio_id">
+                            <select wire:model.live="unidad_negocio_id" id="unidad_negocio_id" name="unidad_negocio_id">
                                 <option value="" disabled>Selecciona</option>
                                 @foreach ($empresas as $empresa)
-                                    <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
+                                <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('unidad_negocio_id')
-                                <span class="mensaje_error">{{ $message }}</span>
+                            <span class="mensaje_error">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -208,26 +206,26 @@
                             <select wire:model.live="proyecto_id" id="proyecto_id" name="proyecto_id">
                                 <option value="" disabled>Selecciona</option>
                                 @foreach ($proyectos as $proyecto)
-                                    <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
+                                <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('proyecto_id')
-                                <span class="mensaje_error">{{ $message }}</span>
+                            <span class="mensaje_error">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
-                            <label for="usuario_asignado_id">
+                            <label for="gestor_id">
                                 Asignado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
-                            <select id="usuario_asignado_id" wire:model.live="usuario_asignado_id" required>
+                            <select id="gestor_id" wire:model.live="gestor_id" required>
                                 <option value="" selected disabled>Seleccionar un asignado</option>
                                 @foreach ($usuarios as $usuario)
-                                    <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                                 @endforeach
                             </select>
-                            @error('usuario_asignado_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            @error('gestor_id')
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -237,7 +235,7 @@
                             <label for="observacion">Observación</label>
                             <textarea id="observacion" wire:model.live="observacion" rows="5"></textarea>
                             @error('observacion')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -251,11 +249,11 @@
                     <select id="estado_id" wire:model.live="estado_id" required>
                         <option value="" selected disabled>Seleccionar un estado</option>
                         @foreach ($estados as $estado)
-                            <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
+                        <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
                         @endforeach
                     </select>
                     @error('estado_id')
-                        <p class="mensaje_error">{{ $message }}</p>
+                    <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -263,23 +261,23 @@
                     <h4 class="g_panel_titulo">Imagen</h4>
 
                     @if ($evidencia->imagen_url)
-                        <div class="g_centrar_elemento">
-                            <a href="{{ $evidencia->imagen_url }}" target="_blank">
-                                <img src="{{ $evidencia->imagen_url }}" alt="Comprobante" width="150">
+                    <div class="g_centrar_elemento">
+                        <a href="{{ $evidencia->imagen_url }}" target="_blank">
+                            <img src="{{ $evidencia->imagen_url }}" alt="Comprobante" width="150">
+                        </a>
+
+                        <div class="formulario_botones g_margin_top_20 ">
+                            <a href="{{ $evidencia->imagen_url }}" target="_blank" class="guardar">
+                                Ver <i class="fa-regular fa-file-image fa-xl"></i>
                             </a>
 
-                            <div class="formulario_botones g_margin_top_20 ">
-                                <a href="{{ $evidencia->imagen_url }}" target="_blank" class="guardar">
-                                    Ver <i class="fa-regular fa-file-image fa-xl"></i>
-                                </a>
-
-                                <a href="{{ $evidencia->imagen_url }}" download class="cancelar">
-                                    Descargar <i class="fa-solid fa-download"></i>
-                                </a>
-                            </div>
+                            <a href="{{ $evidencia->imagen_url }}" download class="cancelar">
+                                Descargar <i class="fa-solid fa-download"></i>
+                            </a>
                         </div>
+                    </div>
                     @else
-                        <span>Sin imagen</span>
+                    <span>Sin imagen</span>
                     @endif
 
                 </div>
@@ -307,17 +305,17 @@
                     </div>
 
                     @can('evidencia-pago-validar')
-                        @if (!$evidencia->fecha_validacion)
-                            <div class="g_margin_bottom_10">
-                                <div class="formulario_botones">
-                                    <button wire:click="validar" class="guardar" wire:loading.attr="disabled"
-                                        wire:target="validar">
-                                        <span wire:loading.remove wire:target="validar">Validar evidencia</span>
-                                        <span wire:loading wire:target="validar">Validando...</span>
-                                    </button>
-                                </div>
-                            </div>
-                        @endif
+                    @if (!$evidencia->fecha_validacion)
+                    <div class="g_margin_bottom_10">
+                        <div class="formulario_botones">
+                            <button wire:click="validar" class="guardar" wire:loading.attr="disabled"
+                                wire:target="validar">
+                                <span wire:loading.remove wire:target="validar">Validar evidencia</span>
+                                <span wire:loading wire:target="validar">Validando...</span>
+                            </button>
+                        </div>
+                    </div>
+                    @endif
                     @endcan
                 </div>
             </div>

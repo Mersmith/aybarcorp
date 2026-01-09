@@ -213,7 +213,7 @@ class TicketTodoLivewire extends Component
             ->when($this->solicitud, fn($q) => $q->where('tipo_solicitud_id', $this->solicitud))
             ->when($this->sub_tipo_solicitud_id, fn($q) => $q->where('sub_tipo_solicitud_id', $this->sub_tipo_solicitud_id))
             ->when($this->canal, fn($q) => $q->where('canal_id', $this->canal))
-            ->when($this->admin, fn($q) => $q->where('usuario_asignado_id', $this->admin))
+            ->when($this->admin, fn($q) => $q->where('gestor_id', $this->admin))
             ->when(
                 $this->fecha_inicio,
                 fn($q) =>

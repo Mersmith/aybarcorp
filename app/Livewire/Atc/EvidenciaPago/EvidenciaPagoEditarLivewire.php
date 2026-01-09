@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use App\Models\User;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoEditarLivewire extends Component
@@ -26,12 +27,15 @@ class EvidenciaPagoEditarLivewire extends Component
     public $empresas, $unidad_negocio_id = '';
     public $proyectos = [], $proyecto_id = '';
 
+    public $gestores, $gestor_id = '';
+
     protected function rules()
     {
         return [
-            'estado_id' => 'required',
             'unidad_negocio_id' => 'required',
             'proyecto_id' => 'required',
+            'gestor_id' => 'required',
+            'estado_id' => 'required',
         ];
     }
 
@@ -46,6 +50,10 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->estados = EstadoEvidenciaPago::all();
         $this->empresas = UnidadNegocio::all();
         $this->loadProyectos();
+
+        $this->gestores = User::role('asesor-backoffice')
+            ->where('rol', 'admin')
+            ->get();
     }
 
     public function updatedUnidadNegocioId($value)
@@ -69,9 +77,10 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->validate();
 
         $this->evidencia->update([
-            'estado_evidencia_pago_id' => $this->estado_id,
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'proyecto_id' => $this->proyecto_id,
+            'gestor_id' => $this->gestor_id,
+            'estado_evidencia_pago_id' => $this->estado_id,
         ]);
 
         $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
@@ -152,8 +161,8 @@ class EvidenciaPagoEditarLivewire extends Component
         Mail::to($emailDestino)
             ->send(new EvidenciaPagoObservacionMail($this->evidencia));
 
-            $this->dispatch('alertaLivewire', ['title' => 'Enviado', 'text' => 'Se envió correctamente.']);
-        }
+        $this->dispatch('alertaLivewire', ['title' => 'Enviado', 'text' => 'Se envió correctamente.']);
+    }
 
     public function render()
     {

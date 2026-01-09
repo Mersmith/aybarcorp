@@ -75,15 +75,15 @@ class ReporteLivewire extends Component
 
     private function loadRankingUsuarios()
     {
-        $data = Ticket::select('usuario_asignado_id', DB::raw('COUNT(*) as total'))
-            ->whereNotNull('usuario_asignado_id')
-            ->groupBy('usuario_asignado_id')
+        $data = Ticket::select('gestor_id', DB::raw('COUNT(*) as total'))
+            ->whereNotNull('gestor_id')
+            ->groupBy('gestor_id')
             ->orderByDesc('total')
             ->take(5)
             ->get();
 
         $this->rankingUsuarios = [
-            'labels' => $data->map(fn($i) => \App\Models\User::find($i->usuario_asignado_id)->name ?? 'Usuario'),
+            'labels' => $data->map(fn($i) => \App\Models\User::find($i->gestor_id)->name ?? 'Usuario'),
             'data'   => $data->pluck('total'),
         ];
     }

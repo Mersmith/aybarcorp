@@ -24,13 +24,13 @@ class Ticket extends Model
         'canal_id',
         'estado_ticket_id',
         'prioridad_ticket_id',
-        'usuario_asignado_id',
+        'gestor_id',
         'asunto_inicial',
         'descripcion_inicial',
         'lotes',
-        'asunto',
-        'descripcion',
-        
+        'asunto_respuesta',
+        'descripcion_respuesta',
+
         'dni',
         'nombres',
         'origen',
@@ -95,9 +95,9 @@ class Ticket extends Model
         return $this->belongsTo(PrioridadTicket::class, 'prioridad_ticket_id');
     }
 
-    public function asignado()
+    public function gestor()
     {
-        return $this->belongsTo(User::class, 'usuario_asignado_id');
+        return $this->belongsTo(User::class, 'gestor_id');
     }
 
     public function historial()

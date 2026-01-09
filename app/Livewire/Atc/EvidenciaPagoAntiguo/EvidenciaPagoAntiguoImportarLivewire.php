@@ -25,7 +25,7 @@ class EvidenciaPagoAntiguoImportarLivewire extends Component
         try {
             Excel::import(new EvidenciaPagoAntiguoImport, $this->archivo);
 
-            $this->dispatch('alertaLivewire', 'Creado');
+            $this->dispatch('alertaLivewire', ['title' => 'Importado', 'text' => 'Se importó correctamente.']);
         } catch (ValidationException $e) {
 
             $this->addError(

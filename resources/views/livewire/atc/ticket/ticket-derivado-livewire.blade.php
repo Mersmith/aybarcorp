@@ -30,13 +30,13 @@
 
                     <div class="g_fila">
                         <div class="g_columna_6 g_margin_bottom_10">
-                            <label>Área origen</label>
+                            <label>Área inicial</label>
                             <input type="text" disabled value="{{ $ticket->area->nombre ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_columna_6 g_margin_bottom_10">
-                            <label>Usuario origen</label>
-                            <input type="text" disabled value="{{ $ticket->asignado->name ?? 'Sin asignar' }}">
+                            <label>Gestor inicial</label>
+                            <input type="text" disabled value="{{ $ticket->gestor->name ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
@@ -54,7 +54,8 @@
                         </div>
 
                         <div class="g_columna_6 g_margin_bottom_10">
-                            <label for="usuario_recibe_id">Usuario destino</label>
+                            <label for="usuario_recibe_id">Gestor destino<span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
                             <select id="usuario_recibe_id" wire:model.live="usuario_recibe_id">
                                 <option value="">Sin asignar</option>
                                 @foreach ($usuarios as $usuario)
@@ -67,7 +68,8 @@
 
                     <div class="g_fila">
                         <div class="g_columna_12">
-                            <label for="motivo">Motivo</label>
+                            <label for="motivo">Motivo<span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
                             <textarea id="motivo" wire:model.live="motivo" rows="4"></textarea>
                             @error('motivo') <p class="mensaje_error">{{ $message }}</p> @enderror
                         </div>
@@ -163,7 +165,7 @@
                         @foreach ($historial as $item)
                         <tr>
                             <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
-                            <td>{{ $item->usuario->name ?? 'Sistema' }}</td>
+                            <td>{{ $item->usuarioHistorial->name ?? 'Sistema' }}</td>
                             <td>{{ $item->accion }}</td>
                             <td>
                                 @foreach (explode(' | ', $item->detalle) as $linea)

@@ -19,7 +19,7 @@ class Cita extends Model
         'ticket_id',
 
         'usuario_crea_id',
-        'usuario_atiende_id',
+        'gestor_id',
         'sede_id',
         'motivo_cita_id',
         'estado_cita_id',
@@ -34,7 +34,7 @@ class Cita extends Model
         'dni',
         'nombres',
         'origen',
-        
+
         // valida
         'usuario_valida_id',
         'fecha_validacion',
@@ -72,9 +72,9 @@ class Cita extends Model
         return $this->belongsTo(User::class, 'usuario_crea_id');
     }
 
-    public function atiende()
+    public function gestor()
     {
-        return $this->belongsTo(User::class, 'usuario_atiende_id');
+        return $this->belongsTo(User::class, 'gestor_id');
     }
 
     public function sede()

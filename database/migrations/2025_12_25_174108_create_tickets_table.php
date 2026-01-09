@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('unidad_negocio_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('proyecto_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete();
 
             $table->foreignId('ticket_padre_id')->nullable()->constrained('tickets')->nullOnDelete();
 
@@ -27,14 +28,12 @@ return new class extends Migration
             $table->foreignId('estado_ticket_id')->default(1)->constrained('estado_tickets')->cascadeOnDelete();
             $table->foreignId('prioridad_ticket_id')->default(3)->constrained('prioridad_tickets')->cascadeOnDelete();
 
-            $table->foreignId('usuario_asignado_id')->nullable()->constrained('users')->nullOnDelete();//asignado
-
             $table->string('asunto_inicial');
             $table->text('descripcion_inicial');
             $table->json('lotes')->nullable();
 
-            $table->string('asunto')->nullable();
-            $table->text('descripcion')->nullable();
+            $table->string('asunto_respuesta')->nullable();
+            $table->text('descripcion_respuesta')->nullable();
 
             //DB ANTIGUO
             $table->string('dni')->nullable();

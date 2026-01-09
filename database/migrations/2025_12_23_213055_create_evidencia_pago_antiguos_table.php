@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('unidad_negocio_id')->nullable()->constrained('unidad_negocios')->nullOnDelete(); //ok
             $table->foreignId('proyecto_id')->nullable()->constrained('proyectos')->nullOnDelete(); //ok
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //ok
 
             $table->string('imagen_url')->nullable(); //ok
 
@@ -45,7 +46,6 @@ return new class extends Migration
             $table->string('lote')->nullable(); //ok
             $table->string('numero_cuota')->nullable(); //ok
 
-            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //ok
             $table->string('gestor')->nullable(); //ok
             $table->date('fecha_registro')->nullable(); //ok
 

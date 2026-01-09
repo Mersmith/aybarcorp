@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('unidad_negocio_id')->constrained('unidad_negocios')->cascadeOnDelete();
             $table->foreignId('proyecto_id')->constrained('proyectos')->cascadeOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete(); //user_id
+            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //asignado
 
             $table->string('path');
             $table->string('url');
@@ -40,8 +41,6 @@ return new class extends Migration
             $table->string('numero_cuota')->nullable();
             $table->string('transaccion_id')->nullable(); //idcobranzas
             $table->string('lote_completo')->nullable();
-
-            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //asignado
 
             //SUPERVISOR
             $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();

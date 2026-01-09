@@ -23,7 +23,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
     public $empresas, $unidad_negocio_id = '';
     public $proyectos = [], $proyecto_id = '';
 
-    public $usuarios = [], $usuario_asignado_id = "";
+    public $usuarios = [], $gestor_id = "";
 
     protected function rules()
     {
@@ -31,7 +31,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
             'estado_id' => 'required',
             'unidad_negocio_id' => 'required',
             'proyecto_id' => 'required',
-            'usuario_asignado_id' => 'required',
+            'gestor_id' => 'required',
         ];
     }
 
@@ -48,7 +48,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
         $this->loadProyectos();
 
         $this->usuarios = User::role('asesor-atc')->get();
-        $this->usuario_asignado_id = $this->evidencia->gestor_id;
+        $this->gestor_id = $this->evidencia->gestor_id;
     }
 
     public function updatedUnidadNegocioId($value)
@@ -75,7 +75,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
             'estado_evidencia_pago_id' => $this->estado_id,
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'proyecto_id' => $this->proyecto_id,
-            'gestor_id' => $this->usuario_asignado_id,
+            'gestor_id' => $this->gestor_id,
             'observacion' => $this->observacion,
         ]);
 

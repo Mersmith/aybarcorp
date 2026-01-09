@@ -17,7 +17,7 @@ class CitaCrearLivewire extends Component
     public $ticket;
     public ?int $ticketId = null;
 
-    public $usuarios_admin, $usuario_crea_id = '';
+    public $gestores, $gestor_id = '';
 
     public $sedes, $sede_id = '';
     public $motivos, $motivo_cita_id = '';
@@ -31,7 +31,7 @@ class CitaCrearLivewire extends Component
     protected function rules()
     {
         return [
-            'usuario_crea_id' => 'required',
+            'gestor_id' => 'required',
             'sede_id' => 'required',
             'motivo_cita_id' => 'required',
             'fecha_inicio' => 'required',
@@ -43,7 +43,7 @@ class CitaCrearLivewire extends Component
     }
 
     protected $validationAttributes = [
-        'usuario_crea_id' => 'admin',
+        'gestor_id' => 'admin',
     ];
 
     public function mount($ticketId = null)
@@ -54,7 +54,7 @@ class CitaCrearLivewire extends Component
         $this->sedes = Sede::all();
         $this->motivos = MotivoCita::all();
         $this->estados = EstadoCita::all();
-        $this->usuarios_admin = User::role('asesor-atc')
+        $this->gestores = User::role('asesor-atc')
             ->where('rol', 'admin')
             ->get();
     }
@@ -69,10 +69,11 @@ class CitaCrearLivewire extends Component
             'unidad_negocio_id' => $this->ticket->unidad_negocio_id,
             'proyecto_id' => $this->ticket->proyecto_id,
             'cliente_id' => $this->ticket->origen === 'slin'
-            ? $this->ticket->cliente_id
-            : null,
+                ? $this->ticket->cliente_id
+                : null,
 
-            'usuario_crea_id' => $this->usuario_crea_id,
+            'usuario_crea_id' => auth()->id(),
+            'gestor_id' => $this->gestor_id,
             'sede_id' => $this->sede_id,
             'motivo_cita_id' => $this->motivo_cita_id,
             'estado_cita_id' => $this->estado_cita_id,

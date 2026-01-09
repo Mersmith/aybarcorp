@@ -5,8 +5,8 @@
 
     <div class="g_panel cabecera_titulo_pagina">
         <h2>Editar cita @if ($ticket)
-                asociado al ticket
-                <a href="{{ route('admin.ticket.vista.editar', $ticket->id) }}">#{{ $ticket->id }}</a>
+            asociado al ticket
+            <a href="{{ route('admin.ticket.vista.editar', $ticket->id) }}" target="_blank">#{{ $ticket->id }}</a>
             @endif
         </h2>
 
@@ -45,8 +45,18 @@
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_6">
-                            <label>Admin</label>
-                            <input type="text" disabled value="{{ $cita->crea->name ?? 'Sin asignar' }}">
+                            <label for="gestor_id">
+                                Gestor <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                            </label>
+                            <select id="gestor_id" wire:model.live="gestor_id" required>
+                                <option value="" selected disabled>Seleccionar un asignado</option>
+                                @foreach ($gestores as $usuario)
+                                <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('gestor_id')
+                            <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_6">
@@ -55,11 +65,11 @@
                             <select id="estado_cita_id" wire:model.live="estado_cita_id" required>
                                 <option value="" selected disabled>Seleccionar un estado</option>
                                 @foreach ($estados as $estado)
-                                    <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
+                                <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('estado_cita_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -78,15 +88,39 @@
 
                     <div class="g_fila">
                         <div class="g_columna_12">
-                            <label>Asunto</label>
+                            <label>Asunto inicial</label>
                             <textarea disabled rows="3">{{ $cita->asunto_solicitud ?? 'Sin asunto' }}</textarea>
                         </div>
                     </div>
 
                     <div class="g_fila">
                         <div class="g_columna_12">
-                            <label>Descripción</label>
+                            <label>Descripción inicial</label>
                             <textarea disabled rows="4">{{ $cita->descripcion_solicitud ?? 'Sin asunto' }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Detalle para editar</h4>
+                    <div class="g_fila">
+                        <div class="g_columna_12">
+                            <label for="asunto_respuesta">Asunto respuesta</label>
+                            <textarea id="asunto_respuesta" wire:model.live="asunto_respuesta" rows="2"></textarea>
+                            @error('asunto_respuesta')
+                            <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_columna_12">
+                            <label for="descripcion_respuesta">Descripción respuesta</label>
+                            <textarea id="descripcion_respuesta" wire:model.live="descripcion_respuesta"
+                                rows="5"></textarea>
+                            @error('descripcion_respuesta')
+                            <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -99,8 +133,7 @@
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_6">
                             <label>Empresa</label>
-                            <input type="text" disabled
-                                value="{{ $ticket->unidadNegocio->nombre ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $ticket->unidadNegocio->nombre ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_6">
@@ -117,8 +150,7 @@
 
                         <div class="g_margin_bottom_10 g_columna_6">
                             <label>Tipo solicitud</label>
-                            <input type="text" disabled
-                                value="{{ $ticket->tipoSolicitud->nombre ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $ticket->tipoSolicitud->nombre ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
@@ -141,10 +173,10 @@
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_6">
-                            <label for="usuario_asignado_id">
+                            <label for="gestor_id">
                                 Asignado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
-                            <input type="text" disabled value="{{ $ticket->asignado->name ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $ticket->gestor->name ?? 'Sin asignar' }}">
                         </div>
                     </div>
                     <div class="g_fila">
@@ -162,30 +194,30 @@
                     </div>
 
                     @if (!empty($ticket->lotes))
-                        <div class="g_fila">
-                            <div class="g_columna_12">
-                                <label>Lotes</label>
+                    <div class="g_fila">
+                        <div class="g_columna_12">
+                            <label>Lotes</label>
 
-                                <table class="tabla_eliminar">
-                                    <thead>
-                                        <tr>
-                                            <th>Razón Social</th>
-                                            <th>Proyecto</th>
-                                            <th>Mz./Lt.</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($ticket->lotes as $index => $l)
-                                            <tr class="sorteable_item" wire:key="lote-{{ $index }}">
-                                                <td> {{ $l['razon_social'] }} </td>
-                                                <td> {{ $l['proyecto'] }} </td>
-                                                <td> {{ $l['numero_lote'] }} </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="tabla_eliminar">
+                                <thead>
+                                    <tr>
+                                        <th>Razón Social</th>
+                                        <th>Proyecto</th>
+                                        <th>Mz./Lt.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($ticket->lotes as $index => $l)
+                                    <tr class="sorteable_item" wire:key="lote-{{ $index }}">
+                                        <td> {{ $l['razon_social'] }} </td>
+                                        <td> {{ $l['proyecto'] }} </td>
+                                        <td> {{ $l['numero_lote'] }} </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
                     @endif
                 </div>
             </div>

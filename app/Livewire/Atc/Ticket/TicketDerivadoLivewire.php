@@ -43,7 +43,7 @@ class TicketDerivadoLivewire extends Component
     {
         return [
             'area_id'             => 'Área',
-            'usuario_asignado_id' => 'Usuario asignado',
+            'gestor_id' => 'Usuario asignado',
             'estado_ticket_id'    => 'Estado',
         ][$campo] ?? ucfirst(str_replace('_', ' ', $campo));
     }
@@ -54,7 +54,7 @@ class TicketDerivadoLivewire extends Component
 
         return match ($campo) {
             'area_id'             => $this->mapAreas[$valor] ?? $valor,
-            'usuario_asignado_id' => $this->nombreUsuario($valor),
+            'gestor_id' => $this->nombreUsuario($valor),
             'estado_ticket_id'    => $this->mapEstados[$valor] ?? $valor,
             default               => $valor
         };
@@ -115,7 +115,7 @@ class TicketDerivadoLivewire extends Component
 
         $this->ticket->update([
             'area_id'             => $this->a_area_id,
-            'usuario_asignado_id' => $this->usuario_recibe_id,
+            'gestor_id' => $this->usuario_recibe_id,
         ]);
 
         $new = $this->ticket->fresh()->toArray();

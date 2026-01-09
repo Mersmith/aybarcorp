@@ -7,6 +7,7 @@ use App\Models\EstadoCita;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use App\Models\User;
 
 #[Layout('layouts.admin.layout-admin')]
 class CitaEditarLivewire extends Component
@@ -19,9 +20,12 @@ class CitaEditarLivewire extends Component
     public $asunto_respuesta;
     public $descripcion_respuesta;
 
+    public $gestores, $gestor_id = '';
+
     protected function rules()
     {
         return [
+            'gestor_id' => 'required',
             'estado_cita_id' => 'required',
         ];
     }
@@ -34,7 +38,13 @@ class CitaEditarLivewire extends Component
         $this->asunto_respuesta = $this->cita->asunto_respuesta;
         $this->descripcion_respuesta = $this->cita->descripcion_respuesta;
         $this->estado_cita_id = $this->cita->estado_cita_id;
+        $this->gestor_id = $this->cita->gestor_id;
+
         $this->estados = EstadoCita::all();
+
+        $this->gestores = User::role('asesor-atc')
+            ->where('rol', 'admin')
+            ->get();
     }
 
     public function store()
@@ -42,7 +52,10 @@ class CitaEditarLivewire extends Component
         $this->validate();
 
         $this->cita->update([
+            'gestor_id' => $this->gestor_id,
             'estado_cita_id' => $this->estado_cita_id,
+            'asunto_respuesta' => $this->asunto_respuesta,
+            'descripcion_respuesta' => $this->descripcion_respuesta,
         ]);
 
         $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);

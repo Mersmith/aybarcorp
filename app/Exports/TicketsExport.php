@@ -58,7 +58,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
         $this->perPage = (int) $perPage;
         $this->page = (int) $page;
     }
-    
+
     public function collection()
     {
         return Ticket::query()
@@ -76,7 +76,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
             ->when($this->solicitud, fn($q) => $q->where('tipo_solicitud_id', $this->solicitud))
             ->when($this->subTipo, fn($q) => $q->where('sub_tipo_solicitud_id', $this->subTipo))
             ->when($this->canal, fn($q) => $q->where('canal_id', $this->canal))
-            ->when($this->admin, fn($q) => $q->where('usuario_asignado_id', $this->admin))
+            ->when($this->admin, fn($q) => $q->where('gestor_id', $this->admin))
             ->when($this->prioridad, fn($q) => $q->where('prioridad_ticket_id', $this->prioridad))
             ->when($this->fechaInicio, fn($q) => $q->whereDate('created_at', '>=', $this->fechaInicio))
             ->when($this->fechaFin, fn($q) => $q->whereDate('created_at', '<=', $this->fechaFin))
@@ -99,7 +99,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
                 $t->tipoSolicitud->nombre ?? '',
                 $t->canal->nombre ?? '',
                 $t->estado->nombre ?? '',
-                $t->asignado->name ?? '',
+                $t->gestor->name ?? '',
                 $t->prioridad->nombre ?? '',
                 $t->created_at->format('Y-m-d H:i'),
                 $t->tiene_derivados ? 'Sí' : 'No',
@@ -115,7 +115,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
             'Solicitud',
             'Canal',
             'Estado',
-            'Asignado',
+            'Gestor',
             'Prioridad',
             'Fecha',
             'Derivado',

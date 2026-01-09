@@ -29,7 +29,16 @@ function alertaNormal(mensaje) {
 Livewire.on("alertaLivewire", (data) => {
     const payload = data[0];
 
-    const successTitles = ["Creado", "Actualizado", "Agregado", "Derivado", "Adjuntado", "Validado", "Enviado"];
+    const successTitles = [
+        "Creado",
+        "Actualizado",
+        "Agregado",
+        "Importado",
+        "Derivado",
+        "Adjuntado",
+        "Validado",
+        "Enviado",
+    ];
     const errorTitles = ["Error", "Eliminado", "Quitado"];
     const warningTitles = ["Advertencia"];
 
@@ -49,7 +58,8 @@ Livewire.on("alertaLivewire", (data) => {
     const showConfirmButton =
         payload.showConfirmButton !== undefined
             ? payload.showConfirmButton
-            : errorTitles.includes(payload.title) || warningTitles.includes(payload.title);
+            : errorTitles.includes(payload.title) ||
+              warningTitles.includes(payload.title);
 
     // 3. Regla UX: si hay confirmación, no hay timer
     if (showConfirmButton === true) {
@@ -64,5 +74,3 @@ Livewire.on("alertaLivewire", (data) => {
         timer,
     });
 });
-
-

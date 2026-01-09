@@ -61,12 +61,12 @@
                         <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
-                </div>               
+                </div>
             </div>
 
             <div class="g_fila">
                 <div class="g_margin_bottom_10 g_columna_2">
-                    <label>Admins</label>
+                    <label>Gestores</label>
                     <select wire:model.live="admin">
                         <option value="">Todos</option>
                         @foreach ($usuarios_admin as $item)
@@ -84,7 +84,7 @@
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div class="g_margin_bottom_10 g_columna_2">
                     <label>Fecha Inicio</label>
                     <input type="date" wire:model.live="fecha_inicio">

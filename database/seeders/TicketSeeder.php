@@ -59,13 +59,13 @@ class TicketSeeder extends Seeder
 
                 'prioridad_ticket_id' => fake()->randomElement([1, 2, 3]),
 
-                'usuario_asignado_id' => fake()->numberBetween(4, 20),
+                'gestor_id' => fake()->numberBetween(4, 20),
 
                 'asunto_inicial' => fake()->randomElement($asuntos),
                 'descripcion_inicial' => fake()->randomElement($descripciones),
 
-                'asunto' => fake()->boolean(40) ? fake()->sentence() : null,
-                'descripcion' => fake()->boolean(40) ? fake()->paragraph() : null,
+                'asunto_respuesta' => fake()->boolean(40) ? fake()->sentence() : null,
+                'descripcion_respuesta' => fake()->boolean(40) ? fake()->paragraph() : null,
 
                 'lotes' => [
                     [

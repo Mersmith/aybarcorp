@@ -6,8 +6,8 @@
     <div class="g_panel cabecera_titulo_pagina">
         <h2>Crear ticket
             @if ($ticketPadreId)
-                asociado al ticket 
-                <a href="{{ route('admin.ticket.vista.editar', $ticketPadreId) }}" target="_blank">#{{ $ticketPadreId }}</a>                
+            asociado al ticket
+            <a href="{{ route('admin.ticket.vista.editar', $ticketPadreId) }}" target="_blank">#{{ $ticketPadreId }}</a>
             @endif
         </h2>
 
@@ -38,11 +38,11 @@
                             <select id="unidad_negocio_id" wire:model.live="unidad_negocio_id" required>
                                 <option value="" selected disabled>Seleccionar una empresa</option>
                                 @foreach ($empresas as $empresa)
-                                    <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
+                                <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('unidad_negocio_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -53,11 +53,11 @@
                             <select id="proyecto_id" wire:model.live="proyecto_id" required>
                                 <option value="" selected disabled>Seleccionar un proyecto</option>
                                 @foreach ($proyectos as $proyecto)
-                                    <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
+                                <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('proyecto_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -68,11 +68,11 @@
                             <select id="area_id" wire:model.live="area_id" required>
                                 <option value="" selected disabled>Seleccionar un area</option>
                                 @foreach ($areas as $area)
-                                    <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('area_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -85,11 +85,11 @@
                             <select id="tipo_solicitud_id" wire:model.live="tipo_solicitud_id" required>
                                 <option value="" selected disabled>Seleccionar un area</option>
                                 @foreach ($tipos_solicitudes as $tipo)
-                                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('tipo_solicitud_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -100,11 +100,11 @@
                             <select id="sub_tipo_solicitud_id" wire:model.live="sub_tipo_solicitud_id" required>
                                 <option value="" selected disabled>Seleccionar un subtipo</option>
                                 @foreach ($sub_tipos_solicitudes as $subtipo)
-                                    <option value="{{ $subtipo->id }}">{{ $subtipo->nombre }}</option>
+                                <option value="{{ $subtipo->id }}">{{ $subtipo->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('sub_tipo_solicitud_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -114,13 +114,13 @@
                             <select id="canal_id" name="canal_id" wire:model.live="canal_id" required>
                                 <option value="" selected disabled>Seleccionar un canal</option>
                                 @if ($canales)
-                                    @foreach ($canales as $canal)
-                                        <option value="{{ $canal->id }}">{{ $canal->nombre }}</option>
-                                    @endforeach
+                                @foreach ($canales as $canal)
+                                <option value="{{ $canal->id }}">{{ $canal->nombre }}</option>
+                                @endforeach
                                 @endif
                             </select>
                             @error('canal_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                             <input type="text" disabled value="{{ $cliente?->nombre ?? 'Sin asignar' }}">
 
                             @error('cliente_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -143,17 +143,17 @@
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
-                            <label for="usuario_asignado_id">
-                                Asignado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                            <label for="gestor_id">
+                                Gestor <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
-                            <select id="usuario_asignado_id" wire:model.live="usuario_asignado_id" required>
+                            <select id="gestor_id" wire:model.live="gestor_id" required>
                                 <option value="" selected disabled>Seleccionar un asignado</option>
-                                @foreach ($usuarios as $usuario)
-                                    <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                @foreach ($gestores as $usuario)
+                                <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                                 @endforeach
                             </select>
-                            @error('usuario_asignado_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            @error('gestor_id')
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                                         class="fa-solid fa-asterisk"></i></span></label>
                             <textarea id="asunto_inicial" wire:model.live="asunto_inicial" rows="2"></textarea>
                             @error('asunto_inicial')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -173,46 +173,47 @@
                         <div class="g_columna_12">
                             <label for="descripcion_inicial">Descripción <span class="obligatorio"><i
                                         class="fa-solid fa-asterisk"></i></span></label>
-                            <textarea id="descripcion_inicial" wire:model.live="descripcion_inicial" rows="5"></textarea>
+                            <textarea id="descripcion_inicial" wire:model.live="descripcion_inicial"
+                                rows="5"></textarea>
                             @error('descripcion_inicial')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
                 </div>
 
                 @if (!empty($lotes_agregados))
-                    <div class="g_panel">
-                        <h4 class="g_panel_titulo">Lotes seleccionados</h4>
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Lotes seleccionados</h4>
 
-                        <table class="tabla_eliminar">
-                            <thead>
-                                <tr>
-                                    <th>Razón Social</th>
-                                    <th>Proyecto</th>
-                                    <th>Mz./Lt.</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($lotes_agregados as $index => $l)
-                                    <tr class="sorteable_item" wire:key="lote-{{ $index }}">
-                                        <td> {{ $l['razon_social'] }} </td>
-                                        <td> {{ $l['proyecto'] }} </td>
-                                        <td> {{ $l['numero_lote'] }} </td>
-                                        <td>
-                                            <button type="button" wire:click="quitarLote('{{ $l['id'] }}')"
-                                                class="boton_eliminar" @pointerdown.stop @mousedown.stop
-                                                @touchstart.stop draggable="false">
+                    <table class="tabla_eliminar">
+                        <thead>
+                            <tr>
+                                <th>Razón Social</th>
+                                <th>Proyecto</th>
+                                <th>Mz./Lt.</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($lotes_agregados as $index => $l)
+                            <tr class="sorteable_item" wire:key="lote-{{ $index }}">
+                                <td> {{ $l['razon_social'] }} </td>
+                                <td> {{ $l['proyecto'] }} </td>
+                                <td> {{ $l['numero_lote'] }} </td>
+                                <td>
+                                    <button type="button" wire:click="quitarLote('{{ $l['id'] }}')"
+                                        class="boton_eliminar" @pointerdown.stop @mousedown.stop @touchstart.stop
+                                        draggable="false">
 
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 @endif
 
             </div>
@@ -221,24 +222,24 @@
             <div class="g_columna_4 g_gap_pagina g_columna_invertir">
                 <div class="g_panel">
                     @if (session('info'))
-                        <div class="g_alerta_info">
-                            <i class="fa-solid fa-circle-check"></i>
-                            {{ session('info') }}
-                        </div>
+                    <div class="g_alerta_info">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('info') }}
+                    </div>
                     @endif
 
                     @if (session('error'))
-                        <div class="g_alerta_error">
-                            <i class="fa-solid fa-circle-check"></i>
-                            {{ session('error') }}
-                        </div>
+                    <div class="g_alerta_error">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('error') }}
+                    </div>
                     @endif
 
                     @if (session('success'))
-                        <div class="g_alerta_succes">
-                            <i class="fa-solid fa-circle-check"></i>
-                            {{ session('success') }}
-                        </div>
+                    <div class="g_alerta_succes">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('success') }}
+                    </div>
                     @endif
                     <h4 class="g_panel_titulo">Cliente</h4>
 
@@ -260,29 +261,29 @@
 
 
                 @if ($informaciones->isNotEmpty())
-                    <div class="g_panel">
-                        <h4 class="g_panel_titulo">Lotes</h4>
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Lotes</h4>
 
-                        <div class="g_margin_bottom_10">
-                            <select wire:model.live="lote_id">
-                                <option value="">Seleccionar lote</option>
+                    <div class="g_margin_bottom_10">
+                        <select wire:model.live="lote_id">
+                            <option value="">Seleccionar lote</option>
 
-                                @foreach ($informaciones as $lote)
-                                    <option value="{{ $lote->id }}">
-                                        {{ $lote->razon_social }} - {{ $lote->proyecto }} - {{ $lote->numero_lote }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="formulario_botones">
-                            <button wire:click="agregarLote" class="guardar" wire:loading.attr="disabled"
-                                wire:target="agregarLote">
-                                <span wire:loading.remove wire:target="agregarLote">Agregar</span>
-                                <span wire:loading wire:target="agregarLote">Agregando...</span>
-                            </button>
-                        </div>
+                            @foreach ($informaciones as $lote)
+                            <option value="{{ $lote->id }}">
+                                {{ $lote->razon_social }} - {{ $lote->proyecto }} - {{ $lote->numero_lote }}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
+
+                    <div class="formulario_botones">
+                        <button wire:click="agregarLote" class="guardar" wire:loading.attr="disabled"
+                            wire:target="agregarLote">
+                            <span wire:loading.remove wire:target="agregarLote">Agregar</span>
+                            <span wire:loading wire:target="agregarLote">Agregando...</span>
+                        </button>
+                    </div>
+                </div>
                 @endif
 
             </div>

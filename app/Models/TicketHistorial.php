@@ -17,4 +17,17 @@ class TicketHistorial extends Model
         'accion',
         'detalle',
     ];
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
+
+    /**
+     * Relación: el historial pertenece a un usuario (puede ser null)
+     */
+    public function usuarioHistorial()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -29,7 +29,7 @@ class TicketCrearLivewire extends Component
     public $canales, $canal_id = "";
     public $cliente, $cliente_id = "", $origen = "";
 
-    public $usuarios = [], $usuario_asignado_id = "";
+    public $gestores = [], $gestor_id = "";
 
     public $asunto_inicial;
     public $descripcion_inicial;
@@ -54,7 +54,7 @@ class TicketCrearLivewire extends Component
             'tipo_solicitud_id' => 'required',
             'sub_tipo_solicitud_id' => 'required',
             'canal_id' => 'required',
-            'usuario_asignado_id' => 'required',
+            'gestor_id' => 'required',
             'asunto_inicial' => 'required|string|max:255',
             'descripcion_inicial' => 'required|string|max:555',
         ];
@@ -92,10 +92,10 @@ class TicketCrearLivewire extends Component
         $area = Area::find($value);
 
         $this->tipos_solicitudes = $area ? $area->tipos()->where('activo', true)->get() : [];
-        $this->usuarios = $area ? $area->usuarios()->where('activo', true)->get() : [];
+        $this->gestores = $area ? $area->usuarios()->where('activo', true)->get() : [];
 
         $this->tipo_solicitud_id = "";
-        $this->usuario_asignado_id = "";
+        $this->gestor_id = "";
     }
 
     public function updatedTipoSolicitudId($value)
@@ -124,7 +124,7 @@ class TicketCrearLivewire extends Component
         }
 
         $estadoAbiertoId = EstadoTicket::orderBy('id')->value('id');
-        
+
         $ticket = Ticket::create([
             'ticket_padre_id' => $this->ticketPadreId,
 
@@ -137,11 +137,11 @@ class TicketCrearLivewire extends Component
             'sub_tipo_solicitud_id' => $this->sub_tipo_solicitud_id,
             'canal_id' => $this->canal_id,
             'estado_ticket_id' => $estadoAbiertoId,
-            'usuario_asignado_id' => $this->usuario_asignado_id,
+            'gestor_id' => $this->gestor_id,
             'asunto_inicial' => $this->asunto_inicial,
             'descripcion_inicial' => $this->descripcion_inicial,
             'lotes' => $this->lotes_agregados,
-            
+
             'dni' => $this->cliente->dni,
             'nombres' => $this->cliente->nombre,
             'origen' => $this->origen,

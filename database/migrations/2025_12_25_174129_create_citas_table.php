@@ -17,11 +17,11 @@ return new class extends Migration
             $table->foreignId('unidad_negocio_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('proyecto_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete(); //quien es agendado
+            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //quien atiende al cliente //asignado
 
             $table->foreignId('ticket_id')->nullable()->constrained('tickets')->nullOnDelete();
 
             $table->foreignId('usuario_crea_id')->constrained('users')->onDelete('cascade'); //quien crea
-            $table->foreignId('usuario_atiende_id')->nullable()->constrained('users')->nullOnDelete(); //quien atiende al cliente //asignado
 
             $table->foreignId('sede_id')->nullable()->constrained('sedes')->nullOnDelete();
 

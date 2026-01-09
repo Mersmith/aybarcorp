@@ -23,8 +23,8 @@ class TicketEditarLivewire extends Component
 
     public $ticket;
 
-    public $asunto;
-    public $descripcion;
+    public $asunto_respuesta;
+    public $descripcion_respuesta;
 
     public $estados, $estado_ticket_id;
 
@@ -45,8 +45,8 @@ class TicketEditarLivewire extends Component
         $this->mapEstados  = $this->estados->pluck('nombre', 'id')->toArray();
 
         $this->estado_ticket_id = $this->ticket->estado_ticket_id;
-        $this->asunto           = $this->ticket->asunto;
-        $this->descripcion      = $this->ticket->descripcion;
+        $this->asunto_respuesta           = $this->ticket->asunto_respuesta;
+        $this->descripcion_respuesta      = $this->ticket->descripcion_respuesta;
 
         $this->historial = $this->ticket->historial()->latest()->get();
         $this->archivos_existentes = $this->ticket->archivos()->get();
@@ -58,8 +58,8 @@ class TicketEditarLivewire extends Component
 
         $data = [
             'estado_ticket_id' => $this->estado_ticket_id,
-            'asunto'           => $this->asunto,
-            'descripcion'      => $this->descripcion,
+            'asunto_respuesta'           => $this->asunto_respuesta,
+            'descripcion_respuesta'      => $this->descripcion_respuesta,
         ];
 
         $this->ticket->update($data);
@@ -204,7 +204,7 @@ class TicketEditarLivewire extends Component
             'ticket_id' => $ticket->id,
             'user_id'   => auth()->id(),
             'accion'    => 'Eliminar ticket',
-            'detalle'   => "Se eliminó el ticket con asunto '{$ticket->asunto}'",
+            'detalle'   => "Se eliminó el ticket con asunto '{$ticket->asunto_respuesta}'",
         ]);
 
         $ticket->delete();

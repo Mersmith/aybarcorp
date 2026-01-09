@@ -45,7 +45,7 @@ class CitaSeeder extends Seeder
                 'cliente_id' => $cliente->id,
 
                 'usuario_crea_id' => fake()->numberBetween(5, 19),
-                'usuario_atiende_id' => fake()->numberBetween(5, 50),
+                'gestor_id' => fake()->numberBetween(5, 50),
                 'sede_id' => $sede->id,
                 'motivo_cita_id' => $motivo->id,
                 'fecha_inicio' => $start,
@@ -80,7 +80,7 @@ class CitaSeeder extends Seeder
                 'cliente_id' => $cliente->id,
 
                 'usuario_crea_id' => fake()->numberBetween(5, 19),
-                'usuario_atiende_id' => fake()->numberBetween(5, 50),
+                'gestor_id' => fake()->numberBetween(5, 50),
                 'cliente_id' => $cliente->id,
                 'sede_id' => $sede->id,
                 'motivo_cita_id' => $motivo->id,
