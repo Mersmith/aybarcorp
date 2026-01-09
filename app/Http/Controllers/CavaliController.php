@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\CavaliService;
 
-class ConstanciaController extends Controller
+class CavaliController extends Controller
 {
-    public function obtener(string $numeroLetra, CavaliService $service)
+    public function verLetra(string $numeroLetra, CavaliService $service)
     {
         if (empty($numeroLetra)) {
             return response()->json([

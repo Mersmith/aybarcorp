@@ -29,6 +29,37 @@ class SlinController extends Controller
         $this->password = config('services.slin.password');
     }
 
+    public function verComprobante(Request $request)
+    {
+        $empresa = $request->query('empresa');
+        $comprobante = $request->query('comprobante');
+
+        if (!$empresa || !$comprobante) {
+            abort(400, 'Parámetros inválidos');
+        }
+
+        $response = Http::get('https://aybarcorp.com/slin/comprobante', [
+            'empresa' => $empresa,
+            'comprobante' => $comprobante,
+        ]);
+
+        if ($response->failed()) {
+            abort(404, 'No se pudo obtener el comprobante');
+        }
+
+        $json = $response->json();
+
+        if (empty($json['base64'])) {
+            abort(500, 'Comprobante inválido');
+        }
+
+        $pdfBinary = base64_decode($json['base64']);
+
+        return response($pdfBinary, 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="comprobante.pdf"');
+    }
+
     public function getCliente($dni)
     {
         $response = Http::withBasicAuth($this->user, $this->password)
@@ -456,13 +487,3 @@ class SlinController extends Controller
         return $response->json();
     }
 }
-
-/// guiarse del   "saldo": "11,835.48",
-// si saldo es 0, es pagado
-// si saldo es 0, mostrar numero comprboante
-
-//Cuerpo (JSON): ```json { "lote": "string", "cliente": "string", "contrato": "string", "idcobranzas": "string", "base64Image": "string" }
-// contrato vacio,
-
-// si el saldo es '0' esta pagado
-// si no tiene asterisco
