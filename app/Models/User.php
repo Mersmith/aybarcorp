@@ -59,7 +59,9 @@ class User extends Authenticatable
 
     public function areas()
     {
-        return $this->belongsToMany(Area::class)->withTimestamps();
+        return $this->belongsToMany(Area::class)
+            ->withPivot('is_principal')
+            ->withTimestamps();
     }
 
     /**

@@ -37,6 +37,7 @@
                         <tr>
                             <th>Nº</th>
                             <th>Nombre</th>
+                            <th>Email buzón</th>
                             <th>Activo</th>
                             <th></th>
                         </tr>
@@ -48,6 +49,7 @@
                                 <tr>
                                     <td> {{ $index + 1 }} </td>
                                     <td class="g_resaltar">ID: {{ $item->id }} - {{ $item->nombre }}</td>
+                                    <td class="g_resaltar">{{ $item->email_buzon }}</td>
                                     <td>
                                         <span class="estado {{ $item->activo ? 'g_activo' : 'g_desactivado' }}"><i
                                                 class="fa-solid fa-circle"></i></span>

@@ -11,6 +11,7 @@ use Livewire\Component;
 class AreaCrearLivewire extends Component
 {
     public $nombre;
+    public $email;
     public $activo = false;
 
     protected function rules()
@@ -32,6 +33,7 @@ class AreaCrearLivewire extends Component
 
         Area::create([
             'nombre' => $this->nombre,
+            'email_buzon' => $this->email,
             'activo' => $this->activo,
         ]);
 

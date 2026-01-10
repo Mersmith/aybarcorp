@@ -181,7 +181,7 @@
                     },
                     {
                         "id": 112,
-                        "nombre": "Crear",
+                        "nombre": "Consultar",
                         "ruta": "admin.cliente.vista.crear",
                         "url": "/admin/cliente/crear",
                         "nivel": 3,

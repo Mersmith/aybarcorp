@@ -13,6 +13,7 @@ class Area extends Model
 
     protected $fillable = [
         'nombre',
+        'email_buzon',
         'color',
         'icono',
         'activo',
@@ -20,7 +21,9 @@ class Area extends Model
 
     public function usuarios()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class)
+            ->withPivot('is_principal')
+            ->withTimestamps();
     }
 
     public function tipos()
@@ -31,5 +34,12 @@ class Area extends Model
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function principal()
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('is_principal')
+            ->wherePivot('is_principal', true);
     }
 }

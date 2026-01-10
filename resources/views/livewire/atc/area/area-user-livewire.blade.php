@@ -45,6 +45,7 @@
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Email</th>
+                                <th>Principal</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -56,6 +57,16 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td class="g_resaltar">{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td class="centrar_iconos">
+                                            @if ($user->pivot->is_principal)
+                                                <span class="g_badge activo">Principal</span>
+                                            @else
+                                                <button wire:click="marcarPrincipal({{ $user->id }})"
+                                                    class="g_boton g_boton_light">
+                                                    Hacer principal
+                                                </button>
+                                            @endif
+                                        </td>
 
                                         <td class="centrar_iconos">
                                             <button wire:click="quitarUsuario({{ $user->id }})"
@@ -68,7 +79,7 @@
                             </tbody>
                         @endif
                     </table>
-                </div>               
+                </div>
 
                 @if ($usuariosAgregados->count() == 0)
                     <div class="g_vacio">

@@ -34,6 +34,14 @@
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <div class="g_margin_bottom_10">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" wire:model.live="email">
+                        @error('email')
+                            <p class="mensaje_error">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
             </div>
 

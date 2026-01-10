@@ -14,11 +14,16 @@ return new class extends Migration
         Schema::create('area_user', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('area_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('area_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+
+            $table->boolean('is_principal')->default(false);
 
             $table->timestamps();
+
+            $table->unique(['area_id', 'user_id']);
         });
+
     }
 
     /**

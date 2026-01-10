@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('nombre')->unique();
+            $table->string('email_buzon')->nullable();
             $table->string('color')->nullable();
             $table->string('icono')->nullable();
             $table->boolean('activo')->default(false);

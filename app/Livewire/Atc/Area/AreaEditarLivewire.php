@@ -14,6 +14,7 @@ class AreaEditarLivewire extends Component
     public $area;
 
     public $nombre;
+    public $email;
 
     public $activo = false;
 
@@ -30,6 +31,7 @@ class AreaEditarLivewire extends Component
         $this->area = Area::findOrFail($id);
 
         $this->nombre = $this->area->nombre;
+        $this->email = $this->area->email_buzon;
         $this->activo = $this->area->activo;
     }
 
@@ -44,6 +46,7 @@ class AreaEditarLivewire extends Component
 
         $this->area->update([
             'nombre' => $this->nombre,
+            'email_buzon' => $this->email,
             'activo' => $this->activo,
         ]);
 

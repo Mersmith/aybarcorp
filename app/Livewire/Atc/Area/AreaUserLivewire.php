@@ -35,6 +35,29 @@ class AreaUserLivewire extends Component
         $this->resetPage();
     }
 
+    public function marcarPrincipal($userId)
+    {
+        // Quitar principal actual del área
+        $this->area->usuarios()->updateExistingPivot(
+            $this->area->usuarios()
+                ->wherePivot('is_principal', true)
+                ->pluck('users.id')
+                ->toArray(),
+            ['is_principal' => false]
+        );
+
+        // Marcar nuevo principal
+        $this->area->usuarios()->updateExistingPivot(
+            $userId,
+            ['is_principal' => true]
+        );
+
+        $this->dispatch('alertaLivewire', [
+            'title' => 'Actualizado',
+            'text' => 'Usuario principal asignado correctamente.',
+        ]);
+    }
+
     public function agregarUsuario($userId)
     {
         $this->area->usuarios()->syncWithoutDetaching([$userId]);
@@ -51,13 +74,13 @@ class AreaUserLivewire extends Component
 
     public function render()
     {
-        $idsAgregados = $this->area->usuarios()->pluck('users.id');
-
-        $usuariosAgregados = User::whereIn('id', $idsAgregados)
+        $usuariosAgregados = $this->area->usuarios()
             ->where('rol', 'admin')
             ->where('name', 'like', '%' . $this->searchAgregados . '%')
             ->orderBy('name')
             ->get();
+
+        $idsAgregados = $usuariosAgregados->pluck('id');
 
         $usuariosDisponibles = User::whereNotIn('id', $idsAgregados)
             ->where('rol', 'admin')

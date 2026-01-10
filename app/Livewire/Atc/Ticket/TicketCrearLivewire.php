@@ -11,12 +11,13 @@ use App\Models\SubTipoSolicitud;
 use App\Models\Ticket;
 use App\Models\TicketHistorial;
 use App\Models\UnidadNegocio;
-use Livewire\Attributes\Layout;
 use App\Services\ConsultaClienteService;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Livewire\Component;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
 class TicketCrearLivewire extends Component
@@ -64,11 +65,22 @@ class TicketCrearLivewire extends Component
     {
         $this->ticketPadreId = $ticketPadre;
 
+        $user = Auth::user();
+
+        if ($user->areas()->exists()) {
+            $this->area_id = $user->areas()->orderBy('area_user.created_at')->value('areas.id');
+        } else {
+            $this->area_id = Area::orderBy('id')->value('id');
+        }
+
         $this->areas = Area::all();
         $this->canales = Canal::all();
         $this->empresas = UnidadNegocio::all();
-
         $this->informaciones = collect();
+
+        if ($this->area_id) {
+            $this->cargarDatosArea($this->area_id);
+        }
     }
 
     public function updatedUnidadNegocioId($value)
@@ -87,15 +99,50 @@ class TicketCrearLivewire extends Component
         }
     }
 
+    public function cargarDatosArea($areaId)
+    {
+        $area = Area::find($areaId);
+
+        if (!$area) {
+            $this->tipos_solicitudes = collect();
+            $this->gestores = collect();
+            $this->gestor_id = '';
+            $this->tipo_solicitud_id = '';
+            return;
+        }
+
+        $this->tipos_solicitudes = $area->tipos()
+            ->where('activo', true)
+            ->get();
+
+        $this->gestores = $area->usuarios()
+            ->where('activo', true)
+            ->withPivot('is_principal')
+            ->orderByDesc('area_user.is_principal') /
+            ->orderBy('users.name') 
+            ->get();
+
+        $user = Auth::user();
+
+        if ($this->gestores->contains('id', $user->id)) {
+            $this->gestor_id = $user->id;
+        } else {
+            $principal = $this->gestores
+                ->first(fn($u) => (bool) $u->pivot->is_principal);
+
+            if ($principal) {
+                $this->gestor_id = $principal->id;
+            } else {
+                $this->gestor_id = $this->gestores->first()?->id;
+            }
+        }
+
+        $this->tipo_solicitud_id = '';
+    }
+
     public function updatedAreaId($value)
     {
-        $area = Area::find($value);
-
-        $this->tipos_solicitudes = $area ? $area->tipos()->where('activo', true)->get() : [];
-        $this->gestores = $area ? $area->usuarios()->where('activo', true)->get() : [];
-
-        $this->tipo_solicitud_id = "";
-        $this->gestor_id = "";
+        $this->cargarDatosArea($value);
     }
 
     public function updatedTipoSolicitudId($value)
@@ -219,14 +266,14 @@ class TicketCrearLivewire extends Component
 
     public function agregarLote()
     {
-        if (! $this->lote_id) {
+        if (!$this->lote_id) {
             return;
         }
 
         // Buscar el lote por ID (el mismo que viene del select)
         $lote = $this->informaciones->firstWhere('id', $this->lote_id);
 
-        if (! $lote) {
+        if (!$lote) {
             return;
         }
 
@@ -239,10 +286,10 @@ class TicketCrearLivewire extends Component
         }
 
         $this->lotes_agregados[] = [
-            'id'           => $lote->id,
+            'id' => $lote->id,
             'razon_social' => $lote->razon_social,
-            'proyecto'     => $lote->proyecto,
-            'numero_lote'   => $lote->numero_lote,
+            'proyecto' => $lote->proyecto,
+            'numero_lote' => $lote->numero_lote,
         ];
 
         // Limpiar select
