@@ -2,7 +2,7 @@
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Crear acceso al portal cliente</h2>
+        <h2>Consultar acceso al portal cliente</h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_light">
@@ -20,24 +20,24 @@
             <div class="g_gap_pagina">
                 <div class="g_panel">
                     @if (session('info'))
-                        <div class="g_alerta_info">
-                            <i class="fa-solid fa-circle-check"></i>
-                            {{ session('info') }}
-                        </div>
+                    <div class="g_alerta_info">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('info') }}
+                    </div>
                     @endif
 
                     @if (session('error'))
-                        <div class="g_alerta_error">
-                            <i class="fa-solid fa-circle-check"></i>
-                            {{ session('error') }}
-                        </div>
+                    <div class="g_alerta_error">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('error') }}
+                    </div>
                     @endif
 
                     @if (session('success'))
-                        <div class="g_alerta_succes">
-                            <i class="fa-solid fa-circle-check"></i>
-                            {{ session('success') }}
-                        </div>
+                    <div class="g_alerta_succes">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('success') }}
+                    </div>
                     @endif
                     <h4 class="g_panel_titulo">Cliente</h4>
 
@@ -47,7 +47,7 @@
                         <input type="text" id="dni" wire:model.live="dni"
                             x-on:input="$el.value = $el.value.replace(/[^0-9]/g, '')" required>
                         @error('dni')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -60,33 +60,32 @@
                     </div>
 
                     @if ($mostrar_form_email)
-                        <div class="g_margin_bottom_10">
-                            <label for="email">Email <span class="obligatorio">*</span></label>
-                            <input type="email" id="email" wire:model="email" required>
-                            @error('email')
-                                <p class="mensaje_error">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <div class="g_margin_bottom_10">
+                        <label for="email">Email <span class="obligatorio">*</span></label>
+                        <input type="email" id="email" wire:model="email" required>
+                        @error('email')
+                        <p class="mensaje_error">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                        <div class="formulario_botones">
-                            <button wire:click="store" class="guardar" wire:loading.attr="disabled"
-                                wire:target="store">
-                                <span wire:loading.remove wire:target="store">Registrar cliente</span>
-                                <span wire:loading wire:target="store">Registrando...</span>
-                            </button>
-                        </div>
+                    <div class="formulario_botones">
+                        <button wire:click="store" class="guardar" wire:loading.attr="disabled" wire:target="store">
+                            <span wire:loading.remove wire:target="store">Registrar cliente</span>
+                            <span wire:loading wire:target="store">Registrando...</span>
+                        </button>
+                    </div>
                     @endif
                 </div>
 
                 @if ($cliente_encontrado)
-                    @livewire(
-                        'cliente.lote.lote-todo-livewire',
-                        [
-                            'clienteEncontradoCrear' => $cliente_encontrado,
-                            'razonesSocialesCrear' => $razones_sociales,
-                        ],
-                        key($dni)
-                    )
+                @livewire(
+                'cliente.lote.lote-todo-livewire',
+                [
+                'clienteEncontradoCrear' => $cliente_encontrado,
+                'razonesSocialesCrear' => $razones_sociales,
+                ],
+                key($dni)
+                )
                 @endif
             </div>
 
