@@ -8,6 +8,7 @@ use App\Models\MotivoCita;
 use App\Models\Sede;
 use App\Models\Ticket;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -27,6 +28,8 @@ class CitaCrearLivewire extends Component
 
     public $asunto_solicitud;
     public $descripcion_solicitud;
+
+    protected int $duracionMinutos = 60;
 
     protected function rules()
     {
@@ -59,6 +62,17 @@ class CitaCrearLivewire extends Component
             ->get();
     }
 
+    public function updatedFechaInicio($value)
+    {
+        if (!$value) {
+            return;
+        }
+
+        $this->fecha_fin = Carbon::parse($value)
+            ->addMinutes($this->duracionMinutos)
+            ->format('Y-m-d H:i');
+    }
+
     public function store()
     {
         $this->validate();
@@ -69,8 +83,8 @@ class CitaCrearLivewire extends Component
             'unidad_negocio_id' => $this->ticket->unidad_negocio_id,
             'proyecto_id' => $this->ticket->proyecto_id,
             'cliente_id' => $this->ticket->origen === 'slin'
-                ? $this->ticket->cliente_id
-                : null,
+            ? $this->ticket->cliente_id
+            : null,
 
             'usuario_crea_id' => auth()->id(),
             'gestor_id' => $this->gestor_id,
