@@ -40,7 +40,7 @@ class TicketEditarLivewire extends Component
 
     public function mount($id)
     {
-        $this->ticket = Ticket::findOrFail($id);
+        $this->ticket = Ticket::with('hijos')->findOrFail($id);
 
         $this->estados = EstadoTicket::all();
         $this->mapEstados = $this->estados->pluck('nombre', 'id')->toArray();

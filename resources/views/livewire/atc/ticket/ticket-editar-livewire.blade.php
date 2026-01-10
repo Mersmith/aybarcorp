@@ -286,6 +286,35 @@
                         </div>
                     </div>
                 </div>
+
+                @if (!$ticket->hijos->isEmpty())
+                    <div class="g_panel">
+                        <h4 class="g_panel_titulo">Hijos</h4>
+
+                        <table class="tabla_eliminar">
+                            <thead>
+                                <tr>
+                                    <th>Ticket</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($ticket->hijos as $hijo)
+                                    <tr>
+                                        <td> #{{ $hijo->id }} </td>
+                                        <td>
+                                            <a href="{{ route('admin.ticket.vista.editar', $hijo->id) }}"
+                                                class="g_accion_editar">
+                                                <span><i class="fa-solid fa-pencil"></i></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                @endif
             </div>
         </div>
     </div>
