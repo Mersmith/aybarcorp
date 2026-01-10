@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Atc\Ticket;
 
-use App\Models\EstadoTicket;
 use App\Models\Archivo;
+use App\Models\EstadoTicket;
 use App\Models\Ticket;
 use App\Models\TicketHistorial;
-use Livewire\Attributes\Layout;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class TicketEditarLivewire extends Component
@@ -41,12 +42,12 @@ class TicketEditarLivewire extends Component
     {
         $this->ticket = Ticket::findOrFail($id);
 
-        $this->estados     = EstadoTicket::all();
-        $this->mapEstados  = $this->estados->pluck('nombre', 'id')->toArray();
+        $this->estados = EstadoTicket::all();
+        $this->mapEstados = $this->estados->pluck('nombre', 'id')->toArray();
 
         $this->estado_ticket_id = $this->ticket->estado_ticket_id;
-        $this->asunto_respuesta           = $this->ticket->asunto_respuesta;
-        $this->descripcion_respuesta      = $this->ticket->descripcion_respuesta;
+        $this->asunto_respuesta = $this->ticket->asunto_respuesta;
+        $this->descripcion_respuesta = $this->ticket->descripcion_respuesta;
 
         $this->historial = $this->ticket->historial()->latest()->get();
         $this->archivos_existentes = $this->ticket->archivos()->get();
@@ -54,12 +55,18 @@ class TicketEditarLivewire extends Component
 
     public function store()
     {
+       if($this->archivo || $this->descripcion_archivo){
+           $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Primero adjunta del archivo.']);
+
+           return;
+       }      
+
         $old = $this->ticket->toArray();
 
         $data = [
             'estado_ticket_id' => $this->estado_ticket_id,
-            'asunto_respuesta'           => $this->asunto_respuesta,
-            'descripcion_respuesta'      => $this->descripcion_respuesta,
+            'asunto_respuesta' => $this->asunto_respuesta,
+            'descripcion_respuesta' => $this->descripcion_respuesta,
         ];
 
         $this->ticket->update($data);
@@ -73,8 +80,8 @@ class TicketEditarLivewire extends Component
             if ($valorNuevo != $valorViejo) {
 
                 $nombreCampo = $this->nombreCampo($campo);
-                $viejo       = $this->valorLegible($campo, $valorViejo);
-                $nuevo       = $this->valorLegible($campo, $valorNuevo);
+                $viejo = $this->valorLegible($campo, $valorViejo);
+                $nuevo = $this->valorLegible($campo, $valorNuevo);
 
                 $cambios[] = "$nombreCampo cambiado de '$viejo' a '$nuevo'";
             }
@@ -83,9 +90,9 @@ class TicketEditarLivewire extends Component
         if (!empty($cambios)) {
             TicketHistorial::create([
                 'ticket_id' => $this->ticket->id,
-                'user_id'   => auth()->id(),
-                'accion'    => 'Edición',
-                'detalle'   => implode(" | ", $cambios),
+                'user_id' => auth()->id(),
+                'accion' => 'Edición',
+                'detalle' => implode(" | ", $cambios),
             ]);
         }
 
@@ -98,42 +105,51 @@ class TicketEditarLivewire extends Component
     {
         return [
             'estado_ticket_id' => 'Estado',
-            'asunto'           => 'Asunto',
-            'descripcion'      => 'Descripción',
+            'asunto' => 'Asunto',
+            'descripcion' => 'Descripción',
         ][$campo] ?? ucfirst(str_replace('_', ' ', $campo));
     }
 
     protected function valorLegible($campo, $valor)
     {
-        if (!$valor) return '';
+        if (!$valor) {
+            return '';
+        }
 
         return match ($campo) {
             'estado_ticket_id' => $this->mapEstados[$valor] ?? $valor,
-            default            => $valor
+            default => $valor
         };
     }
 
     public function adjuntar()
     {
-        $this->validate();
+        try {
+            $this->validate([
+                'descripcion_archivo' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $ruta = $this->archivo->store('archivos', 'public');
         $extension = $this->archivo->getClientOriginalExtension();
 
         Archivo::create([
             'archivable_type' => Ticket::class,
-            'archivable_id'   => $this->ticket->id,
-            'descripcion'     => $this->descripcion_archivo,
-            'path'            => $ruta,
-            'url'             => Storage::url($ruta),
-            'extension'       => $extension,
+            'archivable_id' => $this->ticket->id,
+            'descripcion' => $this->descripcion_archivo,
+            'path' => $ruta,
+            'url' => Storage::url($ruta),
+            'extension' => $extension,
         ]);
 
         TicketHistorial::create([
             'ticket_id' => $this->ticket->id,
-            'user_id'   => auth()->id(),
-            'accion'    => 'Adjuntar archivo',
-            'detalle'   => "Se adjuntó el archivo '{$this->descripcion_archivo}' con extensión {$extension}",
+            'user_id' => auth()->id(),
+            'accion' => 'Adjuntar archivo',
+            'detalle' => "Se adjuntó el archivo '{$this->descripcion_archivo}' con extensión {$extension}",
         ]);
 
         $this->historial = $this->ticket->historial()->latest()->get();
@@ -170,9 +186,9 @@ class TicketEditarLivewire extends Component
 
         TicketHistorial::create([
             'ticket_id' => $this->ticket->id,
-            'user_id'   => auth()->id(),
-            'accion'    => 'Eliminar archivo',
-            'detalle'   => "Se eliminó el archivo '{$archivo->descripcion}' con extensión {$archivo->extension}",
+            'user_id' => auth()->id(),
+            'accion' => 'Eliminar archivo',
+            'detalle' => "Se eliminó el archivo '{$archivo->descripcion}' con extensión {$archivo->extension}",
         ]);
 
         $this->historial = $this->ticket->historial()->latest()->get();
@@ -202,9 +218,9 @@ class TicketEditarLivewire extends Component
 
         TicketHistorial::create([
             'ticket_id' => $ticket->id,
-            'user_id'   => auth()->id(),
-            'accion'    => 'Eliminar ticket',
-            'detalle'   => "Se eliminó el ticket con asunto '{$ticket->asunto_respuesta}'",
+            'user_id' => auth()->id(),
+            'accion' => 'Eliminar ticket',
+            'detalle' => "Se eliminó el ticket con asunto '{$ticket->asunto_respuesta}'",
         ]);
 
         $ticket->delete();

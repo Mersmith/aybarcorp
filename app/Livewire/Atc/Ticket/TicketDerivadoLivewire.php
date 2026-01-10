@@ -17,10 +17,10 @@ class TicketDerivadoLivewire extends Component
     public $ticket;
 
     public $areas;
-    public $usuarios = [];
+    public $gestores = [];
 
-    public $a_area_id = "";
-    public $usuario_recibe_id = "";
+    public $a_area_id = '';
+    public $gestor_id = '';
     public $motivo;
 
     public $mapAreas = [];
@@ -34,7 +34,7 @@ class TicketDerivadoLivewire extends Component
     {
         return [
             'a_area_id' => 'required',
-            'usuario_recibe_id' => 'required',
+            'gestor_id' => 'required',
             'motivo' => 'required|string|max:2000',
         ];
     }
@@ -42,21 +42,23 @@ class TicketDerivadoLivewire extends Component
     protected function nombreCampo($campo)
     {
         return [
-            'area_id'             => 'Área',
+            'area_id' => 'Área',
             'gestor_id' => 'Usuario asignado',
-            'estado_ticket_id'    => 'Estado',
+            'estado_ticket_id' => 'Estado',
         ][$campo] ?? ucfirst(str_replace('_', ' ', $campo));
     }
 
     protected function valorLegible($campo, $valor)
     {
-        if (!$valor) return 'Sin asignar';
+        if (!$valor) {
+            return 'Sin asignar';
+        }
 
         return match ($campo) {
-            'area_id'             => $this->mapAreas[$valor] ?? $valor,
+            'area_id' => $this->mapAreas[$valor] ?? $valor,
             'gestor_id' => $this->nombreUsuario($valor),
-            'estado_ticket_id'    => $this->mapEstados[$valor] ?? $valor,
-            default               => $valor
+            'estado_ticket_id' => $this->mapEstados[$valor] ?? $valor,
+            default => $valor
         };
     }
 
@@ -88,13 +90,35 @@ class TicketDerivadoLivewire extends Component
 
     public function updatedAAreaId($value)
     {
+        $this->gestores = collect();
+        $this->gestor_id = null;
+
+        if (!$value) {
+            return;
+        }
+
         $area = Area::find($value);
+        if (!$area) {
+            return;
+        }
 
-        $this->usuarios = $area
-            ? $area->usuarios()->where('activo', true)->get()
-            : [];
+        $this->gestores = $area->usuarios()
+            ->where('activo', true)
+            ->withPivot('is_principal')
+            ->orderByDesc('area_user.is_principal')
+            ->orderBy('users.name')
+            ->get();
 
-        $this->usuario_recibe_id = "";
+        if ($this->gestores->isEmpty()) {
+            return;
+        }
+
+        $principal = $this->gestores
+            ->first(fn($u) => (bool) $u->pivot->is_principal);
+
+        $this->gestor_id = $principal
+        ? $principal->id
+        : $this->gestores->first()->id;
     }
 
     public function derivar()
@@ -105,17 +129,17 @@ class TicketDerivadoLivewire extends Component
         $deAreaId = $this->ticket->area_id;
 
         TicketDerivado::create([
-            'ticket_id'         => $this->ticket->id,
-            'de_area_id'        => $deAreaId,
-            'a_area_id'         => $this->a_area_id,
+            'ticket_id' => $this->ticket->id,
+            'de_area_id' => $deAreaId,
+            'a_area_id' => $this->a_area_id,
             'usuario_deriva_id' => auth()->id(),
-            'usuario_recibe_id' => $this->usuario_recibe_id,
-            'motivo'            => $this->motivo,
+            'usuario_recibe_id' => $this->gestor_id,
+            'motivo' => $this->motivo,
         ]);
 
         $this->ticket->update([
-            'area_id'             => $this->a_area_id,
-            'gestor_id' => $this->usuario_recibe_id,
+            'area_id' => $this->a_area_id,
+            'gestor_id' => $this->gestor_id,
         ]);
 
         $new = $this->ticket->fresh()->toArray();
@@ -125,7 +149,9 @@ class TicketDerivadoLivewire extends Component
 
         foreach ($new as $campo => $valorNuevo) {
 
-            if (in_array($campo, $ignorar)) continue;
+            if (in_array($campo, $ignorar)) {
+                continue;
+            }
 
             $valorViejo = $old[$campo] ?? null;
 
@@ -145,16 +171,16 @@ class TicketDerivadoLivewire extends Component
 
         TicketHistorial::create([
             'ticket_id' => $this->ticket->id,
-            'user_id'   => auth()->id(),
-            'accion'    => 'Derivación',
-            'detalle'   => implode(" | ", $cambios),
+            'user_id' => auth()->id(),
+            'accion' => 'Derivación',
+            'detalle' => implode(" | ", $cambios),
         ]);
 
         $this->historial = $this->ticket->historial()->latest()->get();
         $this->derivaciones = $this->ticket->derivados()->latest()->get();
 
-        $this->a_area_id = "";
-        $this->usuario_recibe_id = "";
+        $this->gestor_id = '';
+        $this->a_area_id = '';
         $this->motivo = null;
 
         $this->dispatch('alertaLivewire', ['title' => 'Derivado', 'text' => 'Se derivó correctamente.']);

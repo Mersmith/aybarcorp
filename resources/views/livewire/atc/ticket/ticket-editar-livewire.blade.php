@@ -5,9 +5,9 @@
     <!-- CABECERA -->
     <div class="g_panel cabecera_titulo_pagina">
         <h2>Editar ticket @if ($ticket->padre)
-            asociado al ticket
-            <a href="{{ route('admin.ticket.vista.editar', $ticket->padre->id) }}" target="_blank">#{{
-                $ticket->padre->id }}</a>
+                asociado al ticket
+                <a href="{{ route('admin.ticket.vista.editar', $ticket->padre->id) }}"
+                    target="_blank">#{{ $ticket->padre->id }}</a>
             @endif
         </h2>
 
@@ -46,7 +46,8 @@
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
                             <label>Empresa</label>
-                            <input type="text" disabled value="{{ $ticket->unidadNegocio->nombre ?? 'Sin asignar' }}">
+                            <input type="text" disabled
+                                value="{{ $ticket->unidadNegocio->nombre ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
@@ -55,15 +56,16 @@
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
-                            <label>Área origen</label>
-                            <input type="text" disabled value="{{ $ticket->area->nombre ?? 'Sin asignar' }}">
+                            <label>Canal</label>
+                            <input type="text" disabled value="{{ $ticket->canal->nombre ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
                             <label>Tipo solicitud</label>
-                            <input type="text" disabled value="{{ $ticket->tipoSolicitud->nombre ?? 'Sin asignar' }}">
+                            <input type="text" disabled
+                                value="{{ $ticket->tipoSolicitud->nombre ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
@@ -73,8 +75,8 @@
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_4">
-                            <label>Canal</label>
-                            <input type="text" disabled value="{{ $ticket->canal->nombre ?? 'Sin asignar' }}">
+                            <label>Área origen</label>
+                            <input type="text" disabled value="{{ $ticket->area->nombre ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
@@ -98,11 +100,11 @@
                             <select id="estado_ticket_id" wire:model.live="estado_ticket_id" required>
                                 <option value="" selected disabled>Seleccionar un estado</option>
                                 @foreach ($estados as $estado)
-                                <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
+                                    <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('estado_ticket_id')
-                            <p class="mensaje_error">{{ $message }}</p>
+                                <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -122,30 +124,30 @@
                     </div>
 
                     @if (!empty($ticket->lotes))
-                    <div class="g_fila">
-                        <div class="g_columna_12">
-                            <label>Lotes</label>
+                        <div class="g_fila">
+                            <div class="g_columna_12">
+                                <label>Lotes</label>
 
-                            <table class="tabla_eliminar">
-                                <thead>
-                                    <tr>
-                                        <th>Razón Social</th>
-                                        <th>Proyecto</th>
-                                        <th>Mz./Lt.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($ticket->lotes as $index => $l)
-                                    <tr class="sorteable_item" wire:key="lote-{{ $index }}">
-                                        <td> {{ $l['razon_social'] }} </td>
-                                        <td> {{ $l['proyecto'] }} </td>
-                                        <td> {{ $l['numero_lote'] }} </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                <table class="tabla_eliminar">
+                                    <thead>
+                                        <tr>
+                                            <th>Razón Social</th>
+                                            <th>Proyecto</th>
+                                            <th>Mz./Lt.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($ticket->lotes as $index => $l)
+                                            <tr class="sorteable_item" wire:key="lote-{{ $index }}">
+                                                <td> {{ $l['razon_social'] }} </td>
+                                                <td> {{ $l['proyecto'] }} </td>
+                                                <td> {{ $l['numero_lote'] }} </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </div>
 
@@ -156,7 +158,7 @@
                             <label for="asunto_respuesta">Asunto respuesta</label>
                             <textarea id="asunto_respuesta" wire:model.live="asunto_respuesta" rows="2"></textarea>
                             @error('asunto_respuesta')
-                            <p class="mensaje_error">{{ $message }}</p>
+                                <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -164,10 +166,9 @@
                     <div class="g_fila">
                         <div class="g_columna_12">
                             <label for="descripcion_respuesta">Descripción respuesta</label>
-                            <textarea id="descripcion_respuesta" wire:model.live="descripcion_respuesta"
-                                rows="5"></textarea>
+                            <textarea id="descripcion_respuesta" wire:model.live="descripcion_respuesta" rows="5"></textarea>
                             @error('descripcion_respuesta')
-                            <p class="mensaje_error">{{ $message }}</p>
+                                <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -194,58 +195,59 @@
 
                         <div class="contenedor_dropzone" onclick="document.getElementById('fileUpload').click()">
                             @if ($archivo)
-                            <div class="dropzone_item">
-                                @php
-                                $ext = strtolower($archivo->getClientOriginalExtension());
-                                $icons = [
-                                'pdf' => 'fa-file-pdf text-red-600',
-                                'docx' => 'fa-file-word text-blue-600',
-                                'xlsx' => 'fa-file-excel text-green-600',
-                                'pptx' => 'fa-file-powerpoint text-orange-500',
-                                ];
-                                @endphp
+                                <div class="dropzone_item">
+                                    @php
+                                        $ext = strtolower($archivo->getClientOriginalExtension());
+                                        $icons = [
+                                            'pdf' => 'fa-file-pdf text-red-600',
+                                            'docx' => 'fa-file-word text-blue-600',
+                                            'xlsx' => 'fa-file-excel text-green-600',
+                                            'pptx' => 'fa-file-powerpoint text-orange-500',
+                                        ];
+                                    @endphp
 
-                                <i class="fa-solid {{ $icons[$ext] ?? 'fa-file text-gray-500' }}"></i>
-                                <span>{{ $archivo->getClientOriginalName() }}</span>
+                                    <i class="fa-solid {{ $icons[$ext] ?? 'fa-file text-gray-500' }}"></i>
+                                    <span>{{ $archivo->getClientOriginalName() }}</span>
 
-                                <button type="button" wire:click="$set('archivo', null)" class="remove_button">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
+                                    <button type="button" wire:click="$set('archivo', null)" class="remove_button">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
                             @else
-                            <div class="g_vacio">
-                                <p>Haz clic para subir archivo</p>
-                            </div>
+                                <div class="g_vacio">
+                                    <p>Haz clic para subir archivo</p>
+                                </div>
                             @endif
                         </div>
 
                         @error('archivo')
-                        <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
                     @if ($archivo)
-                    <div class="g_margin_top_20">
-                        <label>Descripción</label>
-                        <textarea wire:model="descripcion_archivo" class="g_input"></textarea>
-                        @error('descripcion_archivo')
-                        <p class="mensaje_error">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        <div class="g_margin_top_20">
+                            <label>Descripción <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <textarea wire:model="descripcion_archivo" class="g_input"></textarea>
+                            @error('descripcion_archivo')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                    <div class="formulario_botones g_margin_top_20">
-                        <button wire:click="adjuntar" class="guardar" wire:loading.attr="disabled"
-                            wire:target="adjuntar">
-                            <span wire:loading.remove wire:target="adjuntar">Adjuntar</span>
-                            <span wire:loading wire:target="adjuntar">Adjuntando...</span>
-                        </button>
+                        <div class="formulario_botones g_margin_top_20">
+                            <button wire:click="adjuntar" class="guardar" wire:loading.attr="disabled"
+                                wire:target="adjuntar">
+                                <span wire:loading.remove wire:target="adjuntar">Adjuntar</span>
+                                <span wire:loading wire:target="adjuntar">Adjuntando...</span>
+                            </button>
 
-                        <button wire:click="cancelar" class="cancelar" wire:loading.attr="disabled"
-                            wire:target="cancelar">
-                            <span wire:loading.remove wire:target="store">Cancelar</span>
-                            <span wire:loading wire:target="cancelar">Cancelando...</span>
-                        </button>
-                    </div>
+                            <button wire:click="cancelar" class="cancelar" wire:loading.attr="disabled"
+                                wire:target="cancelar">
+                                <span wire:loading.remove wire:target="store">Cancelar</span>
+                                <span wire:loading wire:target="cancelar">Cancelando...</span>
+                            </button>
+                        </div>
                     @endif
                 </div>
 
@@ -264,20 +266,20 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($archivos_existentes as $file)
-                                    <tr>
-                                        <td>{{ $file->descripcion }}</td>
-                                        <td>{{ $file->extension }}</td>
-                                        <td class="centrar_iconos">
-                                            <a href="{{ $file->url }}" target="_blank" rel="noopener noreferrer"
-                                                class="g_accion_editar">
-                                                <span><i class="fa-solid fa-eye"></i></span>
-                                            </a>
-                                            <button onclick="alertaEliminarArchivo({{ $file->id }})"
-                                                class="g_desactivado">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $file->descripcion }}</td>
+                                            <td>{{ $file->extension }}</td>
+                                            <td class="centrar_iconos">
+                                                <a href="{{ $file->url }}" target="_blank"
+                                                    rel="noopener noreferrer" class="g_accion_editar">
+                                                    <span><i class="fa-solid fa-eye"></i></span>
+                                                </a>
+                                                <button onclick="alertaEliminarArchivo({{ $file->id }})"
+                                                    class="g_desactivado">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -304,16 +306,16 @@
                     </thead>
                     <tbody>
                         @foreach ($historial as $item)
-                        <tr>
-                            <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
-                            <td>{{ $item->usuarioHistorial->name ?? 'Sistema' }}</td>
-                            <td>{{ $item->accion }}</td>
-                            <td>
-                                @foreach (explode(' | ', $item->detalle) as $linea)
-                                <div>{{ $linea }}</div>
-                                @endforeach
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
+                                <td>{{ $item->usuarioHistorial->name ?? 'Sistema' }}</td>
+                                <td>{{ $item->accion }}</td>
+                                <td>
+                                    @foreach (explode(' | ', $item->detalle) as $linea)
+                                        <div>{{ $linea }}</div>
+                                    @endforeach
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

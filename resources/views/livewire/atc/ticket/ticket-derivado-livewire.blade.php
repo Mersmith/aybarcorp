@@ -54,15 +54,20 @@
                         </div>
 
                         <div class="g_columna_6 g_margin_bottom_10">
-                            <label for="usuario_recibe_id">Gestor destino<span class="obligatorio"><i
+                            <label for="gestor_id">Gestor destino<span class="obligatorio"><i
                                         class="fa-solid fa-asterisk"></i></span></label>
-                            <select id="usuario_recibe_id" wire:model.live="usuario_recibe_id">
-                                <option value="">Sin asignar</option>
-                                @foreach ($usuarios as $usuario)
-                                <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                            <select id="gestor_id" wire:model.live="gestor_id">
+                                <option value="" selected disabled>Sin asignar</option>
+                                @foreach ($gestores as $usuario)
+                                    <option value="{{ $usuario->id }}">
+                                        {{ $usuario->name }}
+                                        {{--@if ($usuario->pivot?->is_principal)
+                                            (P)
+                                        @endif--}}
+                                    </option>
                                 @endforeach
                             </select>
-                            @error('usuario_recibe_id') <p class="mensaje_error">{{ $message }}</p> @enderror
+                            @error('gestor_id') <p class="mensaje_error">{{ $message }}</p> @enderror
                         </div>
                     </div>
 

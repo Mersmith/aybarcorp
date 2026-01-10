@@ -12,7 +12,7 @@
                 Crear <i class="fa-solid fa-square-plus"></i></a>
 
             <button wire:click="resetFiltros" class="g_boton g_boton_danger">
-                Limpiar Filtros <i class="fa-solid fa-rotate-left"></i>
+                Refresh Filtros <i class="fa-solid fa-rotate-left"></i>
             </button>
         </div>
     </div>

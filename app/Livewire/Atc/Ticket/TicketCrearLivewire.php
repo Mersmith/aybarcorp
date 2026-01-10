@@ -24,6 +24,8 @@ use Livewire\Component;
 #[Layout('layouts.admin.layout-admin')]
 class TicketCrearLivewire extends Component
 {
+
+    public $ticketPadre;
     public ?int $ticketPadreId = null;
 
     public ?Area $area_seleccionada = null;
@@ -67,7 +69,18 @@ class TicketCrearLivewire extends Component
 
     public function mount($ticketPadre = null)
     {
-        $this->ticketPadreId = $ticketPadre;
+        if ($ticketPadre) {
+            $this->ticketPadreId = $ticketPadre;
+            $this->ticketPadre = Ticket::findOrFail($ticketPadre);
+            $this->unidad_negocio_id = $this->ticketPadre->unidad_negocio_id;
+            $this->proyecto_id = $this->ticketPadre->proyecto_id;
+            $this->loadProyectos();
+            $this->canal_id = $this->ticketPadre->canal_id;
+            $this->cliente_id = $this->ticketPadre->nombres;
+            $this->dni = $this->ticketPadre->dni;
+            //$this->nombres = $this->ticketPadre->nombres;
+            $this->origen = $this->ticketPadre->origen;
+        }
 
         $user = Auth::user();
 
@@ -111,8 +124,8 @@ class TicketCrearLivewire extends Component
             $this->area_seleccionada = null;
             $this->tipos_solicitudes = collect();
             $this->gestores = collect();
-            $this->gestor_id = '';
-            $this->tipo_solicitud_id = '';
+            $this->gestor_id = null;
+            $this->tipo_solicitud_id = null;
             return;
         }
 
@@ -196,8 +209,8 @@ class TicketCrearLivewire extends Component
             'descripcion_inicial' => $this->descripcion_inicial,
             'lotes' => $this->lotes_agregados,
 
-            'dni' => $this->cliente->dni,
-            'nombres' => $this->cliente->nombre,
+            'dni' => $this->ticketPadre ? $this->ticketPadre->dni : $this->cliente->dni,
+            'nombres' => $this->ticketPadre ? $this->ticketPadre->nombres : $this->cliente->nombre,
             'origen' => $this->origen,
         ]);
 
