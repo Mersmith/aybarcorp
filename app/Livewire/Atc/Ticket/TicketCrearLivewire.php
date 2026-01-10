@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Atc\Ticket;
 
+use App\Mail\TicketCreadoMail;
 use App\Models\Area;
 use App\Models\Canal;
 use App\Models\Cliente;
@@ -15,6 +16,7 @@ use App\Services\ConsultaClienteService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -23,6 +25,8 @@ use Livewire\Component;
 class TicketCrearLivewire extends Component
 {
     public ?int $ticketPadreId = null;
+
+    public ?Area $area_seleccionada = null;
 
     public $areas, $area_id = "";
     public $tipos_solicitudes = [], $tipo_solicitud_id = "";
@@ -104,12 +108,15 @@ class TicketCrearLivewire extends Component
         $area = Area::find($areaId);
 
         if (!$area) {
+            $this->area_seleccionada = null;
             $this->tipos_solicitudes = collect();
             $this->gestores = collect();
             $this->gestor_id = '';
             $this->tipo_solicitud_id = '';
             return;
         }
+
+        $this->area_seleccionada = $area;
 
         $this->tipos_solicitudes = $area->tipos()
             ->where('activo', true)
@@ -118,8 +125,8 @@ class TicketCrearLivewire extends Component
         $this->gestores = $area->usuarios()
             ->where('activo', true)
             ->withPivot('is_principal')
-            ->orderByDesc('area_user.is_principal') /
-            ->orderBy('users.name') 
+            ->orderByDesc('area_user.is_principal')
+            ->orderBy('users.name')
             ->get();
 
         $user = Auth::user();
@@ -201,7 +208,23 @@ class TicketCrearLivewire extends Component
             'detalle' => 'Ticket creado con estado: Abierto',
         ]);
 
-        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
+        $correoEnviado = false;
+
+        if ($this->area_seleccionada?->email_buzon) {
+            Mail::to($this->area_seleccionada->email_buzon)
+                ->send(new TicketCreadoMail($ticket));
+
+            $correoEnviado = true;
+        }
+
+        $mensaje = $correoEnviado
+        ? 'Ticket creado y correo enviado correctamente.'
+        : 'Ticket creado correctamente.';
+
+        $this->dispatch('alertaLivewire', [
+            'title' => 'Creado',
+            'text' => $mensaje,
+        ]);
 
         return redirect()->route('admin.ticket.vista.todo');
     }
