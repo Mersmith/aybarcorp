@@ -209,8 +209,12 @@ NO agregues explicación ni texto adicional. Solo JSON.",
             'lote' => $this->lote["id_lote"] ?? null,
             'codigo_cuota' => $this->cuota["idCuota"] ?? null,
             'numero_cuota' => $this->cuota["NroCuota"] ?? null,
+            'slin_monto' => $this->cuota["MontoComp"] ?? null,
             'transaccion_id' => $this->cuota["IdTransaccion"] ?? null,
             'lote_completo' => $this->lote['id_proyecto'] . '' . $this->lote['id_etapa'] . '-' . $this->lote['id_manzana'] . '-' . $this->lote['id_lote'],
+            
+            'slin_asbanc' => $this->cuota["Asbanc"] ?? false,
+            'slin_evidencia' => $this->cuota["EvidPago"] ?? false,
         ]);
 
         session()->flash('success', 'Comprobante guardado correctamente 👍');

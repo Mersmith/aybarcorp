@@ -55,6 +55,13 @@
                         <td class="label">Impor. Amortizado</td>
                         <td class="valor">S/ {{ $estado_cuenta['importe_amortizado'] ?? '-' }}</td>
                     </tr>
+
+                    <tr>
+                        <td class="label">Recaudo</td>
+                        <td class="valor" colspan="3">
+                            {{ $estado_cuenta['IdRecaudo'] ?? '-' }}
+                        </td>
+                    </tr>
                 </table>
 
             </div>

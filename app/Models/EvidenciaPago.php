@@ -36,9 +36,13 @@ class EvidenciaPago extends Model
         'codigo_cuota',
         'numero_cuota',
         'transaccion_id',
+        'slin_monto',
         'lote_completo',
 
         'gestor_id',
+
+        'slin_asbanc',
+        'slin_evidencia',
 
         // valida
         'usuario_valida_id',
@@ -53,6 +57,7 @@ class EvidenciaPago extends Model
     protected $casts = [
         'fecha_validacion' => 'datetime',
         'monto' => 'decimal:2',
+        'slin_monto' => 'decimal:2',
     ];
 
     public function unidadNegocio()

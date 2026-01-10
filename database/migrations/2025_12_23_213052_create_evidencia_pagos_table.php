@@ -40,7 +40,11 @@ return new class extends Migration
             $table->string('codigo_cuota')->nullable();
             $table->string('numero_cuota')->nullable();
             $table->string('transaccion_id')->nullable(); //idcobranzas
+            $table->decimal('slin_monto', 10, 2)->nullable();
             $table->string('lote_completo')->nullable();
+
+            $table->boolean('slin_asbanc')->default(false);
+            $table->boolean('slin_evidencia')->default(false);
 
             //SUPERVISOR
             $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
