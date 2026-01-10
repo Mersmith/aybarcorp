@@ -95,7 +95,7 @@ class EvidenciaPagoTodoLivewire extends Component
                 fn($q) =>
                 $q->where('proyecto_id', $this->proyecto_id)
             )
-            ->orderByDesc('created_at')
+            ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
         return view('livewire.atc.evidencia-pago.evidencia-pago-todo-livewire', compact('evidencias'));

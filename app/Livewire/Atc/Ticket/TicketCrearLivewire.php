@@ -76,7 +76,7 @@ class TicketCrearLivewire extends Component
             $this->proyecto_id = $this->ticketPadre->proyecto_id;
             $this->loadProyectos();
             $this->canal_id = $this->ticketPadre->canal_id;
-            $this->cliente_id = $this->ticketPadre->nombres;
+            $this->cliente_id = $this->ticketPadre->canal_id;
             $this->dni = $this->ticketPadre->dni;
             //$this->nombres = $this->ticketPadre->nombres;
             $this->origen = $this->ticketPadre->origen;
@@ -186,7 +186,8 @@ class TicketCrearLivewire extends Component
         try {
             $this->validate();
         } catch (ValidationException $e) {
-            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            dd($e);
+            //$this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
             throw $e;
         }
 
@@ -231,8 +232,8 @@ class TicketCrearLivewire extends Component
         }
 
         $mensaje = $correoEnviado
-        ? 'Ticket creado y correo enviado correctamente.'
-        : 'Ticket creado correctamente.';
+            ? 'Ticket creado y correo enviado correctamente.'
+            : 'Ticket creado correctamente.';
 
         $this->dispatch('alertaLivewire', [
             'title' => 'Creado',

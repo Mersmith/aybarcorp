@@ -99,6 +99,16 @@ class EvidenciaPagoEditarLivewire extends Component
 
     public function enviarSlin()
     {
+        if (
+            $this->evidencia->slin_asbanc === false
+        ) {
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Error',
+                'text'  => 'No es Asbanc o ya tiene evidencia'
+            ]);
+            return;
+        }
+
         if (!Storage::disk('public')->exists($this->evidencia->path)) {
             $this->dispatch('alertaLivewire', 'Error');
             return;
