@@ -182,8 +182,8 @@
                     {
                         "id": 112,
                         "nombre": "Consultar",
-                        "ruta": "admin.cliente.vista.crear",
-                        "url": "/admin/cliente/crear",
+                        "ruta": "admin.cliente.vista.consultar",
+                        "url": "/admin/cliente/consultar",
                         "nivel": 3,
                         "roles": [
                             "super-admin",
@@ -452,7 +452,7 @@
                 ]
             }
         ]
-    },   
+    },
     {
         "id": 14,
         "nombre": "14",

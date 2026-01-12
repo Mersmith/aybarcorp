@@ -10,8 +10,8 @@
             <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i></a>
 
-            <a href="{{ route('admin.cliente.vista.crear') }}" class="g_boton g_boton_primary">
-                Crear <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ route('admin.cliente.vista.consultar') }}" class="g_boton g_boton_secondary">
+                Consultar <i class="fa-solid fa-magnifying-glass"></i></a>
 
             <button wire:click="exportExcel" class="g_boton g_boton_excel">
                 Excel <i class="fa-regular fa-file-excel"></i>
@@ -144,6 +144,11 @@
                             <td class="centrar_iconos">
                                 <a href="{{ route('admin.cliente.vista.editar', $item) }}" class="g_accion_editar">
                                     <span><i class="fa-solid fa-pencil"></i></span>
+                                </a>
+
+                                <a href="{{ route('admin.cliente.vista.consultar', $item->cliente->dni) }}"
+                                    class="g_accion_ver">
+                                    <span><i class="fa-solid fa-border-all"></i></span>
                                 </a>
                             </td>
                         </tr>

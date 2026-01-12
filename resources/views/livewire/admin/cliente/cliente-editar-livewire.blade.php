@@ -10,8 +10,8 @@
             <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i></a>
 
-            <a href="{{ route('admin.cliente.vista.crear') }}" class="g_boton g_boton_primary">
-                Crear <i class="fa-solid fa-square-plus"></i></a>
+            <a href="{{ route('admin.cliente.vista.consultar', $dni) }}" class="g_boton g_boton_secondary">
+                Consultar <i class="fa-solid fa-magnifying-glass"></i></a>
 
             <button type="button" class="g_boton g_boton_danger" onclick="alertaClienteUser()">
                 Eliminar <i class="fa-solid fa-trash-can"></i>
@@ -43,7 +43,7 @@
                                 class="fa-solid fa-asterisk"></i></span></label>
                     <input type="text" id="name" wire:model.live="name">
                     @error('name')
-                        <p class="mensaje_error">{{ $message }}</p>
+                    <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -52,16 +52,15 @@
                                 class="fa-solid fa-asterisk"></i></span></label>
                     <input type="email" id="email" wire:model.live="email">
                     @error('email')
-                        <p class="mensaje_error">{{ $message }}</p>
+                    <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="g_margin_bottom_10">
-                    <label for="dni">Dni <span class="obligatorio"><i
-                                class="fa-solid fa-asterisk"></i></span></label>
+                    <label for="dni">Dni <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span></label>
                     <input type="text" id="dni" wire:model.live="dni">
                     @error('dni')
-                        <p class="mensaje_error">{{ $message }}</p>
+                    <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -69,7 +68,7 @@
                     <label for="telefono_principal">Celular</label>
                     <input type="text" id="telefono_principal" wire:model.live="telefono_principal">
                     @error('telefono_principal')
-                        <p class="mensaje_error">{{ $message }}</p>
+                    <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
@@ -93,7 +92,8 @@
                 </div>
 
                 <div class="formulario_botones">
-                    <button type="submit" class="guardar" wire:loading.attr="disabled" wire:target="enviarRecuperarClave">
+                    <button type="submit" class="guardar" wire:loading.attr="disabled"
+                        wire:target="enviarRecuperarClave">
                         <span wire:loading.remove wire:target="enviarRecuperarClave">Recuperar clave</span>
                         <span wire:loading wire:target="enviarRecuperarClave">Enviando...</span>
                     </button>

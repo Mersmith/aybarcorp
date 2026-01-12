@@ -12,12 +12,16 @@
             <a href="{{ route('admin.cliente.vista.todo') }}" class="g_boton g_boton_darkt">
                 <i class="fa-solid fa-arrow-left"></i> Regresar
             </a>
+
+            <button wire:click="resetFiltros" class="g_boton g_boton_danger">
+                Refresh Campos <i class="fa-solid fa-rotate-left"></i>
+            </button>
         </div>
     </div>
 
-    <div class="formulario">
+    <div class="formulario g_gap_pagina">
         <div class="g_fila">
-            <div class="g_gap_pagina">
+            <div class="g_columna_8 ">
                 <div class="g_panel">
                     @if (session('info'))
                     <div class="g_alerta_info">
@@ -44,8 +48,9 @@
                     <div class="g_margin_bottom_10">
                         <label for="dni">DNI/CE/RUC <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <input type="text" id="dni" wire:model.live="dni"
+                        <input type="text" id="dni" wire:model.defer="dni"
                             x-on:input="$el.value = $el.value.replace(/[^0-9]/g, '')" required>
+
                         @error('dni')
                         <p class="mensaje_error">{{ $message }}</p>
                         @enderror
@@ -58,8 +63,14 @@
                             <span wire:loading wire:target="buscarCliente">Buscando...</span>
                         </button>
                     </div>
+                </div>
+            </div>
 
-                    @if ($mostrar_form_email)
+            @if ($mostrar_form_email)
+            <div class="g_columna_4 g_gap_pagina">
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Registrar cliente</h4>
+
                     <div class="g_margin_bottom_10">
                         <label for="email">Email <span class="obligatorio">*</span></label>
                         <input type="email" id="email" wire:model="email" required>
@@ -74,22 +85,23 @@
                             <span wire:loading wire:target="store">Registrando...</span>
                         </button>
                     </div>
-                    @endif
-                </div>
 
-                @if ($cliente_encontrado)
-                @livewire(
-                'cliente.lote.lote-todo-livewire',
-                [
-                'clienteEncontradoCrear' => $cliente_encontrado,
-                'razonesSocialesCrear' => $razones_sociales,
-                ],
-                key($dni)
-                )
-                @endif
+                </div>
             </div>
+            @endif
 
         </div>
+
+        @if ($cliente_encontrado)
+        @livewire(
+        'cliente.lote.lote-todo-livewire',
+        [
+        'clienteEncontradoCrear' => $cliente_encontrado,
+        'razonesSocialesCrear' => $razones_sociales,
+        ],
+        key($dni)
+        )
+        @endif
     </div>
 
 </div>

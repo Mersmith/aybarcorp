@@ -29,7 +29,8 @@ class CronogramaEstadoCuentaVerLivewire extends Component
     public function seleccionarCuota($cuota)
     {
         if (auth()->user()->rol !== 'cliente') {
-            abort(403, 'No autorizado.');
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => '¡No esta autorizado! Solo el cliente sube sus evidencias.']);
+            return;
         }
 
         $this->cuota = $cuota;

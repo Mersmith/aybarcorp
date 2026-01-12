@@ -3,8 +3,8 @@
 use App\Livewire\Admin\ClienteAntiguo\ClienteAntiguoCrearLivewire;
 use App\Livewire\Admin\ClienteAntiguo\ClienteAntiguoEditarLivewire;
 use App\Livewire\Admin\ClienteAntiguo\ClienteAntiguoTodoLivewire;
-use App\Livewire\Admin\Cliente\ClienteCrearLivewire;
 use App\Livewire\Admin\Cliente\ClienteEditarLivewire;
+use App\Livewire\Admin\Cliente\ClienteConsultarLivewire;
 use App\Livewire\Admin\Cliente\ClienteTodoLivewire;
 use App\Livewire\Admin\GrupoProyecto\GrupoProyectoCrearLivewire;
 use App\Livewire\Admin\GrupoProyecto\GrupoProyectoEditarLivewire;
@@ -40,7 +40,7 @@ Route::prefix('usuario')->name('usuario.vista.')->group(function () { //ok
 
 Route::prefix('cliente')->name('cliente.vista.')->group(function () { //ok
     Route::get('/', ClienteTodoLivewire::class)->name('todo');
-    Route::get('/crear', ClienteCrearLivewire::class)->name('crear');
+    Route::get('/consultar/{dni?}', ClienteConsultarLivewire::class)->name('consultar');
     Route::get('/editar/{id}', ClienteEditarLivewire::class)->name('editar');
 });
 
@@ -71,17 +71,17 @@ Route::prefix('area')->name('area.vista.')->group(function () { //ok
 });
 
 Route::prefix('grupo-proyecto')->name('grupo-proyecto.vista.')->group(function () { //ok
-        Route::get('/', GrupoProyectoTodoLivewire::class)->name('todo');
-        Route::get('/crear', GrupoProyectoCrearLivewire::class)->name('crear');
-        Route::get('/editar/{id}', GrupoProyectoEditarLivewire::class)->name('editar');
-    });
+    Route::get('/', GrupoProyectoTodoLivewire::class)->name('todo');
+    Route::get('/crear', GrupoProyectoCrearLivewire::class)->name('crear');
+    Route::get('/editar/{id}', GrupoProyectoEditarLivewire::class)->name('editar');
+});
 
 Route::prefix('proyecto')->name('proyecto.vista.')->group(function () { //ok
-        Route::get('/', ProyectoTodoLivewire::class)->name('todo');
-        Route::get('/crear', ProyectoCrearLivewire::class)->name('crear');
-        Route::get('/editar/{id}', ProyectoEditarLivewire::class)->name('editar');
-        Route::get('/seccion/{id}', ProyectoSeccionLivewire::class)->name('seccion');
-    });
+    Route::get('/', ProyectoTodoLivewire::class)->name('todo');
+    Route::get('/crear', ProyectoCrearLivewire::class)->name('crear');
+    Route::get('/editar/{id}', ProyectoEditarLivewire::class)->name('editar');
+    Route::get('/seccion/{id}', ProyectoSeccionLivewire::class)->name('seccion');
+});
 
 require __DIR__ . '/spatie.php';
 require __DIR__ . '/atc.php';

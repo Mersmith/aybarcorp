@@ -1,4 +1,7 @@
 php artisan make:livewire Admin/Inicio/InicioLivewire
+
+php artisan make:livewire Admin/Cliente/ClienteConsultarLivewire
+
 php artisan make:livewire Admin/ClienteAntiguo/ClienteAntiguoTodoLivewire
 php artisan make:livewire Admin/ClienteAntiguo/ClienteAntiguoCrearLivewire
 php artisan make:livewire Admin/ClienteAntiguo/ClienteAntiguoEditarLivewire

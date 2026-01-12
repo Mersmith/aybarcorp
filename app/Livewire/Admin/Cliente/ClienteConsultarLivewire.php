@@ -14,7 +14,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.admin.layout-admin')]
-class ClienteCrearLivewire extends Component
+class ClienteConsultarLivewire extends Component
 {
     public $dni;
     public $existingCliente;
@@ -22,6 +22,14 @@ class ClienteCrearLivewire extends Component
     public $mostrar_form_email = false;
     public $cliente_encontrado = null;
     public $razones_sociales = [];
+
+    public function mount($dni = null)
+    {
+        if ($dni) {
+            $this->dni = $dni;
+            $this->buscarCliente();
+        }
+    }
 
     public function buscarCliente()
     {
@@ -72,10 +80,10 @@ class ClienteCrearLivewire extends Component
 
         if (!$this->existingCliente) {
             $this->mostrar_form_email = true;
-            session()->flash('info', 'Cliente nuevo. Ingrese un correo para registrarlo.');
+            session()->flash('info', 'Si deseas registrarlo en el Portal, ingrese un correo.');
         } else {
             $this->mostrar_form_email = false;
-            session()->flash('success', 'Cliente ya registrado en el Portal Cliente.');
+            session()->flash('success', 'Cliente ya registrado en el Portal.');
         }
     }
 
@@ -136,8 +144,23 @@ class ClienteCrearLivewire extends Component
         session()->forget(['success', 'error', 'info']);
     }
 
+    public function resetFiltros()
+    {
+        $this->reset([
+            'dni',
+            'cliente_encontrado',
+            'razones_sociales',
+            'existingCliente',
+            'email',
+            'mostrar_form_email',
+        ]);
+
+        $this->resetValidation();
+        session()->forget(['success', 'error', 'info']);
+    }
+
     public function render()
     {
-        return view('livewire.admin.cliente.cliente-crear-livewire');
+        return view('livewire.admin.cliente.cliente-consultar-livewire');
     }
 }
