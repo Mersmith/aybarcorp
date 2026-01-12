@@ -173,6 +173,11 @@ class TicketTodoLivewire extends Component
         $this->resetPage();
     }
 
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
     public function resetFiltros()
     {
         $this->reset([
@@ -198,7 +203,7 @@ class TicketTodoLivewire extends Component
 
     public function render()
     {
-        $tickets = Ticket::query()
+        $items = Ticket::query()
             ->when($this->buscar, function ($query) {
                 $query->where(function ($q) {
                     $q->where('id', 'like', "%{$this->buscar}%")
@@ -238,6 +243,6 @@ class TicketTodoLivewire extends Component
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
-        return view('livewire.atc.ticket.ticket-todo-livewire', compact('tickets'));
+        return view('livewire.atc.ticket.ticket-todo-livewire', compact('items'));
     }
 }

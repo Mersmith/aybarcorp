@@ -59,12 +59,9 @@
                             <select id="gestor_id" wire:model.live="gestor_id">
                                 <option value="" selected disabled>Sin asignar</option>
                                 @foreach ($gestores as $usuario)
-                                    <option value="{{ $usuario->id }}">
-                                        {{ $usuario->name }}
-                                        {{--@if ($usuario->pivot?->is_principal)
-                                            (P)
-                                        @endif--}}
-                                    </option>
+                                <option value="{{ $usuario->id }}">
+                                    {{ $usuario->name }}
+                                </option>
                                 @endforeach
                             </select>
                             @error('gestor_id') <p class="mensaje_error">{{ $message }}</p> @enderror

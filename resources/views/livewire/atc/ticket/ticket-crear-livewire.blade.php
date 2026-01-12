@@ -6,9 +6,8 @@
     <div class="g_panel cabecera_titulo_pagina">
         <h2>Crear ticket
             @if ($ticketPadreId)
-                asociado al ticket
-                <a href="{{ route('admin.ticket.vista.editar', $ticketPadreId) }}"
-                    target="_blank">#{{ $ticketPadreId }}</a>
+            asociado al ticket
+            <a href="{{ route('admin.ticket.vista.editar', $ticketPadreId) }}" target="_blank">#{{ $ticketPadreId }}</a>
             @endif
         </h2>
 
@@ -39,11 +38,11 @@
                             <select id="unidad_negocio_id" wire:model.live="unidad_negocio_id" required>
                                 <option value="" selected disabled>Seleccionar una empresa</option>
                                 @foreach ($empresas as $empresa)
-                                    <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
+                                <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('unidad_negocio_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -54,11 +53,11 @@
                             <select id="proyecto_id" wire:model.live="proyecto_id" required>
                                 <option value="" selected disabled>Seleccionar un proyecto</option>
                                 @foreach ($proyectos as $proyecto)
-                                    <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
+                                <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('proyecto_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -68,13 +67,13 @@
                             <select id="canal_id" name="canal_id" wire:model.live="canal_id" required>
                                 <option value="" selected disabled>Seleccionar un canal</option>
                                 @if ($canales)
-                                    @foreach ($canales as $canal)
-                                        <option value="{{ $canal->id }}">{{ $canal->nombre }}</option>
-                                    @endforeach
+                                @foreach ($canales as $canal)
+                                <option value="{{ $canal->id }}">{{ $canal->nombre }}</option>
+                                @endforeach
                                 @endif
                             </select>
                             @error('canal_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -87,11 +86,11 @@
                             <select id="tipo_solicitud_id" wire:model.live="tipo_solicitud_id" required>
                                 <option value="" selected disabled>Seleccionar un area</option>
                                 @foreach ($tipos_solicitudes as $tipo)
-                                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('tipo_solicitud_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -102,11 +101,11 @@
                             <select id="sub_tipo_solicitud_id" wire:model.live="sub_tipo_solicitud_id" required>
                                 <option value="" selected disabled>Seleccionar un subtipo</option>
                                 @foreach ($sub_tipos_solicitudes as $subtipo)
-                                    <option value="{{ $subtipo->id }}">{{ $subtipo->nombre }}</option>
+                                <option value="{{ $subtipo->id }}">{{ $subtipo->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('sub_tipo_solicitud_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -117,28 +116,28 @@
                             <select id="area_id" wire:model.live="area_id" required>
                                 <option value="" selected disabled>Seleccionar un area</option>
                                 @foreach ($areas as $area)
-                                    <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('area_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="g_fila">                      
+                    <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
                             <label for="cliente_id">
                                 Cliente <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
 
                             @if ($ticketPadre)
-                                <input type="text" disabled value="{{ $ticketPadre->nombres ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $ticketPadre->nombres ?? 'Sin asignar' }}">
                             @else
-                                <input type="text" disabled value="{{ $cliente?->nombre ?? 'Sin asignar' }}">
-                                @error('cliente_id')
-                                    <p class="mensaje_error">{{ $message }}</p>
-                                @enderror
+                            <input type="text" disabled value="{{ $cliente?->nombre ?? 'Sin asignar' }}">
+                            @error('cliente_id')
+                            <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
                             @endif
                         </div>
 
@@ -154,16 +153,13 @@
                             <select id="gestor_id" wire:model.live="gestor_id" required>
                                 <option value="" disabled>Seleccionar un asignado</option>
                                 @foreach ($gestores as $usuario)
-                                    <option value="{{ $usuario->id }}">
-                                        {{ $usuario->name }}
-                                        {{--@if ($usuario->pivot?->is_principal)
-                                            (P)
-                                        @endif---}}
-                                    </option>
+                                <option value="{{ $usuario->id }}">
+                                    {{ $usuario->name }}
+                                </option>
                                 @endforeach
                             </select>
                             @error('gestor_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -174,7 +170,7 @@
                                         class="fa-solid fa-asterisk"></i></span></label>
                             <textarea id="asunto_inicial" wire:model.live="asunto_inicial" rows="2"></textarea>
                             @error('asunto_inicial')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -183,46 +179,47 @@
                         <div class="g_columna_12">
                             <label for="descripcion_inicial">Descripción <span class="obligatorio"><i
                                         class="fa-solid fa-asterisk"></i></span></label>
-                            <textarea id="descripcion_inicial" wire:model.live="descripcion_inicial" rows="5"></textarea>
+                            <textarea id="descripcion_inicial" wire:model.live="descripcion_inicial"
+                                rows="5"></textarea>
                             @error('descripcion_inicial')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
                 </div>
 
                 @if (!empty($lotes_agregados))
-                    <div class="g_panel">
-                        <h4 class="g_panel_titulo">Lotes seleccionados</h4>
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Lotes seleccionados</h4>
 
-                        <table class="tabla_eliminar">
-                            <thead>
-                                <tr>
-                                    <th>Razón Social</th>
-                                    <th>Proyecto</th>
-                                    <th>Mz./Lt.</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($lotes_agregados as $index => $l)
-                                    <tr class="sorteable_item" wire:key="lote-{{ $index }}">
-                                        <td> {{ $l['razon_social'] }} </td>
-                                        <td> {{ $l['proyecto'] }} </td>
-                                        <td> {{ $l['numero_lote'] }} </td>
-                                        <td>
-                                            <button type="button" wire:click="quitarLote('{{ $l['id'] }}')"
-                                                class="boton_eliminar" @pointerdown.stop @mousedown.stop
-                                                @touchstart.stop draggable="false">
+                    <table class="tabla_eliminar">
+                        <thead>
+                            <tr>
+                                <th>Razón Social</th>
+                                <th>Proyecto</th>
+                                <th>Mz./Lt.</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($lotes_agregados as $index => $l)
+                            <tr class="sorteable_item" wire:key="lote-{{ $index }}">
+                                <td> {{ $l['razon_social'] }} </td>
+                                <td> {{ $l['proyecto'] }} </td>
+                                <td> {{ $l['numero_lote'] }} </td>
+                                <td>
+                                    <button type="button" wire:click="quitarLote('{{ $l['id'] }}')"
+                                        class="boton_eliminar" @pointerdown.stop @mousedown.stop @touchstart.stop
+                                        draggable="false">
 
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 @endif
 
             </div>
@@ -230,171 +227,170 @@
             <!-- DERECHA -->
             <div class="g_columna_4 g_gap_pagina g_columna_invertir">
                 @if ($ticketPadre)
-                    <div class="g_panel">
-                        <h4 class="g_panel_titulo">Ticket padre</h4>
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Ticket padre</h4>
 
-                        <div class="g_fila">
-                            <div class="g_margin_bottom_10 g_columna_6">
-                                <label>Empresa</label>
-                                <input type="text" disabled
-                                    value="{{ $ticketPadre->unidadNegocio->nombre ?? 'Sin asignar' }}">
-                            </div>
-
-                            <div class="g_margin_bottom_10 g_columna_6">
-                                <label>Proyecto</label>
-                                <input type="text" disabled
-                                    value="{{ $ticketPadre->proyecto->nombre ?? 'Sin asignar' }}">
-                            </div>
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>Empresa</label>
+                            <input type="text" disabled
+                                value="{{ $ticketPadre->unidadNegocio->nombre ?? 'Sin asignar' }}">
                         </div>
 
-                        <div class="g_fila">
-                            <div class="g_margin_bottom_10 g_columna_6">
-                                <label>Área origen</label>
-                                <input type="text" disabled
-                                    value="{{ $ticketPadre->area->nombre ?? 'Sin asignar' }}">
-                            </div>
-
-                            <div class="g_margin_bottom_10 g_columna_6">
-                                <label>Tipo solicitud</label>
-                                <input type="text" disabled
-                                    value="{{ $ticketPadre->tipoSolicitud->nombre ?? 'Sin asignar' }}">
-                            </div>
-                        </div>
-
-                        <div class="g_fila">
-                            <div class="g_margin_bottom_10 g_columna_6">
-                                <label>Sub tipo solicitud</label>
-                                <input type="text" disabled
-                                    value="{{ $ticketPadre->subTipoSolicitud->nombre ?? 'Sin asignar' }}">
-                            </div>
-
-                            <div class="g_margin_bottom_10 g_columna_6">
-                                <label>Canal</label>
-                                <input type="text" disabled
-                                    value="{{ $ticketPadre->canal->nombre ?? 'Sin asignar' }}">
-                            </div>
-                        </div>
-                        <div class="g_fila">
-                            <div class="g_margin_bottom_10 g_columna_6">
-                                <label>Cliente</label>
-                                <input type="text" disabled value="{{ $ticketPadre->nombres ?? 'Sin asignar' }}">
-                            </div>
-
-                            <div class="g_margin_bottom_10 g_columna_6">
-                                <label for="gestor_id">
-                                    Asignado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
-                                </label>
-                                <input type="text" disabled
-                                    value="{{ $ticketPadre->gestor->name ?? 'Sin asignar' }}">
-                            </div>
-                        </div>
-                        <div class="g_fila">
-                            <div class="g_columna_12">
-                                <label>Asunto </label>
-                                <textarea disabled>{{ $ticketPadre->asunto_inicial ?? 'Sin asunto' }}</textarea>
-                            </div>
-                        </div>
-
-                        <div class="g_fila">
-                            <div class="g_columna_12">
-                                <label>Descripción </label>
-                                <textarea disabled>{{ $ticketPadre->descripcion_inicial ?? 'Sin descripción' }}</textarea>
-                            </div>
-                        </div>
-
-                        @if (!empty($ticketPadre->lotes))
-                            <div class="g_fila">
-                                <div class="g_columna_12">
-                                    <label>Lotes</label>
-
-                                    <table class="tabla_eliminar">
-                                        <thead>
-                                            <tr>
-                                                <th>Razón Social</th>
-                                                <th>Proyecto</th>
-                                                <th>Mz./Lt.</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($ticketPadre->lotes as $index => $l)
-                                                <tr class="sorteable_item" wire:key="lote-{{ $index }}">
-                                                    <td> {{ $l['razon_social'] }} </td>
-                                                    <td> {{ $l['proyecto'] }} </td>
-                                                    <td> {{ $l['numero_lote'] }} </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                @else
-                    <div class="g_panel">
-                        @if (session('info'))
-                            <div class="g_alerta_info">
-                                <i class="fa-solid fa-circle-check"></i>
-                                {{ session('info') }}
-                            </div>
-                        @endif
-
-                        @if (session('error'))
-                            <div class="g_alerta_error">
-                                <i class="fa-solid fa-circle-check"></i>
-                                {{ session('error') }}
-                            </div>
-                        @endif
-
-                        @if (session('success'))
-                            <div class="g_alerta_succes">
-                                <i class="fa-solid fa-circle-check"></i>
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                        <h4 class="g_panel_titulo">Cliente</h4>
-
-                        <div class="g_margin_bottom_10">
-                            <label for="dni">DNI/CE/RUC <span class="obligatorio"><i
-                                        class="fa-solid fa-asterisk"></i></span></label>
-                            <input type="text" id="dni" wire:model.live="dni"
-                                x-on:input="$el.value = $el.value.replace(/[^0-9]/g, '')" required>
-                        </div>
-
-                        <div class="formulario_botones g_margin_bottom_10">
-                            <button wire:click="buscarCliente" class="guardar" wire:loading.attr="disabled"
-                                wire:target="buscarCliente">
-                                <span wire:loading.remove wire:target="buscarCliente">Buscar</span>
-                                <span wire:loading wire:target="buscarCliente">Buscando...</span>
-                            </button>
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>Proyecto</label>
+                            <input type="text" disabled value="{{ $ticketPadre->proyecto->nombre ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
-                    @if ($informaciones->isNotEmpty())
-                        <div class="g_panel">
-                            <h4 class="g_panel_titulo">Lotes</h4>
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>Área origen</label>
+                            <input type="text" disabled value="{{ $ticketPadre->area->nombre ?? 'Sin asignar' }}">
+                        </div>
 
-                            <div class="g_margin_bottom_10">
-                                <select wire:model.live="lote_id">
-                                    <option value="">Seleccionar lote</option>
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>Tipo solicitud</label>
+                            <input type="text" disabled
+                                value="{{ $ticketPadre->tipoSolicitud->nombre ?? 'Sin asignar' }}">
+                        </div>
+                    </div>
 
-                                    @foreach ($informaciones as $lote)
-                                        <option value="{{ $lote->id }}">
-                                            {{ $lote->razon_social }} - {{ $lote->proyecto }} -
-                                            {{ $lote->numero_lote }}
-                                        </option>
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>Sub tipo solicitud</label>
+                            <input type="text" disabled
+                                value="{{ $ticketPadre->subTipoSolicitud->nombre ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>Canal</label>
+                            <input type="text" disabled value="{{ $ticketPadre->canal->nombre ?? 'Sin asignar' }}">
+                        </div>
+                    </div>
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>Cliente</label>
+                            <input type="text" disabled value="{{ $ticketPadre->nombres ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="gestor_id">
+                                Asignado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                            </label>
+                            <input type="text" disabled value="{{ $ticketPadre->gestor->name ?? 'Sin asignar' }}">
+                        </div>
+                    </div>
+                    <div class="g_fila">
+                        <div class="g_columna_12">
+                            <label>Asunto </label>
+                            <textarea disabled>{{ $ticketPadre->asunto_inicial ?? 'Sin asunto' }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_columna_12">
+                            <label>Descripción </label>
+                            <textarea disabled>{{ $ticketPadre->descripcion_inicial ?? 'Sin descripción' }}</textarea>
+                        </div>
+                    </div>
+
+                    @if (!empty($ticketPadre->lotes))
+                    <div class="g_fila">
+                        <div class="g_columna_12">
+                            <label>Lotes</label>
+
+                            <table class="tabla_eliminar">
+                                <thead>
+                                    <tr>
+                                        <th>Razón Social</th>
+                                        <th>Proyecto</th>
+                                        <th>Mz./Lt.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($ticketPadre->lotes as $index => $l)
+                                    <tr class="sorteable_item" wire:key="lote-{{ $index }}">
+                                        <td> {{ $l['razon_social'] }} </td>
+                                        <td> {{ $l['proyecto'] }} </td>
+                                        <td> {{ $l['numero_lote'] }} </td>
+                                    </tr>
                                     @endforeach
-                                </select>
-                            </div>
-
-                            <div class="formulario_botones">
-                                <button wire:click="agregarLote" class="guardar" wire:loading.attr="disabled"
-                                    wire:target="agregarLote">
-                                    <span wire:loading.remove wire:target="agregarLote">Agregar</span>
-                                    <span wire:loading wire:target="agregarLote">Agregando...</span>
-                                </button>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
                     @endif
+                </div>
+                @else
+                <div class="g_panel">
+                    @if (session('info'))
+                    <div class="g_alerta_info">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('info') }}
+                    </div>
+                    @endif
+
+                    @if (session('error'))
+                    <div class="g_alerta_error">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('error') }}
+                    </div>
+                    @endif
+
+                    @if (session('success'))
+                    <div class="g_alerta_succes">
+                        <i class="fa-solid fa-circle-check"></i>
+                        {{ session('success') }}
+                    </div>
+                    @endif
+                    <h4 class="g_panel_titulo">Cliente</h4>
+
+                    <div class="g_margin_bottom_10">
+                        <label for="dni">DNI/CE/RUC <span class="obligatorio"><i
+                                    class="fa-solid fa-asterisk"></i></span></label>
+                        <input type="text" id="dni" wire:model.live="dni"
+                            x-on:input="$el.value = $el.value.replace(/[^0-9]/g, '')" required>
+                        @error('dni')
+                        <p class="mensaje_error">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="formulario_botones g_margin_bottom_10">
+                        <button wire:click="buscarCliente" class="guardar" wire:loading.attr="disabled"
+                            wire:target="buscarCliente">
+                            <span wire:loading.remove wire:target="buscarCliente">Buscar</span>
+                            <span wire:loading wire:target="buscarCliente">Buscando...</span>
+                        </button>
+                    </div>
+                </div>
+
+                @if ($informaciones->isNotEmpty())
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Lotes</h4>
+
+                    <div class="g_margin_bottom_10">
+                        <select wire:model.live="lote_id">
+                            <option value="">Seleccionar lote</option>
+
+                            @foreach ($informaciones as $lote)
+                            <option value="{{ $lote->id }}">
+                                {{ $lote->razon_social }} - {{ $lote->proyecto }} -
+                                {{ $lote->numero_lote }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="formulario_botones">
+                        <button wire:click="agregarLote" class="guardar" wire:loading.attr="disabled"
+                            wire:target="agregarLote">
+                            <span wire:loading.remove wire:target="agregarLote">Agregar</span>
+                            <span wire:loading wire:target="agregarLote">Agregando...</span>
+                        </button>
+                    </div>
+                </div>
+                @endif
 
                 @endif
             </div>

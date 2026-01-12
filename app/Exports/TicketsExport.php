@@ -92,7 +92,8 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
             ->skip(($this->page - 1) * $this->perPage)
             ->take($this->perPage)
             ->get()
-            ->map(fn($t) => [
+            ->map(fn($t, $index) => [
+                $index + 1,
                 $t->id,
                 $t->nombres,
                 $t->area->nombre ?? '',
@@ -109,6 +110,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
+            'N°',
             'Ticket',
             'Cliente',
             'Área',

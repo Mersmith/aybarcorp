@@ -53,10 +53,9 @@ class TicketCrearLivewire extends Component
 
     protected function rules()
     {
-        return [
+        $rules = [
             'unidad_negocio_id' => 'required',
             'proyecto_id' => 'required',
-            'cliente_id' => 'required',
             'area_id' => 'required',
             'tipo_solicitud_id' => 'required',
             'sub_tipo_solicitud_id' => 'required',
@@ -65,20 +64,24 @@ class TicketCrearLivewire extends Component
             'asunto_inicial' => 'required|string|max:255',
             'descripcion_inicial' => 'required|string|max:555',
         ];
+
+        if (!$this->ticketPadre) {
+            $rules['cliente_id'] = 'required';
+        }
+
+        return $rules;
     }
 
     public function mount($ticketPadre = null)
     {
         if ($ticketPadre) {
-            $this->ticketPadreId = $ticketPadre;
             $this->ticketPadre = Ticket::findOrFail($ticketPadre);
+            $this->ticketPadreId = $ticketPadre;
             $this->unidad_negocio_id = $this->ticketPadre->unidad_negocio_id;
             $this->proyecto_id = $this->ticketPadre->proyecto_id;
             $this->loadProyectos();
             $this->canal_id = $this->ticketPadre->canal_id;
-            $this->cliente_id = $this->ticketPadre->canal_id;
             $this->dni = $this->ticketPadre->dni;
-            //$this->nombres = $this->ticketPadre->nombres;
             $this->origen = $this->ticketPadre->origen;
         }
 
@@ -158,6 +161,7 @@ class TicketCrearLivewire extends Component
         }
 
         $this->tipo_solicitud_id = '';
+        $this->sub_tipo_solicitud_id = '';
     }
 
     public function updatedAreaId($value)
@@ -186,8 +190,7 @@ class TicketCrearLivewire extends Component
         try {
             $this->validate();
         } catch (ValidationException $e) {
-            dd($e);
-            //$this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
             throw $e;
         }
 

@@ -146,7 +146,16 @@
             </div>
         </div>
 
-        <div class="tabla_contenido g_margin_bottom_20">
+        <div>
+            <label>Items</label>
+            <select wire:model.live="perPage">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+
+        <div class="tabla_contenido">
             <div class="contenedor_tabla">
                 <table class="tabla">
                     <thead>
@@ -165,9 +174,9 @@
                         </tr>
                     </thead>
 
-                    @if ($tickets->count())
+                    @if ($items->count())
                     <tbody>
-                        @foreach ($tickets as $index => $item)
+                        @foreach ($items as $index => $item)
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td class="g_negrita g_resumir">{{ $item->nombres }}</td>
@@ -214,16 +223,21 @@
             </div>
         </div>
 
-        @if ($tickets->hasPages())
+        @if ($items->hasPages())
         <div class="g_paginacion">
-            {{ $tickets->links('vendor.pagination.default-livewire') }}
+            {{ $items->links('vendor.pagination.default-livewire') }}
         </div>
         @endif
 
-        @if ($tickets->count() == 0)
+        @if ($items->count() == 0)
         <div class="g_vacio">
-            <p>No hay tickets disponibles.</p>
+            <p>No hay items disponibles.</p>
             <i class="fa-regular fa-face-grin-wink"></i>
+        </div>
+        @else
+        <div class="g_paginacion">
+            Mostrando {{ $items->firstItem() ?? 0 }} – {{ $items->lastItem() ?? 0 }}
+            de {{ $items->total() }} registros
         </div>
         @endif
     </div>
