@@ -63,6 +63,11 @@ class ClienteTodoLivewire extends Component
         $this->resetPage();
     }
 
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
     public function resetFiltros()
     {
         $this->reset([
@@ -124,10 +129,14 @@ class ClienteTodoLivewire extends Component
                     $query->whereNull('email_verified_at'); // Usuarios no verificados
                 }
             })
-            ->when($this->fecha_inicio, fn($q) =>
+            ->when(
+                $this->fecha_inicio,
+                fn($q) =>
                 $q->whereDate('users.created_at', '>=', $this->fecha_inicio)
             )
-            ->when($this->fecha_fin, fn($q) =>
+            ->when(
+                $this->fecha_fin,
+                fn($q) =>
                 $q->whereDate('users.created_at', '<=', $this->fecha_fin)
             )
             ->where('users.email', 'like', '%' . $this->email . '%') // ← aquí

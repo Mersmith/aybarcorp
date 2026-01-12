@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
     {
         //SUPER ADMINS
         $super_admin = [
-            ['name' => 'Emerson Smith', 'email' => 'programador@aybarsac.com'],
-            ['name' => 'Luis Julio', 'email' => 'luiscarrizales@aybarsac.com'],
+            ['name' => 'EMERSON SMITH', 'email' => 'programador@aybarsac.com'],
+            ['name' => 'LUIS JULIO', 'email' => 'luiscarrizales@aybarsac.com'],
         ];
 
         foreach ($super_admin as $data) {
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
 
         //ADMIN
         $admin = User::create([
-            'name' => 'Rosario',
+            'name' => 'ROSARIO',
             'email' => 'gestiondeprocesos@aybarsac.com',
             'password' => Hash::make('123456'),
             'rol' => 'admin',
@@ -55,19 +55,19 @@ class UserSeeder extends Seeder
         $supervisor_atc->syncRoles(['supervisor-atc', 'asesor-atc']);
 
         $atc = [
-            ['name' => 'Chunga Palomino Ximena', 'email' => 'x.chunga@aybarsac.com'],
-            ['name' => 'Galvez Vela Luis Armando', 'email' => 'l.galvez@aybarsac.com'],
-            ['name' => 'Molero Labarca Jeffersom Gabriel', 'email' => 'j.molero@aybarsac.com'],
-            ['name' => 'Muñoz Zevallos Anthony Gabriel', 'email' => 'g.muñoz@aybarsac.com'],
-            ['name' => 'Palacios Romero Kimberly Cielo', 'email' => 'c.palacios@aybarsac.com'],
-            ['name' => 'Vargas Angel Kleivis Rosmary', 'email' => 'k.vargas@aybarsac.com'],
-            ['name' => 'Perez Espiritu Gilaam Yajaira', 'email' => 'g.perez@aybarsac.com'],
-            ['name' => 'Estrada Rivas Evelin Yusaira', 'email' => 'e.estrada@aybarsac.com'],
-            ['name' => 'Triveño Rado Astrid Marcela', 'email' => 'a.triveño@aybarsac.com'],
-            ['name' => 'Rodriguez Valencia Paolo Matias', 'email' => 'r.valencia@aybarsac.com'],
-            ['name' => 'Fretel Cruz Sadith del Rosario', 'email' => 'f.cruz@aybarsac.com'],
-            ['name' => 'Herrera de la Cruz Miguel Angel', 'email' => 'h.de@aybarsac.com'],
-            ['name' => 'Espinoza Obispo Xiomara Nayeli', 'email' => 'e.obispo@aybarsac.com'],
+            ['name' => 'CHUNGA PALOMINO XIMENA', 'email' => 'x.chunga@aybarsac.com'],
+            ['name' => 'GALVEZ VELA LUIS ARMANDO', 'email' => 'l.galvez@aybarsac.com'],
+            ['name' => 'MOLERO LABARCA JEFFERSON GABRIEL', 'email' => 'j.molero@aybarsac.com'],
+            ['name' => 'MUÑOZ ZEVALLOS ANTHONY GABRIEL', 'email' => 'g.muñoz@aybarsac.com'],
+            ['name' => 'PALACIOS ROMERO KIMBERLY CIELO', 'email' => 'c.palacios@aybarsac.com'],
+            ['name' => 'VARGAS ANGEL KLEIVIS ROSMARY', 'email' => 'k.vargas@aybarsac.com'],
+            ['name' => 'PEREZ ESPIRITU GILAAM YAJAIRA', 'email' => 'g.perez@aybarsac.com'],
+            ['name' => 'ESTRADA RIVAS EVELIN YUSAIRA', 'email' => 'e.estrada@aybarsac.com'],
+            ['name' => 'TRIVEÑO RADO ASTRID MARCELA', 'email' => 'a.triveño@aybarsac.com'],
+            ['name' => 'RODRIGUEZ VALENCIA PAOLO MATIAS', 'email' => 'r.valencia@aybarsac.com'],
+            ['name' => 'FRETEL CRUZ SADITH DEL ROSARIO', 'email' => 'f.cruz@aybarsac.com'],
+            ['name' => 'HERRERA DE LA CRUZ MIGUEL ANGEL', 'email' => 'h.de@aybarsac.com'],
+            ['name' => 'ESPINOZA OBISPO XIOMARA NAYELI', 'email' => 'e.obispo@aybarsac.com'],
         ];
 
         foreach ($atc as $data) {
@@ -84,7 +84,7 @@ class UserSeeder extends Seeder
 
         //BACKOFFICE
         $supervisor_backoffice = [
-            ['name' => 'Pedro', 'email' => 'pedro@aybarsac.com'],
+            ['name' => 'PEDRO', 'email' => 'pedro@aybarsac.com'],
             ['name' => 'RAMON ALBERTO MARTINEZ CONTRERA', 'email' => 'RAMONMARTINEZ@aybarsac.com'],
         ];
 
@@ -154,11 +154,11 @@ class UserSeeder extends Seeder
             ['name' => 'RICARDO ORTIZ', 'email' => 'RICARDOORTIZ@aybarsac.com'],
             ['name' => 'MILAGROS YAÑEZ', 'email' => 'MILAGROSYANEZ@aybarsac.com'],
             ['name' => 'JOSE MUÑOZ', 'email' => 'JOSEMUNOZ@aybarsac.com'],
-            ['name' => 'Marco Antonio Santa Maria', 'email' => 'analistalegal01@aybarsac.com'],
-            ['name' => 'Grecia Falconi', 'email' => 'especialistacontratos@aybarsac.com'],
-            ['name' => 'Stefani', 'email' => 'viviendaparatodos@aybarsac.com'],
-            ['name' => 'Sheyla Abad', 'email' => 'analistacontratos@aybarsac.com'],
-            ['name' => 'Victor Sánchez', 'email' => 'analistacontratos2@aybarsac.com'],
+            ['name' => 'MARCO ANTONIO SANTA MARIA', 'email' => 'analistalegal01@aybarsac.com'],
+            ['name' => 'GRECIA FALCONI', 'email' => 'especialistacontratos@aybarsac.com'],
+            ['name' => 'STEFANI', 'email' => 'viviendaparatodos@aybarsac.com'],
+            ['name' => 'SHEYLA ABAD', 'email' => 'analistacontratos@aybarsac.com'],
+            ['name' => 'VICTOR SÁNCHEZ', 'email' => 'analistacontratos2@aybarsac.com'],
         ];
 
         foreach ($legal as $data) {
@@ -185,7 +185,7 @@ class UserSeeder extends Seeder
         $supervisor_archivo->syncRoles(['supervisor-archivo', 'asesor-archivo', 'supervisor-atc']);
 
         $archivo = [
-            ['name' => 'archivo', 'email' => 'ARCHIVO365@AYBARSAC.COM'],
+            ['name' => 'ARCHIVO', 'email' => 'ARCHIVO365@AYBARSAC.COM'],
             ['name' => 'IRWIN CHIRINOS CABREJOS', 'email' => 'GWENDOLYNEACCOSTUPA@AYBARSAC.COM'],
         ];
 
@@ -202,7 +202,7 @@ class UserSeeder extends Seeder
         }
 
         //CLIENTE
-        for ($i = 1; $i <= 35; $i++) {
+        /*for ($i = 1; $i <= 35; $i++) {
             $cliente = User::create([
                 'name' => "Cliente $i",
                 'email' => "cliente$i@example.com",
@@ -222,6 +222,6 @@ class UserSeeder extends Seeder
                 'email' => $cliente->email,
                 'nombre' => $cliente->name,
             ]);
-        }
+        }*/
     }
 }

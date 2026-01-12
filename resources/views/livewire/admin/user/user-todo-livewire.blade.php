@@ -41,7 +41,7 @@
                     <select wire:model.live="rol">
                         <option value="">Todos</option>
                         @foreach ($roles as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -55,6 +55,15 @@
                     </select>
                 </div>
             </div>
+        </div>
+
+        <div>
+            <label>Items</label>
+            <select wire:model.live="perPage">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
         </div>
 
         <div class="tabla_contenido">
@@ -73,45 +82,48 @@
                     </thead>
 
                     @if ($items->count())
-                        <tbody>
-                            @foreach ($items as $index => $item)
-                                <tr>
-                                    <td>{{ $items->firstItem() + $index }}</td>
-                                    <td class="g_resaltar">{{ $item->name }}</td>
-                                    <td class="g_resaltar">{{ $item->email }}</td>
-                                    <td class="g_resaltar">{{ $item->roles->pluck('name')->implode(', ') }}</td>
-                                    <td class="g_resaltar">{{ $item->created_at }}</td>
-                                    <td>
-                                        <span class="g_estado {{ $item->activo ? 'g_activo' : 'g_desactivado' }}"><i
-                                                class="fa-solid fa-circle"></i></span>
-                                        {{ $item->activo ? 'Activo' : 'Desactivo' }}
-                                    </td>
-                                    <td class="centrar_iconos">
-                                        <a href="{{ route('admin.usuario.vista.editar', $item) }}"
-                                            class="g_accion_editar">
-                                            <span><i class="fa-solid fa-pencil"></i></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                    <tbody>
+                        @foreach ($items as $index => $item)
+                        <tr>
+                            <td>{{ $items->firstItem() + $index }}</td>
+                            <td class="g_resaltar">{{ $item->name }}</td>
+                            <td class="g_resaltar">{{ $item->email }}</td>
+                            <td class="g_resaltar">{{ $item->roles->pluck('name')->implode(', ') }}</td>
+                            <td class="g_resaltar">{{ $item->created_at }}</td>
+                            <td>
+                                <span class="g_estado {{ $item->activo ? 'g_activo' : 'g_desactivado' }}"><i
+                                        class="fa-solid fa-circle"></i></span>
+                                {{ $item->activo ? 'Activo' : 'Desactivo' }}
+                            </td>
+                            <td class="centrar_iconos">
+                                <a href="{{ route('admin.usuario.vista.editar', $item) }}" class="g_accion_editar">
+                                    <span><i class="fa-solid fa-pencil"></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                     @endif
                 </table>
             </div>
         </div>
 
         @if ($items->hasPages())
-            <div class="g_paginacion">
-                {{ $items->links('vendor.pagination.default-livewire') }}
-            </div>
+        <div class="g_paginacion">
+            {{ $items->links('vendor.pagination.default-livewire') }}
+        </div>
         @endif
 
         @if ($items->count() == 0)
-            <div class="g_vacio">
-                <p>No hay items disponibles.</p>
-                <i class="fa-regular fa-face-grin-wink"></i>
-            </div>
+        <div class="g_vacio">
+            <p>No hay items disponibles.</p>
+            <i class="fa-regular fa-face-grin-wink"></i>
+        </div>
+        @else
+        <div class="g_paginacion">
+            Mostrando {{ $items->firstItem() ?? 0 }} – {{ $items->lastItem() ?? 0 }}
+            de {{ $items->total() }} registros
+        </div>
         @endif
-
     </div>
 </div>

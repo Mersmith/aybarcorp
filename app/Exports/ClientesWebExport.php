@@ -41,15 +41,21 @@ class ClientesWebExport implements FromCollection, WithHeadings, ShouldAutoSize
             ->leftJoin('clientes', 'clientes.user_id', '=', 'users.id')
             ->where(function ($q) {
                 $q->where('users.name', 'like', "%{$this->buscar}%")
-                  ->orWhere('clientes.dni', 'like', "%{$this->buscar}%");
+                    ->orWhere('clientes.dni', 'like', "%{$this->buscar}%");
             })
-            ->when($this->activo !== '', fn ($q) =>
+            ->when(
+                $this->activo !== '',
+                fn($q) =>
                 $q->where('users.activo', $this->activo)
             )
-            ->when($this->tratamiento !== '', fn ($q) =>
+            ->when(
+                $this->tratamiento !== '',
+                fn($q) =>
                 $q->where('users.politica_uno', $this->tratamiento)
             )
-            ->when($this->politica !== '', fn ($q) =>
+            ->when(
+                $this->politica !== '',
+                fn($q) =>
                 $q->where('users.politica_dos', $this->politica)
             )
             ->when($this->verificado !== '', function ($q) {
@@ -57,10 +63,14 @@ class ClientesWebExport implements FromCollection, WithHeadings, ShouldAutoSize
                     ? $q->whereNotNull('users.email_verified_at')
                     : $q->whereNull('users.email_verified_at');
             })
-            ->when($this->fecha_inicio, fn ($q) =>
+            ->when(
+                $this->fecha_inicio,
+                fn($q) =>
                 $q->whereDate('users.created_at', '>=', $this->fecha_inicio)
             )
-            ->when($this->fecha_fin, fn ($q) =>
+            ->when(
+                $this->fecha_fin,
+                fn($q) =>
                 $q->whereDate('users.created_at', '<=', $this->fecha_fin)
             )
             ->where('users.email', 'like', "%{$this->email}%")
@@ -76,8 +86,11 @@ class ClientesWebExport implements FromCollection, WithHeadings, ShouldAutoSize
                 'users.activo'
             )
             ->orderByDesc('users.created_at')
+            ->skip(($this->page - 1) * $this->perPage)
+            ->take($this->perPage)
             ->get()
-            ->map(fn ($u) => [
+            ->map(fn($u, $index) => [
+                $index + 1,
                 $u->id,
                 $u->name,
                 $u->email,
@@ -93,6 +106,7 @@ class ClientesWebExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
+            'N°',
             'ID',
             'Nombre',
             'Email',

@@ -44,9 +44,12 @@ class AdminsExport implements FromCollection, WithHeadings, ShouldAutoSize
             ->where('name', 'like', "%{$this->buscar}%")
             ->where('email', 'like', "%{$this->email}%")
             ->orderByDesc('created_at')
+            ->skip(($this->page - 1) * $this->perPage)
+            ->take($this->perPage)
             ->get()
-            ->map(function ($user) {
+            ->map(function ($user, $index) {
                 return [
+                    $index + 1,
                     $user->id,
                     $user->name,
                     $user->email,
@@ -60,6 +63,7 @@ class AdminsExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
+            'N°',
             'ID',
             'Nombre',
             'Email',
