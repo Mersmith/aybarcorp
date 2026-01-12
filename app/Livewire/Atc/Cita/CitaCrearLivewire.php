@@ -7,10 +7,11 @@ use App\Models\EstadoCita;
 use App\Models\MotivoCita;
 use App\Models\Sede;
 use App\Models\Ticket;
-use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use App\Models\Area;
+use Illuminate\Support\Facades\Auth;
 
 #[Layout('layouts.admin.layout-admin')]
 class CitaCrearLivewire extends Component
@@ -23,8 +24,9 @@ class CitaCrearLivewire extends Component
     public $sedes, $sede_id = '';
     public $motivos, $motivo_cita_id = '';
     public $estados, $estado_cita_id = '';
-    public $fecha_inicio;
-    public $fecha_fin;
+    public $fecha;          // YYYY-MM-DD
+    public $hora_inicio;    // HH:mm
+    public $hora_fin;
 
     public $asunto_solicitud;
     public $descripcion_solicitud;
@@ -37,9 +39,12 @@ class CitaCrearLivewire extends Component
             'gestor_id' => 'required',
             'sede_id' => 'required',
             'motivo_cita_id' => 'required',
-            'fecha_inicio' => 'required',
-            'fecha_fin' => 'required',
             'estado_cita_id' => 'required',
+
+            'fecha' => 'required|date',
+            'hora_inicio' => 'required|date_format:H:i',
+            'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
+
             'asunto_solicitud' => 'required|string|max:555',
             'descripcion_solicitud' => 'required|string|max:555',
         ];
@@ -57,25 +62,72 @@ class CitaCrearLivewire extends Component
         $this->sedes = Sede::all();
         $this->motivos = MotivoCita::all();
         $this->estados = EstadoCita::all();
-        $this->gestores = User::role('asesor-atc')
-            ->where('rol', 'admin')
-            ->get();
+
+        if ($this->ticket->area_id) {
+            $this->cargarDatosArea($this->ticket->area_id);
+        }
     }
 
-    public function updatedFechaInicio($value)
+    public function cargarDatosArea($areaId)
     {
-        if (!$value) {
+        $area = Area::find($areaId);
+
+        if (!$area) {
+            $this->gestores = collect();
+            $this->gestor_id = null;
             return;
         }
 
-        $this->fecha_fin = Carbon::parse($value)
-            ->addMinutes($this->duracionMinutos)
-            ->format('Y-m-d H:i');
+        $this->gestores = $area->usuarios()
+            ->where('activo', true)
+            ->withPivot('is_principal')
+            ->orderByDesc('area_user.is_principal')
+            ->orderBy('users.name')
+            ->get();
+
+        $user = Auth::user();
+
+        if ($this->gestores->contains('id', $user->id)) {
+            $this->gestor_id = $user->id;
+        } else {
+            $principal = $this->gestores
+                ->first(fn($u) => (bool) $u->pivot->is_principal);
+
+            if ($principal) {
+                $this->gestor_id = $principal->id;
+            } else {
+                $this->gestor_id = $this->gestores->first()?->id;
+            }
+        }
     }
+
+    public function updatedHoraInicio($value)
+    {
+        if (!$this->fecha || !$value) {
+            return;
+        }
+
+        $this->hora_fin = Carbon::createFromFormat(
+            'Y-m-d H:i',
+            "{$this->fecha} {$value}"
+        )->addMinutes($this->duracionMinutos)
+            ->format('H:i');
+    }
+
 
     public function store()
     {
         $this->validate();
+
+        $fechaInicio = Carbon::createFromFormat(
+            'Y-m-d H:i',
+            "{$this->fecha} {$this->hora_inicio}"
+        );
+
+        $fechaFin = Carbon::createFromFormat(
+            'Y-m-d H:i',
+            "{$this->fecha} {$this->hora_fin}"
+        );
 
         $cita = Cita::create([
             'ticket_id' => $this->ticketId,
@@ -83,16 +135,18 @@ class CitaCrearLivewire extends Component
             'unidad_negocio_id' => $this->ticket->unidad_negocio_id,
             'proyecto_id' => $this->ticket->proyecto_id,
             'cliente_id' => $this->ticket->origen === 'slin'
-            ? $this->ticket->cliente_id
-            : null,
+                ? $this->ticket->cliente_id
+                : null,
 
             'usuario_crea_id' => auth()->id(),
             'gestor_id' => $this->gestor_id,
             'sede_id' => $this->sede_id,
             'motivo_cita_id' => $this->motivo_cita_id,
             'estado_cita_id' => $this->estado_cita_id,
-            'fecha_inicio' => $this->fecha_inicio,
-            'fecha_fin' => $this->fecha_fin,
+
+            'fecha_inicio' => $fechaInicio,
+            'fecha_fin' => $fechaFin,
+
             'asunto_solicitud' => $this->asunto_solicitud,
             'descripcion_solicitud' => $this->descripcion_solicitud,
 
@@ -101,7 +155,10 @@ class CitaCrearLivewire extends Component
             'origen' => $this->ticket->origen,
         ]);
 
-        $this->dispatch('alertaLivewire', ['title' => 'Creado', 'text' => 'Se guardó correctamente.']);
+        $this->dispatch('alertaLivewire', [
+            'title' => 'Creado',
+            'text' => 'Se guardó correctamente.',
+        ]);
 
         return redirect()->route('admin.cita.vista.todo');
     }

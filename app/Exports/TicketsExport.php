@@ -22,6 +22,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
     protected ?string $fechaInicio;
     protected ?string $fechaFin;
     protected ?string $conDerivados;
+    protected ?string $conCitas;
     protected int $perPage;
     protected int $page;
 
@@ -39,6 +40,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
         $fechaInicio,
         $fechaFin,
         $conDerivados,
+        $conCitas,
         $perPage,
         $page,
     ) {
@@ -55,6 +57,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
         $this->fechaInicio = $fechaInicio ?: null;
         $this->fechaFin = $fechaFin ?: null;
         $this->conDerivados = $conDerivados;
+        $this->conCitas = $conCitas;
         $this->perPage = (int) $perPage;
         $this->page = (int) $page;
     }
@@ -88,6 +91,14 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
                 $this->conDerivados === '0',
                 fn($q) => $q->whereDoesntHave('derivados')
             )
+            ->when(
+                $this->conCitas === '1',
+                fn($q) => $q->whereHas('citas')
+            )
+            ->when(
+                $this->conCitas === '0',
+                fn($q) => $q->whereDoesntHave('citas')
+            )
             ->orderByDesc('created_at')
             ->skip(($this->page - 1) * $this->perPage)
             ->take($this->perPage)
@@ -95,6 +106,8 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
             ->map(fn($t, $index) => [
                 $index + 1,
                 $t->id,
+                $t->unidadNegocio->nombre ?? '',
+                $t->proyecto->nombre ?? '',
                 $t->nombres,
                 $t->area->nombre ?? '',
                 $t->tipoSolicitud->nombre ?? '',
@@ -104,6 +117,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
                 $t->prioridad->nombre ?? '',
                 $t->created_at->format('Y-m-d H:i'),
                 $t->tiene_derivados ? 'Sí' : 'No',
+                $t->tiene_citas ? 'Sí' : 'No',
             ]);
     }
 
@@ -112,6 +126,8 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
         return [
             'N°',
             'Ticket',
+            'Empresa',
+            'Proyecto',
             'Cliente',
             'Área',
             'Solicitud',
@@ -121,6 +137,7 @@ class TicketsExport implements FromCollection, WithHeadings, ShouldAutoSize
             'Prioridad',
             'Fecha',
             'Derivado',
+            'Cita',
         ];
     }
 }

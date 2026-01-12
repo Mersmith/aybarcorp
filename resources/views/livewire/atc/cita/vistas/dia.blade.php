@@ -13,10 +13,10 @@ for ($h = 6; $h <= 22; $h++) { $horas->push(sprintf('%02d:00', $h));
         <div class="cabecera_titulo_pagina">
             <h2>{{ $fechaActual->translatedFormat('l d F Y') }}</h2>
 
-            <div class="cabecera_titulo_botones">
+            {{--<div class="cabecera_titulo_botones">
                 <a href="{{ route('admin.cita.vista.crear') }}" class="g_boton g_boton_primary">
                     Crear cita <i class="fa-solid fa-square-plus"></i></a>
-            </div>
+            </div>--}}
         </div>
 
         <div class="calendario_grid_dia">

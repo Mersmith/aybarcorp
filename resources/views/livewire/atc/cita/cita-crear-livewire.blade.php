@@ -5,8 +5,8 @@
     <div class="g_panel cabecera_titulo_pagina">
         <h2>Crear cita
             @if ($ticketId)
-                asociado al ticket
-                <a href="{{ route('admin.ticket.vista.editar', $ticketId) }}" target="_blank">#{{ $ticketId }}</a>
+            asociado al ticket
+            <a href="{{ route('admin.ticket.vista.editar', $ticketId) }}" target="_blank">#{{ $ticketId }}</a>
             @endif
         </h2>
 
@@ -35,11 +35,11 @@
                             <select id="sede_id" wire:model.live="sede_id" required>
                                 <option value="" selected disabled>Seleccionar una sede</option>
                                 @foreach ($sedes as $sede)
-                                    <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
+                                <option value="{{ $sede->id }}">{{ $sede->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('sede_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -50,11 +50,11 @@
                             <select id="motivo_cita_id" wire:model.live="motivo_cita_id" required>
                                 <option value="" selected disabled>Seleccionar un motivo</option>
                                 @foreach ($motivos as $motivo)
-                                    <option value="{{ $motivo->id }}">{{ $motivo->nombre }}</option>
+                                <option value="{{ $motivo->id }}">{{ $motivo->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('motivo_cita_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -67,11 +67,11 @@
                             <select id="gestor_id" wire:model.live="gestor_id" required>
                                 <option value="" selected disabled>Seleccionar un asignado</option>
                                 @foreach ($gestores as $usuario)
-                                    <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+                                <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                                 @endforeach
                             </select>
                             @error('gestor_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -81,32 +81,35 @@
                             <select id="estado_cita_id" wire:model.live="estado_cita_id" required>
                                 <option value="" selected disabled>Seleccionar un estado</option>
                                 @foreach ($estados as $estado)
-                                    <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
+                                <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
                                 @endforeach
                             </select>
                             @error('estado_cita_id')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
 
                     <div class="g_fila">
-                        <div class="g_margin_bottom_10 g_columna_6">
-                            <label for="fecha_inicio">Fecha inicio <span class="obligatorio"><i
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label for="fecha">Fecha<span class="obligatorio"><i
                                         class="fa-solid fa-asterisk"></i></span></label>
-                            <input type="datetime-local" id="fecha_inicio" wire:model.live="fecha_inicio" required>
-                            @error('fecha_inicio')
-                                <p class="mensaje_error">{{ $message }}</p>
-                            @enderror
+                            <input type="date" id="fecha" wire:model.live="fecha" required>
+                            @error('fecha') <p class="mensaje_error">{{ $message }}</p> @enderror
                         </div>
 
-                        <div class="g_margin_bottom_10 g_columna_6">
-                            <label for="fecha_fin">Fecha fin <span class="obligatorio"><i
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label for="hora_inicio">Hora inicio <span class="obligatorio"><i
                                         class="fa-solid fa-asterisk"></i></span></label>
-                            <input type="datetime-local" id="fecha_fin" wire:model.live="fecha_fin" required>
-                            @error('fecha_fin')
-                                <p class="mensaje_error">{{ $message }}</p>
-                            @enderror
+                            <input type="time" id="hora_inicio" wire:model.live="hora_inicio" required>
+                            @error('hora_inicio') <p class="mensaje_error">{{ $message }}</p> @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label for="hora_fin">Hora fin <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="time" id="hora_fin" wire:model.live="hora_fin" required>
+                            @error('hora_fin') <p class="mensaje_error">{{ $message }}</p> @enderror
                         </div>
                     </div>
 
@@ -116,7 +119,7 @@
                                         class="fa-solid fa-asterisk"></i></span></label>
                             <textarea id="asunto_solicitud" wire:model.live="asunto_solicitud" rows="4"></textarea>
                             @error('asunto_solicitud')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -125,9 +128,10 @@
                         <div class="g_columna_12">
                             <label for="descripcion_solicitud">Descripción <span class="obligatorio"><i
                                         class="fa-solid fa-asterisk"></i></span></label>
-                            <textarea id="descripcion_solicitud" wire:model.live="descripcion_solicitud" rows="10"></textarea>
+                            <textarea id="descripcion_solicitud" wire:model.live="descripcion_solicitud"
+                                rows="10"></textarea>
                             @error('descripcion_solicitud')
-                                <p class="mensaje_error">{{ $message }}</p>
+                            <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -141,8 +145,7 @@
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_6">
                             <label>Empresa</label>
-                            <input type="text" disabled
-                                value="{{ $ticket->unidadNegocio->nombre ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $ticket->unidadNegocio->nombre ?? 'Sin asignar' }}">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_6">
@@ -161,8 +164,7 @@
 
                         <div class="g_margin_bottom_10 g_columna_6">
                             <label>Tipo solicitud</label>
-                            <input type="text" disabled
-                                value="{{ $ticket->tipoSolicitud->nombre ?? 'Sin asignar' }}">
+                            <input type="text" disabled value="{{ $ticket->tipoSolicitud->nombre ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
@@ -206,30 +208,30 @@
                     </div>
 
                     @if (!empty($ticket->lotes))
-                        <div class="g_fila">
-                            <div class="g_columna_12">
-                                <label>Lotes</label>
+                    <div class="g_fila">
+                        <div class="g_columna_12">
+                            <label>Lotes</label>
 
-                                <table class="tabla_eliminar">
-                                    <thead>
-                                        <tr>
-                                            <th>Razón Social</th>
-                                            <th>Proyecto</th>
-                                            <th>Mz./Lt.</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($ticket->lotes as $index => $l)
-                                            <tr class="sorteable_item" wire:key="lote-{{ $index }}">
-                                                <td> {{ $l['razon_social'] }} </td>
-                                                <td> {{ $l['proyecto'] }} </td>
-                                                <td> {{ $l['numero_lote'] }} </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="tabla_eliminar">
+                                <thead>
+                                    <tr>
+                                        <th>Razón Social</th>
+                                        <th>Proyecto</th>
+                                        <th>Mz./Lt.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($ticket->lotes as $index => $l)
+                                    <tr class="sorteable_item" wire:key="lote-{{ $index }}">
+                                        <td> {{ $l['razon_social'] }} </td>
+                                        <td> {{ $l['proyecto'] }} </td>
+                                        <td> {{ $l['numero_lote'] }} </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
                     @endif
                 </div>
             </div>

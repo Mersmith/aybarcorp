@@ -130,6 +130,11 @@ class Ticket extends Model
         return $this->hasMany(Cita::class);
     }
 
+    public function getTieneCitasAttribute()
+    {
+        return $this->citas()->exists();
+    }
+
     public function getTieneDerivadosAttribute()
     {
         return $this->derivados()->exists();

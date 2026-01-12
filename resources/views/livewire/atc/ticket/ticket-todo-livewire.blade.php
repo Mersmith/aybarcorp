@@ -126,6 +126,15 @@
 
             <div class="g_fila">
                 <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Citas</label>
+                    <select wire:model.live="con_citas">
+                        <option value="">Todos</option>
+                        <option value="1">Con citas</option>
+                        <option value="0">Sin citas</option>
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
                     <label>Derivados</label>
                     <select wire:model.live="con_derivados">
                         <option value="">Todos</option>

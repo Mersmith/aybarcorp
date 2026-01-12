@@ -117,8 +117,8 @@ class TicketDerivadoLivewire extends Component
             ->first(fn($u) => (bool) $u->pivot->is_principal);
 
         $this->gestor_id = $principal
-        ? $principal->id
-        : $this->gestores->first()->id;
+            ? $principal->id
+            : $this->gestores->first()->id;
     }
 
     public function derivar()
@@ -137,10 +137,19 @@ class TicketDerivadoLivewire extends Component
             'motivo' => $this->motivo,
         ]);
 
-        $this->ticket->update([
+        $estadoDerivadoId = EstadoTicket::where('nombre', 'Derivado')->value('id');
+
+        $data = [
             'area_id' => $this->a_area_id,
             'gestor_id' => $this->gestor_id,
-        ]);
+        ];
+
+        if ($estadoDerivadoId) {
+            $data['estado_ticket_id'] = $estadoDerivadoId;
+        }
+
+        $this->ticket->update($data);
+
 
         $new = $this->ticket->fresh()->toArray();
 

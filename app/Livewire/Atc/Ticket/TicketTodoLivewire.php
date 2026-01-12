@@ -38,6 +38,7 @@ class TicketTodoLivewire extends Component
     public $fecha_fin = '';
     public $buscar = '';
     public $con_derivados = '';
+    public $con_citas = '';
     public $perPage = 20;
 
     public function mount()
@@ -72,6 +73,7 @@ class TicketTodoLivewire extends Component
                 $this->fecha_inicio,
                 $this->fecha_fin,
                 $this->con_derivados,
+                $this->con_citas,
                 $this->perPage,
                 $this->getPage(),
             ),
@@ -195,6 +197,7 @@ class TicketTodoLivewire extends Component
             'perPage',
             'prioridad',
             'con_derivados',
+            'con_citas',
         ]);
 
         $this->perPage = 20;
@@ -239,6 +242,16 @@ class TicketTodoLivewire extends Component
                 $this->con_derivados === '0',
                 fn($q) =>
                 $q->whereDoesntHave('derivados')
+            )
+            ->when(
+                $this->con_citas === '1',
+                fn($q) =>
+                $q->whereHas('citas')
+            )
+            ->when(
+                $this->con_citas === '0',
+                fn($q) =>
+                $q->whereDoesntHave('citas')
             )
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);

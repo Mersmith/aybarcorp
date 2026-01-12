@@ -7,7 +7,8 @@ use App\Models\EstadoCita;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use App\Models\User;
+use App\Models\Area;
+use Illuminate\Support\Facades\Auth;
 
 #[Layout('layouts.admin.layout-admin')]
 class CitaEditarLivewire extends Component
@@ -42,9 +43,9 @@ class CitaEditarLivewire extends Component
 
         $this->estados = EstadoCita::all();
 
-        $this->gestores = User::role('asesor-atc')
-            ->where('rol', 'admin')
-            ->get();
+        if ($this->ticket->area_id) {
+            $this->cargarDatosArea($this->ticket->area_id);
+        }
     }
 
     public function store()
@@ -59,6 +60,39 @@ class CitaEditarLivewire extends Component
         ]);
 
         $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
+    }
+
+    public function cargarDatosArea($areaId)
+    {
+        $area = Area::find($areaId);
+
+        if (!$area) {
+            $this->gestores = collect();
+            $this->gestor_id = null;
+            return;
+        }
+
+        $this->gestores = $area->usuarios()
+            ->where('activo', true)
+            ->withPivot('is_principal')
+            ->orderByDesc('area_user.is_principal')
+            ->orderBy('users.name')
+            ->get();
+
+        $user = Auth::user();
+
+        if ($this->gestores->contains('id', $user->id)) {
+            $this->gestor_id = $user->id;
+        } else {
+            $principal = $this->gestores
+                ->first(fn($u) => (bool) $u->pivot->is_principal);
+
+            if ($principal) {
+                $this->gestor_id = $principal->id;
+            } else {
+                $this->gestor_id = $this->gestores->first()?->id;
+            }
+        }
     }
 
     #[On('eliminarCitaOn')]
