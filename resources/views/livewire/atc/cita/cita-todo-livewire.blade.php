@@ -7,6 +7,13 @@
         <h2>Citas</h2>
 
         <div class="cabecera_titulo_botones">
+            <a href="{{ route('admin.cita.vista.todo') }}" class="g_boton g_boton_light">
+                Inicio <i class="fa-solid fa-house"></i></a>
+
+            <button wire:click="exportExcel" class="g_boton g_boton_excel">
+                Excel <i class="fa-regular fa-file-excel"></i>
+            </button>
+
             <button wire:click="resetFiltros" class="g_boton g_boton_danger">
                 Refresh Filtros <i class="fa-solid fa-rotate-left"></i>
             </button>
@@ -97,38 +104,47 @@
             </div>
         </div>
 
+        <div>
+            <label>Items</label>
+            <select wire:model.live="perPage">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+
         <div class="tabla_contenido g_margin_bottom_20">
             <div class="contenedor_tabla">
                 <table class="tabla">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Gestor</th>
+                            <th>Nº</th>
                             <th>Cliente</th>
+                            <th>Gestor</th>
                             <th>Sede</th>
+                            <th>Area</th>
                             <th>Motivo</th>
-                            <th>Inicio</th>
-                            <th>Fin</th>
+                            <th>Fecha</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
                     </thead>
 
-                    @if ($citas->count())
+                    @if ($items->count())
                     <tbody>
-                        @foreach ($citas as $item)
+                        @foreach ($items as $index => $item)
                         <tr>
-                            <td>{{ $item->id }}</td>
-                            <td class="g_negrita">{{ $item->gestor->name }}</td>
+                            <td>{{ $items->firstItem() + $index }}</td>
                             <td class="g_negrita g_resumir">{{ $item->nombres }}</td>
+                            <td class="g_negrita">{{ $item->gestor->name }}</td>
                             <td>{{ $item->sede->nombre ?? '-' }}</td>
+                            <td>{{ $item->area->nombre ?? '-' }}</td>
                             <td>
                                 <span style="color: {{ $item->motivo->color }};">
                                     <i class="{{ $item->motivo->icono }}"></i> {{$item->motivo->nombre }}
                                 </span>
                             </td>
                             <td>{{ $item->fecha_inicio->format('d/m/Y H:i') }}</td>
-                            <td>{{ $item->fecha_fin ? $item->fecha_fin->format('d/m/Y H:i') : '-' }}</td>
                             <td>
                                 <span style="color: {{ $item->estado->color }};">
                                     <i class="{{ $item->estado->icono }}"></i> {{$item->estado->nombre }}
@@ -147,15 +163,15 @@
             </div>
         </div>
 
-        @if ($citas->hasPages())
+        @if ($items->hasPages())
         <div class="g_paginacion">
-            {{ $citas->links('vendor.pagination.default-livewire') }}
+            {{ $items->links('vendor.pagination.default-livewire') }}
         </div>
         @endif
 
-        @if ($citas->count() == 0)
+        @if ($items->count() == 0)
         <div class="g_vacio">
-            <p>No hay citas disponibles.</p>
+            <p>No hay items disponibles.</p>
         </div>
         @endif
     </div>

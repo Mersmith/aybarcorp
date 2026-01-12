@@ -5,7 +5,7 @@ namespace App\Livewire\Atc\Cita;
 use App\Models\Cita;
 use App\Models\UnidadNegocio;
 use App\Models\Proyecto;
-
+use App\Models\Area;
 use App\Models\EstadoCita;
 use App\Models\MotivoCita;
 use App\Models\Sede;
@@ -13,6 +13,8 @@ use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Exports\CitasExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 #[Layout('layouts.admin.layout-admin')]
 class CitaTodoLivewire extends Component
@@ -26,6 +28,7 @@ class CitaTodoLivewire extends Component
     public $motivos, $motivo_cita_id = '';
     public $estados, $estado_cita_id = '';
     public $usuarios_admin, $admin = '';
+    public $areas, $area = '';
 
     public $buscar = '';
 
@@ -45,6 +48,7 @@ class CitaTodoLivewire extends Component
         $this->estados = EstadoCita::all();
         $this->motivos = MotivoCita::all();
         $this->usuarios_admin = User::role(['asesor-atc', 'supervisor-atc'])->get();
+        $this->areas = Area::all();
 
         $this->empresas = UnidadNegocio::all();
     }
@@ -69,24 +73,52 @@ class CitaTodoLivewire extends Component
     public function resetFiltros()
     {
         $this->reset([
+            'buscar',
             'unidad_negocio_id',
             'proyecto_id',
             'sede_id',
+            'area',
             'motivo_cita_id',
             'admin',
             'estado_cita_id',
-            'buscar',
             'fecha_inicio',
             'fecha_fin',
+            'perPage',
         ]);
 
         $this->perPage = 20;
         $this->resetPage();
     }
 
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(
+            new CitasExport(
+                $this->buscar,
+                $this->unidad_negocio_id,
+                $this->proyecto_id,
+                $this->sede_id,
+                $this->area,
+                $this->motivo_cita_id,
+                $this->admin,
+                $this->estado_cita_id,
+                $this->fecha_inicio,
+                $this->fecha_fin,
+                $this->perPage,
+                $this->getPage(),
+            ),
+            'citas.xlsx'
+        );
+    }
+
     public function render()
     {
-        $citas = Cita::query()
+        $items = Cita::query()
             ->when($this->buscar, function ($query) {
                 $query->where(function ($q) {
                     $q->where('id', 'like', "%{$this->buscar}%")
@@ -115,6 +147,6 @@ class CitaTodoLivewire extends Component
             ->orderBy('fecha_inicio', 'desc')
             ->paginate($this->perPage);
 
-        return view('livewire.atc.cita.cita-todo-livewire', compact('citas'));
+        return view('livewire.atc.cita.cita-todo-livewire', compact('items'));
     }
 }

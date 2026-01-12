@@ -47,7 +47,6 @@ class DatabaseSeeder extends Seeder
             MotivoCitaSeeder::class, //CITA
             EstadoCitaSeeder::class, //CITAs
             CitaSeeder::class, //CITA
-
         ]);
     }
 }
