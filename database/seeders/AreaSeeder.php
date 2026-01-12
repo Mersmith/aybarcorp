@@ -21,7 +21,7 @@ class AreaSeeder extends Seeder
             ],
             [
                 'nombre' => 'BACK OFFICE',
-                'color'  => '#2ecc71', // Verde: procesos internos, operaciones
+                'color'  => '#34495e', // Verde: procesos internos, operaciones
                 'icono'  => 'fa-solid fa-gear',
                 'activo' => true
             ],

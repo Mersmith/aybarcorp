@@ -4,8 +4,8 @@
 <div class="g_gap_pagina">
 
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Editar cita @if ($ticket)
-            asociado al ticket
+        <h2>CITA @if ($ticket)
+            DE {{ $ticket->subTipoSolicitud->nombre }} - TICKET
             <a href="{{ route('admin.ticket.vista.editar', $ticket->id) }}" target="_blank">#{{ $ticket->id }}</a>
             @endif
         </h2>
@@ -32,14 +32,19 @@
                     <h4 class="g_panel_titulo">General</h4>
 
                     <div class="g_fila">
-                        <div class="g_margin_bottom_10 g_columna_6">
+                        <div class="g_margin_bottom_10 g_columna_4">
                             <label>Sede</label>
                             <input type="text" disabled value="{{ $cita->sede->nombre ?? 'Sin asignar' }}">
                         </div>
 
-                        <div class="g_margin_bottom_10 g_columna_6">
+                        <div class="g_margin_bottom_10 g_columna_4">
                             <label>Motivo</label>
                             <input type="text" disabled value="{{ $cita->motivo->nombre ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label>Area</label>
+                            <input type="text" disabled value="{{ $cita->area->nombre ?? 'Sin asignar' }}">
                         </div>
                     </div>
 
@@ -155,15 +160,22 @@
                     </div>
 
                     <div class="g_fila">
-                        <div class="g_margin_bottom_10 g_columna_6">
+                        <div class="g_margin_bottom_10 g_columna_12">
                             <label>Sub tipo solicitud</label>
                             <input type="text" disabled
                                 value="{{ $ticket->subTipoSolicitud->nombre ?? 'Sin asignar' }}">
                         </div>
+                    </div>
 
+                    <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_6">
                             <label>Canal</label>
                             <input type="text" disabled value="{{ $ticket->canal->nombre ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>DNI</label>
+                            <input type="text" disabled value="{{ $ticket->dni ?? 'Sin asignar' }}">
                         </div>
                     </div>
                     <div class="g_fila">

@@ -43,8 +43,8 @@ class CitaEditarLivewire extends Component
 
         $this->estados = EstadoCita::all();
 
-        if ($this->ticket->area_id) {
-            $this->cargarDatosArea($this->ticket->area_id);
+        if ($this->cita->area_id) {
+            $this->cargarDatosArea($this->cita->area_id);
         }
     }
 

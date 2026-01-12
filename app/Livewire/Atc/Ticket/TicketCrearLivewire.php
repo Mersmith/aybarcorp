@@ -248,9 +248,14 @@ class TicketCrearLivewire extends Component
 
     public function buscarCliente(ConsultaClienteService $service)
     {
-        $this->validate([
-            'dni' => 'required',
-        ]);
+        try {
+            $this->validate([
+                'dni' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $resultado = $service->consultar($this->dni);
 

@@ -10,6 +10,7 @@ use App\Models\TicketHistorial;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class TicketDerivadoLivewire extends Component
@@ -123,7 +124,12 @@ class TicketDerivadoLivewire extends Component
 
     public function derivar()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $old = $this->ticket->toArray();
         $deAreaId = $this->ticket->area_id;

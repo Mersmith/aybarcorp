@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreignId('proyecto_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('area_id')->nullable()->constrained()->nullOnDelete();
 
             $table->foreignId('ticket_padre_id')->nullable()->constrained('tickets')->nullOnDelete();
 
-            $table->foreignId('area_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('tipo_solicitud_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('sub_tipo_solicitud_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('canal_id')->nullable()->constrained()->nullOnDelete();

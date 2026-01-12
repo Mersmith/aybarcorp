@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('proyecto_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete(); //quien es agendado
             $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //quien atiende al cliente //asignado
+            $table->foreignId('area_id')->nullable()->constrained()->nullOnDelete();
 
             $table->foreignId('ticket_id')->nullable()->constrained('tickets')->nullOnDelete();
 

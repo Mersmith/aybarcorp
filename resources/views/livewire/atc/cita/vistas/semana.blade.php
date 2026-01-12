@@ -21,8 +21,8 @@ $inicio = $fechaActual->copy()->startOfWeek();
             </div>
 
             @foreach ($items as $ev)
-            <div class="calendario_lista">
-                {{ $ev['title'] }}
+            <div class="calendario_lista" style="background-color: {{ $ev['color'] }}">
+                {{ $ev['title'] }} ({{ $ev['area'] }})
             </div>
             @endforeach
         </div>

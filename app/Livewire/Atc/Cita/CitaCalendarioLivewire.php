@@ -89,7 +89,10 @@ class CitaCalendarioLivewire extends Component
             ->map(fn($cita) => [
                 'id'        => $cita->id,
                 'title'     => $cita->motivo->nombre,
-                'cliente'   => $cita->cliente?->name,
+                'area'     => $cita->area->nombre,
+                'color'     => $cita->area->color,
+                'title'     => $cita->motivo->nombre,
+                'cliente'   => $cita->nombres,
                 'sede'      => $cita->sede?->nombre,
                 'estado'    => $cita->estado,
                 'date'      => $cita->fecha_inicio->toDateString(),

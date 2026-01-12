@@ -16,9 +16,9 @@ class Ticket extends Model
         'proyecto_id',
         'cliente_id',
 
+        'area_id',
         'ticket_padre_id',
 
-        'area_id',
         'tipo_solicitud_id',
         'sub_tipo_solicitud_id',
         'canal_id',

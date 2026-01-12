@@ -32,7 +32,6 @@
 }
 
 @media (max-width: 768px) {
-
     /*CABECERA TITULO PAGINA*/
     .cabecera_titulo_pagina {
         align-items: flex-start;
@@ -44,5 +43,4 @@
         width: 100%;
         justify-content: flex-start;
     }
-
 }

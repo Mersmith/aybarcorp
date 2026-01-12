@@ -12,6 +12,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Models\Area;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class CitaCrearLivewire extends Component
@@ -20,6 +21,7 @@ class CitaCrearLivewire extends Component
     public ?int $ticketId = null;
 
     public $gestores, $gestor_id = '';
+    public $areas, $area_id = '';
 
     public $sedes, $sede_id = '';
     public $motivos, $motivo_cita_id = '';
@@ -62,8 +64,10 @@ class CitaCrearLivewire extends Component
         $this->sedes = Sede::all();
         $this->motivos = MotivoCita::all();
         $this->estados = EstadoCita::all();
+        $this->areas = Area::all();
 
         if ($this->ticket->area_id) {
+            $this->area_id = $this->ticket->area_id;
             $this->cargarDatosArea($this->ticket->area_id);
         }
     }
@@ -73,10 +77,13 @@ class CitaCrearLivewire extends Component
         $area = Area::find($areaId);
 
         if (!$area) {
+            $this->area_id = null;
             $this->gestores = collect();
             $this->gestor_id = null;
             return;
         }
+
+        $this->area_id = $area->id;
 
         $this->gestores = $area->usuarios()
             ->where('activo', true)
@@ -101,6 +108,11 @@ class CitaCrearLivewire extends Component
         }
     }
 
+    public function updatedAreaId($value)
+    {
+        $this->cargarDatosArea($value);
+    }
+
     public function updatedHoraInicio($value)
     {
         if (!$this->fecha || !$value) {
@@ -117,7 +129,12 @@ class CitaCrearLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $fechaInicio = Carbon::createFromFormat(
             'Y-m-d H:i',
@@ -137,6 +154,7 @@ class CitaCrearLivewire extends Component
             'cliente_id' => $this->ticket->origen === 'slin'
                 ? $this->ticket->cliente_id
                 : null,
+            'area_id' => $this->area_id,
 
             'usuario_crea_id' => auth()->id(),
             'gestor_id' => $this->gestor_id,

@@ -16,6 +16,7 @@ class Cita extends Model
         'proyecto_id',
         'cliente_id',
 
+        'area_id',
         'ticket_id',
 
         'usuario_crea_id',
@@ -65,6 +66,11 @@ class Cita extends Model
     public function cliente()
     {
         return $this->belongsTo(User::class, 'cliente_id');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
     }
 
     public function crea()

@@ -36,6 +36,12 @@ class Area extends Model
         return $this->hasMany(Ticket::class);
     }
 
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
+
     public function principal()
     {
         return $this->belongsToMany(User::class)

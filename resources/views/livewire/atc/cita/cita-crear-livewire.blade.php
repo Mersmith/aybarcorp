@@ -28,7 +28,7 @@
                     <h4 class="g_panel_titulo">General</h4>
 
                     <div class="g_fila">
-                        <div class="g_margin_bottom_10 g_columna_6">
+                        <div class="g_margin_bottom_10 g_columna_4">
                             <label for="sede_id">
                                 Sede <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
@@ -43,7 +43,7 @@
                             @enderror
                         </div>
 
-                        <div class="g_margin_bottom_10 g_columna_6">
+                        <div class="g_margin_bottom_10 g_columna_4">
                             <label for="motivo_cita_id">
                                 Motivo <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
@@ -54,6 +54,21 @@
                                 @endforeach
                             </select>
                             @error('motivo_cita_id')
+                            <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label for="area_id">
+                                Area <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
+                            </label>
+                            <select id="area_id" wire:model.live="area_id" required>
+                                <option value="" selected disabled>Seleccionar un area</option>
+                                @foreach ($areas as $area)
+                                <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                @endforeach
+                            </select>
+                            @error('area_id')
                             <p class="mensaje_error">{{ $message }}</p>
                             @enderror
                         </div>
@@ -152,8 +167,6 @@
                             <label>Proyecto</label>
                             <input type="text" disabled value="{{ $ticket->proyecto->nombre ?? 'Sin asignar' }}">
                         </div>
-
-
                     </div>
 
                     <div class="g_fila">
@@ -169,15 +182,21 @@
                     </div>
 
                     <div class="g_fila">
-                        <div class="g_margin_bottom_10 g_columna_6">
+                        <div class="g_margin_bottom_10 g_columna_12">
                             <label>Sub tipo solicitud</label>
                             <input type="text" disabled
                                 value="{{ $ticket->subTipoSolicitud->nombre ?? 'Sin asignar' }}">
                         </div>
-
+                    </div>
+                    <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_6">
                             <label>Canal</label>
                             <input type="text" disabled value="{{ $ticket->canal->nombre ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label>DNI</label>
+                            <input type="text" disabled value="{{ $ticket->dni ?? 'Sin asignar' }}">
                         </div>
                     </div>
                     <div class="g_fila">

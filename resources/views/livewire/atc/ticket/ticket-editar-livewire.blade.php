@@ -79,19 +79,24 @@
                     </div>
 
                     <div class="g_fila">
-                        <div class="g_margin_bottom_10 g_columna_4">
+                        <div class="g_margin_bottom_10 g_columna_3">
                             <label>Cliente</label>
                             <input type="text" disabled value="{{ $ticket->nombres ?? 'Sin asignar' }}">
                         </div>
 
-                        <div class="g_margin_bottom_10 g_columna_4">
+                        <div class="g_margin_bottom_10 g_columna_3">
+                            <label>DNI</label>
+                            <input type="text" disabled value="{{ $ticket->dni ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_3">
                             <label for="gestor_id">
                                 Gestor <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
                             <input type="text" disabled value="{{ $ticket->gestor->name ?? 'Sin asignar' }}">
                         </div>
 
-                        <div class="g_margin_bottom_10 g_columna_4">
+                        <div class="g_margin_bottom_10 g_columna_3">
                             <label for="estado_ticket_id">
                                 Estado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
@@ -293,7 +298,7 @@
                         <thead>
                             <tr>
                                 <th>Ticket</th>
-                                <th>Área</th>
+                                <th>Sub motivo</th>
                                 <th>Gestor</th>
                                 <th></th>
                             </tr>
@@ -302,7 +307,7 @@
                             @foreach ($ticket->hijos as $hijo)
                             <tr>
                                 <td> #{{ $hijo->id }} </td>
-                                <td> {{ $hijo->area->nombre }} </td>
+                                <td> {{ $hijo->subTipoSolicitud->nombre }} </td>
                                 <td> {{ $hijo->gestor->name }} </td>
                                 <td>
                                     <a href="{{ route('admin.ticket.vista.editar', $hijo->id) }}"
