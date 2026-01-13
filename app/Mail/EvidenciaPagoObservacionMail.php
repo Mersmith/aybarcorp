@@ -2,52 +2,30 @@
 
 namespace App\Mail;
 
+use App\Models\EvidenciaPago;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class EvidenciaPagoObservacionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public EvidenciaPago $evidencia;
+    public string $email;
+    public string $url;
+
+    public function __construct($emailDestino, EvidenciaPago $evidencia)
     {
-        //
+        $this->email = $emailDestino;
+        $this->evidencia = $evidencia;
+        $this->url = route('admin.ticket.vista.editar', $evidencia->id);
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Evidencia Pago Observacion Mail',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this
+            ->subject('Evidencia' . $this->evidencia->id)
+            ->view('emails.evidencia-pago-observacion');
     }
 }

@@ -209,8 +209,10 @@ class EvidenciaPagoEditarLivewire extends Component
 
         $emailDestino = $this->evidencia->userCliente->email;
 
+        //dd($emailDestino);
+
         Mail::to($emailDestino)
-            ->send(new EvidenciaPagoObservacionMail($this->evidencia));
+            ->send(new EvidenciaPagoObservacionMail($emailDestino, $this->evidencia));
 
         $this->dispatch('alertaLivewire', ['title' => 'Enviado', 'text' => 'Se envió correctamente.']);
     }
