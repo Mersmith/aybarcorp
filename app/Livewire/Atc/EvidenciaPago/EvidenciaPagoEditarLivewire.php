@@ -153,7 +153,6 @@ class EvidenciaPagoEditarLivewire extends Component
                 ),
                 'slin_respuesta' => 'Error de comunicación con SLIN',
                 'usuario_valida_id' => auth()->id(),
-                'fecha_validacion' => now(),
             ]);
 
             $this->dispatch('alertaLivewire', [
@@ -174,11 +173,10 @@ class EvidenciaPagoEditarLivewire extends Component
                 ),
                 'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
                 'usuario_valida_id' => auth()->id(),
-                'fecha_validacion' => now(),
             ]);
 
             $this->dispatch('alertaLivewire', [
-                'title' => 'Error',
+                'title' => 'Advertencia',
                 'text' => $body['data']['message'] ?? 'Error en SLIN',
             ]);
 
@@ -191,7 +189,6 @@ class EvidenciaPagoEditarLivewire extends Component
             ),
             'slin_respuesta' => $body['data']['message'],
             'usuario_valida_id' => auth()->id(),
-            'fecha_validacion' => now(),
         ]);
 
         $this->dispatch('alertaLivewire', [

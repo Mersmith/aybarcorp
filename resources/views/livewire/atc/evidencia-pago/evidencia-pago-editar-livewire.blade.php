@@ -291,6 +291,12 @@
                             value="{{ $evidencia->fecha_validacion ? $evidencia->fecha_validacion->format('d/m/Y H:i') : 'Falta validar' }}">
                     </div>
 
+                    <div class="g_margin_bottom_10">
+                        <label>Respuesta Slin</label>
+                        <input type="text" disabled
+                            value="{{ $evidencia->slin_respuesta ? $evidencia->slin_respuesta  : 'Falta enviar a Slin' }}">
+                    </div>
+
                     @can('evidencia-pago-validar')
                     @if (!$evidencia->fecha_validacion)
                     <div class="g_margin_bottom_10">
