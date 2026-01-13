@@ -43,6 +43,7 @@ class EvidenciaPago extends Model
 
         'slin_asbanc',
         'slin_evidencia',
+        'slin_respuesta',
 
         // valida
         'usuario_valida_id',

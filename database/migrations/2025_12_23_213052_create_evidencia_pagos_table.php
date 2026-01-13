@@ -45,6 +45,7 @@ return new class extends Migration
 
             $table->boolean('slin_asbanc')->default(false);
             $table->boolean('slin_evidencia')->default(false);
+            $table->text('slin_respuesta')->nullable();
 
             //SUPERVISOR
             $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();

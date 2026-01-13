@@ -7,13 +7,14 @@ use App\Models\EstadoEvidenciaPago;
 use App\Models\EvidenciaPago;
 use App\Models\Proyecto;
 use App\Models\UnidadNegocio;
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use App\Models\User;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoEditarLivewire extends Component
@@ -46,6 +47,7 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->observacion = $this->evidencia->observacion;
         $this->unidad_negocio_id = $this->evidencia->unidad_negocio_id;
         $this->proyecto_id = $this->evidencia->proyecto_id;
+        $this->gestor_id = $this->evidencia->gestor_id;
 
         $this->estados = EstadoEvidenciaPago::all();
         $this->empresas = UnidadNegocio::all();
@@ -74,7 +76,12 @@ class EvidenciaPagoEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->evidencia->update([
             'unidad_negocio_id' => $this->unidad_negocio_id,
@@ -104,7 +111,7 @@ class EvidenciaPagoEditarLivewire extends Component
         ) {
             $this->dispatch('alertaLivewire', [
                 'title' => 'Error',
-                'text'  => 'No es Asbanc o ya tiene evidencia'
+                'text' => 'No es Asbanc o ya tiene evidencia',
             ]);
             return;
         }
@@ -137,12 +144,21 @@ class EvidenciaPagoEditarLivewire extends Component
         if ($response->failed()) {
             logger()->error('Error SLIN HTTP', [
                 'status' => $response->status(),
-                'body'   => $response->body(),
+                'body' => $response->body(),
+            ]);
+
+            $this->evidencia->update([
+                'estado_evidencia_pago_id' => EstadoEvidenciaPago::id(
+                    EstadoEvidenciaPago::RECHAZADO
+                ),
+                'slin_respuesta' => 'Error de comunicación con SLIN',
+                'usuario_valida_id' => auth()->id(),
+                'fecha_validacion' => now(),
             ]);
 
             $this->dispatch('alertaLivewire', [
                 'title' => 'Error',
-                'text'  => 'Error de comunicación con SLIN'
+                'text' => 'Error de comunicación con SLIN',
             ]);
 
             return;
@@ -152,22 +168,35 @@ class EvidenciaPagoEditarLivewire extends Component
             isset($body['data']['success']) &&
             $body['data']['success'] === false
         ) {
+            $this->evidencia->update([
+                'estado_evidencia_pago_id' => EstadoEvidenciaPago::id(
+                    EstadoEvidenciaPago::OBSERVADO
+                ),
+                'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
+                'usuario_valida_id' => auth()->id(),
+                'fecha_validacion' => now(),
+            ]);
+
             $this->dispatch('alertaLivewire', [
                 'title' => 'Error',
-                'text'  => $body['data']['message'] ?? 'Error en SLIN'
+                'text' => $body['data']['message'] ?? 'Error en SLIN',
             ]);
 
             return;
         }
 
         $this->evidencia->update([
-            'enviado_slin' => true,
-            'fecha_envio_slin' => now(),
+            'estado_evidencia_pago_id' => EstadoEvidenciaPago::id(
+                EstadoEvidenciaPago::APROBADO
+            ),
+            'slin_respuesta' => $body['data']['message'],
+            'usuario_valida_id' => auth()->id(),
+            'fecha_validacion' => now(),
         ]);
 
         $this->dispatch('alertaLivewire', [
             'title' => 'Enviado',
-            'text'  => 'Se envió correctamente.'
+            'text' => 'Se envió correctamente.',
         ]);
     }
 

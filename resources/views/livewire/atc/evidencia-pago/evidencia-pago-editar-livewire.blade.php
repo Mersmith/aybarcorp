@@ -234,7 +234,7 @@
 
         <div class="g_fila">
             <div class="g_columna_8 g_gap_pagina">
-                {{--<div class="g_panel">
+                <div class="g_panel">
                     <h4 class="g_panel_titulo">Enviar observación por correo</h4>
 
                     <div class="g_margin_bottom_10">
@@ -256,7 +256,7 @@
                             </button>
                         </div>
                     </div>
-                </div>--}}
+                </div>
             </div>
 
             <div class="g_columna_4 g_gap_pagina g_columna_invertir">

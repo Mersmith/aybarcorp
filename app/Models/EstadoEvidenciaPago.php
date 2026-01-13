@@ -18,8 +18,18 @@ class EstadoEvidenciaPago extends Model
         'activo',
     ];
 
+    public const PENDIENTE  = 'PENDIENTE';
+    public const OBSERVADO  = 'OBSERVADO';
+    public const APROBADO   = 'APROBADO';
+    public const RECHAZADO  = 'RECHAZADO';
+
     public function evidencias()
     {
         return $this->hasMany(EvidenciaPago::class);
+    }
+
+    public static function id(string $nombre): int
+    {
+        return static::where('nombre', $nombre)->value('id');
     }
 }
