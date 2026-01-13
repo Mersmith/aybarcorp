@@ -26,6 +26,19 @@ class UnidadNegocioSeeder extends Seeder
                 'nombre' => 'VIVANORTE S.A.C',
                 'razon_social' => 'VIVANORTE S.A.C',
             ],
+            //nuevo
+            [
+                'nombre' => 'AYBAR INVESTMENTS S.A.C',
+                'razon_social' => 'AYBAR INVESTMENTS S.A.C',
+            ],
+            [
+                'nombre' => 'GROCIO PRADO',
+                'razon_social' => 'GROCIO PRADO',
+            ],
+            [
+                'nombre' => 'LOTES DEL PERU S.A.C',
+                'razon_social' => 'LOTES DEL PERU S.A.C',
+            ],
         ];
 
         UnidadNegocio::insert($unidades);

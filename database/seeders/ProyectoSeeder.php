@@ -36,7 +36,7 @@ class ProyectoSeeder extends Seeder
             'VILLA ENCANTADA',
             'VILLA PORTON',
             'VILLA PRIVADA COSTA VERDE',
-            'VILLA PRIVADA VIDANTA',
+            'VILLA PRIVADA VIDANTA',            
         ];
 
         foreach ($nombres_1 as $nombre) {
@@ -72,6 +72,25 @@ class ProyectoSeeder extends Seeder
             'PRADERAS DE HUARAL',
             'RINCONADA DEL LAGO',
             'VILLA PALERMO',
+            //nuevo
+            'CAMTABRIA LAGOONS',
+            'EL CABO',
+            'EL POBLADO',
+            'HU ALTOS DEL VALLE',
+            'HU CAMTABRIA LAGOONS',
+            'HU CIUDAD DIAGONAL',
+            'HU EL OLIVAR',
+            'HU FINCA MONTECARLO',
+            'HU GREEN VIEW',
+            'HU GROCIO PRADO',
+            'HU LA CALERA',
+            'HU LA RESERVA DE HUARAL',
+            'HU LACHAY VIEW',
+            'HU LAGOON CENTER',
+            'HU LAGOON VIEW',
+            'HU LAGOON VILLAGE',
+            'VIÑA DEL MAR',
+            'LAGOON VIEW',
         ];
 
         foreach ($nombres_3 as $nombre) {

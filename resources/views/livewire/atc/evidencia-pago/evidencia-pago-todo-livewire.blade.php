@@ -4,7 +4,7 @@
 
 <div class="g_gap_pagina">
     <div class="g_panel cabecera_titulo_pagina">
-        <h2>Evidencia pago web</h2>
+        <h2>Validación de evidencia de pago portal cliente</h2>
 
         <div class="cabecera_titulo_botones">
             <a href="{{ route('admin.evidencia-pago.vista.todo') }}" class="g_boton g_boton_light">
