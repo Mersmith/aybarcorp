@@ -21,15 +21,14 @@
             <h1 class="titulo_formulario">¡HOLA! CREA UNA CUENTA</h1>
             <p class="descripcion_formulario">Sigue los pasos correctamente.</p>
 
+            @if (session('error'))
+                <div class="g_alerta_error">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div>{{ session('error') }}</div>
+                </div>
+            @endif
+
             @if (!$cliente_encontrado)
-
-                @if (session('error'))
-                    <div class="g_alerta_error">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                        <div>{{ session('error') }}</div>
-                    </div>
-                @endif
-
                 <div class="formulario_flex formulario">
                     <div class="g_margin_top_20">
                         <label>Ingresa tu DNI/RUC</label>

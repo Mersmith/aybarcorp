@@ -36,17 +36,17 @@ class ClienteRegistrarLivewire extends Component
         'politica_dos.accepted' => 'Debes aceptar los términos y condiciones.',
     ];
 
-    public function buscarCliente(SlinService $slinService)
+    public function buscarCliente()
     {
         $this->cliente_encontrado = null;
-
+    
         if (!$this->dni) {
             session()->flash('error', 'Debe ingresar un DNI.');
             return;
         }
-
+    
         $existingCliente = Cliente::where('dni', $this->dni)->first();
-
+    
         if ($existingCliente) {
             session()->flash(
                 'error',
@@ -54,23 +54,60 @@ class ClienteRegistrarLivewire extends Component
             );
             return;
         }
-
-        $cliente = Http::get("https://aybarcorp.com/slin/cliente/{$this->dni}")->json();
-
-        if (empty($cliente)) {
-            session()->flash('error', 'Inténtelo más tarde, por favor.');
+    
+        $response = Http::timeout(10)
+            ->acceptJson()
+            ->get("https://aybarcorp.com/slin/cliente/{$this->dni}");
+    
+        if ($response->failed()) {
+            session()->flash(
+                'error',
+                'No se pudo validar el DNI en este momento. Intente más tarde.'
+            );
             return;
         }
-
-        session()->flash('status', 'Ahora si puedes crear tu cuenta');
-
+    
+        $cliente = $response->json();
+    
+        if (
+            isset($cliente['error']) &&
+            $cliente['error'] === true
+        ) {
+            session()->flash(
+                'error',
+                $cliente['message'] ?? 'Error consultando cliente.'
+            );
+            return;
+        }
+    
+        if (!isset($cliente['correo'])) {
+            session()->flash(
+                'error',
+                'La información del cliente es inválida.'
+            );
+            return;
+        }
+    
+        session()->flash('status', 'Ahora sí puedes crear tu cuenta');
+    
         $this->cliente_encontrado = $cliente;
     }
-
+    
     public function registrar()
     {
         if (!$this->cliente_encontrado) {
             session()->flash('error', 'Debe validar su DNI antes de registrarse.');
+            return;
+        }
+
+        if (strcasecmp(
+            trim($this->cliente_encontrado['correo']),
+            trim($this->email)
+        ) !== 0) {
+            session()->flash(
+                'error',
+                'Su correo no coincide con nuestra base de datos.'
+            );
             return;
         }
 
@@ -88,7 +125,8 @@ class ClienteRegistrarLivewire extends Component
         Cliente::create([
             'user_id' => $user->id,
             'nombre' => $user->name,
-            'email' => $this->email,
+            'email' => $user->email,
+            'telefono_principal' => $this->cliente_encontrado['telefono'] ?? null,
             'dni' => $this->dni,
         ]);
 
