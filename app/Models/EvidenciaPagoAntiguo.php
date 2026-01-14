@@ -66,9 +66,9 @@ class EvidenciaPagoAntiguo extends Model
     protected $casts = [
         'fecha_deposito'   => 'date',
         'fecha_registro'   => 'date',
-        'cuota_fija'       => 'decimal:2',
+        //'cuota_fija'       => 'decimal:2',
         'fecha_validacion' => 'date',
-        'monto'            => 'decimal:2',
+        //'monto'            => 'decimal:2',
     ];
 
     public function unidadNegocio()

@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('operacion_numero')->nullable(); //ok
             $table->string('operacion_hora')->nullable(); //ok
             $table->string('union')->nullable(); //ok
-            $table->decimal('cuota_fija', 10, 2)->nullable(); //ok
-            $table->decimal('monto', 10, 2)->nullable(); //ok
+            $table->string('cuota_fija')->nullable(); //ok
+            $table->string('monto')->nullable(); //ok
             $table->string('pago_de')->nullable(); //ok
             $table->string('codigo_cuenta')->nullable(); //ok
             $table->string('nombre_archivo')->nullable(); //ok
