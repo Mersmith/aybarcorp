@@ -47,6 +47,11 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
         $this->resetPage();
     }
 
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
     public function resetFiltros()
     {
         $this->reset([

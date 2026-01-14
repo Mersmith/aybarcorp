@@ -56,12 +56,21 @@
             </div>
         </div>
 
+        <div>
+            <label>Items</label>
+            <select wire:model.live="perPage">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+
         <div class="tabla_contenido g_margin_bottom_20">
             <div class="contenedor_tabla">
                 <table class="tabla">
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>Nº</th>
                             <th>Razón S.</th>
                             <th>Proyecto</th>
                             <th>Etapa</th>
@@ -83,7 +92,7 @@
                     <tbody>
                         @foreach ($evidencias as $index => $item)
                         <tr>
-                            <td> {{ $index + 1 }} </td>
+                            <td>{{ $evidencias->firstItem() + $index }}</td>
                             <td class="g_resumir">{{ $item->unidadNegocio?->nombre }}</td>
                             <td class="g_resumir">{{ $item->proyecto?->nombre }}</td>
                             <td class="g_resumir">{{ $item->etapa }}</td>
@@ -124,7 +133,6 @@
             </div>
         </div>
 
-
         @if ($evidencias->hasPages())
         <div class="g_paginacion">
             {{ $evidencias->links('vendor.pagination.default-livewire') }}
@@ -135,6 +143,11 @@
         <div class="g_vacio">
             <p>No hay evidencias disponibles.</p>
             <i class="fa-regular fa-face-grin-wink"></i>
+        </div>
+        @else
+        <div class="g_paginacion">
+            Mostrando {{ $evidencias->firstItem() ?? 0 }} – {{ $evidencias->lastItem() ?? 0 }}
+            de {{ $evidencias->total() }} registros
         </div>
         @endif
     </div>
