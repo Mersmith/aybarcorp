@@ -14,29 +14,33 @@ return new class extends Migration
         Schema::create('evidencia_pagos', function (Blueprint $table) {
             $table->id();
 
+            // Principales
             $table->foreignId('unidad_negocio_id')->constrained('unidad_negocios')->cascadeOnDelete();
             $table->foreignId('proyecto_id')->constrained('proyectos')->cascadeOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete(); //user_id
             $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //asignado
-
-            $table->string('path');
-            $table->string('url');
-            $table->string('extension');
-
-            $table->string('numero_operacion')->nullable();
-            $table->string('banco')->nullable();
-            $table->decimal('monto', 10, 2)->nullable();
-            $table->date('fecha')->nullable();
-
-            $table->text('observacion')->nullable();
             $table->foreignId('estado_evidencia_pago_id')->default(1)->constrained('estado_evidencia_pagos')->onDelete('restrict');
 
-            $table->string('codigo_cliente')->nullable();
+            // Identidad del lote
             $table->string('razon_social')->nullable();
             $table->string('nombre_proyecto')->nullable();
             $table->string('etapa')->nullable();
             $table->string('manzana')->nullable();
             $table->string('lote')->nullable();
+
+            // Archivo
+            $table->string('path');
+            $table->string('url');
+            $table->string('extension');
+
+            // OpenAI
+            $table->string('numero_operacion')->nullable();
+            $table->string('banco')->nullable();
+            $table->decimal('monto', 10, 2)->nullable();
+            $table->date('fecha')->nullable();
+
+            // Slin
+            $table->string('codigo_cliente')->nullable();
             $table->string('codigo_cuota')->nullable();
             $table->string('numero_cuota')->nullable();
             $table->string('transaccion_id')->nullable(); //idcobranzas
@@ -45,10 +49,11 @@ return new class extends Migration
             $table->string('slin_numero_operacion')->nullable();
             $table->string('comprobante')->nullable();
             $table->string('lote_completo')->nullable();
-
             $table->boolean('slin_asbanc')->default(false);
             $table->boolean('slin_evidencia')->default(false);
+
             $table->text('slin_respuesta')->nullable();
+            $table->text('observacion')->nullable();
 
             //SUPERVISOR
             $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
