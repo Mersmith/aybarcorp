@@ -41,6 +41,9 @@ return new class extends Migration
             $table->string('numero_cuota')->nullable();
             $table->string('transaccion_id')->nullable(); //idcobranzas
             $table->decimal('slin_monto', 10, 2)->nullable();
+            $table->decimal('slin_penalidad', 10, 2)->nullable();
+            $table->string('slin_numero_operacion')->nullable();
+            $table->string('comprobante')->nullable();
             $table->string('lote_completo')->nullable();
 
             $table->boolean('slin_asbanc')->default(false);

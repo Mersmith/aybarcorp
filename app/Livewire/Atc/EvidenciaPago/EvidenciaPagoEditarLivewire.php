@@ -47,7 +47,7 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->observacion = $this->evidencia->observacion;
         $this->unidad_negocio_id = $this->evidencia->unidad_negocio_id;
         $this->proyecto_id = $this->evidencia->proyecto_id;
-        $this->gestor_id = $this->evidencia->gestor_id;
+        $this->gestor_id = $this->evidencia->gestor_id ?? '';
 
         $this->estados = EstadoEvidenciaPago::all();
         $this->empresas = UnidadNegocio::all();
@@ -56,6 +56,12 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->gestores = User::role('asesor-backoffice')
             ->where('rol', 'admin')
             ->get();
+
+        if ($this->evidencia->monto == $this->evidencia->slin_monto) {
+            session()->flash('success', 'Coincide el monto');
+        } else {
+            session()->flash('info', 'No concide el monto');
+        }
     }
 
     public function updatedUnidadNegocioId($value)
@@ -91,17 +97,6 @@ class EvidenciaPagoEditarLivewire extends Component
         ]);
 
         $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);
-    }
-
-    public function validar()
-    {
-        $this->authorize('evidencia-pago-validar');
-        $this->evidencia->update([
-            'usuario_valida_id' => auth()->id(),
-            'fecha_validacion' => now(),
-        ]);
-        $this->evidencia->refresh();
-        $this->dispatch('alertaLivewire', ['title' => 'Validado', 'text' => 'Se validó correctamente.']);
     }
 
     public function enviarSlin()
@@ -189,7 +184,11 @@ class EvidenciaPagoEditarLivewire extends Component
             ),
             'slin_respuesta' => $body['data']['message'],
             'usuario_valida_id' => auth()->id(),
+            'slin_evidencia' => true,
+            'fecha_validacion' => now(),
         ]);
+
+        $this->evidencia->refresh();
 
         $this->dispatch('alertaLivewire', [
             'title' => 'Enviado',
@@ -199,17 +198,28 @@ class EvidenciaPagoEditarLivewire extends Component
 
     public function enviarCorreo()
     {
-        $this->validate([
-            'observacion' => 'required',
-        ]);
+        $emailDestino = $this->evidencia->userCliente->email ?? null;
 
-        $this->evidencia->update([
-            'observacion' => $this->observacion,
-        ]);
+        try {
+            $this->validate([
+                'observacion' => 'required',
+                'gestor_id' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
-        $emailDestino = $this->evidencia->userCliente->email;
+        if (!$emailDestino || !filter_var($emailDestino, FILTER_VALIDATE_EMAIL)) {
+            $this->addError('email', 'El cliente no tiene un correo válido registrado.');
 
-        //dd($emailDestino);
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Advertencia',
+                'text' => 'El cliente no tiene un correo válido.',
+            ]);
+
+            return;
+        }
 
         Mail::to($emailDestino)
             ->send(new EvidenciaPagoObservacionMail($emailDestino, $this->evidencia));

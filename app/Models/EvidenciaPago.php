@@ -37,6 +37,9 @@ class EvidenciaPago extends Model
         'numero_cuota',
         'transaccion_id',
         'slin_monto',
+        'slin_penalidad',
+        'slin_numero_operacion',
+        'comprobante',
         'lote_completo',
 
         'gestor_id',
