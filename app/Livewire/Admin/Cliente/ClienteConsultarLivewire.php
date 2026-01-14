@@ -74,6 +74,7 @@ class ClienteConsultarLivewire extends Component
         }
 
         $this->cliente_encontrado = $cliente;
+        $this->email = $this->cliente_encontrado['correo'];
         $this->razones_sociales = $cliente['empresas'] ?? [];
 
         $this->existingCliente = Cliente::where('dni', $this->dni)->first();
@@ -101,7 +102,7 @@ class ClienteConsultarLivewire extends Component
         $tempPassword = Str::random(8);
 
         $user = User::create([
-            'name' => $this->cliente_encontrado['apellidos_nombres'],
+            'name' => $this->cliente_encontrado['apellidos_nombres'] ?? $this->email,
             'email' => $this->email,
             'password' => Hash::make($tempPassword),
             'must_change_password' => true,
@@ -114,7 +115,8 @@ class ClienteConsultarLivewire extends Component
         $cliente_nuevo = Cliente::create([
             'user_id' => $user->id,
             'nombre' => $user->name,
-            'email' => $this->email,
+            'email' => $user->email,
+            'telefono_principal' => $this->cliente_encontrado['telefono'] ?? null,
             'dni' => $this->dni,
         ]);
 

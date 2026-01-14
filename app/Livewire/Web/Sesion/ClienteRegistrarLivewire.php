@@ -39,14 +39,14 @@ class ClienteRegistrarLivewire extends Component
     public function buscarCliente()
     {
         $this->cliente_encontrado = null;
-    
+
         if (!$this->dni) {
             session()->flash('error', 'Debe ingresar un DNI.');
             return;
         }
-    
+
         $existingCliente = Cliente::where('dni', $this->dni)->first();
-    
+
         if ($existingCliente) {
             session()->flash(
                 'error',
@@ -54,11 +54,11 @@ class ClienteRegistrarLivewire extends Component
             );
             return;
         }
-    
+
         $response = Http::timeout(10)
             ->acceptJson()
             ->get("https://aybarcorp.com/slin/cliente/{$this->dni}");
-    
+
         if ($response->failed()) {
             session()->flash(
                 'error',
@@ -66,9 +66,9 @@ class ClienteRegistrarLivewire extends Component
             );
             return;
         }
-    
+
         $cliente = $response->json();
-    
+
         if (
             isset($cliente['error']) &&
             $cliente['error'] === true
@@ -79,7 +79,7 @@ class ClienteRegistrarLivewire extends Component
             );
             return;
         }
-    
+
         if (!isset($cliente['correo'])) {
             session()->flash(
                 'error',
@@ -87,12 +87,12 @@ class ClienteRegistrarLivewire extends Component
             );
             return;
         }
-    
+
         session()->flash('status', 'Ahora sí puedes crear tu cuenta');
-    
+
         $this->cliente_encontrado = $cliente;
     }
-    
+
     public function registrar()
     {
         if (!$this->cliente_encontrado) {
@@ -120,6 +120,7 @@ class ClienteRegistrarLivewire extends Component
             'politica_uno' => $this->politica_uno,
             'politica_dos' => $this->politica_dos,
             'rol' => 'cliente',
+            'activo' => true,
         ]);
 
         Cliente::create([
