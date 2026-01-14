@@ -142,14 +142,16 @@ class EvidenciaPagoEditarLivewire extends Component
                 'body' => $response->body(),
             ]);
 
+            $estadoRechazadoId = EstadoEvidenciaPago::id(
+                EstadoEvidenciaPago::RECHAZADO
+            );
+
             $this->evidencia->update([
-                'estado_evidencia_pago_id' => EstadoEvidenciaPago::id(
-                    EstadoEvidenciaPago::RECHAZADO
-                ),
+                'estado_evidencia_pago_id' => $estadoRechazadoId,
                 'slin_respuesta' => 'Error de comunicación con SLIN',
                 'usuario_valida_id' => auth()->id(),
             ]);
-
+            $this->estado_id = $estadoRechazadoId;
             $this->dispatch('alertaLivewire', [
                 'title' => 'Error',
                 'text' => 'Error de comunicación con SLIN',
@@ -162,14 +164,16 @@ class EvidenciaPagoEditarLivewire extends Component
             isset($body['data']['success']) &&
             $body['data']['success'] === false
         ) {
+            $estadoObservadoId = EstadoEvidenciaPago::id(
+                EstadoEvidenciaPago::OBSERVADO
+            );
+
             $this->evidencia->update([
-                'estado_evidencia_pago_id' => EstadoEvidenciaPago::id(
-                    EstadoEvidenciaPago::OBSERVADO
-                ),
+                'estado_evidencia_pago_id' => $estadoObservadoId,
                 'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
                 'usuario_valida_id' => auth()->id(),
             ]);
-
+            $this->estado_id = $estadoObservadoId;
             $this->dispatch('alertaLivewire', [
                 'title' => 'Advertencia',
                 'text' => $body['data']['message'] ?? 'Error en SLIN',
@@ -178,18 +182,19 @@ class EvidenciaPagoEditarLivewire extends Component
             return;
         }
 
+        $estadoAprobadoId = EstadoEvidenciaPago::id(
+            EstadoEvidenciaPago::APROBADO
+        );
+
         $this->evidencia->update([
-            'estado_evidencia_pago_id' => EstadoEvidenciaPago::id(
-                EstadoEvidenciaPago::APROBADO
-            ),
+            'estado_evidencia_pago_id' => $estadoAprobadoId,
             'slin_respuesta' => $body['data']['message'],
             'usuario_valida_id' => auth()->id(),
             'slin_evidencia' => true,
             'fecha_validacion' => now(),
         ]);
-
+        $this->estado_id = $estadoAprobadoId;
         $this->evidencia->refresh();
-
         $this->dispatch('alertaLivewire', [
             'title' => 'Enviado',
             'text' => 'Se envió correctamente.',

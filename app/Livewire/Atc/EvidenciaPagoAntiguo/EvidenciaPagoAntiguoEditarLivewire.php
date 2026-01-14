@@ -10,6 +10,7 @@ use App\Models\EvidenciaPagoAntiguo;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Validation\ValidationException;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoAntiguoEditarLivewire extends Component
@@ -23,7 +24,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
     public $empresas, $unidad_negocio_id = '';
     public $proyectos = [], $proyecto_id = '';
 
-    public $usuarios = [], $gestor_id = "";
+    public $gestores = [], $gestor_id = "";
 
     protected function rules()
     {
@@ -32,6 +33,7 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
             'unidad_negocio_id' => 'required',
             'proyecto_id' => 'required',
             'gestor_id' => 'required',
+            'observacion' => 'required',
         ];
     }
 
@@ -42,13 +44,15 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
         $this->observacion = $this->evidencia->observacion;
         $this->unidad_negocio_id = $this->evidencia->unidad_negocio_id;
         $this->proyecto_id = $this->evidencia->proyecto_id;
+        $this->gestor_id = $this->evidencia->gestor_id ?? '';
 
         $this->estados = EstadoEvidenciaPago::all();
         $this->empresas = UnidadNegocio::all();
         $this->loadProyectos();
 
-        $this->usuarios = User::role('asesor-atc')->get();
-        $this->gestor_id = $this->evidencia->gestor_id;
+        $this->gestores = User::role('asesor-backoffice')
+            ->where('rol', 'admin')
+            ->get();
     }
 
     public function updatedUnidadNegocioId($value)
@@ -69,7 +73,12 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
 
     public function store()
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            throw $e;
+        }
 
         $this->evidencia->update([
             'estado_evidencia_pago_id' => $this->estado_id,
@@ -85,13 +94,27 @@ class EvidenciaPagoAntiguoEditarLivewire extends Component
     public function validar()
     {
         $this->authorize('evidencia-pago-validar');
+
+        $estadoAprobadoId = EstadoEvidenciaPago::id(
+            EstadoEvidenciaPago::APROBADO
+        );
+
         $this->evidencia->update([
-            'usuario_valida_id' => auth()->id(),
-            'fecha_validacion' => now(),
+            'estado_evidencia_pago_id' => $estadoAprobadoId,
+            'usuario_valida_id'        => auth()->id(),
+            'fecha_validacion'         => now(),
         ]);
+
+        $this->estado_id = $estadoAprobadoId;
+
         $this->evidencia->refresh();
-        $this->dispatch('alertaLivewire', ['title' => 'Validado', 'text' => 'Se validó correctamente.']);
+
+        $this->dispatch('alertaLivewire', [
+            'title' => 'Validado',
+            'text'  => 'Se validó correctamente.',
+        ]);
     }
+
 
     public function render()
     {
