@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             ProyectoSeeder::class, //EVIDENCIA
 
             EstadoEvidenciaPagoSeeder::class, //EVIDENCIA
-            EvidenciaPagoSeeder::class, //EVIDENCIA
+            //EvidenciaPagoSeeder::class, //EVIDENCIA
 
             /*EstadoTicketSeeder::class, //TICKET
             PrioridadTicketSeeder::class, //TICKET

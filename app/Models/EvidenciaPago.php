@@ -12,10 +12,8 @@ class EvidenciaPago extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'unidad_negocio_id',
-        'proyecto_id',
-        'cliente_id',
-
+        'solicitud_evidencia_pago_id',
+        'estado_evidencia_pago_id',
         'path',
         'url',
         'extension',
@@ -23,113 +21,22 @@ class EvidenciaPago extends Model
         'banco',
         'monto',
         'fecha',
-        'observacion',
-        'estado_evidencia_pago_id',
-        'usuario_valida_id',
-        'fecha_validacion',
-        'codigo_cliente',
-        'razon_social',
-        'nombre_proyecto',
-        'etapa',
-        'manzana',
-        'lote',
-        'codigo_cuota',
-        'numero_cuota',
-        'transaccion_id',
-        'slin_monto',
-        'slin_penalidad',
-        'slin_numero_operacion',
-        'comprobante',
-        'lote_completo',
-
-        'gestor_id',
-
-        'slin_asbanc',
-        'slin_evidencia',
+        'es_reenvio',
         'slin_respuesta',
-
-        // valida
-        'usuario_valida_id',
-        'fecha_validacion',
-
-        // auditoría
-        'created_by',
-        'updated_by',
-        'deleted_by',
+        'observacion',
     ];
 
     protected $casts = [
-        'fecha_validacion' => 'datetime',
         'monto' => 'decimal:2',
-        'slin_monto' => 'decimal:2',
     ];
 
-    public function unidadNegocio()
+    public function solicitud()
     {
-        return $this->belongsTo(UnidadNegocio::class);
-    }
-
-    public function proyecto()
-    {
-        return $this->belongsTo(Proyecto::class);
-    }
-
-    public function userCliente()
-    {
-        return $this->belongsTo(User::class, 'cliente_id');
+        return $this->belongsTo(SolicitudEvidenciaPago::class, 'solicitud_evidencia_pago_id');
     }
 
     public function estado()
     {
         return $this->belongsTo(EstadoEvidenciaPago::class, 'estado_evidencia_pago_id');
-    }
-
-    public function gestor()
-    {
-        return $this->belongsTo(User::class, 'gestor_id');
-    }
-
-    // valida
-    public function usuarioValida()
-    {
-        return $this->belongsTo(User::class, 'usuario_valida_id');
-    }
-
-    // auditoria
-    public function creador()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function editor()
-    {
-        return $this->belongsTo(User::class, 'updated_by');
-    }
-
-    public function eliminador()
-    {
-        return $this->belongsTo(User::class, 'deleted_by');
-    }
-
-    protected static function booted()
-    {
-        static::creating(function ($ticket) {
-            if (auth()->check()) {
-                $ticket->created_by = auth()->id();
-            }
-        });
-
-        static::updating(function ($ticket) {
-            if (auth()->check()) {
-                $ticket->updated_by = auth()->id();
-            }
-        });
-
-        static::deleting(function ($ticket) {
-            if (auth()->check()) {
-                $ticket->deleted_by = auth()->id();
-                $ticket->saveQuietly();
-            }
-        });
     }
 }
