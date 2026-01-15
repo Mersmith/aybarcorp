@@ -1,16 +1,39 @@
 <?php
 
-namespace App\Events;
+namespace App\Providers;
 
-use App\Models\Ticket;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Auth\Events\Login;
+use App\Listeners\ClienteLoginListener;
+use Illuminate\Auth\Events\PasswordReset;
+use App\Listeners\PasswordResetListener;
+use App\Events\TicketCreado;
+use App\Listeners\EnviarCorreoTicketCreado;
+use App\Events\UsuarioRegistrado;
+use App\Listeners\EnviarCorreoVerificacionUsuario;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
-class TicketCreado
+class EventServiceProvider extends ServiceProvider
 {
-    use Dispatchable, SerializesModels;
+    protected $listen = [
+        Login::class => [
+            ClienteLoginListener::class,
+        ],
 
-    public function __construct(public Ticket $ticket)
+        PasswordReset::class => [
+            PasswordResetListener::class,
+        ],
+
+        TicketCreado::class => [
+            EnviarCorreoTicketCreado::class,
+        ],
+
+        UsuarioRegistrado::class => [
+            EnviarCorreoVerificacionUsuario::class,
+        ],
+    ];
+
+    public function boot(): void
     {
+        //
     }
 }

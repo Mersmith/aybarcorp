@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Web\Sesion;
 
+use App\Events\UsuarioRegistrado;
 use App\Models\Cliente;
 use App\Models\User;
-use App\Services\SlinService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
@@ -100,39 +101,40 @@ class ClienteRegistrarLivewire extends Component
             return;
         }
 
-        if (strcasecmp(
+        /*if (strcasecmp(
             trim($this->cliente_encontrado['correo']),
             trim($this->email)
         ) !== 0) {
-            session()->flash(
-                'error',
-                'Su correo no coincide con nuestra base de datos.'
-            );
+            session()->flash('error', 'Su correo no coincide con nuestra base de datos.');
             return;
-        }
+        }*/
 
         $this->validate();
 
-        $user = User::create([
-            'name' => $this->cliente_encontrado['apellidos_nombres'] ?? $this->email,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
-            'politica_uno' => $this->politica_uno,
-            'politica_dos' => $this->politica_dos,
-            'rol' => 'cliente',
-            'activo' => true,
-        ]);
+        DB::transaction(function () use (&$user) {
 
-        Cliente::create([
-            'user_id' => $user->id,
-            'nombre' => $user->name,
-            'email' => $user->email,
-            'telefono_principal' => $this->cliente_encontrado['telefono'] ?? null,
-            'dni' => $this->dni,
-        ]);
+            $user = User::create([
+                'name' => $this->cliente_encontrado['apellidos_nombres'] ?? $this->email,
+                'email' => $this->email,
+                'password' => Hash::make($this->password),
+                'politica_uno' => $this->politica_uno,
+                'politica_dos' => $this->politica_dos,
+                'rol' => 'cliente',
+                'activo' => true,
+            ]);
+
+            Cliente::create([
+                'user_id' => $user->id,
+                'nombre' => $user->name,
+                'email' => $user->email,
+                'telefono_principal' => $this->cliente_encontrado['telefono'] ?? null,
+                'dni' => $this->dni,
+            ]);
+        });
 
         Auth::login($user);
-        $user->sendEmailVerificationNotification();
+
+        event(new UsuarioRegistrado($user));
 
         return redirect()->route('verification.notice');
     }
