@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Cliente\CronogramaEstadoCuenta;
 
+use App\Models\EstadoEvidenciaPago;
 use App\Models\SolicitudEvidenciaPago;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -39,22 +40,31 @@ class CronogramaEstadoCuentaVerLivewire extends Component
     #[On('actualizarCronograma')]
     public function loadComprobantesYActualizarCronograma()
     {
+        $rechazadoId = EstadoEvidenciaPago::id(EstadoEvidenciaPago::RECHAZADO);
+
         $this->comprobantes = SolicitudEvidenciaPago::query()
-            ->where('razon_social', $this->lote['razon_social'])
-            ->where('nombre_proyecto', $this->lote['descripcion'])
-            ->where('etapa', $this->lote['id_etapa'])
-            ->where('manzana', $this->lote['id_manzana'])
-            ->where('lote', $this->lote['id_lote'])
-            ->withCount('evidencias')
+            ->whereIn('codigo_cuota', collect($this->detalle)->pluck('idCuota'))
+            ->withCount([
+                'evidencias',
+                'evidencias as evidencias_rechazadas_count' => function ($q) use ($rechazadoId) {
+                    $q->where('estado_evidencia_pago_id', $rechazadoId);
+                },
+            ])
             ->get()
             ->keyBy('codigo_cuota');
 
         $this->detalle = collect($this->detalle)->map(function ($cuota) {
             $solicitud = $this->comprobantes->get($cuota['idCuota']);
 
-            $cuota['comprobantes_count'] = $solicitud
-            ? $solicitud->evidencias_count
-            : 0;
+            $total = $solicitud?->evidencias_count ?? 0;
+            $rechazadas = $solicitud?->evidencias_rechazadas_count ?? 0;
+
+            $validas = $total - $rechazadas;
+
+            $cuota['comprobantes_count'] = $total;
+            $cuota['comprobantes_rechazados_count'] = $rechazadas;
+
+            $cuota['puede_subir'] = $validas < 2;
 
             return $cuota;
         });

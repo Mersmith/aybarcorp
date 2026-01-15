@@ -98,22 +98,33 @@
                                             Comprobado
                                         </span>
                                     @else
-                                        @if ($item['comprobantes_count'] == 2)
+                                        @if ($item['comprobantes_rechazados_count'] > 0)
+                                            <x-tooltip
+                                                text="Tienes {{ $item['comprobantes_rechazados_count'] }} evidencia(s) rechazada(s)" />
+                                        @endif
+
+                                        @if ($item['puede_subir'])
+                                            @if ($item['comprobantes_count'] == 0)
+                                                <button wire:click="seleccionarCuota({{ json_encode($item) }})"
+                                                    class="g_boton g_boton_empresa_secundario">
+                                                    <i class="fas fa-upload"></i>
+                                                    Subir evidencia
+                                                    @if ($item['comprobantes_count'] > 0)
+                                                        ({{ $item['comprobantes_count'] }})
+                                                    @endif
+                                                </button>
+                                            @else
+                                                <button wire:click="seleccionarCuota({{ json_encode($item) }})"
+                                                    class="g_boton g_boton_darkt">
+                                                    <i class="fas fa-upload"></i> En validación
+                                                    ({{ $item['comprobantes_count'] }})
+                                                </button>
+                                            @endif
+                                        @else
                                             <span class="g_boton g_boton_darkt">
                                                 <i class="fa-solid fa-image"></i>
-                                                En validación({{ $item['comprobantes_count'] }})
+                                                En validación ({{ $item['comprobantes_count'] }})
                                             </span>
-                                        @elseif($item['comprobantes_count'] == 1)
-                                            <button wire:click="seleccionarCuota({{ json_encode($item) }})"
-                                                class="g_boton g_boton_darkt">
-                                                <i class="fas fa-upload"></i> En validación
-                                                ({{ $item['comprobantes_count'] }})
-                                            </button>
-                                        @else
-                                            <button wire:click="seleccionarCuota({{ json_encode($item) }})"
-                                                class="g_boton g_boton_empresa_secundario">
-                                                <i class="fas fa-upload"></i> Subir evidencia
-                                            </button>
                                         @endif
                                     @endif
                                 </td>
