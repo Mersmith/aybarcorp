@@ -12,5 +12,6 @@ class TicketCreado
 
     public function __construct(public Ticket $ticket)
     {
+        // vacío es correcto
     }
 }

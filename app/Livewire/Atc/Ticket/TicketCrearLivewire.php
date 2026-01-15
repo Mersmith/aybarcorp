@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Atc\Ticket;
 
-use App\Mail\TicketCreadoMail;
+use App\Events\TicketCreado;
 use App\Models\Area;
 use App\Models\Canal;
 use App\Models\Cliente;
@@ -16,7 +16,6 @@ use App\Services\ConsultaClienteService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -190,57 +189,48 @@ class TicketCrearLivewire extends Component
         try {
             $this->validate();
         } catch (ValidationException $e) {
-            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Advertencia',
+                'text' => 'Verifique los errores de los campos resaltados.',
+            ]);
             throw $e;
         }
 
         $estadoAbiertoId = EstadoTicket::orderBy('id')->value('id');
 
-        $ticket = Ticket::create([
-            'ticket_padre_id' => $this->ticketPadreId,
+        DB::transaction(function () use ($estadoAbiertoId, &$ticket) {
+            $ticket = Ticket::create([
+                'ticket_padre_id' => $this->ticketPadreId,
+                'unidad_negocio_id' => $this->unidad_negocio_id,
+                'proyecto_id' => $this->proyecto_id,
+                'cliente_id' => $this->origen === 'slin' ? $this->cliente_id : null,
+                'area_id' => $this->area_id,
+                'tipo_solicitud_id' => $this->tipo_solicitud_id,
+                'sub_tipo_solicitud_id' => $this->sub_tipo_solicitud_id,
+                'canal_id' => $this->canal_id,
+                'estado_ticket_id' => $estadoAbiertoId,
+                'gestor_id' => $this->gestor_id,
+                'asunto_inicial' => $this->asunto_inicial,
+                'descripcion_inicial' => $this->descripcion_inicial,
+                'lotes' => $this->lotes_agregados,
+                'dni' => $this->ticketPadre ? $this->ticketPadre->dni : $this->cliente->dni,
+                'nombres' => $this->ticketPadre ? $this->ticketPadre->nombres : $this->cliente->nombre,
+                'origen' => $this->origen,
+            ]);
 
-            'unidad_negocio_id' => $this->unidad_negocio_id,
-            'proyecto_id' => $this->proyecto_id,
-            'cliente_id' => $this->origen === 'slin' ? $this->cliente_id : null,
+            TicketHistorial::create([
+                'ticket_id' => $ticket->id,
+                'user_id' => auth()->id(),
+                'accion' => 'Creación',
+                'detalle' => 'Ticket creado con estado: Abierto',
+            ]);
+        });
 
-            'area_id' => $this->area_id,
-            'tipo_solicitud_id' => $this->tipo_solicitud_id,
-            'sub_tipo_solicitud_id' => $this->sub_tipo_solicitud_id,
-            'canal_id' => $this->canal_id,
-            'estado_ticket_id' => $estadoAbiertoId,
-            'gestor_id' => $this->gestor_id,
-            'asunto_inicial' => $this->asunto_inicial,
-            'descripcion_inicial' => $this->descripcion_inicial,
-            'lotes' => $this->lotes_agregados,
-
-            'dni' => $this->ticketPadre ? $this->ticketPadre->dni : $this->cliente->dni,
-            'nombres' => $this->ticketPadre ? $this->ticketPadre->nombres : $this->cliente->nombre,
-            'origen' => $this->origen,
-        ]);
-
-        TicketHistorial::create([
-            'ticket_id' => $ticket->id,
-            'user_id' => auth()->id(),
-            'accion' => 'Creación',
-            'detalle' => 'Ticket creado con estado: Abierto',
-        ]);
-
-        $correoEnviado = false;
-
-        if ($this->area_seleccionada?->email_buzon) {
-            Mail::to($this->area_seleccionada->email_buzon)
-                ->send(new TicketCreadoMail($ticket));
-
-            $correoEnviado = true;
-        }
-
-        $mensaje = $correoEnviado
-            ? 'Ticket creado y correo enviado correctamente.'
-            : 'Ticket creado correctamente.';
+        event(new TicketCreado($ticket));
 
         $this->dispatch('alertaLivewire', [
             'title' => 'Creado',
-            'text' => $mensaje,
+            'text' => 'Ticket creado correctamente.',
         ]);
 
         return redirect()->route('admin.ticket.vista.todo');
