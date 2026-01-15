@@ -153,21 +153,21 @@ class EvidenciaPagoEditarLivewire extends Component
             isset($body['data']['success']) &&
             $body['data']['success'] === false
         ) {
-            $estadoObservadoId = EstadoEvidenciaPago::id(
+            $estadoRechazadoId = EstadoEvidenciaPago::id(
                 EstadoEvidenciaPago::RECHAZADO
             );
 
             $this->solicitud->update([
-                'estado_evidencia_pago_id' => $estadoObservadoId,
+                'estado_evidencia_pago_id' => $estadoRechazadoId,
                 'usuario_valida_id' => auth()->id(),
             ]);
 
             $this->evidenciaSeleccionada->update([
-                'estado_evidencia_pago_id' => $estadoObservadoId,
+                'estado_evidencia_pago_id' => $estadoRechazadoId,
                 'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
             ]);
 
-            $this->estado_id = $estadoObservadoId;
+            $this->estado_id = $estadoRechazadoId;
             $this->dispatch('alertaLivewire', [
                 'title' => 'Advertencia',
                 'text' => $body['data']['message'] ?? 'Error en SLIN',
@@ -188,7 +188,7 @@ class EvidenciaPagoEditarLivewire extends Component
         ]);
 
         $this->evidenciaSeleccionada->update([
-            'estado_evidencia_pago_id' => $estadoObservadoId,
+            'estado_evidencia_pago_id' => $estadoAprobadoId,
             'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
         ]);
 
