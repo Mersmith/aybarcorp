@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Cliente\CronogramaEstadoCuenta;
 
-use App\Models\EvidenciaPago;
+use App\Models\SolicitudEvidenciaPago;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -39,16 +39,23 @@ class CronogramaEstadoCuentaVerLivewire extends Component
     #[On('actualizarCronograma')]
     public function loadComprobantesYActualizarCronograma()
     {
-        $this->comprobantes = EvidenciaPago::where('razon_social', $this->lote['razon_social'])
+        $this->comprobantes = SolicitudEvidenciaPago::query()
+            ->where('razon_social', $this->lote['razon_social'])
             ->where('nombre_proyecto', $this->lote['descripcion'])
+            ->where('etapa', $this->lote['id_etapa'])
             ->where('manzana', $this->lote['id_manzana'])
             ->where('lote', $this->lote['id_lote'])
-            ->get();
+            ->withCount('evidencias')
+            ->get()
+            ->keyBy('codigo_cuota');
 
         $this->detalle = collect($this->detalle)->map(function ($cuota) {
-            $cuota['comprobantes_count'] = $this->comprobantes
-                ->where('codigo_cuota', $cuota['idCuota'])
-                ->count();
+            $solicitud = $this->comprobantes->get($cuota['idCuota']);
+
+            $cuota['comprobantes_count'] = $solicitud
+            ? $solicitud->evidencias_count
+            : 0;
+
             return $cuota;
         });
     }

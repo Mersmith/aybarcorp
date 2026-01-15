@@ -43,6 +43,7 @@ class SolicitudEvidenciaPago extends Model
     protected $casts = [
         'fecha_validacion' => 'datetime',
         'slin_monto' => 'decimal:2',
+        'slin_penalidad' => 'decimal:2',
     ];
 
     public function unidadNegocio()
@@ -62,7 +63,7 @@ class SolicitudEvidenciaPago extends Model
 
     public function estado()
     {
-        return $this->belongsTo(EstadoEvidenciaPago::class);
+        return $this->belongsTo(EstadoEvidenciaPago::class, 'estado_evidencia_pago_id');
     }
 
     public function gestor()

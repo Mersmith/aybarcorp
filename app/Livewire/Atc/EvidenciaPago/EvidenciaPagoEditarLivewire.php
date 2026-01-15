@@ -4,8 +4,8 @@ namespace App\Livewire\Atc\EvidenciaPago;
 
 use App\Mail\EvidenciaPagoObservacionMail;
 use App\Models\EstadoEvidenciaPago;
-use App\Models\EvidenciaPago;
 use App\Models\Proyecto;
+use App\Models\SolicitudEvidenciaPago;
 use App\Models\UnidadNegocio;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -20,7 +20,7 @@ use Livewire\Component;
 class EvidenciaPagoEditarLivewire extends Component
 {
     use AuthorizesRequests;
-    public $evidencia;
+    public $solicitud;
     public $estados, $estado_id = '';
 
     public $observacion;
@@ -29,6 +29,8 @@ class EvidenciaPagoEditarLivewire extends Component
     public $proyectos = [], $proyecto_id = '';
 
     public $gestores, $gestor_id = '';
+
+    public $evidenciaSeleccionadaId = null;
 
     protected function rules()
     {
@@ -42,12 +44,12 @@ class EvidenciaPagoEditarLivewire extends Component
 
     public function mount($id)
     {
-        $this->evidencia = EvidenciaPago::findOrFail($id);
-        $this->estado_id = $this->evidencia->estado_evidencia_pago_id;
-        $this->observacion = $this->evidencia->observacion;
-        $this->unidad_negocio_id = $this->evidencia->unidad_negocio_id;
-        $this->proyecto_id = $this->evidencia->proyecto_id;
-        $this->gestor_id = $this->evidencia->gestor_id ?? '';
+        $this->solicitud = SolicitudEvidenciaPago::findOrFail($id);
+        $this->estado_id = $this->solicitud->estado_evidencia_pago_id;
+        $this->observacion = $this->solicitud->observacion;
+        $this->unidad_negocio_id = $this->solicitud->unidad_negocio_id;
+        $this->proyecto_id = $this->solicitud->proyecto_id;
+        $this->gestor_id = $this->solicitud->gestor_id ?? '';
 
         $this->estados = EstadoEvidenciaPago::all();
         $this->empresas = UnidadNegocio::all();
@@ -57,7 +59,7 @@ class EvidenciaPagoEditarLivewire extends Component
             ->where('rol', 'admin')
             ->get();
 
-        if ($this->evidencia->monto == $this->evidencia->slin_monto) {
+        if ($this->solicitud->monto == $this->solicitud->slin_monto) {
             session()->flash('success', 'Coincide el monto');
         } else {
             session()->flash('info', 'No concide el monto');
@@ -89,7 +91,7 @@ class EvidenciaPagoEditarLivewire extends Component
             throw $e;
         }
 
-        $this->evidencia->update([
+        $this->solicitud->update([
             'unidad_negocio_id' => $this->unidad_negocio_id,
             'proyecto_id' => $this->proyecto_id,
             'gestor_id' => $this->gestor_id,
@@ -102,7 +104,7 @@ class EvidenciaPagoEditarLivewire extends Component
     public function enviarSlin()
     {
         if (
-            $this->evidencia->slin_asbanc === false
+            $this->solicitud->slin_asbanc === false
         ) {
             $this->dispatch('alertaLivewire', [
                 'title' => 'Error',
@@ -111,18 +113,18 @@ class EvidenciaPagoEditarLivewire extends Component
             return;
         }
 
-        if (!Storage::disk('public')->exists($this->evidencia->path)) {
+        if (!Storage::disk('public')->exists($this->solicitud->path)) {
             $this->dispatch('alertaLivewire', 'Error');
             return;
         }
 
-        $imageContent = Storage::disk('public')->get($this->evidencia->path);
+        $imageContent = Storage::disk('public')->get($this->solicitud->path);
 
         $params = [
-            'lote' => (string) $this->evidencia->lote_completo,
-            'cliente' => (string) $this->evidencia->codigo_cliente,
+            'lote' => (string) $this->solicitud->lote_completo,
+            'cliente' => (string) $this->solicitud->codigo_cliente,
             'contrato' => '', // nullable|string → enviar vacío
-            'idcobranzas' => (string) $this->evidencia->transaccion_id,
+            'idcobranzas' => (string) $this->solicitud->transaccion_id,
             'base64Image' => base64_encode($imageContent),
         ];
 
@@ -146,7 +148,7 @@ class EvidenciaPagoEditarLivewire extends Component
                 EstadoEvidenciaPago::RECHAZADO
             );
 
-            $this->evidencia->update([
+            $this->solicitud->update([
                 'estado_evidencia_pago_id' => $estadoRechazadoId,
                 'slin_respuesta' => 'Error de comunicación con SLIN',
                 'usuario_valida_id' => auth()->id(),
@@ -168,7 +170,7 @@ class EvidenciaPagoEditarLivewire extends Component
                 EstadoEvidenciaPago::OBSERVADO
             );
 
-            $this->evidencia->update([
+            $this->solicitud->update([
                 'estado_evidencia_pago_id' => $estadoObservadoId,
                 'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
                 'usuario_valida_id' => auth()->id(),
@@ -186,7 +188,7 @@ class EvidenciaPagoEditarLivewire extends Component
             EstadoEvidenciaPago::APROBADO
         );
 
-        $this->evidencia->update([
+        $this->solicitud->update([
             'estado_evidencia_pago_id' => $estadoAprobadoId,
             'slin_respuesta' => $body['data']['message'],
             'usuario_valida_id' => auth()->id(),
@@ -194,16 +196,25 @@ class EvidenciaPagoEditarLivewire extends Component
             'fecha_validacion' => now(),
         ]);
         $this->estado_id = $estadoAprobadoId;
-        $this->evidencia->refresh();
+        $this->solicitud->refresh();
         $this->dispatch('alertaLivewire', [
             'title' => 'Enviado',
             'text' => 'Se envió correctamente.',
         ]);
     }
 
+    public function seleccionarEvidencia($evidenciaId)
+    {
+        if (!$this->solicitud->evidencias->contains('id', $evidenciaId)) {
+            abort(403);
+        }
+    
+        $this->evidenciaSeleccionadaId = $evidenciaId;
+    }    
+
     public function enviarCorreo()
     {
-        $emailDestino = $this->evidencia->userCliente->email ?? null;
+        $emailDestino = $this->solicitud->userCliente->email ?? null;
 
         try {
             $this->validate([
@@ -227,7 +238,7 @@ class EvidenciaPagoEditarLivewire extends Component
         }
 
         Mail::to($emailDestino)
-            ->send(new EvidenciaPagoObservacionMail($emailDestino, $this->evidencia));
+            ->send(new EvidenciaPagoObservacionMail($emailDestino, $this->solicitud));
 
         $this->dispatch('alertaLivewire', ['title' => 'Enviado', 'text' => 'Se envió correctamente.']);
     }

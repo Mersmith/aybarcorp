@@ -73,16 +73,12 @@
                             <th>Nº</th>
                             <th>Razón S.</th>
                             <th>Proyecto</th>
+                            <th>Etapa</th>
                             <th>Mz.</th>
                             <th>Lt.</th>
                             <th>N° Cuota</th>
-                            <th>Imagen</th>
                             <th>Cliente</th>
                             <th>Dni</th>
-                            <th>N° Operación</th>
-                            <th>Banco</th>
-                            <th>Monto</th>
-                            <th>Fecha</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
@@ -95,25 +91,12 @@
                             <td>{{ $evidencias->firstItem() + $index }}</td>
                             <td class="g_resumir">{{ $item->unidadNegocio->nombre }}</td>
                             <td class="g_resumir">{{ $item->proyecto->nombre }}</td>
+                            <td class="g_resumir">{{ $item->etapa }}</td>
                             <td class="g_resumir">{{ $item->manzana }}</td>
                             <td class="g_resumir">{{ $item->lote }}</td>
-                            <td class="g_resumir">{{ $item->numero_cuota }}</td>
-                            <td>
-                                @if ($item->url)
-                                <a href="{{ $item->url }}" target="_blank" class="g_accion_editar"
-                                    title="Ver evidencia">
-                                    <i class="fa-regular fa-file-image fa-xl"></i>
-                                </a>
-                                @else
-                                <span class="g_texto_secundario">Sin imagen</span>
-                                @endif
-                            </td>
+                            <td class="g_resumir">{{ $item->numero_cuota }}</td>                           
                             <td class="g_negrita g_resumir">{{ $item->userCliente->name }}</td>
                             <td> {{ $item->userCliente?->cliente?->dni ?? '—' }}</td>
-                            <td>{{ $item->numero_operacion }}</td>
-                            <td>{{ $item->banco }}</td>
-                            <td>{{ $item->monto}}</td>
-                            <td>{{ $item->fecha}}</td>
                             <td>
                                 <span style="color: {{ $item->estado->color }};">
                                     <i class="{{ $item->estado->icono }}"></i> {{$item->estado->nombre }}

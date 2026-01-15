@@ -4,8 +4,10 @@ namespace App\Livewire\Cliente\OpenAi;
 
 use App\Models\EvidenciaPago;
 use App\Models\Proyecto;
+use App\Models\SolicitudEvidenciaPago;
 use App\Models\UnidadNegocio;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -173,57 +175,79 @@ NO agregues explicación ni texto adicional. Solo JSON.",
         $this->reset(['imagen', 'datos']);
     }
 
+    private function normalizarMonto($valor)
+    {
+        if ($valor === null || $valor === '') {
+            return null;
+        }
+
+        return (float) str_replace(',', '', $valor);
+    }
+
     public function guardar()
     {
         $this->validate();
 
-        // Guardar archivo
-        $ruta = $this->imagen->store('evidencias', 'public');
-        $url = Storage::url($ruta);
-        $extension = $this->imagen->getClientOriginalExtension();
+        DB::transaction(function () {
 
-        $fecha = $this->datos['fecha'] ?? null;
+            $slinMonto = $this->normalizarMonto($this->cuota["Cuota"] ?? null);
+            $slinPenalidad = $this->normalizarMonto($this->cuota["Penalidad"] ?? null);
 
-        $monto = null;
-        if (!empty($this->datos['monto'])) {
-            $monto = preg_replace('/[^0-9.]/', '', $this->datos['monto']);
-        }
+            $solicitud = SolicitudEvidenciaPago::firstOrCreate(
+                [
+                    'codigo_cuota' => $this->cuota["idCuota"] ?? null,
+                ],
+                [
+                    'unidad_negocio_id' => $this->unidad_negocio_id,
+                    'proyecto_id' => $this->proyecto_id,
+                    'cliente_id' => Auth::id(),
 
-        EvidenciaPago::create([
-            'unidad_negocio_id' => $this->unidad_negocio_id,
-            'proyecto_id' => $this->proyecto_id,
-            'path' => $ruta,
-            'url' => $url,
-            'extension' => $extension,
-            'numero_operacion' => $this->datos["numero"] ?? null,
-            'banco' => $this->datos["banco"] ?? null,
-            'monto' => $monto,
-            'fecha' => $fecha,
-            'cliente_id' => Auth::user()->id,
+                    'razon_social' => $this->lote["razon_social"] ?? null,
+                    'nombre_proyecto' => $this->lote["descripcion"] ?? null,
+                    'etapa' => $this->lote["id_etapa"] ?? null,
+                    'manzana' => $this->lote["id_manzana"] ?? null,
+                    'lote' => $this->lote["id_lote"] ?? null,
+                    'codigo_cliente' => $this->lote["id_cliente"] ?? null,
+                    'numero_cuota' => $this->cuota["NroCuota"] ?? null,
+                    'transaccion_id' => $this->cuota["IdTransaccion"] ?? null,
+                    'slin_monto' => $slinMonto,
+                    'slin_penalidad' => $slinPenalidad,
+                    'slin_numero_operacion' => $this->cuota["NroOperacion"] ?? null,
+                    'comprobante' => $this->cuota["Comprobante"] ?? null,
+                    'lote_completo' =>
+                    $this->lote['id_proyecto'] .
+                    $this->lote['id_etapa'] . '-' .
+                    $this->lote['id_manzana'] . '-' .
+                    $this->lote['id_lote'],
+                    'slin_asbanc' => $this->cuota["Asbanc"] ?? false,
+                    'slin_evidencia' => $this->cuota["EvidPago"] ?? false,
+                ]
+            );
 
-            'codigo_cliente' => $this->lote["id_cliente"] ?? null,
-            'razon_social' => $this->lote["razon_social"] ?? null,
-            'nombre_proyecto' => $this->lote["descripcion"] ?? null,
-            'etapa' => $this->lote["id_etapa"] ?? null,
-            'manzana' => $this->lote["id_manzana"] ?? null,
-            'lote' => $this->lote["id_lote"] ?? null,
-            'codigo_cuota' => $this->cuota["idCuota"] ?? null,
-            'numero_cuota' => $this->cuota["NroCuota"] ?? null,
-            'slin_monto' => $this->cuota["Cuota"] ?? null,
-            'slin_penalidad' => $this->cuota["Penalidad"] ?? null,
-            'slin_numero_operacion' => $this->cuota["NroOperacion"] ?? null,
-            'comprobante' => $this->cuota["Comprobante"] ?? null,
-            'transaccion_id' => $this->cuota["IdTransaccion"] ?? null,
-            'lote_completo' => $this->lote['id_proyecto'] . '' . $this->lote['id_etapa'] . '-' . $this->lote['id_manzana'] . '-' . $this->lote['id_lote'],
-            
-            'slin_asbanc' => $this->cuota["Asbanc"] ?? false,
-            'slin_evidencia' => $this->cuota["EvidPago"] ?? false,
-        ]);
+            $ruta = $this->imagen->store('evidencias', 'public');
 
-        session()->flash('success', 'Comprobante guardado correctamente 👍');
+            $monto = null;
+            if (!empty($this->datos['monto'])) {
+                $monto = preg_replace('/[^0-9.]/', '', $this->datos['monto']);
+            }
+
+            EvidenciaPago::create([
+                'solicitud_evidencia_pago_id' => $solicitud->id,
+                'estado_evidencia_pago_id' => 1,
+
+                'path' => $ruta,
+                'url' => Storage::url($ruta),
+                'extension' => $this->imagen->getClientOriginalExtension(),
+
+                'numero_operacion' => $this->datos["numero"] ?? null,
+                'banco' => $this->datos["banco"] ?? null,
+                'monto' => $monto,
+                'fecha' => $this->datos['fecha'] ?? null,
+            ]);
+        });
+
+        session()->flash('success', 'Comprobante guardado correctamente');
         $this->reset(['imagen', 'datos', 'unidad_negocio_id', 'proyecto_id']);
-
-        //$this->dispatch('cerrarModalEvidenciaPagoOn');
         $this->dispatch('actualizarCronograma');
     }
 

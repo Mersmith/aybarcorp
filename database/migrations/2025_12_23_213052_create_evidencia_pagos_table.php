@@ -18,8 +18,7 @@ return new class extends Migration
                 ->constrained('solicitud_evidencia_pagos')
                 ->cascadeOnDelete();
 
-            $table->foreignId('estado_evidencia_pago_id')
-                ->constrained('estado_evidencia_pagos');
+            $table->foreignId('estado_evidencia_pago_id')->default(1)->constrained('estado_evidencia_pagos')->onDelete('restrict');
 
             // Archivo
             $table->string('path');

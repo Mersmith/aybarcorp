@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Atc\EvidenciaPago;
 
-use App\Models\EvidenciaPago;
+use App\Models\SolicitudEvidenciaPago;
 use App\Models\EstadoEvidenciaPago;
 use App\Models\Proyecto;
 use App\Models\UnidadNegocio;
@@ -67,7 +67,7 @@ class EvidenciaPagoTodoLivewire extends Component
 
     public function render()
     {
-        $evidencias = EvidenciaPago::query()
+        $evidencias = SolicitudEvidenciaPago::query()
             ->with(['userCliente.cliente', 'estado'])
             ->when($this->buscar, function ($q) {
                 $buscar = $this->buscar;
