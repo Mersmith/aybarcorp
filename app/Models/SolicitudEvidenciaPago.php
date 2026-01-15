@@ -78,7 +78,8 @@ class SolicitudEvidenciaPago extends Model
 
     public function correos()
     {
-        return $this->hasMany(CorreoEvidenciaPago::class);
+        return $this->hasMany(CorreoEvidenciaPago::class)
+                    ->orderByDesc('enviado_at');
     }
 
     // valida

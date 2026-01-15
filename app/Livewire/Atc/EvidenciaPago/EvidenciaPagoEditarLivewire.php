@@ -3,12 +3,14 @@
 namespace App\Livewire\Atc\EvidenciaPago;
 
 use App\Mail\EvidenciaPagoObservacionMail;
+use App\Models\CorreoEvidenciaPago;
 use App\Models\EstadoEvidenciaPago;
 use App\Models\Proyecto;
 use App\Models\SolicitudEvidenciaPago;
 use App\Models\UnidadNegocio;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -47,7 +49,7 @@ class EvidenciaPagoEditarLivewire extends Component
     {
         $this->solicitud = SolicitudEvidenciaPago::findOrFail($id);
 
-        $this->estado_id = $this->solicitud->estado_evidencia_pago_id;        
+        $this->estado_id = $this->solicitud->estado_evidencia_pago_id;
         $this->unidad_negocio_id = $this->solicitud->unidad_negocio_id;
         $this->proyecto_id = $this->solicitud->proyecto_id;
         $this->gestor_id = $this->solicitud->gestor_id ?? '';
@@ -138,7 +140,7 @@ class EvidenciaPagoEditarLivewire extends Component
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
-            
+
             $this->dispatch('alertaLivewire', [
                 'title' => 'Error',
                 'text' => 'Error de comunicación con SLIN',
@@ -202,8 +204,8 @@ class EvidenciaPagoEditarLivewire extends Component
     public function seleccionarEvidencia($evidenciaId)
     {
         $this->evidenciaSeleccionada =
-            $this->solicitud->evidencias->firstWhere('id', $evidenciaId);
-    
+        $this->solicitud->evidencias->firstWhere('id', $evidenciaId);
+
         $this->evidenciaSeleccionadaId = $evidenciaId;
 
         if ($this->solicitud->slin_monto == $this->evidenciaSeleccionada->monto) {
@@ -211,7 +213,7 @@ class EvidenciaPagoEditarLivewire extends Component
         } else {
             session()->flash('info', 'No concide el monto');
         }
-    }     
+    }
 
     public function enviarCorreo()
     {
@@ -219,29 +221,47 @@ class EvidenciaPagoEditarLivewire extends Component
 
         try {
             $this->validate([
-                'mensaje' => 'required',
+                'mensaje' => 'required|string',
                 'gestor_id' => 'required',
             ]);
         } catch (ValidationException $e) {
-            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Verifique los errores de los campos resaltados.']);
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Advertencia',
+                'text' => 'Verifique los errores de los campos resaltados.',
+            ]);
             throw $e;
         }
 
         if (!$emailDestino || !filter_var($emailDestino, FILTER_VALIDATE_EMAIL)) {
-            $this->addError('email', 'El cliente no tiene un correo válido registrado.');
-
             $this->dispatch('alertaLivewire', [
                 'title' => 'Advertencia',
                 'text' => 'El cliente no tiene un correo válido.',
             ]);
-
             return;
         }
 
-        Mail::to($emailDestino)
-            ->send(new EvidenciaPagoObservacionMail($emailDestino, $this->solicitud));
+        DB::transaction(function () use ($emailDestino) {
 
-        $this->dispatch('alertaLivewire', ['title' => 'Enviado', 'text' => 'Se envió correctamente.']);
+            Mail::to($emailDestino)
+                ->send(new EvidenciaPagoObservacionMail(
+                    $emailDestino,
+                    $this->solicitud,
+                    $this->mensaje
+                ));
+
+            CorreoEvidenciaPago::create([
+                'solicitud_evidencia_pago_id' => $this->solicitud->id,
+                'mensaje' => $this->mensaje,
+                'enviado_at' => now(),
+            ]);
+        });
+
+        $this->mensaje = null;
+
+        $this->dispatch('alertaLivewire', [
+            'title' => 'Enviado',
+            'text' => 'El correo fue enviado y registrado correctamente.',
+        ]);
     }
 
     public function render()

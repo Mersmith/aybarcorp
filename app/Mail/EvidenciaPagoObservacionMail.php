@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\EvidenciaPago;
+use App\Models\SolicitudEvidenciaPago;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,21 +11,21 @@ class EvidenciaPagoObservacionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public EvidenciaPago $evidencia;
+    public SolicitudEvidenciaPago $solicitud;
     public string $email;
-    public string $url;
+    public string $mensaje;
 
-    public function __construct($emailDestino, EvidenciaPago $evidencia)
+    public function __construct($emailDestino, SolicitudEvidenciaPago $solicitud, $mensaje)
     {
         $this->email = $emailDestino;
-        $this->evidencia = $evidencia;
-        $this->url = route('admin.ticket.vista.editar', $evidencia->id);
+        $this->solicitud = $solicitud;
+        $this->mensaje = $mensaje;
     }
 
     public function build()
     {
         return $this
-            ->subject('Evidencia' . $this->evidencia->id)
+            ->subject('Solicitud de Evidencia de Pago')
             ->view('emails.evidencia-pago-observacion');
     }
 }

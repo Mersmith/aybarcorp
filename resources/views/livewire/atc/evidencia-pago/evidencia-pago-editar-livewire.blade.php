@@ -336,6 +336,29 @@
                         </div>
                     @endif
                 </div>
+
+                <div class="g_panel g_gap_pagina">
+                    <h4 class="g_panel_titulo">Correos enviados</h4>
+
+                    @if ($solicitud->correos->isEmpty())
+                        <p>No se han enviado correos.</p>
+                    @else
+                        @foreach ($solicitud->correos as $correo)
+                            <div class="g_panel">
+                                <div>
+                                    <span>
+                                        {{ $correo->enviado_at->format('d/m/Y H:i') }}
+                                    </span>
+                                </div>
+
+                                <div>
+                                    {!! nl2br(e($correo->mensaje)) !!}
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+
+                </div>
             </div>
         </div>
     </div>
