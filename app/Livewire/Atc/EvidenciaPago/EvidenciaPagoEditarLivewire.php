@@ -23,13 +23,14 @@ class EvidenciaPagoEditarLivewire extends Component
     public $solicitud;
     public $estados, $estado_id = '';
 
-    public $observacion;
+    public $mensaje;
 
     public $empresas, $unidad_negocio_id = '';
     public $proyectos = [], $proyecto_id = '';
 
     public $gestores, $gestor_id = '';
 
+    public $evidenciaSeleccionada;
     public $evidenciaSeleccionadaId = null;
 
     protected function rules()
@@ -45,8 +46,8 @@ class EvidenciaPagoEditarLivewire extends Component
     public function mount($id)
     {
         $this->solicitud = SolicitudEvidenciaPago::findOrFail($id);
-        $this->estado_id = $this->solicitud->estado_evidencia_pago_id;
-        $this->observacion = $this->solicitud->observacion;
+
+        $this->estado_id = $this->solicitud->estado_evidencia_pago_id;        
         $this->unidad_negocio_id = $this->solicitud->unidad_negocio_id;
         $this->proyecto_id = $this->solicitud->proyecto_id;
         $this->gestor_id = $this->solicitud->gestor_id ?? '';
@@ -58,12 +59,6 @@ class EvidenciaPagoEditarLivewire extends Component
         $this->gestores = User::role('asesor-backoffice')
             ->where('rol', 'admin')
             ->get();
-
-        if ($this->solicitud->monto == $this->solicitud->slin_monto) {
-            session()->flash('success', 'Coincide el monto');
-        } else {
-            session()->flash('info', 'No concide el monto');
-        }
     }
 
     public function updatedUnidadNegocioId($value)
@@ -113,12 +108,12 @@ class EvidenciaPagoEditarLivewire extends Component
             return;
         }
 
-        if (!Storage::disk('public')->exists($this->solicitud->path)) {
+        if (!Storage::disk('public')->exists($this->evidenciaSeleccionada->path)) {
             $this->dispatch('alertaLivewire', 'Error');
             return;
         }
 
-        $imageContent = Storage::disk('public')->get($this->solicitud->path);
+        $imageContent = Storage::disk('public')->get($this->evidenciaSeleccionada->path);
 
         $params = [
             'lote' => (string) $this->solicitud->lote_completo,
@@ -143,17 +138,7 @@ class EvidenciaPagoEditarLivewire extends Component
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
-
-            $estadoRechazadoId = EstadoEvidenciaPago::id(
-                EstadoEvidenciaPago::RECHAZADO
-            );
-
-            $this->solicitud->update([
-                'estado_evidencia_pago_id' => $estadoRechazadoId,
-                'slin_respuesta' => 'Error de comunicación con SLIN',
-                'usuario_valida_id' => auth()->id(),
-            ]);
-            $this->estado_id = $estadoRechazadoId;
+            
             $this->dispatch('alertaLivewire', [
                 'title' => 'Error',
                 'text' => 'Error de comunicación con SLIN',
@@ -167,14 +152,19 @@ class EvidenciaPagoEditarLivewire extends Component
             $body['data']['success'] === false
         ) {
             $estadoObservadoId = EstadoEvidenciaPago::id(
-                EstadoEvidenciaPago::OBSERVADO
+                EstadoEvidenciaPago::RECHAZADO
             );
 
             $this->solicitud->update([
                 'estado_evidencia_pago_id' => $estadoObservadoId,
-                'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
                 'usuario_valida_id' => auth()->id(),
             ]);
+
+            $this->evidenciaSeleccionada->update([
+                'estado_evidencia_pago_id' => $estadoObservadoId,
+                'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
+            ]);
+
             $this->estado_id = $estadoObservadoId;
             $this->dispatch('alertaLivewire', [
                 'title' => 'Advertencia',
@@ -190,13 +180,19 @@ class EvidenciaPagoEditarLivewire extends Component
 
         $this->solicitud->update([
             'estado_evidencia_pago_id' => $estadoAprobadoId,
-            'slin_respuesta' => $body['data']['message'],
-            'usuario_valida_id' => auth()->id(),
             'slin_evidencia' => true,
+            'usuario_valida_id' => auth()->id(),
             'fecha_validacion' => now(),
         ]);
+
+        $this->evidenciaSeleccionada->update([
+            'estado_evidencia_pago_id' => $estadoObservadoId,
+            'slin_respuesta' => $body['data']['message'] ?? 'Error en SLIN',
+        ]);
+
         $this->estado_id = $estadoAprobadoId;
         $this->solicitud->refresh();
+        $this->evidenciaSeleccionada->refresh();
         $this->dispatch('alertaLivewire', [
             'title' => 'Enviado',
             'text' => 'Se envió correctamente.',
@@ -205,12 +201,17 @@ class EvidenciaPagoEditarLivewire extends Component
 
     public function seleccionarEvidencia($evidenciaId)
     {
-        if (!$this->solicitud->evidencias->contains('id', $evidenciaId)) {
-            abort(403);
-        }
+        $this->evidenciaSeleccionada =
+            $this->solicitud->evidencias->firstWhere('id', $evidenciaId);
     
         $this->evidenciaSeleccionadaId = $evidenciaId;
-    }    
+
+        if ($this->solicitud->slin_monto == $this->evidenciaSeleccionada->monto) {
+            session()->flash('success', 'Coincide el monto');
+        } else {
+            session()->flash('info', 'No concide el monto');
+        }
+    }     
 
     public function enviarCorreo()
     {
@@ -218,7 +219,7 @@ class EvidenciaPagoEditarLivewire extends Component
 
         try {
             $this->validate([
-                'observacion' => 'required',
+                'mensaje' => 'required',
                 'gestor_id' => 'required',
             ]);
         } catch (ValidationException $e) {

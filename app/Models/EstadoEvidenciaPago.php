@@ -19,9 +19,8 @@ class EstadoEvidenciaPago extends Model
     ];
 
     public const PENDIENTE  = 'PENDIENTE';
-    public const OBSERVADO  = 'OBSERVADO';
-    public const APROBADO   = 'APROBADO';
     public const RECHAZADO  = 'RECHAZADO';
+    public const APROBADO   = 'APROBADO';
 
     public function evidencias()
     {

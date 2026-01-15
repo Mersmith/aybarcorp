@@ -20,7 +20,6 @@
     <div class="formulario g_gap_pagina">
         <div class="g_fila">
             <div class="g_columna_8 g_gap_pagina">
-
                 <div class="g_panel">
                     <h4 class="g_panel_titulo">Relacionar al proyecto y asignar gestor</h4>
 
@@ -188,7 +187,14 @@
                 <div class="g_panel g_gap_pagina">
                     @foreach ($solicitud->evidencias as $evidencia)
                         <div class="g_panel ">
-                            <h4 class="g_panel_titulo">Evidencia del cliente con Open AI (1)</h4>
+                            <h4 class="g_panel_titulo">Evidencia del cliente con Open AI ({{ $loop->iteration }})
+                                @if ($evidencia->estado)
+                                    <span class="g_badge" style="background: {{ $evidencia->estado->color }}">
+                                        <i class="{{ $evidencia->estado->icono }}"></i>
+                                        {{ $evidencia->estado->nombre }}
+                                    </span>
+                                @endif
+                            </h4>
 
                             <div class="g_fila">
                                 <div class="g_margin_bottom_10 g_columna_3">
@@ -250,10 +256,6 @@
 
                     <h4 class="g_panel_titulo">Evidencia seleccionada</h4>
 
-                    @php
-                        $evidenciaSeleccionada = $solicitud->evidencias->firstWhere('id', $evidenciaSeleccionadaId);
-                    @endphp
-
                     @if ($evidenciaSeleccionada)
                         <div class="g_centrar_elemento g_margin_bottom_20">
                             <a href="{{ $evidenciaSeleccionada->url }}" target="_blank">
@@ -314,10 +316,10 @@
                     <h4 class="g_panel_titulo">Enviar observación por correo</h4>
 
                     <div class="g_margin_bottom_10">
-                        <label for="observacion">Observación <span class="obligatorio"><i
+                        <label for="mensaje">Observación <span class="obligatorio"><i
                                     class="fa-solid fa-asterisk"></i></span></label>
-                        <textarea id="observacion" wire:model.live="observacion" rows="5"></textarea>
-                        @error('observacion')
+                        <textarea id="mensaje" wire:model.live="mensaje" rows="5"></textarea>
+                        @error('mensaje')
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>

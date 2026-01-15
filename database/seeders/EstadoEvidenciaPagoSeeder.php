@@ -22,9 +22,9 @@ class EstadoEvidenciaPagoSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
-                'nombre' => 'OBSERVADO',
-                'color' => '#9B59B6',
-                'icono' => 'fa-solid fa-eye',
+                'nombre' => 'RECHAZADO',
+                'color' => '#E74C3C',
+                'icono' => 'fa-solid fa-ban',
                 'activo' => true,
                 'created_at' => now(),
             ],
@@ -34,14 +34,7 @@ class EstadoEvidenciaPagoSeeder extends Seeder
                 'icono' => 'fa-solid fa-circle-check',
                 'activo' => true,
                 'created_at' => now(),
-            ],
-            [
-                'nombre' => 'RECHAZADO',
-                'color' => '#E74C3C',
-                'icono' => 'fa-solid fa-ban',
-                'activo' => true,
-                'created_at' => now(),
-            ],
+            ]
         ]);
     }
 }
