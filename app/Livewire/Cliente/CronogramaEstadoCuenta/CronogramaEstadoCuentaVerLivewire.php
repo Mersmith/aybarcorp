@@ -64,7 +64,11 @@ class CronogramaEstadoCuentaVerLivewire extends Component
             $cuota['comprobantes_count'] = $total;
             $cuota['comprobantes_rechazados_count'] = $rechazadas;
 
-            $cuota['puede_subir'] = $validas < 2;
+            $estaAprobada = $solicitud?->esta_aprobada ?? false;
+
+            $cuota['puede_subir'] =
+            !$estaAprobada
+                && ($validas < 2);
 
             return $cuota;
         });
