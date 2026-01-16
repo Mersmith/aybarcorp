@@ -89,7 +89,7 @@
 </div>
 <script>
     document.addEventListener('livewire:init', () => {
-        const colores = ['#4F46E5', '#3B82F6', '#10B981', '#F59E0B'];
+        const colores = ['#4F46E5', '#3B82F6', '#10B981', '#F59E0B', '#EF4444'];
         const bordeRadar = '#4F46E5';
 
         new Chart(document.getElementById('chartMeses'), {
