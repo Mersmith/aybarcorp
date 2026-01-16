@@ -77,7 +77,7 @@
                             <th>Fecha Venc.</th>
                             <th>Cuota</th>
                             <th>Mto. Amortizado</th>
-                            <th>Evidencia</th>
+                            <th>Evidencia pago</th>
                             <th>Boleta</th>
                             <th>Letra digital</th>
                         </tr>
@@ -85,76 +85,79 @@
 
                     <tbody>
                         @foreach ($detalle ?? [] as $item)
-                            <tr>
-                                <td>{{ $item['NroCuota'] ?? '-' }}</td>
-                                <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
-                                <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
-                                <td> S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
-                                <td>
-                                    @if ($item['EvidPago'])
-                                        <span class="g_boton g_boton_empresa_primario"
-                                            style="cursor: not-allowed; pointer-events: none;">
-                                            <i class="fa-solid fa-circle-check"></i>
-                                            Comprobado
-                                        </span>
-                                    @else
-                                        @if ($item['comprobantes_rechazados_count'] > 0)
-                                            <x-tooltip
-                                                text="Tienes {{ $item['comprobantes_rechazados_count'] }} evidencia(s) rechazada(s)" />
-                                        @endif
+                        <tr>
+                            <td>{{ $item['NroCuota'] ?? '-' }}</td>
+                            <td>{{ $item['FecVencimiento'] ?? '-' }}</td>
+                            <td> S/ {{ $item['Cuota'] ?? 0 }}</td>
+                            <td> S/ {{ $item['CuotaPagada'] ?? 0 }}</td>
+                            <td>
+                                @if ($item['EvidPago'])
+                                <span class="g_boton g_boton_empresa_primario"
+                                    style="cursor: not-allowed; pointer-events: none;">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Comprobado
+                                </span>
+                                @else
+                                @if ($item['comprobantes_rechazados_count'] > 0)
+                                <x-tooltip
+                                    text="Tienes {{ $item['comprobantes_rechazados_count'] }} evidencia(s) rechazada(s)" />
+                                @endif
 
-                                        @if ($item['puede_subir'])
-                                            @if ($item['comprobantes_count'] == 0)
-                                                <button wire:click="seleccionarCuota({{ json_encode($item) }})"
-                                                    class="g_boton g_boton_empresa_secundario">
-                                                    <i class="fas fa-upload"></i>
-                                                    Subir evidencia
-                                                    @if ($item['comprobantes_count'] > 0)
-                                                        ({{ $item['comprobantes_count'] }})
-                                                    @endif
-                                                </button>
-                                            @else
-                                                <button wire:click="seleccionarCuota({{ json_encode($item) }})"
-                                                    class="g_boton g_boton_darkt">
-                                                    <i class="fas fa-upload"></i> En validación
-                                                    ({{ $item['comprobantes_count'] }})
-                                                </button>
-                                            @endif
-                                        @else
-                                            <span class="g_boton g_boton_darkt">
-                                                <i class="fa-solid fa-image"></i>
-                                                En validación ({{ $item['comprobantes_count'] }})
-                                            </span>
-                                        @endif
+                                @if ($item['puede_subir'])
+                                @if ($item['comprobantes_count'] == 0)
+                                <button wire:click="seleccionarCuota({{ json_encode($item) }})"
+                                    class="g_boton g_boton_empresa_secundario">
+                                    <i class="fas fa-upload"></i>
+                                    Subir evidencia
+                                    @if ($item['comprobantes_count'] > 0)
+                                    ({{ $item['comprobantes_count'] }})
                                     @endif
-                                </td>
-                                <td>
-                                    @if (!empty($item['Comprobante']))
-                                        @if (substr_count($item['Comprobante'], '-') === 2 && $item['SaldoPendiente'] == 0)
-                                            <a href="{{ route('slin.comprobante.ver', ['empresa' => $lote['id_empresa'], 'comprobante' => $item['Comprobante']]) }}"
-                                                target="_blank" class="g_boton g_boton_empresa_primario">
-                                                <i class="fas fa-file-invoice-dollar"></i>
-                                            </a>
-                                        @else
-                                            <x-tooltip text="Tu boleta está siendo confirmada!" />
+                                </button>
+                                @else
+                                <button wire:click="seleccionarCuota({{ json_encode($item) }})"
+                                    class="g_boton g_boton_darkt">
+                                    <i class="fas fa-upload"></i> En validación
+                                    ({{ $item['comprobantes_count'] }})
+                                </button>
+                                @endif
+                                @else
+                                <span class="g_boton g_boton_darkt">
+                                    <i class="fa-solid fa-image"></i>
+                                    En validación ({{ $item['comprobantes_count'] }})
+                                </span>
+                                @endif
+                                @endif
+                            </td>
+                            <td>
+                                @if (!empty($item['Comprobante']))
+                                @if (substr_count($item['Comprobante'], '-') === 2 && $item['SaldoPendiente'] == 0)
+                                <a href="{{ route('slin.comprobante.ver', ['empresa' => $lote['id_empresa'], 'comprobante' => $item['Comprobante']]) }}"
+                                    target="_blank" class="g_boton g_boton_empresa_primario">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                </a>
+                                @else
+                                <x-tooltip text="Tu boleta está siendo confirmada!" />
 
-                                            <span class="g_boton g_boton_empresa_secundario"
-                                                style="cursor: not-allowed; pointer-events: none;">
-                                                <i class="fas fa-file-invoice-dollar"></i>
-                                            </span>
-                                        @endif
-                                    @endif
-                                </td>
-                                <td>
-                                    @if (!empty($item['NroCavali']) && $item['SaldoPendiente'] == 0)
-                                        <a href="{{ route('cavali.constancia.ver', $item['NroCavali']) }}"
-                                            target="_blank" class="g_boton g_boton_empresa_primario"
-                                            title="Ver letra digital firmada">
-                                            <i class="fas fa-file-shield"></i>
-                                        </a>
-                                    @endif
-                                </td>
-                            </tr>
+                                <span class="g_boton g_boton_empresa_secundario"
+                                    style="cursor: not-allowed; pointer-events: none;">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                </span>
+                                @endif
+                                @endif
+                            </td>
+                            <td>
+                                @if (!empty($item['NroCavali']) && $item['SaldoPendiente'] == 0)
+
+                                <button wire:click="verConstanciaCavali({{ json_encode($item) }})"
+                                    class="g_boton g_boton_empresa_primario" title="Ver letra digital firmada">
+                                    <i class="fas fa-file-shield"></i>
+                                </button>
+                                @if ($item['tiene_solicitud_digitalizacion'])
+                                <x-tooltip text="Tu letra esta siendo analizada." />
+                                @endif
+                                @endif
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -163,20 +166,40 @@
     </div>
 
     @if ($cuota)
-        <div class="g_modal">
-            <div class="modal_contenedor">
-                <div class="modal_cerrar">
-                    <button wire:click="cerrarModalEvidenciaPago"><i class="fa-solid fa-xmark"></i></button>
-                </div>
+    <div class="g_modal">
+        <div class="modal_contenedor">
+            <div class="modal_cerrar">
+                <button wire:click="cerrarModalEvidenciaPago"><i class="fa-solid fa-xmark"></i></button>
+            </div>
 
-                <div class="modal_titulo g_panel_titulo">
-                    <h2>Subir evidencia de pago</h2>
-                </div>
+            <div class="modal_titulo g_panel_titulo">
+                <h2>Subir evidencia de pago</h2>
+            </div>
 
-                <div class="modal_cuerpo">
-                    @livewire('cliente.open-ai.procesar-imagen-livewire', ['cuota' => $cuota, 'lote' => $lote], key('cuota_' . $cuota['idCuota']))
-                </div>
+            <div class="modal_cuerpo">
+                @livewire('cliente.open-ai.procesar-imagen-livewire', ['cuota' => $cuota, 'lote' => $lote], key('cuota_'
+                . $cuota['idCuota']))
             </div>
         </div>
+    </div>
+    @endif
+
+    @if ($cuotaCavali)
+    <div class="g_modal">
+        <div class="modal_contenedor">
+            <div class="modal_cerrar">
+                <button wire:click="cerrarModalCavali"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="modal_titulo g_panel_titulo">
+                <h2>Aceptar que tu letra se digitalice</h2>
+            </div>
+
+            <div class="modal_cuerpo">
+                @livewire('cliente.cavali.aceptar-digitalizar-livewire', ['cuota' => $cuotaCavali, 'lote' => $lote],
+                key('cuota_cavali_' . $cuotaCavali['idCuota']))
+            </div>
+        </div>
+    </div>
     @endif
 </div>

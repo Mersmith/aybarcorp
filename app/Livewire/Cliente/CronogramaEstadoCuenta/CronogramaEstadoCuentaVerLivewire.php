@@ -4,8 +4,10 @@ namespace App\Livewire\Cliente\CronogramaEstadoCuenta;
 
 use App\Models\EstadoEvidenciaPago;
 use App\Models\SolicitudEvidenciaPago;
+use App\Models\SolicitudDigitalizarLetra;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use App\Services\CavaliService;
 
 class CronogramaEstadoCuentaVerLivewire extends Component
 {
@@ -14,8 +16,7 @@ class CronogramaEstadoCuentaVerLivewire extends Component
 
     public $detalle = [];
     public $cuota = null;
-
-    public $comprobantes;
+    public $cuotaCavali = null;
 
     public function mount($lote, $estado_cuenta)
     {
@@ -42,7 +43,7 @@ class CronogramaEstadoCuentaVerLivewire extends Component
     {
         $rechazadoId = EstadoEvidenciaPago::id(EstadoEvidenciaPago::RECHAZADO);
 
-        $this->comprobantes = SolicitudEvidenciaPago::query()
+        $comprobantes = SolicitudEvidenciaPago::query()
             ->whereIn('codigo_cuota', collect($this->detalle)->pluck('idCuota'))
             ->withCount([
                 'evidencias',
@@ -53,12 +54,16 @@ class CronogramaEstadoCuentaVerLivewire extends Component
             ->get()
             ->keyBy('codigo_cuota');
 
-        $this->detalle = collect($this->detalle)->map(function ($cuota) {
-            $solicitud = $this->comprobantes->get($cuota['idCuota']);
+        $letras = SolicitudDigitalizarLetra::query()
+            ->whereIn('codigo_cuota', collect($this->detalle)->pluck('idCuota'))
+            ->get()
+            ->keyBy('codigo_cuota');
+
+        $this->detalle = collect($this->detalle)->map(function ($cuota) use ($comprobantes, $letras) {
+            $solicitud = $comprobantes->get($cuota['idCuota']);
 
             $total = $solicitud?->evidencias_count ?? 0;
             $rechazadas = $solicitud?->evidencias_rechazadas_count ?? 0;
-
             $validas = $total - $rechazadas;
 
             $cuota['comprobantes_count'] = $total;
@@ -67,8 +72,11 @@ class CronogramaEstadoCuentaVerLivewire extends Component
             $estaAprobada = $solicitud?->esta_aprobada ?? false;
 
             $cuota['puede_subir'] =
-            !$estaAprobada
+                !$estaAprobada
                 && ($validas < 2);
+
+            $solicitudDigital = $letras->get($cuota['idCuota']);
+            $cuota['tiene_solicitud_digitalizacion'] = (bool) $solicitudDigital;
 
             return $cuota;
         });
@@ -78,6 +86,33 @@ class CronogramaEstadoCuentaVerLivewire extends Component
     public function cerrarModalEvidenciaPago()
     {
         $this->cuota = null;
+    }
+
+    public function verConstanciaCavali($cuota, CavaliService $service)
+    {
+        $nroCavali = $cuota['NroCavali'];
+
+        /*try {
+            $respuesta = $service->obtenerConstanciaCancelacion($nroCavali);
+            if (
+                empty($respuesta['base64']) ||
+                ($respuesta['codigo'] ?? null) !== '001'
+            ) {
+                $this->cuotaCavali = $cuota;
+                return;
+            }*/
+
+        $url = route('cavali.constancia.ver', $nroCavali);
+        /*   $this->dispatch('abrirUrlLivewire', $url);
+        } catch (\Throwable $e) {
+            report($e);
+        }*/
+    }
+
+    #[On('cerrarModalCavaliOn')]
+    public function cerrarModalCavali()
+    {
+        $this->cuotaCavali = null;
     }
 
     public function render()

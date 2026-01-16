@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Atc\EvidenciaPago;
 
-use App\Models\Proyecto;
 use App\Models\SolicitudEvidenciaPago;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;

@@ -74,7 +74,7 @@ class EvidenciaPagoTodoLivewire extends Component
 
                 $q->where(function ($sub) use ($buscar) {
 
-                    $sub->where('evidencia_pagos.id', 'like', "%{$buscar}%")
+                    $sub->where('solicitud_evidencia_pagos.id', 'like', "%{$buscar}%")
 
                         ->orWhereHas('userCliente', function ($qUser) use ($buscar) {
                             $qUser->where('name', 'like', "%{$buscar}%");

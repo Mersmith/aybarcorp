@@ -18,6 +18,8 @@ php artisan make:livewire Cliente/Cuenta/CuentaEditarLivewire
 
 php artisan make:livewire Cliente/Lote/LoteTodoLivewire
 
+php artisan make:livewire Cliente/Cavali/AceptarDigitalizarLivewire
+
 php artisan make:livewire Cliente/Cronograma/CronogramaVerLivewire
 php artisan make:livewire Cliente/EstadoCuenta/EstadoCuentaVerLivewire
 php artisan make:livewire Cliente/CronogramaEstadoCuenta/CronogramaEstadoCuentaVerLivewire

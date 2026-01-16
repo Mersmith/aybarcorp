@@ -938,7 +938,7 @@
         "nombre": "9",
         "ruta": "#",
         "url": "#",
-        "icono": "fa-solid fa-map",
+        "icono": "fa-solid fa-file-invoice-dollar",
         "nivel": 1,
         "roles": [
             "super-admin",
@@ -1051,34 +1051,6 @@
                         "nombre": "Lista",
                         "ruta": "admin.evidencia-pago-antiguo.vista.todo",
                         "url": "/admin/evidencia-pago-antiguo",
-                        "nivel": 3,
-                        "roles": [
-                            "super-admin",
-                            "admin",
-                            "supervisor-backoffice",
-                            "asesor-backoffice"
-                        ],
-                        "submenus": []
-                    },
-                    {
-                        "id": 112,
-                        "nombre": "Crear",
-                        "ruta": "admin.evidencia-pago-antiguo.vista.crear",
-                        "url": "/admin/evidencia-pago-antiguo/crear",
-                        "nivel": 3,
-                        "roles": [
-                            "super-admin",
-                            "admin",
-                            "supervisor-backoffice",
-                            "asesor-backoffice"
-                        ],
-                        "submenus": []
-                    },
-                    {
-                        "id": 114,
-                        "nombre": "Importar",
-                        "ruta": "admin.evidencia-pago-antiguo.vista.importar",
-                        "url": "/admin/evidencia-pago-antiguo/importar",
                         "nivel": 3,
                         "roles": [
                             "super-admin",
