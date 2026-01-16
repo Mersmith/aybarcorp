@@ -13,6 +13,7 @@ use Livewire\Component;
 class ClienteEditarLivewire extends Component
 {
     public $user;
+    public $direccion; 
 
     public $name;
     public $email;
@@ -35,7 +36,8 @@ class ClienteEditarLivewire extends Component
     public function mount($id)
     {
         $this->user = User::findOrFail($id);
-
+        $this->direccion = $this->user->direcciones->first();
+        
         $this->name = $this->user->name;
         $this->email = $this->user->email;
         $this->activo = $this->user->activo;

@@ -36,14 +36,14 @@
             </div>
 
             <div class="g_panel">
-                <h4 class="g_panel_titulo">Datos del usuario</h4>
+                <h4 class="g_panel_titulo">Datos del cliente</h4>
 
                 <div class="g_margin_bottom_10">
                     <label for="name">Nombre <span class="obligatorio"><i
                                 class="fa-solid fa-asterisk"></i></span></label>
                     <input type="text" id="name" wire:model.live="name">
                     @error('name')
-                    <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -52,15 +52,16 @@
                                 class="fa-solid fa-asterisk"></i></span></label>
                     <input type="email" id="email" wire:model.live="email">
                     @error('email')
-                    <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="g_margin_bottom_10">
-                    <label for="dni">Dni <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span></label>
+                    <label for="dni">Dni <span class="obligatorio"><i
+                                class="fa-solid fa-asterisk"></i></span></label>
                     <input type="text" id="dni" wire:model.live="dni">
                     @error('dni')
-                    <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -68,10 +69,62 @@
                     <label for="telefono_principal">Celular</label>
                     <input type="text" id="telefono_principal" wire:model.live="telefono_principal">
                     @error('telefono_principal')
-                    <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
+
+            @if ($direccion)
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Dirección del usuario</h4>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label>Departamento</label>
+                            <input type="text" disabled value="{{ $direccion?->region?->nombre }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label>Provincia</label>
+                            <input type="text" disabled value="{{ $direccion?->provincia?->nombre }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_4">
+                            <label>Distrito</label>
+                            <input type="text" disabled value="{{ $direccion?->distrito?->nombre }}">
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10">
+                            <label>Avenida / Calle / Jirón </label>
+                            <input type="text" disabled value="{{ $direccion?->direccion }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10">
+                            <label>Número</label>
+                            <input type="text" disabled value="{{ $direccion?->direccion_numero }}">
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10">
+                            <label>Dpto. / Interior / Piso / Lote</label>
+                            <input type="text" disabled value="{{ $direccion?->opcional }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10">
+                            <label>Código postal</label>
+                            <input type="text" disabled value="{{ $direccion?->codigo_postal }}">
+                        </div>
+                    </div>
+
+                    <div class="g_margin_bottom_10">
+                        <label>Referencia de la ubicación</label>
+                        <textarea type="text" disabled >{{ $direccion?->instrucciones }}</textarea>
+                    </div>
+                </div>
+            @endif
 
             <div class="formulario_botones">
                 <button type="submit" class="guardar" wire:loading.attr="disabled" wire:target="store">

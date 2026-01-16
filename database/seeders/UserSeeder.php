@@ -202,7 +202,7 @@ class UserSeeder extends Seeder
         }
 
         //CLIENTE
-        for ($i = 1; $i <= 35; $i++) {
+        /*for ($i = 1; $i <= 35; $i++) {
             $cliente = User::create([
                 'name' => "Cliente $i",
                 'email' => "cliente$i@example.com",
@@ -222,6 +222,6 @@ class UserSeeder extends Seeder
                 'email' => $cliente->email,
                 'nombre' => $cliente->name,
             ]);
-        }
+        }*/
     }
 }
