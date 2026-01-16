@@ -38,6 +38,8 @@ return new class extends Migration
             //DB ANTIGUO
             $table->string('dni')->nullable();
             $table->string('nombres')->nullable();
+            $table->string('email')->nullable();
+            $table->string('direccion')->nullable();
             $table->string('origen')->nullable(); //antiguo:clientes_2 o slin
 
             //SUPERVISOR

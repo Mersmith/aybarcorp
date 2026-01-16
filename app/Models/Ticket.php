@@ -33,6 +33,8 @@ class Ticket extends Model
 
         'dni',
         'nombres',
+        'email',
+        'direccion',
         'origen',
 
         // valida
