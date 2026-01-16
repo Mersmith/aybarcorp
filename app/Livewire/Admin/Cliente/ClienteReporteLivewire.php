@@ -18,6 +18,7 @@ class ClienteReporteLivewire extends Component
     public $usuariosEmailVerificado = [];
     public $clientesEmailVerificado = [];
     public $clientesConDireccion = [];
+    public $clientesRadar = []; 
 
     public function mount()
     {
@@ -31,6 +32,7 @@ class ClienteReporteLivewire extends Component
         $this->cargarClientesPoliticas($clientes);
         $this->cargarClientesEmailVerificado($clientes);
         $this->cargarClientesConDireccion($clientes);
+        $this->cargarRadarPerfil($clientes);
     }
 
     private function cargarClientesPorMes($clientes)
@@ -90,6 +92,22 @@ class ClienteReporteLivewire extends Component
         $this->clientesConDireccion = [
             'labels' => ['Con dirección', 'Sin dirección'],
             'data' => [$conDireccion, $sinDireccion],
+        ];
+    }
+
+    private function cargarRadarPerfil($clientes)
+    {
+        $activo = $clientes->filter(fn($c) => $c->user?->activo)->count();
+
+        $email = $clientes->filter(fn($c) => $c->user?->email_verified_at)->count();
+
+        $direccion = $clientes->filter(fn($c) => $c->user?->direcciones->count() > 0)->count();
+
+        $ambasPoliticas = $clientes->filter(fn($c) => $c->user?->politica_uno && $c->user?->politica_dos)->count();
+
+        $this->clientesRadar = [
+            'labels' => ['Activos', 'Email verificado', 'Con dirección', 'Aceptaron ambas políticas'],
+            'data' => [$activo, $email, $direccion, $ambasPoliticas],
         ];
     }
 

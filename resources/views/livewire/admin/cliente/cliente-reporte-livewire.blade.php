@@ -81,10 +81,16 @@
             </div>
         </div>
     </div>
+
+    <div class="g_panel">
+        <h2>Perfil Global de Clientes</h2>
+        <canvas id="chartRadar" height="250"></canvas>
+    </div>
 </div>
 <script>
     document.addEventListener('livewire:init', () => {
         const colores = ['#4F46E5', '#3B82F6', '#10B981', '#F59E0B'];
+        const bordeRadar = '#4F46E5';
 
         new Chart(document.getElementById('chartMeses'), {
             type: 'bar',
@@ -181,5 +187,32 @@
                 }
             }
         });
+
+        new Chart(document.getElementById('chartRadar'), {
+        type: 'radar',
+        data: {
+            labels: @json($clientesRadar['labels']),
+            datasets: [{
+                label: 'Perfil de Clientes',
+                data: @json($clientesRadar['data']),
+                backgroundColor: colores,
+                borderColor: bordeRadar,
+                borderWidth: 2,
+                pointBackgroundColor: bordeRadar,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1 } // si quieres números enteros
+                }
+            },
+            plugins: {
+                legend: { position: 'top' }
+            }
+        }
+    });
     });
 </script>
