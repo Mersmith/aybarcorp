@@ -192,6 +192,20 @@
                             "atc"
                         ],
                         "submenus": []
+                    },
+                    {
+                        "id": 113,
+                        "nombre": "Reporte",
+                        "ruta": "admin.cliente.vista.reporte",
+                        "url": "/admin/cliente/reporte",
+                        "nivel": 3,
+                        "roles": [
+                            "super-admin",
+                            "admin",
+                            "supervisor-atc",
+                            "atc"
+                        ],
+                        "submenus": []
                     }
                 ]
             },

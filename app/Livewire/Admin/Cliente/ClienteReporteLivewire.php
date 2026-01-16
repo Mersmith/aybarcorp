@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Livewire\Admin\Cliente;
+
+use App\Models\Cliente;
+use Carbon\Carbon;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
+
+#[Layout('layouts.admin.layout-admin')]
+class ClienteReporteLivewire extends Component
+{
+    public $totalClientes;
+    //public $clientesActivos;
+    public $clientesPorMes = [];
+    public $clientesPorDiaMesActual = [];
+    public $clientesPoliticas = [];
+    public $usuariosEmailVerificado = [];
+    public $clientesEmailVerificado = [];
+    public $clientesConDireccion = [];
+
+    public function mount()
+    {
+        $clientes = Cliente::with(['user', 'user.direcciones'])->get();
+
+        $this->totalClientes = $clientes->count();
+        //$this->clientesActivos = $clientes->filter(fn($c) => $c->user?->activo)->count();
+
+        $this->cargarClientesPorMes($clientes);
+        $this->cargarClientesPorDiaMesActual($clientes);
+        $this->cargarClientesPoliticas($clientes);
+        $this->cargarClientesEmailVerificado($clientes);
+        $this->cargarClientesConDireccion($clientes);
+    }
+
+    private function cargarClientesPorMes($clientes)
+    {
+        $data = $clientes->groupBy(fn($c) => $c->created_at->month)
+            ->map(fn($group) => $group->count());
+
+        $this->clientesPorMes = [
+            'labels' => collect(range(1, 12))->map(fn($m) => date('F', mktime(0, 0, 0, $m, 1)))->toArray(),
+            'data' => array_map(fn($m) => $data[$m] ?? 0, range(1, 12)),
+        ];
+    }
+
+    private function cargarClientesPorDiaMesActual($clientes)
+    {
+        $hoy = Carbon::now();
+        $diasDelMes = $hoy->daysInMonth;
+
+        $data = $clientes->filter(fn($c) => $c->created_at->month == $hoy->month && $c->created_at->year == $hoy->year)
+            ->groupBy(fn($c) => $c->created_at->day)
+            ->map(fn($group) => $group->count());
+
+        $this->clientesPorDiaMesActual = [
+            'labels' => range(1, $diasDelMes),
+            'data' => array_map(fn($d) => $data[$d] ?? 0, range(1, $diasDelMes)),
+        ];
+    }
+
+    private function cargarClientesPoliticas($clientes)
+    {
+        $soloUno = $clientes->filter(fn($c) => $c->user?->politica_uno && !$c->user?->politica_dos)->count();
+        $ambos = $clientes->filter(fn($c) => $c->user?->politica_uno && $c->user?->politica_dos)->count();
+        $ninguno = $this->totalClientes - $soloUno - $ambos;
+
+        $this->clientesPoliticas = [
+            'labels' => ['Solo Política 1', 'Ambas Políticas', 'Ninguna'],
+            'data' => [$soloUno, $ambos, $ninguno],
+        ];
+    }
+
+    private function cargarClientesEmailVerificado($clientes)
+    {
+        $verificados = $clientes->filter(fn($c) => $c->user?->email_verified_at)->count();
+        $noVerificados = $this->totalClientes - $verificados;
+
+        $this->clientesEmailVerificado = [
+            'labels' => ['Verificado', 'No verificado'],
+            'data' => [$verificados, $noVerificados],
+        ];
+    }
+
+    private function cargarClientesConDireccion($clientes)
+    {
+        $conDireccion = $clientes->filter(fn($c) => $c->user?->direcciones->count() > 0)->count();
+        $sinDireccion = $this->totalClientes - $conDireccion;
+
+        $this->clientesConDireccion = [
+            'labels' => ['Con dirección', 'Sin dirección'],
+            'data' => [$conDireccion, $sinDireccion],
+        ];
+    }
+
+    public function render()
+    {
+        return view('livewire.admin.cliente.cliente-reporte-livewire');
+    }
+}
