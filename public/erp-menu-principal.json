@@ -1077,5 +1077,35 @@
                 ]
             }
         ]
+    },
+    {
+        "id": 10,
+        "nombre": "10",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-pen-nib",
+        "nivel": 1,
+        "roles": [
+            "super-admin",
+            "admin",
+            "supervisor-backoffice",
+            "asesor-backoffice"
+        ],
+        "submenus": [
+            {
+                "id": 45,
+                "nombre": "Solicitud letras",
+                "ruta": "admin.solicitar-letra-digital.vista.todo",
+                "url": "/admin/solicitar-letra-digital",
+                "icono": "fa-solid fa-file-invoice-dollar",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "admin",
+                    "supervisor-backoffice"
+                ],
+                "submenus": []
+            }
+        ]
     }
 ]

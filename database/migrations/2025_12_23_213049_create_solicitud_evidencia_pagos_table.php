@@ -23,7 +23,7 @@ return new class extends Migration
 
             // Identidad de la cuota
             $table->string('lote_completo')->nullable();
-            $table->string('codigo_cuota')->unique();            
+            $table->string('codigo_cuota')->unique();
 
             // Slin
             $table->string('razon_social');
@@ -44,15 +44,15 @@ return new class extends Migration
             $table->text('observacion')->nullable();
 
             //SUPERVISOR
-            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->dateTime('fecha_validacion')->nullable();
+            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete(); //CERRADO POR
+            $table->dateTime('fecha_validacion')->nullable(); //FECHA CIERRE
 
             //AUDITORIA
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete(); //CREADO POR
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
 
-            $table->timestamps();
+            $table->timestamps(); //FECHA CREADO
             $table->softDeletes();
         });
     }

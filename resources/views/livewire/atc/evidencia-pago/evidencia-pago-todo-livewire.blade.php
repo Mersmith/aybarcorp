@@ -53,6 +53,28 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Gestores </label>
+                    <select wire:model.live="admin">
+                        <option value="">Todos</option>
+                        @foreach ($usuarios_admin as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="g_fila">
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Fecha inicio</label>
+                    <input type="date" wire:model.live="fecha_inicio">
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Fecha fin</label>
+                    <input type="date" wire:model.live="fecha_fin">
+                </div>
             </div>
         </div>
 
@@ -94,7 +116,7 @@
                             <td class="g_resumir">{{ $item->etapa }}</td>
                             <td class="g_resumir">{{ $item->manzana }}</td>
                             <td class="g_resumir">{{ $item->lote }}</td>
-                            <td class="g_resumir">{{ $item->numero_cuota }}</td>                           
+                            <td class="g_resumir">{{ $item->numero_cuota }}</td>
                             <td class="g_negrita g_resumir">{{ $item->userCliente->name }}</td>
                             <td> {{ $item->userCliente?->cliente?->dni ?? '—' }}</td>
                             <td>

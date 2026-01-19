@@ -24,3 +24,4 @@ php artisan make:livewire Cliente/Cronograma/CronogramaVerLivewire
 php artisan make:livewire Cliente/EstadoCuenta/EstadoCuentaVerLivewire
 php artisan make:livewire Cliente/CronogramaEstadoCuenta/CronogramaEstadoCuentaVerLivewire
 
+php artisan make:livewire Cavali/SolicitarLetraDigital/SolicitarLetraDigitalTodoLivewire

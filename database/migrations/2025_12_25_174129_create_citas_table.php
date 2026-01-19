@@ -46,15 +46,15 @@ return new class extends Migration
             $table->string('origen')->nullable(); //antiguo:clientes_2 o slin
 
             //SUPERVISOR
-            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->dateTime('fecha_validacion')->nullable();
+            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete(); //CERRADO POR
+            $table->dateTime('fecha_validacion')->nullable(); //FECHA CIERRE
 
             //AUDITORIA
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete(); //CREADO POR
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
 
-            $table->timestamps();
+            $table->timestamps(); //FECHA CREADO
             $table->softDeletes();
         });
     }

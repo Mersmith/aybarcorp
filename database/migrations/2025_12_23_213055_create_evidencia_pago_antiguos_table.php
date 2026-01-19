@@ -14,52 +14,52 @@ return new class extends Migration
         Schema::create('evidencia_pago_antiguos', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('unidad_negocio_id')->nullable()->constrained('unidad_negocios')->nullOnDelete(); //ok
-            $table->foreignId('proyecto_id')->nullable()->constrained('proyectos')->nullOnDelete(); //ok
+            $table->foreignId('unidad_negocio_id')->nullable()->constrained('unidad_negocios')->nullOnDelete();
+            $table->foreignId('proyecto_id')->nullable()->constrained('proyectos')->nullOnDelete();
             $table->foreignId('cliente_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete(); //ok
+            $table->foreignId('gestor_id')->nullable()->constrained('users')->nullOnDelete();
 
-            $table->string('imagen_url')->nullable(); //ok
+            $table->string('imagen_url')->nullable();
 
-            $table->string('operacion_numero')->nullable(); //ok
-            $table->string('operacion_hora')->nullable(); //ok
-            $table->string('union')->nullable(); //ok
-            $table->string('cuota_fija')->nullable(); //ok
-            $table->string('monto')->nullable(); //ok
-            $table->string('pago_de')->nullable(); //ok
-            $table->string('codigo_cuenta')->nullable(); //ok
-            $table->string('nombre_archivo')->nullable(); //ok
-            $table->string('moneda')->nullable(); //ok
-            $table->string('medio_pago')->nullable(); //ok
-            $table->date('fecha_deposito')->nullable(); //ok
+            $table->string('operacion_numero')->nullable();
+            $table->string('operacion_hora')->nullable();
+            $table->string('union')->nullable();
+            $table->string('cuota_fija')->nullable();
+            $table->string('monto')->nullable();
+            $table->string('pago_de')->nullable();
+            $table->string('codigo_cuenta')->nullable();
+            $table->string('nombre_archivo')->nullable();
+            $table->string('moneda')->nullable();
+            $table->string('medio_pago')->nullable();
+            $table->date('fecha_deposito')->nullable();
 
             $table->text('observacion')->nullable();
-            $table->foreignId('estado_evidencia_pago_id')->default(1)->constrained('estado_evidencia_pagos')->onDelete('restrict'); //ok
-            $table->string('estado_registro')->default('PENDIENTE'); //ok
+            $table->foreignId('estado_evidencia_pago_id')->default(1)->constrained('estado_evidencia_pagos')->onDelete('restrict');
+            $table->string('estado_registro')->default('PENDIENTE');
 
-            $table->string('dni_cliente')->nullable(); //ok
-            $table->string('codigo_cliente')->nullable(); //ok
-            $table->string('nombres_cliente')->nullable(); //ok
-            $table->string('razon_social')->nullable(); //ok
-            $table->string('proyecto_nombre')->nullable(); //ok
-            $table->string('etapa')->nullable(); //ok
-            $table->string('lote')->nullable(); //ok
-            $table->string('numero_cuota')->nullable(); //ok
+            $table->string('dni_cliente')->nullable();
+            $table->string('codigo_cliente')->nullable();
+            $table->string('nombres_cliente')->nullable();
+            $table->string('razon_social')->nullable();
+            $table->string('proyecto_nombre')->nullable();
+            $table->string('etapa')->nullable();
+            $table->string('lote')->nullable();
+            $table->string('numero_cuota')->nullable();
 
-            $table->string('gestor')->nullable(); //ok
-            $table->date('fecha_registro')->nullable(); //ok
+            $table->string('gestor')->nullable();
+            $table->date('fecha_registro')->nullable();
 
             //SUPERVISOR
-            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete(); //asignado
-            $table->string('validador')->nullable(); //ok
-            $table->date('fecha_validacion')->nullable(); //ok
+            $table->foreignId('usuario_valida_id')->nullable()->constrained('users')->nullOnDelete(); //CERRADO POR
+            $table->string('validador')->nullable();
+            $table->date('fecha_validacion')->nullable(); //FECHA CIERRE
 
             //AUDITORIA
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete(); //CREADO POR
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
 
-            $table->timestamps();
+            $table->timestamps(); //FECHA CREADO
         });
     }
 

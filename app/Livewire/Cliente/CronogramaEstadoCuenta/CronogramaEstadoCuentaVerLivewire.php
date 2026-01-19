@@ -92,7 +92,7 @@ class CronogramaEstadoCuentaVerLivewire extends Component
     {
         $nroCavali = $cuota['NroCavali'];
 
-        /*try {
+        try {
             $respuesta = $service->obtenerConstanciaCancelacion($nroCavali);
             if (
                 empty($respuesta['base64']) ||
@@ -100,13 +100,13 @@ class CronogramaEstadoCuentaVerLivewire extends Component
             ) {
                 $this->cuotaCavali = $cuota;
                 return;
-            }*/
+            }
 
-        $url = route('cavali.constancia.ver', $nroCavali);
-        /*   $this->dispatch('abrirUrlLivewire', $url);
+            $url = route('cavali.constancia.ver', $nroCavali);
+            $this->dispatch('abrirUrlLivewire', $url);
         } catch (\Throwable $e) {
             report($e);
-        }*/
+        }
     }
 
     #[On('cerrarModalCavaliOn')]

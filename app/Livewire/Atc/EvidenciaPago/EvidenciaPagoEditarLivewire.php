@@ -110,13 +110,13 @@ class EvidenciaPagoEditarLivewire extends Component
             return;
         }
 
-        if ($this->solicitud->slin_monto == $this->evidenciaSeleccionada->monto && $this->solicitud->slin_numero_operacion == $this->evidenciaSeleccionada->numero_operacion) {
+        /*if ($this->solicitud->slin_monto == $this->evidenciaSeleccionada->monto && $this->solicitud->slin_numero_operacion == $this->evidenciaSeleccionada->numero_operacion) {
             $this->dispatch('alertaLivewire', [
                 'title' => 'Error',
                 'text' => 'No coincide el monto o el número de operación',
             ]);
             return;
-        }
+        }*/
 
         if (!Storage::disk('public')->exists($this->evidenciaSeleccionada->path)) {
             $this->dispatch('alertaLivewire', 'Error');

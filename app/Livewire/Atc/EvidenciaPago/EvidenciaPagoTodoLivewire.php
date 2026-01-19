@@ -9,6 +9,7 @@ use App\Models\UnidadNegocio;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\User;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoTodoLivewire extends Component
@@ -19,12 +20,16 @@ class EvidenciaPagoTodoLivewire extends Component
     public $estados, $estado_id = '';
     public $empresas, $unidad_negocio_id = '';
     public $proyectos, $proyecto_id = '';
+    public $usuarios_admin, $admin = '';
+    public $fecha_inicio = '';
+    public $fecha_fin = '';
 
     public function mount()
     {
         $this->estados = EstadoEvidenciaPago::all();
         $this->empresas = UnidadNegocio::all();
         $this->proyectos = Proyecto::all();
+        $this->usuarios_admin = User::role(['asesor-atc', 'supervisor-atc'])->get();
     }
 
     public function updatingBuscar()
@@ -47,6 +52,21 @@ class EvidenciaPagoTodoLivewire extends Component
         $this->resetPage();
     }
 
+    public function updatingAdmin()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFechaInicio()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFechaFin()
+    {
+        $this->resetPage();
+    }
+
     public function updatingPerPage()
     {
         $this->resetPage();
@@ -59,6 +79,9 @@ class EvidenciaPagoTodoLivewire extends Component
             'unidad_negocio_id',
             'proyecto_id',
             'buscar',
+            'admin',
+            'fecha_inicio',
+            'fecha_fin',
         ]);
 
         $this->perPage = 20;
@@ -90,6 +113,7 @@ class EvidenciaPagoTodoLivewire extends Component
                 fn($q) =>
                 $q->where('estado_evidencia_pago_id', $this->estado_id)
             )
+            ->when($this->admin, fn($q) => $q->where('gestor_id', $this->admin))
             ->when(
                 $this->unidad_negocio_id,
                 fn($q) =>
@@ -99,6 +123,16 @@ class EvidenciaPagoTodoLivewire extends Component
                 $this->proyecto_id,
                 fn($q) =>
                 $q->where('proyecto_id', $this->proyecto_id)
+            )
+            ->when(
+                $this->fecha_inicio,
+                fn($q) =>
+                $q->whereDate('created_at', '>=', $this->fecha_inicio)
+            )
+            ->when(
+                $this->fecha_fin,
+                fn($q) =>
+                $q->whereDate('created_at', '<=', $this->fecha_fin)
             )
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
