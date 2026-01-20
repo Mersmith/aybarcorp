@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('comprobante')->nullable();
             $table->boolean('slin_asbanc')->default(false);
             $table->boolean('slin_evidencia')->default(false);
+            $table->boolean('resuelto_manual')->default(false);
 
             $table->text('observacion')->nullable();
 

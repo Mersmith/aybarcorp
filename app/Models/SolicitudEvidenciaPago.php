@@ -35,6 +35,7 @@ class SolicitudEvidenciaPago extends Model
         'lote_completo',
         'slin_asbanc',
         'slin_evidencia',
+        'resuelto_manual',
 
         'usuario_valida_id',
         'fecha_validacion',

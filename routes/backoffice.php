@@ -1,16 +1,16 @@
 <?php
 
-use App\Livewire\Atc\EstadoEvidenciaPago\EstadoEvidenciaPagoCrearLivewire;
-use App\Livewire\Atc\EstadoEvidenciaPago\EstadoEvidenciaPagoEditarLivewire;
-use App\Livewire\Atc\EstadoEvidenciaPago\EstadoEvidenciaPagoTodoLivewire;
-use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoCrearLivewire;
-use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoEditarLivewire;
-use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoImportarLivewire;
-use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoReporteLivewire;
-use App\Livewire\Atc\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoTodoLivewire;
-use App\Livewire\Atc\EvidenciaPago\EvidenciaPagoEditarLivewire;
-use App\Livewire\Atc\EvidenciaPago\EvidenciaPagoReporteLivewire;
-use App\Livewire\Atc\EvidenciaPago\EvidenciaPagoTodoLivewire;
+use App\Livewire\Backoffice\EstadoEvidenciaPago\EstadoEvidenciaPagoCrearLivewire;
+use App\Livewire\Backoffice\EstadoEvidenciaPago\EstadoEvidenciaPagoEditarLivewire;
+use App\Livewire\Backoffice\EstadoEvidenciaPago\EstadoEvidenciaPagoTodoLivewire;
+use App\Livewire\Backoffice\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoCrearLivewire;
+use App\Livewire\Backoffice\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoEditarLivewire;
+use App\Livewire\Backoffice\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoImportarLivewire;
+use App\Livewire\Backoffice\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoReporteLivewire;
+use App\Livewire\Backoffice\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoTodoLivewire;
+use App\Livewire\Backoffice\EvidenciaPago\EvidenciaPagoEditarLivewire;
+use App\Livewire\Backoffice\EvidenciaPago\EvidenciaPagoReporteLivewire;
+use App\Livewire\Backoffice\EvidenciaPago\EvidenciaPagoTodoLivewire;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('estado-evidencia-pago')

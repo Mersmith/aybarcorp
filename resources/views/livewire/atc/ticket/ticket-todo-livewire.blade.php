@@ -52,15 +52,15 @@
                 </div>
 
                 <div class="g_margin_bottom_10 g_columna_2">
-                    <label>Area </label>
-                    <select wire:model.live="area">
+                    <label>Gestor </label>
+                    <select wire:model.live="admin">
                         <option value="">Todos</option>
-                        @foreach ($areas as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                        @foreach ($usuarios_admin as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
-
+                
                 <div class="g_margin_bottom_10 g_columna_2">
                     <label>Estado </label>
                     <select wire:model.live="estado">
@@ -73,6 +73,16 @@
             </div>
 
             <div class="g_fila">
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Area </label>
+                    <select wire:model.live="area">
+                        <option value="">Todos</option>
+                        @foreach ($areas as $item)
+                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="g_margin_bottom_10 g_columna_2">
                     <label>Solicitud </label>
                     <select wire:model.live="solicitud">
@@ -99,16 +109,6 @@
                         <option value="">Todos</option>
                         @foreach ($canales as $item)
                         <option value="{{ $item->id }}">{{ $item->nombre }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="g_margin_bottom_10 g_columna_2">
-                    <label>Gestores </label>
-                    <select wire:model.live="admin">
-                        <option value="">Todos</option>
-                        @foreach ($usuarios_admin as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
