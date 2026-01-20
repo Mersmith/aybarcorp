@@ -24,6 +24,7 @@ php artisan make:model SolicitudEvidenciaPago -mfsc
 php artisan make:model CorreoEvidenciaPago -mfsc
 
 php artisan make:livewire Atc/EvidenciaPago/EvidenciaPagoReporteLivewire
+php artisan make:livewire Admin/Cliente/ClienteReporteDinamicoLivewire
 
 php artisan make:livewire Atc/EvidenciaPagoAntiguo/EvidenciaPagoAntiguoTodoLivewire
 php artisan make:livewire Atc/EvidenciaPagoAntiguo/EvidenciaPagoAntiguoCrearLivewire

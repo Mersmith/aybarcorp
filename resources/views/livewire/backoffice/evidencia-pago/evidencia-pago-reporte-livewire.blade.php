@@ -6,7 +6,7 @@
             <div class="g_panel">
                 <div class="g_panel_dashboard">
                     <div class="g_panel_dashboard_1">
-                        <h2>Total Solicitudes</h2>
+                        <h2>Total Evidencias</h2>
                         <p class="g_negrita">{{ $totalSolicitudes }}</p>
                     </div>
                     <i class="fa-solid fa-file-invoice-dollar"></i>
@@ -48,7 +48,7 @@
     <div class="g_fila">
         <div class="g_columna_12">
             <div class="g_panel">
-                <h2>Solicitudes por Fecha</h2>
+                <h2>Evidencia de pago recibidas(por Fecha)</h2>
                 <canvas id="chartPorFecha" height="150"></canvas>
             </div>
         </div>
@@ -57,7 +57,7 @@
     <div class="g_fila">
         <div class="g_columna_12">
             <div class="g_panel">
-                <h2>Solicitudes por Unidad de Negocio</h2>
+                <h2>Evidencia de pago por Razón Social</h2>
                 <canvas id="chartPorUnidad" height="150"></canvas>
             </div>
         </div>
@@ -66,7 +66,7 @@
     <div class="g_fila">
         <div class="g_columna_12">
             <div class="g_panel">
-                <h2>Solicitudes por Proyecto</h2>
+                <h2>Evidencia de pago por Proyecto</h2>
                 <canvas id="chartPorProyecto" height="150"></canvas>
             </div>
         </div>
@@ -75,7 +75,7 @@
     <div class="g_fila">
         <div class="g_columna_12">
             <div class="g_panel">
-                <h2>Top Gestores - Solicitudes Validadas</h2>
+                <h2>Top Gestores - Evidencia de pago Validadas</h2>
                 <canvas id="chartTopGestores" height="150"></canvas>
             </div>
         </div>
@@ -84,28 +84,28 @@
     <div class="g_fila">
         <div class="g_columna_3">
             <div class="g_panel">
-                <h2>Solicitudes por Estado</h2>
+                <h2>Evidencia de pago por Estado</h2>
                 <canvas id="chartPorEstado" height="150"></canvas>
             </div>
         </div>
 
         <div class="g_columna_3">
             <div class="g_panel">
-                <h2>Solicitudes Asignadas vs Sin Asignar</h2>
+                <h2>Evidencia de pago Asignadas vs Sin Asignar</h2>
                 <canvas id="chartAsignacion" height="150"></canvas>
             </div>
         </div>
 
         <div class="g_columna_3">
             <div class="g_panel">
-                <h2>Solicitudes Validadas vs Pendientes</h2>
+                <h2>Evidencia de pago Validadas vs Pendientes</h2>
                 <canvas id="chartValidadas" height="150"></canvas>
             </div>
         </div>
 
         <div class="g_columna_3">
             <div class="g_panel">
-                <h2>Solicitudes por Cantidad de Evidencias</h2>
+                <h2>Evidencia de pago por Cantidad de Evidencias</h2>
                 <canvas id="chartEvidencias" height="150"></canvas>
             </div>
         </div>

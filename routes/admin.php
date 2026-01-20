@@ -5,6 +5,7 @@ use App\Livewire\Admin\ClienteAntiguo\ClienteAntiguoEditarLivewire;
 use App\Livewire\Admin\ClienteAntiguo\ClienteAntiguoTodoLivewire;
 use App\Livewire\Admin\Cliente\ClienteEditarLivewire;
 use App\Livewire\Admin\Cliente\ClienteReporteLivewire;
+use App\Livewire\Admin\Cliente\ClienteReporteDinamicoLivewire;
 use App\Livewire\Admin\Cliente\ClienteConsultarLivewire;
 use App\Livewire\Admin\Cliente\ClienteTodoLivewire;
 use App\Livewire\Admin\GrupoProyecto\GrupoProyectoCrearLivewire;
@@ -44,6 +45,7 @@ Route::prefix('cliente')->name('cliente.vista.')->group(function () { //ok
     Route::get('/consultar/{dni?}', ClienteConsultarLivewire::class)->name('consultar');
     Route::get('/editar/{id}', ClienteEditarLivewire::class)->name('editar');
     Route::get('/reporte', ClienteReporteLivewire::class)->name('reporte');
+    Route::get('/reporte-dinamico', ClienteReporteDinamicoLivewire::class)->name('reporte-dinamico');
 });
 
 Route::prefix('cliente-bd-antiguo')->name('cliente-bd-antiguo.vista.')->group(function () { //ok
