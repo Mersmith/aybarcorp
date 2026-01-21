@@ -44,7 +44,7 @@ Route::prefix('cliente')->name('cliente.vista.')->group(function () { //ok
     Route::get('/', ClienteTodoLivewire::class)->name('todo');
     Route::get('/consultar/{dni?}', ClienteConsultarLivewire::class)->name('consultar');
     Route::get('/editar/{id}', ClienteEditarLivewire::class)->name('editar');
-    Route::get('/reporte', ClienteReporteLivewire::class)->name('reporte');
+    Route::get('/reporte', ClienteReporteDinamicoLivewire::class)->name('reporte');
     Route::get('/reporte-dinamico', ClienteReporteDinamicoLivewire::class)->name('reporte-dinamico');
 });
 

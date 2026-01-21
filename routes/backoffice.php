@@ -10,6 +10,7 @@ use App\Livewire\Backoffice\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoReporteLive
 use App\Livewire\Backoffice\EvidenciaPagoAntiguo\EvidenciaPagoAntiguoTodoLivewire;
 use App\Livewire\Backoffice\EvidenciaPago\EvidenciaPagoEditarLivewire;
 use App\Livewire\Backoffice\EvidenciaPago\EvidenciaPagoReporteLivewire;
+use App\Livewire\Backoffice\EvidenciaPago\EvidenciaPagoReporteDinamicoLivewire;
 use App\Livewire\Backoffice\EvidenciaPago\EvidenciaPagoTodoLivewire;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,8 @@ Route::prefix('evidencia-pago')
     ->group(function () {
         Route::get('/', EvidenciaPagoTodoLivewire::class)->name('todo');
         Route::get('/editar/{id}', EvidenciaPagoEditarLivewire::class)->name('editar');
-        Route::get('/reporte', EvidenciaPagoReporteLivewire::class)->name('reporte');
+        Route::get('/reporte', EvidenciaPagoReporteDinamicoLivewire::class)->name('reporte');
+        Route::get('/reporte-dinamico', EvidenciaPagoReporteDinamicoLivewire::class)->name('reporte-dinamico');
     });
 
 Route::prefix('evidencia-pago-antiguo')
