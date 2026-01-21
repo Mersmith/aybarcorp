@@ -317,6 +317,9 @@ class SlinController extends Controller
             'contrato'      => 'nullable|string',
             'idcobranzas'   => 'required|string',
             'base64Image'   => 'required|string',
+            'nrooperacion'   => 'required|string',
+            'fechaoperacion'   => 'required|string',
+            'mtooperacion'   => 'required|string',
         ]);
 
         $payload = [
@@ -325,6 +328,9 @@ class SlinController extends Controller
             'contrato'    => $request->contrato ?? '',
             'idcobranzas' => $request->idcobranzas,
             'base64Image' => $request->base64Image,
+            'nrooperacion' => $request->nrooperacion,
+            'fechaoperacion' => $request->fechaoperacion,
+            'mtooperacion' => $request->mtooperacion,
         ];
 
         $response = Http::withBasicAuth($this->user, $this->password)
@@ -351,7 +357,7 @@ class SlinController extends Controller
     {
         //$dni = "47693208";//desmaterializada
         //$dni = "72397392"; //desmaterializada
-        $dni = "43318778"; //desmaterializada
+        $dni = "74993562"; //desmaterializada
 
         $response = Http::get("{$this->remoteBase}/cliente/{$dni}");
 
@@ -371,7 +377,7 @@ class SlinController extends Controller
         ];*/
 
         $params = [
-            "id_cliente" => "C18304",
+            "id_cliente" => "C18781",
             "id_empresa" => "014",
         ];
 
@@ -441,8 +447,8 @@ class SlinController extends Controller
 
         $params = [
             'empresa' => '014',
-            'lote' => '01902-M2-0010', //proyecto/etapa-manza-lote
-            'cliente' => 'C18304',
+            'lote' => '01902-H2-0010', //proyecto/etapa-manza-lote
+            'cliente' => 'C18781',
             'contrato' => '', //opcional//si es null, porque fue migrado
             'servicio' => '02', //default, solo para cuotas
         ];

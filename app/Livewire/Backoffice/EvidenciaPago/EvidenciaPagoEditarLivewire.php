@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Carbon\Carbon;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoEditarLivewire extends Component
@@ -125,12 +126,18 @@ class EvidenciaPagoEditarLivewire extends Component
 
         $imageContent = Storage::disk('public')->get($this->evidenciaSeleccionada->path);
 
+        $fechaOperacion = Carbon::parse($this->evidenciaSeleccionada->fecha)
+            ->format('d/m/Y');
+
         $params = [
             'lote' => (string) $this->solicitud->lote_completo,
             'cliente' => (string) $this->solicitud->codigo_cliente,
             'contrato' => '', // nullable|string → enviar vacío
             'idcobranzas' => (string) $this->solicitud->transaccion_id,
             'base64Image' => base64_encode($imageContent),
+            'nrooperacion' => (string) $this->evidenciaSeleccionada->numero_operacion,
+            'fechaoperacion' => $fechaOperacion,
+            'mtooperacion' => (string) $this->evidenciaSeleccionada->monto,
         ];
 
         $response = Http::acceptJson()
@@ -210,7 +217,7 @@ class EvidenciaPagoEditarLivewire extends Component
     }
 
     public function cerrarManual()
-    {     
+    {
         $estadoAprobadoId = EstadoEvidenciaPago::id(
             EstadoEvidenciaPago::APROBADO
         );
