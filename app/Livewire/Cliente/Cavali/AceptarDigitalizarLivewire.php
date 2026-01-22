@@ -38,6 +38,9 @@ class AceptarDigitalizarLivewire extends Component
                     'lote' => $this->lote["id_lote"] ?? null,
                     'codigo_cliente' => $this->lote["id_cliente"] ?? null,
                     'numero_cuota' => $this->cuota["NroCuota"] ?? null,
+                    'codigo_venta' => $this->lote["id_recaudo"] ?? null,
+                    'fecha_vencimiento' => $this->cuota["FecVencimiento"] ?? null,
+                    'importe_cuota' => $this->cuota["Cuota"] ?? null,
 
                     'lote_completo' =>
                     $this->lote['id_proyecto'] .

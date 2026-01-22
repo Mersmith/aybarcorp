@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Backoffice\EvidenciaPago;
 
-use App\Models\SolicitudEvidenciaPago;
 use App\Models\EstadoEvidenciaPago;
 use App\Models\Proyecto;
+use App\Models\SolicitudEvidenciaPago;
 use App\Models\UnidadNegocio;
+use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\User;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoTodoLivewire extends Component
@@ -23,6 +23,9 @@ class EvidenciaPagoTodoLivewire extends Component
     public $usuarios_admin, $admin = '';
     public $fecha_inicio = '';
     public $fecha_fin = '';
+    public $tipo_cierre = '';
+    public $tiene_validacion = '';
+    public $es_asbanc = '';
 
     public function mount()
     {
@@ -67,6 +70,21 @@ class EvidenciaPagoTodoLivewire extends Component
         $this->resetPage();
     }
 
+    public function updatingTipoCierre()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingTieneValidacion()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingEsAsbanc()
+    {
+        $this->resetPage();
+    }
+
     public function updatingPerPage()
     {
         $this->resetPage();
@@ -82,6 +100,9 @@ class EvidenciaPagoTodoLivewire extends Component
             'admin',
             'fecha_inicio',
             'fecha_fin',
+            'tipo_cierre',
+            'tiene_validacion',
+            'es_asbanc',
         ]);
 
         $this->perPage = 20;
@@ -113,7 +134,13 @@ class EvidenciaPagoTodoLivewire extends Component
                 fn($q) =>
                 $q->where('estado_evidencia_pago_id', $this->estado_id)
             )
-            ->when($this->admin, fn($q) => $q->where('gestor_id', $this->admin))
+            ->when($this->admin, function ($q) {
+                if ($this->admin === 'sin_asignar') {
+                    $q->whereNull('gestor_id');
+                } else {
+                    $q->where('gestor_id', $this->admin);
+                }
+            })
             ->when(
                 $this->unidad_negocio_id,
                 fn($q) =>
@@ -134,6 +161,33 @@ class EvidenciaPagoTodoLivewire extends Component
                 fn($q) =>
                 $q->whereDate('created_at', '<=', $this->fecha_fin)
             )
+            ->when($this->tipo_cierre, function ($q) {
+                if ($this->tipo_cierre === 'api') {
+                    $q->where('slin_evidencia', true);
+                }
+
+                if ($this->tipo_cierre === 'manual') {
+                    $q->where('resuelto_manual', true);
+                }
+            })
+            ->when($this->tiene_validacion !== '', function ($q) {
+                if ($this->tiene_validacion === 'si') {
+                    $q->whereNotNull('fecha_validacion');
+                }
+
+                if ($this->tiene_validacion === 'no') {
+                    $q->whereNull('fecha_validacion');
+                }
+            })
+            ->when($this->es_asbanc !== '', function ($q) {
+                if ($this->es_asbanc === 'si') {
+                    $q->where('slin_asbanc', true);
+                }
+
+                if ($this->es_asbanc === 'no') {
+                    $q->where('slin_asbanc', false);
+                }
+            })
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 

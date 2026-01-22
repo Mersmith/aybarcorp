@@ -26,6 +26,9 @@ class SolicitudDigitalizarLetra extends Model
         'lote',
         'codigo_cliente',
         'numero_cuota',
+        'codigo_venta',
+        'fecha_vencimiento',
+        'importe_cuota',
     ];
 
     public function unidadNegocio()

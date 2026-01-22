@@ -30,6 +30,9 @@ return new class extends Migration
             $table->string('lote');
             $table->string('codigo_cliente')->nullable();
             $table->string('numero_cuota')->nullable();
+            $table->string('codigo_venta')->nullable();
+            $table->string('fecha_vencimiento')->nullable();
+            $table->string('importe_cuota')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

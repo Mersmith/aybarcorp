@@ -93,7 +93,14 @@
                 </div>
 
                 <div class="g_panel">
-                    <h4 class="g_panel_titulo">Datos cliente</h4>
+                    <h4 class="g_panel_titulo">Datos cliente
+                        <span class="g_badge activo">
+                            <a href="{{ route('admin.cliente.vista.editar', $solicitud->userCliente) }}"
+                                target="_blank" rel="noopener noreferrer">
+                                + INFORMACIÓN
+                            </a>
+                        </span>
+                    </h4>
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
@@ -197,11 +204,6 @@
                             </h4>
 
                             <div class="g_fila">
-                                <div class="g_margin_bottom_10 g_columna_3">
-                                    <label>Banco</label>
-                                    <input type="text" disabled value="{{ $evidencia->banco ?? 'Sin asignar' }}">
-                                </div>
-
                                 <div class="g_margin_bottom_10 g_columna_3">
                                     <label>Fecha operación</label>
                                     <input type="text" disabled value="{{ $evidencia->fecha ?? 'Sin asignar' }}">
