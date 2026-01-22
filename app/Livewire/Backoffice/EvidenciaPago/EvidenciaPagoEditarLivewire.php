@@ -281,14 +281,29 @@ class EvidenciaPagoEditarLivewire extends Component
             return;
         }
 
-        DB::transaction(function () use ($emailDestino) {
+        if (!$this->evidenciaSeleccionada) {
+            $this->dispatch('alertaLivewire', [
+                'title' => 'Advertencia',
+                'text' => 'Seleccione la evidencia.',
+            ]);
+            return;
+        }
 
-            Mail::to($emailDestino)
-                ->send(new EvidenciaPagoObservacionMail(
-                    $emailDestino,
-                    $this->solicitud,
-                    $this->mensaje
-                ));
+        $estadoRechazadoId = EstadoEvidenciaPago::id(
+            EstadoEvidenciaPago::RECHAZADO
+        );
+
+        DB::transaction(function () use ($estadoRechazadoId) {
+
+            $this->solicitud->update([
+                'estado_evidencia_pago_id' => $estadoRechazadoId,
+                'usuario_valida_id' => auth()->id(),
+                'fecha_validacion' => now(),
+            ]);
+
+            $this->evidenciaSeleccionada->update([
+                'estado_evidencia_pago_id' => $estadoRechazadoId,
+            ]);
 
             CorreoEvidenciaPago::create([
                 'solicitud_evidencia_pago_id' => $this->solicitud->id,
@@ -297,6 +312,18 @@ class EvidenciaPagoEditarLivewire extends Component
             ]);
         });
 
+        $this->estado_id = $estadoRechazadoId;
+        $this->solicitud->refresh();
+        $this->evidenciaSeleccionada->refresh();
+
+        Mail::to($emailDestino)->send(
+            new EvidenciaPagoObservacionMail(
+                $emailDestino,
+                $this->solicitud,
+                $this->mensaje
+            )
+        );
+
         $this->mensaje = null;
 
         $this->dispatch('alertaLivewire', [
@@ -304,7 +331,7 @@ class EvidenciaPagoEditarLivewire extends Component
             'text' => 'El correo fue enviado y registrado correctamente.',
         ]);
     }
-
+    
     public function render()
     {
         return view('livewire.backoffice.evidencia-pago.evidencia-pago-editar-livewire');

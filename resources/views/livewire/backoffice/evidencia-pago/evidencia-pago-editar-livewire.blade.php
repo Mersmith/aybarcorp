@@ -364,7 +364,7 @@
                             <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
-                    @if (!$solicitud->fecha_validacion && !$solicitud->slin_evidencia)
+                    @if (!$solicitud->resuelto_manual && !$solicitud->slin_evidencia)
                         <div class="g_margin_bottom_10">
                             <div class="formulario_botones">
                                 <button wire:click="enviarCorreo" class="guardar" wire:loading.attr="disabled"

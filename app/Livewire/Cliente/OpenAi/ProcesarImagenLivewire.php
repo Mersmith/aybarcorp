@@ -202,6 +202,7 @@ NO agregues explicación ni texto adicional. Solo JSON.",
                     'unidad_negocio_id' => $this->unidad_negocio_id,
                     'proyecto_id' => $this->proyecto_id,
                     'cliente_id' => Auth::id(),
+                    'estado_evidencia_pago_id' => 1,
 
                     'razon_social' => $this->lote["razon_social"] ?? null,
                     'nombre_proyecto' => $this->lote["descripcion"] ?? null,
