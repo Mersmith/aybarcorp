@@ -190,6 +190,7 @@ NO agregues explicación ni texto adicional. Solo JSON.",
 
         DB::transaction(function () {
 
+            $monto_operacion = $this->normalizarMonto($this->cuota["MtoOperacion"] ?? null);
             $slinMonto = $this->normalizarMonto($this->cuota["Cuota"] ?? null);
             $slinPenalidad = $this->normalizarMonto($this->cuota["Penalidad"] ?? null);
 
@@ -210,6 +211,8 @@ NO agregues explicación ni texto adicional. Solo JSON.",
                     'codigo_cliente' => $this->lote["id_cliente"] ?? null,
                     'numero_cuota' => $this->cuota["NroCuota"] ?? null,
                     'transaccion_id' => $this->cuota["IdTransaccion"] ?? null,
+                    'fecha_operacion' => $this->lote["FecOperacion"] ?? null,
+                    'monto_operacion' => $monto_operacion,
                     'slin_monto' => $slinMonto,
                     'slin_penalidad' => $slinPenalidad,
                     'slin_numero_operacion' => $this->cuota["NroOperacion"] ?? null,

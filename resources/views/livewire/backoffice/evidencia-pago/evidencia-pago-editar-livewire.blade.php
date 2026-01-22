@@ -180,14 +180,32 @@
                             <input type="text" disabled value="{{ $solicitud->comprobante ?? 'Sin asignar' }}">
                         </div>
                         <div class="g_margin_bottom_10 g_columna_3">
-                            <label>N° Operación</label>
+                            <label>Cuota Monto</label>
+                            <input type="text" disabled value="{{ $solicitud->slin_monto ?? 'Sin asignar' }}">
+                        </div>
+                        <div class="g_margin_bottom_10 g_columna_3">
+                            <label>Asbanc</label>
+                            <input type="text" disabled
+                                value="{{ $solicitud->slin_asbanc ? 'SI' : 'No' }}">
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_3">
+                            <label class="g_boton g_boton_info">Fecha operación</label>
+                            <input type="text" disabled
+                                value="{{ $solicitud->fecha_operacion ?? 'Sin asignar' }}">
+                        </div>
+                        <div class="g_margin_bottom_10 g_columna_3">
+                            <label class="g_boton g_boton_info">N° Operación</label>
                             <input type="text" disabled
                                 value="{{ $solicitud->slin_numero_operacion ?? 'Sin asignar' }}">
                         </div>
                         <div class="g_margin_bottom_10 g_columna_3">
-                            <label>Cuota Monto</label>
-                            <input type="text" disabled value="{{ $solicitud->slin_monto ?? 'Sin asignar' }}">
-                        </div>
+                            <label class="g_boton g_boton_info">Monto operación</label>
+                            <input type="text" disabled
+                                value="{{ $solicitud->monto_operacion ?? 'Sin asignar' }}">
+                        </div>                       
                     </div>
                 </div>
 
@@ -205,18 +223,18 @@
 
                             <div class="g_fila">
                                 <div class="g_margin_bottom_10 g_columna_3">
-                                    <label>Fecha operación</label>
+                                    <label class="g_boton g_boton_info">Fecha operación</label>
                                     <input type="text" disabled value="{{ $evidencia->fecha ?? 'Sin asignar' }}">
                                 </div>
 
                                 <div class="g_margin_bottom_10 g_columna_3">
-                                    <label>N° Operación</label>
+                                    <label class="g_boton g_boton_info">N° Operación</label>
                                     <input type="text" disabled
                                         value="{{ $evidencia->numero_operacion ?? 'Sin asignar' }}">
                                 </div>
 
                                 <div class="g_margin_bottom_10 g_columna_3">
-                                    <label>Monto</label>
+                                    <label class="g_boton g_boton_info">Monto</label>
                                     <input type="text" disabled value="{{ $evidencia->monto ?? 'Sin asignar' }}">
                                 </div>
                             </div>

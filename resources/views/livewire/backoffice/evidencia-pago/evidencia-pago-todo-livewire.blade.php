@@ -131,6 +131,7 @@
                             <th>N° Cuota</th>
                             <th>Cliente</th>
                             <th>Dni</th>
+                            <th>Fecha</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
@@ -152,6 +153,7 @@
                                     <td class="g_resumir">{{ $item->numero_cuota }}</td>
                                     <td class="g_negrita g_resumir">{{ $item->userCliente->name }}</td>
                                     <td> {{ $item->userCliente?->cliente?->dni ?? '—' }}</td>
+                                    <td>{{ $item->created_at }}</td>
                                     <td>
                                         <span style="color: {{ $item->estado->color }};">
                                             <i class="{{ $item->estado->icono }}"></i> {{ $item->estado->nombre }}

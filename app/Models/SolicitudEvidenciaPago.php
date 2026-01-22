@@ -28,6 +28,8 @@ class SolicitudEvidenciaPago extends Model
         'codigo_cuota',
         'numero_cuota',
         'transaccion_id',
+        'fecha_operacion',
+        'monto_operacion',
         'slin_monto',
         'slin_penalidad',
         'slin_numero_operacion',
@@ -43,6 +45,7 @@ class SolicitudEvidenciaPago extends Model
 
     protected $casts = [
         'fecha_validacion' => 'datetime',
+        'monto_operacion' => 'decimal:2',
         'slin_monto' => 'decimal:2',
         'slin_penalidad' => 'decimal:2',
     ];
