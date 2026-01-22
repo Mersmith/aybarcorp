@@ -29,7 +29,7 @@ Route::prefix('evidencia-pago')
     ->group(function () {
         Route::get('/', EvidenciaPagoTodoLivewire::class)->name('todo');
         Route::get('/editar/{id}', EvidenciaPagoEditarLivewire::class)->name('editar');
-        Route::get('/reporte', EvidenciaPagoReporteDinamicoLivewire::class)->name('reporte');
+        Route::get('/reporte', EvidenciaPagoReporteLivewire::class)->name('reporte');
         Route::get('/reporte-dinamico', EvidenciaPagoReporteDinamicoLivewire::class)->name('reporte-dinamico');
     });
 

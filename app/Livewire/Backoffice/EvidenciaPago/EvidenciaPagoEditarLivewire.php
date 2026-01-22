@@ -9,6 +9,7 @@ use App\Models\Proyecto;
 use App\Models\SolicitudEvidenciaPago;
 use App\Models\UnidadNegocio;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Carbon\Carbon;
 
 #[Layout('layouts.admin.layout-admin')]
 class EvidenciaPagoEditarLivewire extends Component
@@ -112,11 +112,11 @@ class EvidenciaPagoEditarLivewire extends Component
         }
 
         /*if ($this->solicitud->slin_monto == $this->evidenciaSeleccionada->monto && $this->solicitud->slin_numero_operacion == $this->evidenciaSeleccionada->numero_operacion) {
-            $this->dispatch('alertaLivewire', [
-                'title' => 'Error',
-                'text' => 'No coincide el monto o el número de operación',
-            ]);
-            return;
+        $this->dispatch('alertaLivewire', [
+        'title' => 'Error',
+        'text' => 'No coincide el monto o el número de operación',
+        ]);
+        return;
         }*/
 
         if (!Storage::disk('public')->exists($this->evidenciaSeleccionada->path)) {
@@ -127,7 +127,7 @@ class EvidenciaPagoEditarLivewire extends Component
         $imageContent = Storage::disk('public')->get($this->evidenciaSeleccionada->path);
 
         $fechaOperacion = Carbon::parse($this->evidenciaSeleccionada->fecha)
-            ->format('d/m/Y');
+            ->format('m/d/Y');
 
         $params = [
             'lote' => (string) $this->solicitud->lote_completo,
@@ -245,7 +245,7 @@ class EvidenciaPagoEditarLivewire extends Component
     public function seleccionarEvidencia($evidenciaId)
     {
         $this->evidenciaSeleccionada =
-            $this->solicitud->evidencias->firstWhere('id', $evidenciaId);
+        $this->solicitud->evidencias->firstWhere('id', $evidenciaId);
 
         $this->evidenciaSeleccionadaId = $evidenciaId;
 
