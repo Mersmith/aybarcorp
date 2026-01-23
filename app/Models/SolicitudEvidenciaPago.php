@@ -34,6 +34,7 @@ class SolicitudEvidenciaPago extends Model
         'slin_penalidad',
         'slin_numero_operacion',
         'comprobante',
+        'ticket',
         'lote_completo',
         'slin_asbanc',
         'slin_evidencia',
@@ -89,7 +90,7 @@ class SolicitudEvidenciaPago extends Model
     public function getEstaAprobadaAttribute(): bool
     {
         return $this->estado_evidencia_pago_id ===
-        EstadoEvidenciaPago::id(EstadoEvidenciaPago::APROBADO);
+            EstadoEvidenciaPago::id(EstadoEvidenciaPago::APROBADO);
     }
 
     // valida

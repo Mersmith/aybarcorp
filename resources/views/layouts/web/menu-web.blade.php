@@ -38,8 +38,7 @@
                     @else
                     @if (auth()->user()->rol === 'cliente')
                     <li class="menu_item menu_cliente">
-                        <a href="{{ route('cliente.home') }}"
-                            class="boton_personalizado boton_personalizado_amarillo_v2">
+                        <a href="{{ route('cliente.home') }}" class="boton_personalizado boton_personalizado_blanco_v2">
                             <i class="fa-solid fa-address-card"></i>
                             MI PERFIL
                         </a>
@@ -49,6 +48,13 @@
                         <a href="{{ route('cliente.lote') }}" class="boton_personalizado boton_personalizado_blanco_v2">
                             <i class="fa-solid fa-border-all"></i>
                             MIS PROYECTOS
+                        </a>
+                    </li>
+
+                    <li class="menu_item menu_cliente">
+                        <a href="" class="boton_personalizado boton_personalizado_amarillo_v2">
+                            <i class="fa-solid fa-circle-play"></i>
+                            TUTORIALES
                         </a>
                     </li>
 

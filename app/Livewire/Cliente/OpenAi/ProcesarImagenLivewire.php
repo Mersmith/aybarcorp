@@ -194,7 +194,7 @@ NO agregues explicación ni texto adicional. Solo JSON.",
             $slinMonto = $this->normalizarMonto($this->cuota["Cuota"] ?? null);
             $slinPenalidad = $this->normalizarMonto($this->cuota["Penalidad"] ?? null);
 
-            $solicitud = SolicitudEvidenciaPago::firstOrCreate(
+            $solicitud = SolicitudEvidenciaPago::updateOrCreate(
                 [
                     'codigo_cuota' => $this->cuota["idCuota"] ?? null,
                 ],
@@ -212,17 +212,18 @@ NO agregues explicación ni texto adicional. Solo JSON.",
                     'codigo_cliente' => $this->lote["id_cliente"] ?? null,
                     'numero_cuota' => $this->cuota["NroCuota"] ?? null,
                     'transaccion_id' => $this->cuota["IdTransaccion"] ?? null,
-                    'fecha_operacion' => $this->lote["FecOperacion"] ?? null,
+                    'fecha_operacion' => $this->cuota["FecOperacion"] ?? null,
                     'monto_operacion' => $monto_operacion,
                     'slin_monto' => $slinMonto,
                     'slin_penalidad' => $slinPenalidad,
                     'slin_numero_operacion' => $this->cuota["NroOperacion"] ?? null,
+                    'ticket' => $this->cuota["Ticket"] ?? null,
                     'comprobante' => $this->cuota["Comprobante"] ?? null,
                     'lote_completo' =>
                     $this->lote['id_proyecto'] .
-                    $this->lote['id_etapa'] . '-' .
-                    $this->lote['id_manzana'] . '-' .
-                    $this->lote['id_lote'],
+                        $this->lote['id_etapa'] . '-' .
+                        $this->lote['id_manzana'] . '-' .
+                        $this->lote['id_lote'],
                     'slin_asbanc' => $this->cuota["Asbanc"] ?? false,
                     'slin_evidencia' => $this->cuota["EvidPago"] ?? false,
                 ]

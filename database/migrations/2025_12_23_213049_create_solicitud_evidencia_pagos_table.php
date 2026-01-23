@@ -40,6 +40,7 @@ return new class extends Migration
             $table->decimal('slin_penalidad', 10, 2)->nullable();
             $table->string('slin_numero_operacion')->nullable();
             $table->string('comprobante')->nullable();
+            $table->string('ticket')->nullable();
             $table->boolean('slin_asbanc')->default(false);
             $table->boolean('slin_evidencia')->default(false);
             $table->boolean('resuelto_manual')->default(false);

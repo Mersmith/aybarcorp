@@ -15,6 +15,11 @@
         <i class="fa-solid fa-chevron-right"></i>
     </a>
 
+    <a href="" class="">
+        <span><i class="fa-solid fa-circle-play"></i> Tutoriales</span>
+        <i class="fa-solid fa-chevron-right"></i>
+    </a>
+
     <form method="POST" action="{{ route('logout.cliente') }}">
         @csrf
         <button type="submit">
