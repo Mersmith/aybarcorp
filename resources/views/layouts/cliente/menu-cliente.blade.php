@@ -15,7 +15,7 @@
         <i class="fa-solid fa-chevron-right"></i>
     </a>
 
-    <a href="" class="">
+    <a href="{{ route('cliente.tutorial') }}" class="">
         <span><i class="fa-solid fa-circle-play"></i> Tutoriales</span>
         <i class="fa-solid fa-chevron-right"></i>
     </a>

@@ -22,7 +22,7 @@ class AceptarDigitalizarLivewire extends Component
     public function guardar()
     {
         DB::transaction(function () {
-            SolicitudDigitalizarLetra::firstOrCreate(
+            SolicitudDigitalizarLetra::updateOrCreate(
                 [
                     'codigo_cuota' => $this->cuota["idCuota"] ?? null,
                 ],

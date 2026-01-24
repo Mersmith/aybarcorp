@@ -10,6 +10,8 @@ php artisan make:notification ResetPasswordCustom
 
 php artisan make:livewire Cliente/Perfil/PerfilVerLivewire
 
+php artisan make:livewire Cliente/Tutorial/TutorialTodoLivewire
+
 php artisan make:livewire Cliente/Direccion/DireccionTodoLivewire
 php artisan make:livewire Cliente/Direccion/DireccionCrearLivewire
 php artisan make:livewire Cliente/Direccion/DireccionEditarLivewire

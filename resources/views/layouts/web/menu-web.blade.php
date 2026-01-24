@@ -52,7 +52,8 @@
                     </li>
 
                     <li class="menu_item menu_cliente">
-                        <a href="" class="boton_personalizado boton_personalizado_amarillo_v2">
+                        <a href="{{ route('cliente.tutorial') }}"
+                            class="boton_personalizado boton_personalizado_amarillo_v2">
                             <i class="fa-solid fa-circle-play"></i>
                             TUTORIALES
                         </a>
