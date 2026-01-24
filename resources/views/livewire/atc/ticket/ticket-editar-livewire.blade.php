@@ -41,7 +41,14 @@
             <!-- IZQUIERDA -->
             <div class="g_columna_8 g_gap_pagina">
                 <div class="g_panel">
-                    <h4 class="g_panel_titulo">General</h4>
+                    <h4 class="g_panel_titulo">General
+                        <span class="g_badge activo">
+                            <a href="{{ route('admin.cliente.vista.consultar', $ticket->dni) }}" target="_blank"
+                                rel="noopener noreferrer">
+                                + VER CRONOGRAMA CLIENTE
+                            </a>
+                        </span>
+                    </h4>
 
                     <div class="g_fila">
                         <div class="g_margin_bottom_10 g_columna_4">
@@ -90,13 +97,26 @@
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
+                            <label>Correo</label>
+                            <input type="text" disabled value="{{ $ticket->cliente?->email ?? 'Sin asignar' }}">
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_3">
+                            <label>Celular</label>
+                            <input type="text" disabled
+                                value="{{ $ticket->cliente?->cliente?->telefono_principal ?? 'Sin asignar' }}">
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
                             <label for="gestor_id">
                                 Gestor <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>
                             <input type="text" disabled value="{{ $ticket->gestor->name ?? 'Sin asignar' }}">
                         </div>
 
-                        <div class="g_margin_bottom_10 g_columna_3">
+                        <div class="g_margin_bottom_10 g_columna_6">
                             <label for="estado_ticket_id">
                                 Estado <span class="obligatorio"><i class="fa-solid fa-asterisk"></i></span>
                             </label>

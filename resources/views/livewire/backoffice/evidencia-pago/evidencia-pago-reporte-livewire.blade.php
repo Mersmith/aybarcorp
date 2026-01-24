@@ -6,7 +6,7 @@
             <div class="g_panel">
                 <div class="g_panel_dashboard">
                     <div class="g_panel_dashboard_1">
-                        <h2>Total Evidencias</h2>
+                        <h2>Total Evidencias recibidas</h2>
                         <p class="g_negrita">{{ $totalSolicitudes }}</p>
                     </div>
                     <i class="fa-solid fa-file-invoice-dollar"></i>
@@ -16,7 +16,7 @@
             <div class="g_panel">
                 <div class="g_panel_dashboard">
                     <div class="g_panel_dashboard_1">
-                        <h2>Validadas</h2>
+                        <h2>Evidencias validadas</h2>
                         <p class="g_negrita">{{ $solicitudesValidadas['data'][0] }}</p>
                     </div>
                     <i class="fa-solid fa-check-circle"></i>
@@ -26,7 +26,7 @@
             <div class="g_panel">
                 <div class="g_panel_dashboard">
                     <div class="g_panel_dashboard_1">
-                        <h2>Pendientes</h2>
+                        <h2>Evidencias pendientes</h2>
                         <p class="g_negrita">{{ $solicitudesValidadas['data'][1] }}</p>
                     </div>
                     <i class="fa-solid fa-hourglass-half"></i>
@@ -36,7 +36,7 @@
             <div class="g_panel">
                 <div class="g_panel_dashboard">
                     <div class="g_panel_dashboard_1">
-                        <h2>Sin gestor</h2>
+                        <h2>Evidencias no asignadas</h2>
                         <p class="g_negrita">{{ $solicitudesSinAsignar }}</p>
                     </div>
                     <i class="fa-solid fa-user-tie"></i>

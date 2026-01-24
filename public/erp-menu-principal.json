@@ -1107,5 +1107,84 @@
                 "submenus": []
             }
         ]
+    },
+    {
+        "id": 11,
+        "nombre": "11",
+        "ruta": "#",
+        "url": "#",
+        "icono": "fa-solid fa-chart-line",
+        "nivel": 1,
+        "roles": [
+            "super-admin",
+            "admin"
+        ],
+        "submenus": [
+            {
+                "id": 45,
+                "nombre": "Reporte clientes",
+                "ruta": "admin.cliente.vista.reporte",
+                "url": "/admin/cliente/reporte",
+                "icono": "fa-solid fa-users",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "admin"
+                ],
+                "submenus": []
+            },
+            {
+                "id": 46,
+                "nombre": "Reporte evidencias de pago",
+                "ruta": "admin.evidencia-pago.vista.reporte",
+                "url": "/admin/evidencia-pago/reporte",
+                "icono": "fa-regular fa-image",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "admin"
+                ],
+                "submenus": []
+            },
+            {
+                "id": 47,
+                "nombre": "Reporte evidencias de pago stock",
+                "ruta": "admin.evidencia-pago-antiguo.vista.reporte",
+                "url": "/admin/evidencia-pago-antiguo/reporte",
+                "icono": "fa-solid fa-file-image",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "admin"
+                ],
+                "submenus": []
+            },
+            {
+                "id": 48,
+                "nombre": "Reporte tickets",
+                "ruta": "admin.reporte-ticket.vista.todo",
+                "url": "/admin/reporte-ticket",
+                "icono": "fa-solid fa-clipboard-check",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "admin"
+                ],
+                "submenus": []
+            },
+            {
+                "id": 49,
+                "nombre": "Reporte citas",
+                "ruta": "admin.reporte-cita.vista.todo",
+                "url": "/admin/reporte-cita",
+                "icono": "fa-solid fa-calendar-check",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "admin"
+                ],
+                "submenus": []
+            }
+        ]
     }
 ]
