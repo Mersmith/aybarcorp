@@ -357,7 +357,7 @@ class SlinController extends Controller
     {
         //$dni = "47693208";//desmaterializada
         //$dni = "72397392"; //desmaterializada
-        $dni = "74993562"; //desmaterializada
+        $dni = "71598773"; //desmaterializada
 
         $response = Http::get("{$this->remoteBase}/cliente/{$dni}");
 
@@ -377,8 +377,8 @@ class SlinController extends Controller
         ];*/
 
         $params = [
-            "id_cliente" => "C18781",
-            "id_empresa" => "014",
+            "id_cliente" => "C19480",
+            "id_empresa" => "018",
         ];
 
         $response = Http::get("{$this->remoteBase}/lotes", $params);
@@ -446,9 +446,9 @@ class SlinController extends Controller
         ];*/
 
         $params = [
-            'empresa' => '014',
-            'lote' => '01902-H2-0010', //proyecto/etapa-manza-lote
-            'cliente' => 'C18781',
+            'empresa' => '018',
+            'lote' => '00101-J-0002', //proyecto/etapa-manza-lote
+            'cliente' => 'C19480',
             'contrato' => '', //opcional//si es null, porque fue migrado
             'servicio' => '02', //default, solo para cuotas
         ];
@@ -495,6 +495,7 @@ class SlinController extends Controller
     public function probarEvidencia()
     {
         $params = [
+            'empresa' => '018',
             'lote' => '02003-N3-0006',
             'cliente' => 'C03704',
             'contrato' => '', //opcional//si es null, porque fue migrado
