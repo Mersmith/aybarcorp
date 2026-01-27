@@ -1,4 +1,77 @@
 <div>
+
+    <div class="g_panel">
+
+        <h2>Rendimiento de Gestores</h2>
+
+        <div class="formulario">
+            <div class="g_fila">
+
+                <div class="g_columna_3">
+                    <label>Estado</label>
+                    <select wire:model.live="estadoId">
+                        <option value="">Todos</option>
+                        @foreach ($estados as $estado)
+                            <option value="{{ $estado->id }}">
+                                {{ $estado->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="g_columna_3">
+                    <label>¿Tiene fecha de validación?</label>
+                    <select wire:model.live="fechaValidacion">
+                        <option value="">Todos</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tabla_contenido">
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>Gestor</th>
+                        <th>Cerradas por API</th>
+                        <th>Cerradas Manual</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @forelse ($reporte as $fila)
+                        <tr>
+                            <td class="g_negrita">
+                                {{ $fila->gestor->name ?? '—' }}
+                            </td>
+                            <td class="centrar">
+                                {{ $fila->total_api }}
+                            </td>
+                            <td class="centrar">
+                                {{ $fila->total_manual }}
+                            </td>
+                            <td class="centrar g_negrita">
+                                {{ $fila->total_api + $fila->total_manual }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="centrar">
+                                No hay datos para mostrar
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
     <div class="g_fila">
         <div class="g_columna_12">
             <div class="g_panel">
@@ -17,7 +90,7 @@
                             <select class="g_input" wire:model.live="unidadNegocioId">
                                 <option value="">Todas</option>
                                 @foreach ($unidadesNegocio as $unidad)
-                                <option value="{{ $unidad->id }}">{{ $unidad->nombre }}</option>
+                                    <option value="{{ $unidad->id }}">{{ $unidad->nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -27,7 +100,7 @@
                             <select class="g_input" wire:model.live="proyectoId" @disabled(!$unidadNegocioId)>
                                 <option value="">Todos</option>
                                 @foreach ($proyectos as $proyecto)
-                                <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
+                                    <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -57,7 +130,7 @@
                             <select class="g_input" wire:model.live="unidadNegocioId">
                                 <option value="">Todas</option>
                                 @foreach ($unidadesNegocio as $unidad)
-                                <option value="{{ $unidad->id }}">{{ $unidad->nombre }}</option>
+                                    <option value="{{ $unidad->id }}">{{ $unidad->nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -67,7 +140,7 @@
                             <select class="g_input" wire:model.live="proyectoId" @disabled(!$unidadNegocioId)>
                                 <option value="">Todos</option>
                                 @foreach ($proyectos as $proyecto)
-                                <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
+                                    <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -83,7 +156,7 @@
 
 <script>
     let chartDiaMes = null;
- let chartPorUnidad = null;
+    let chartPorUnidad = null;
     document.addEventListener('livewire:init', () => {
 
         const colores = ['#4F46E5', '#3B82F6', '#10B981', '#F59E0B', '#EF4444'];
@@ -126,10 +199,9 @@
             chartDiaMes.update();
         });
 
-       // ===== GRAFICO 2: POR UNIDAD =====
+        // ===== GRAFICO 2: POR UNIDAD =====
         chartPorUnidad = new Chart(
-            document.getElementById('graficoChartPorUnidad'),
-            {
+            document.getElementById('graficoChartPorUnidad'), {
                 type: 'bar',
                 data: {
                     labels: @json($solicitudesPorUnidad['labels']),

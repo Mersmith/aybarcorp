@@ -2,8 +2,9 @@
 
 namespace App\Livewire\Backoffice\EvidenciaPago;
 
-use App\Models\SolicitudEvidenciaPago;
+use App\Models\EstadoEvidenciaPago;
 use App\Models\Proyecto;
+use App\Models\SolicitudEvidenciaPago;
 use App\Models\UnidadNegocio;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
@@ -22,9 +23,15 @@ class EvidenciaPagoReporteDinamicoLivewire extends Component
 
     public $solicitudesPorUnidad = [];
 
+    public $estadoId = '';
+    public $fechaValidacion = ''; // si | no | ''
+
+    public $estados = [];
 
     public function mount()
     {
+        $this->estados = EstadoEvidenciaPago::orderBy('nombre')->get();
+
         $this->unidadesNegocio = UnidadNegocio::orderBy('nombre')->get();
         $this->proyectos = collect();
 
@@ -72,7 +79,7 @@ class EvidenciaPagoReporteDinamicoLivewire extends Component
         ) {
             $this->solicitudesPorUnidad = [
                 'labels' => [],
-                'data'   => [],
+                'data' => [],
             ];
             return;
         }
@@ -115,7 +122,7 @@ class EvidenciaPagoReporteDinamicoLivewire extends Component
         ) {
             $this->solicitudesPorFecha = [
                 'labels' => [],
-                'data'   => [],
+                'data' => [],
             ];
 
             return;
@@ -145,12 +152,38 @@ class EvidenciaPagoReporteDinamicoLivewire extends Component
 
         $this->solicitudesPorFecha = [
             'labels' => $data->pluck('fecha')->map(fn($f) => date('d', strtotime($f))),
-            'data'   => $data->pluck('total'),
+            'data' => $data->pluck('total'),
         ];
     }
 
     public function render()
     {
-        return view('livewire.backoffice.evidencia-pago.evidencia-pago-reporte-dinamico-livewire');
+        $query = SolicitudEvidenciaPago::query()
+            ->select(
+                'gestor_id',
+                DB::raw('SUM(CASE WHEN slin_evidencia = 1 THEN 1 ELSE 0 END) as total_api'),
+                DB::raw('SUM(CASE WHEN resuelto_manual = 1 THEN 1 ELSE 0 END) as total_manual')
+            )
+            ->whereNotNull('gestor_id')
+            ->groupBy('gestor_id')
+            ->with('gestor:id,name');
+
+        // Filtro estado
+        if ($this->estadoId) {
+            $query->where('estado_evidencia_pago_id', $this->estadoId);
+        }
+
+        // Filtro fecha validación
+        if ($this->fechaValidacion === 'si') {
+            $query->whereNotNull('fecha_validacion');
+        }
+
+        if ($this->fechaValidacion === 'no') {
+            $query->whereNull('fecha_validacion');
+        }
+
+        $reporte = $query->get();
+
+        return view('livewire.backoffice.evidencia-pago.evidencia-pago-reporte-dinamico-livewire', compact('reporte'));
     }
 }
