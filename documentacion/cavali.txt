@@ -1,0 +1,44 @@
+ACEPTANTE AYBAR
+codigo_venta
+tipo_documento_aceptante
+numero_documento_aceptante
+nombres_aceptante
+apellidos_aceptante
+domicilio_aceptante
+localidad_aceptante
+correo_electronico_aceptante
+telefono_casa_aceptante
+celular_aceptante
+tipo_firmante_aceptante
+
+LETRAS AYBAR
+codigo_venta
+tipo_venta: VENT
+ruc_cuenta_matriz: 20603865813
+ruc_titular: 20603865813
+tipo_documento_girador: RUC
+numero_documento_girador: 20603865813
+razon_social_girador: AYBAR CORP. S.A.C.
+numero_letra
+referencia_girador: VACIO
+fecha_giro
+lugar_giro: VACIO
+fecha_vencimiento
+moneda: S
+importe
+lugar_pago
+clausula_prorroga: VACIO
+plaza: VACIO
+nombre_proyecto
+protesto: VACIO
+tipo_transferencia: VACIO
+
+GIRADOR AYBAR
+ruc_girador: 20609014521
+tipo_documento_rep_legal: DNI
+documento_rep: 14884548
+nombre_rep_legal: GIULIANO CHRISTIAN
+apellido_rep_legal: TORRES GIULIANO
+email_rep_legal: gamarot@aybarsac.com
+telefono_rep_legal: 922669656
+

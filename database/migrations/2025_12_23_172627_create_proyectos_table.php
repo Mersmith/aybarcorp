@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->string('nombre')->unique();
             $table->string('slug')->unique();
+            $table->string('slin_id')->nullable();
             $table->longText('contenido')->nullable();
             $table->json('secciones')->nullable();
             $table->string('imagen')->nullable();

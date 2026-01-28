@@ -11,7 +11,20 @@ class UnidadNegocio extends Model
     /** @use HasFactory<\Database\Factories\UnidadNegocioFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['nombre', 'razon_social'];
+    protected $fillable = [
+        'nombre', 
+        'razon_social',
+        'ruc',
+        'slin_id',
+
+        //REPRESENTANTE LEGAL DEL GIRADOR
+        'cavali_girador_tipo_documento',
+        'cavali_girador_documento',
+        'cavali_girador_nombre',
+        'cavali_girador_apellido',
+        'cavali_girador_email',
+        'cavali_girador_telefono',
+    ];
 
     public function proyectos()
     {

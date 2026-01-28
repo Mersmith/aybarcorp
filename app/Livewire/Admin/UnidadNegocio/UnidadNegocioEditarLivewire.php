@@ -16,6 +16,16 @@ class UnidadNegocioEditarLivewire extends Component
     public $nombre;
     public $razon_social;
 
+    public $ruc;
+    public $slin_id;
+
+    public $cavali_girador_tipo_documento;
+    public $cavali_girador_documento;
+    public $cavali_girador_nombre;
+    public $cavali_girador_apellido;
+    public $cavali_girador_email;
+    public $cavali_girador_telefono;
+
     protected function rules()
     {
         return [
@@ -30,6 +40,15 @@ class UnidadNegocioEditarLivewire extends Component
 
         $this->nombre = $this->unidad_negocio->nombre;
         $this->razon_social = $this->unidad_negocio->razon_social;
+
+        $this->ruc = $this->unidad_negocio->ruc;
+        $this->slin_id = $this->unidad_negocio->slin_id;
+        $this->cavali_girador_tipo_documento = $this->unidad_negocio->cavali_girador_tipo_documento;
+        $this->cavali_girador_documento = $this->unidad_negocio->cavali_girador_documento;
+        $this->cavali_girador_nombre = $this->unidad_negocio->cavali_girador_nombre;
+        $this->cavali_girador_apellido = $this->unidad_negocio->cavali_girador_apellido;
+        $this->cavali_girador_email = $this->unidad_negocio->cavali_girador_email;
+        $this->cavali_girador_telefono = $this->unidad_negocio->cavali_girador_telefono;
     }
 
     public function store()
@@ -44,6 +63,14 @@ class UnidadNegocioEditarLivewire extends Component
         $this->unidad_negocio->update([
             'nombre' => $this->nombre,
             'razon_social' => $this->razon_social,
+            'ruc' => $this->ruc,
+            'slin_id' => $this->slin_id,
+            'cavali_girador_tipo_documento' => $this->cavali_girador_tipo_documento,
+            'cavali_girador_documento' => $this->cavali_girador_documento,
+            'cavali_girador_nombre' => $this->cavali_girador_nombre,
+            'cavali_girador_apellido' => $this->cavali_girador_apellido,
+            'cavali_girador_email' => $this->cavali_girador_email,
+            'cavali_girador_telefono' => $this->cavali_girador_telefono,
         ]);
 
         $this->dispatch('alertaLivewire', ['title' => 'Actualizado', 'text' => 'Se actualizo correctamente.']);

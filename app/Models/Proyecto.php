@@ -14,6 +14,7 @@ class Proyecto extends Model
     protected $fillable = [
         'unidad_negocio_id',
         'grupo_proyecto_id',
+        'slin_id',
         'nombre',
         'slug',
         'contenido',

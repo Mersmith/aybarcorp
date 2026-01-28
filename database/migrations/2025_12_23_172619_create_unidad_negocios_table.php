@@ -16,6 +16,16 @@ return new class extends Migration
 
             $table->string('nombre')->unique();
             $table->string('razon_social')->nullable();
+            $table->string('ruc')->nullable();
+            $table->string('slin_id')->nullable();
+
+            //REPRESENTANTE LEGAL DEL GIRADOR
+            $table->string('cavali_girador_tipo_documento')->nullable();
+            $table->string('cavali_girador_documento')->nullable();
+            $table->string('cavali_girador_nombre')->nullable();
+            $table->string('cavali_girador_apellido')->nullable();
+            $table->string('cavali_girador_email')->nullable();
+            $table->string('cavali_girador_telefono')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

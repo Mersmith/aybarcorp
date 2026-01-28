@@ -28,6 +28,8 @@ class ProyectoEditarLivewire extends Component
     public $meta_image;
     public $activo = false;
 
+    public $slin_id;
+
     public $lista = [];
 
     protected function rules()
@@ -63,6 +65,8 @@ class ProyectoEditarLivewire extends Component
         $this->nombre = $this->proyecto->nombre;
         $this->slug = $this->proyecto->slug;
         $this->activo = $this->proyecto->activo;
+
+        $this->slin_id = $this->proyecto->slin_id;
 
         /*$this->imagen = $this->proyecto->imagen;
         $this->contenido = $this->proyecto->contenido;
@@ -126,6 +130,7 @@ class ProyectoEditarLivewire extends Component
             'nombre' => $this->nombre,
             'slug' => $this->slug,
             'activo' => $this->activo,
+            'slin_id' => $this->slin_id,
             /*'contenido' => $this->contenido,
             'imagen' => $this->imagen,
             'meta_title' => $this->meta_title,

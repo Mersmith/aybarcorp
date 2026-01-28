@@ -51,6 +51,90 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="ruc">RUC <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="text" id="ruc" wire:model.live="ruc">
+                            @error('ruc')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="slin_id">Slind ID <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="text" id="slin_id" wire:model.live="slin_id">
+                            @error('slin_id')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="g_panel">
+                    <h4 class="g_panel_titulo">Girador Cavali</h4>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="cavali_girador_tipo_documento">Tipo documento <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="text" id="cavali_girador_tipo_documento" wire:model.live="cavali_girador_tipo_documento">
+                            @error('cavali_girador_tipo_documento')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="cavali_girador_documento">Número documento <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="text" id="cavali_girador_documento" wire:model.live="cavali_girador_documento">
+                            @error('cavali_girador_documento')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="cavali_girador_nombre">Nombres <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="text" id="cavali_girador_nombre" wire:model.live="cavali_girador_nombre">
+                            @error('cavali_girador_nombre')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="cavali_girador_apellido">Apellidos <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="text" id="cavali_girador_apellido" wire:model.live="cavali_girador_apellido">
+                            @error('cavali_girador_apellido')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="cavali_girador_email">Email <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="text" id="cavali_girador_email" wire:model.live="cavali_girador_email">
+                            @error('cavali_girador_email')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="g_margin_bottom_10 g_columna_6">
+                            <label for="cavali_girador_telefono">Celular <span class="obligatorio"><i
+                                        class="fa-solid fa-asterisk"></i></span></label>
+                            <input type="text" id="cavali_girador_telefono" wire:model.live="cavali_girador_telefono">
+                            @error('cavali_girador_telefono')
+                                <p class="mensaje_error">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
             </div>
 
