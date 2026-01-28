@@ -29,6 +29,7 @@ class SolicitudDigitalizarLetra extends Model
         'codigo_venta',
         'fecha_vencimiento',
         'importe_cuota',
+        'estado_cavali',
     ];
 
     public function unidadNegocio()
@@ -44,5 +45,15 @@ class SolicitudDigitalizarLetra extends Model
     public function userCliente()
     {
         return $this->belongsTo(User::class, 'cliente_id');
+    }
+
+    public function enviosCavali()
+    {
+        return $this->belongsToMany(
+            EnvioCavali::class,
+            'envio_cavali_solicitud',
+            'solicitud_digitalizar_letras_id',
+            'envios_cavali_id'
+        );
     }
 }

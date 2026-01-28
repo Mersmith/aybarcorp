@@ -130,6 +130,7 @@ class EvidenciaPagoEditarLivewire extends Component
             ->format('m/d/Y');
 
         $params = [
+            'empresa' => (string) $this->solicitud->unidadNegocio->slin_id,
             'lote' => (string) $this->solicitud->lote_completo,
             'cliente' => (string) $this->solicitud->codigo_cliente,
             'contrato' => '', // nullable|string → enviar vacío
@@ -149,6 +150,8 @@ class EvidenciaPagoEditarLivewire extends Component
             );
 
         $body = $response->json();
+
+        dd($params, $body);
 
         if ($response->failed()) {
             logger()->error('Error SLIN HTTP', [
@@ -245,7 +248,7 @@ class EvidenciaPagoEditarLivewire extends Component
     public function seleccionarEvidencia($evidenciaId)
     {
         $this->evidenciaSeleccionada =
-        $this->solicitud->evidencias->firstWhere('id', $evidenciaId);
+            $this->solicitud->evidencias->firstWhere('id', $evidenciaId);
 
         $this->evidenciaSeleccionadaId = $evidenciaId;
 
@@ -331,7 +334,7 @@ class EvidenciaPagoEditarLivewire extends Component
             'text' => 'El correo fue enviado y registrado correctamente.',
         ]);
     }
-    
+
     public function render()
     {
         return view('livewire.backoffice.evidencia-pago.evidencia-pago-editar-livewire');

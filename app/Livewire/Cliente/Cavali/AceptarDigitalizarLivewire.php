@@ -4,31 +4,55 @@ namespace App\Livewire\Cliente\Cavali;
 
 use Livewire\Component;
 use App\Models\SolicitudDigitalizarLetra;
-use Livewire\Attributes\On;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Proyecto;
 
 class AceptarDigitalizarLivewire extends Component
 {
     public $lote;
     public $cuota;
+    public $unidad_negocio_id = null;
+    public $proyecto_id = null;
+
+    protected function rules()
+    {
+        return [
+            'unidad_negocio_id' => 'required',
+            'proyecto_id'       => 'required',
+        ];
+    }
 
     public function mount($cuota, $lote)
     {
         $this->cuota = $cuota;
         $this->lote = $lote;
+
+        $proyecto = Proyecto::select('id', 'unidad_negocio_id')
+            ->where('slin_id', $this->lote['id_proyecto'])
+            ->whereHas('unidadNegocio', function ($query) {
+                $query->where('slin_id', $this->lote['id_empresa']);
+            })
+            ->first();
+
+        if ($proyecto) {
+            $this->proyecto_id = $proyecto->id;
+            $this->unidad_negocio_id = $proyecto->unidad_negocio_id;
+        }
     }
 
     public function guardar()
     {
+        $this->validate();
+
         DB::transaction(function () {
             SolicitudDigitalizarLetra::updateOrCreate(
                 [
                     'codigo_cuota' => $this->cuota["idCuota"] ?? null,
                 ],
                 [
-                    'unidad_negocio_id' => 1,
-                    'proyecto_id' => 1,
+                    'unidad_negocio_id' => $this->unidad_negocio_id,
+                    'proyecto_id' => $this->proyecto_id,
                     'cliente_id' => Auth::id(),
 
                     'razon_social' => $this->lote["razon_social"] ?? null,

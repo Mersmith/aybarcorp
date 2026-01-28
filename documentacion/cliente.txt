@@ -27,3 +27,11 @@ php artisan make:livewire Cliente/EstadoCuenta/EstadoCuentaVerLivewire
 php artisan make:livewire Cliente/CronogramaEstadoCuenta/CronogramaEstadoCuentaVerLivewire
 
 php artisan make:livewire Cavali/SolicitarLetraDigital/SolicitarLetraDigitalTodoLivewire
+php artisan make:livewire Cavali/SolicitarLetraDigital/EnvioCavaliDetalleTodoLivewire
+
+php artisan queue:work
+(new App\Jobs\GenerarEnviosCavaliDiariosJob())->handle();
+
+php artisan queue:restart
+php artisan queue:clear
+php artisan schedule:work

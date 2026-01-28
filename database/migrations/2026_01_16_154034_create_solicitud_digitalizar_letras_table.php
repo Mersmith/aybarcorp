@@ -34,8 +34,19 @@ return new class extends Migration
             $table->string('fecha_vencimiento')->nullable();
             $table->string('importe_cuota')->nullable();
 
+            $table->enum('estado_cavali', [
+                'pendiente',
+                'enviado',
+                'observado',
+            ])->default('pendiente');
+
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(
+                ['unidad_negocio_id', 'estado_cavali'],
+                'idx_sdl_unidad_estado'
+            );
         });
     }
 

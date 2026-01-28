@@ -32,11 +32,11 @@
                         <select id="unidad_negocio_id" wire:model.live="unidad_negocio_id" required>
                             <option value="" selected disabled>Seleccionar una empresa</option>
                             @foreach ($unidad_negocios as $item)
-                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                             @endforeach
                         </select>
                         @error('unidad_negocio_id')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -47,11 +47,11 @@
                         <select id="grupo_proyecto_id" wire:model.live="grupo_proyecto_id" required>
                             <option value="" selected disabled>Seleccionar un grupo</option>
                             @foreach ($grupo_proyectos as $item)
-                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                             @endforeach
                         </select>
                         @error('grupo_proyecto_id')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -61,7 +61,7 @@
                                     class="fa-solid fa-asterisk"></i></span></label>
                         <input type="text" id="nombre" wire:model.live="nombre" required>
                         @error('nombre')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -72,7 +72,16 @@
                         <input type="text" id="slug" name="slug" wire:model.live="slug" required disabled>
                         <p class="leyenda">Se genera automático</p>
                         @error('slug')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="g_margin_bottom_10 g_columna_6">
+                        <label for="slin_id">Slind ID <span class="obligatorio"><i
+                                    class="fa-solid fa-asterisk"></i></span></label>
+                        <input type="text" id="slin_id" wire:model.live="slin_id">
+                        @error('slin_id')
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -82,7 +91,7 @@
                                     class="fa-solid fa-asterisk"></i></span></label>
                         <input type="text" id="imagen" wire:model.live="imagen" required>
                         @error('imagen')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>--}}
                 </div>
@@ -116,11 +125,10 @@
                             })
                             .catch(error => {
                                 console.error(error);
-                            });"
-                            x-ref="miEditorProyecto">{!! $contenido !!}</textarea>
+                            });" x-ref="miEditorProyecto">{!! $contenido !!}</textarea>
 
                         @error('contenido')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
@@ -146,40 +154,38 @@
                         </thead>
                         <tbody x-sort="handleProyectoEditar">
                             @foreach ($lista as $index => $item)
-                                <tr class="sorteable_item" x-sort:item="{{ $item['id'] }}"
-                                    wire:key="item-{{ $index }}">
-                                    <td>
-                                        <div x-sort:handle class="handle cursor-move" title="Arrastra aquí"
-                                            style="touch-action: none; cursor: grab;">
-                                            <i class="fa-solid fa-up-down-left-right"></i>
-                                            {{ $item['id'] }}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" wire:model="lista.{{ $index }}.texto"
-                                            wire:key="texto-{{ $index }}" @pointerdown.stop @mousedown.stop
-                                            @touchstart.stop draggable="false">
-                                        <input type="color" wire:model="lista.{{ $index }}.texto_color"
-                                            wire:key="texto_color-{{ $index }}">
-                                        @error("lista.$index.texto")
-                                            <p class="mensaje_error">{{ $message }}</p>
-                                        @enderror
-                                    </td>
-                                    <td>
-                                        <input type="text" wire:model="lista.{{ $index }}.link"
-                                            wire:key="link-{{ $index }}" @pointerdown.stop @mousedown.stop
-                                            @touchstart.stop draggable="false">
-                                        <input type="color" wire:model="lista.{{ $index }}.boton_color"
-                                            wire:key="boton_color-{{ $index }}">
-                                    </td>
-                                    <td>
-                                        <button type="button" wire:click="eliminarItem({{ $index }})"
-                                            class="boton_eliminar" wire:key="boton-eliminar-{{ $index }}"
-                                            @pointerdown.stop @mousedown.stop @touchstart.stop draggable="false">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tr class="sorteable_item" x-sort:item="{{ $item['id'] }}" wire:key="item-{{ $index }}">
+                                <td>
+                                    <div x-sort:handle class="handle cursor-move" title="Arrastra aquí"
+                                        style="touch-action: none; cursor: grab;">
+                                        <i class="fa-solid fa-up-down-left-right"></i>
+                                        {{ $item['id'] }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" wire:model="lista.{{ $index }}.texto"
+                                        wire:key="texto-{{ $index }}" @pointerdown.stop @mousedown.stop @touchstart.stop
+                                        draggable="false">
+                                    <input type="color" wire:model="lista.{{ $index }}.texto_color"
+                                        wire:key="texto_color-{{ $index }}">
+                                    @error("lista.$index.texto")
+                                    <p class="mensaje_error">{{ $message }}</p>
+                                    @enderror
+                                </td>
+                                <td>
+                                    <input type="text" wire:model="lista.{{ $index }}.link" wire:key="link-{{ $index }}"
+                                        @pointerdown.stop @mousedown.stop @touchstart.stop draggable="false">
+                                    <input type="color" wire:model="lista.{{ $index }}.boton_color"
+                                        wire:key="boton_color-{{ $index }}">
+                                </td>
+                                <td>
+                                    <button type="button" wire:click="eliminarItem({{ $index }})" class="boton_eliminar"
+                                        wire:key="boton-eliminar-{{ $index }}" @pointerdown.stop @mousedown.stop
+                                        @touchstart.stop draggable="false">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -204,7 +210,7 @@
                                     class="fa-solid fa-asterisk"></i></span></label>
                         <input type="text" id="meta_title" wire:model.live="meta_title" required>
                         @error('meta_title')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -214,7 +220,7 @@
                                     class="fa-solid fa-asterisk"></i></span></label>
                         <textarea id="meta_description" wire:model.live="meta_description" rows="3"></textarea>
                         @error('meta_description')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -224,7 +230,7 @@
                                     class="fa-solid fa-asterisk"></i></span></label>
                         <input type="text" id="meta_image" wire:model.live="meta_image" required>
                         @error('meta_image')
-                            <p class="mensaje_error">{{ $message }}</p>
+                        <p class="mensaje_error">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>--}}

@@ -1,44 +1,44 @@
-ACEPTANTE AYBAR
-codigo_venta
-tipo_documento_aceptante
-numero_documento_aceptante
-nombres_aceptante
-apellidos_aceptante
-domicilio_aceptante
-localidad_aceptante
-correo_electronico_aceptante
-telefono_casa_aceptante
-celular_aceptante
-tipo_firmante_aceptante
+ACEPTANTE
+codigo_venta: solicitud_digitalizar_letras->codigo_venta
+tipo_documento_aceptante: 'DNI'
+numero_documento_aceptante: solicitud_digitalizar_letras->cliente->cliente->dni
+nombres_aceptante: solicitud_digitalizar_letras->cliente->cliente->nombre
+apellidos_aceptante: solicitud_digitalizar_letras->cliente->cliente->nombre
+domicilio_aceptante: solicitud_digitalizar_letras->user->direcciones::first->direccion
+localidad_aceptante: solicitud_digitalizar_letras->user->direcciones::first->distrito->nombre
+correo_electronico_aceptante: solicitud_digitalizar_letras->cliente->email
+telefono_casa_aceptante: ''
+celular_aceptante: solicitud_digitalizar_letras->cliente->cliente->telefono_principal
+tipo_firmante_aceptante: ''
 
-LETRAS AYBAR
-codigo_venta
-tipo_venta: VENT
-ruc_cuenta_matriz: 20603865813
-ruc_titular: 20603865813
-tipo_documento_girador: RUC
-numero_documento_girador: 20603865813
-razon_social_girador: AYBAR CORP. S.A.C.
-numero_letra
-referencia_girador: VACIO
-fecha_giro
-lugar_giro: VACIO
-fecha_vencimiento
-moneda: S
-importe
-lugar_pago
-clausula_prorroga: VACIO
-plaza: VACIO
-nombre_proyecto
-protesto: VACIO
-tipo_transferencia: VACIO
+LETRAS
+codigo_venta: solicitud_digitalizar_letras->codigo_venta
+tipo_venta: 'VENT'
+ruc_cuenta_matriz: solicitud_digitalizar_letras->unidadNegocio->ruc
+ruc_titular: solicitud_digitalizar_letras->unidadNegocio->ruc
+tipo_documento_girador: 'RUC'
+numero_documento_girador: solicitud_digitalizar_letras->unidadNegocio->ruc
+razon_social_girador:  solicitud_digitalizar_letras->unidadNegocio->razon_social
+numero_letra:  solicitud_digitalizar_letras->codigo_venta
+referencia_girador: ''
+fecha_giro: date(now)
+lugar_giro: ''
+fecha_vencimiento: solicitud_digitalizar_letras->fecha_vencimiento
+moneda: 'S'
+importe: solicitud_digitalizar_letras->importe_cuota
+lugar_pago: ''
+clausula_prorroga:  ''
+plaza:  ''
+nombre_proyecto: solicitud_digitalizar_letras->nombre_proyecto
+protesto:  ''
+tipo_transferencia: ''
 
-GIRADOR AYBAR
-ruc_girador: 20609014521
-tipo_documento_rep_legal: DNI
-documento_rep: 14884548
-nombre_rep_legal: GIULIANO CHRISTIAN
-apellido_rep_legal: TORRES GIULIANO
-email_rep_legal: gamarot@aybarsac.com
-telefono_rep_legal: 922669656
+GIRADOR
+ruc_girador: solicitud_digitalizar_letras->unidadNegocio->ruc
+tipo_documento_rep_legal: solicitud_digitalizar_letras->unidadNegocio->cavali_girador_tipo_documento
+documento_rep: solicitud_digitalizar_letras->unidadNegocio->cavali_girador_documento
+nombre_rep_legal: solicitud_digitalizar_letras->unidadNegocio->cavali_girador_nombre
+apellido_rep_legal: solicitud_digitalizar_letras->unidadNegocio->cavali_girador_apellido
+email_rep_legal: solicitud_digitalizar_letras->unidadNegocio->cavali_girador_email
+telefono_rep_legal: solicitud_digitalizar_letras->unidadNegocio->cavali_girador_telefono
 
