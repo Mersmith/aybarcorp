@@ -35,3 +35,5 @@ php artisan queue:work
 php artisan queue:restart
 php artisan queue:clear
 php artisan schedule:work
+
+php artisan tinker --execute="echo '=== EJECUTANDO JOB CAVALI ===' . PHP_EOL; (new \App\Jobs\GenerarEnviosCavaliDiariosJob())->handle(); echo PHP_EOL . '=== JOB COMPLETADO ===' . PHP_EOL;"

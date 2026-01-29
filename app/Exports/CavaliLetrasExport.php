@@ -8,7 +8,14 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class CavaliLetrasExport implements FromCollection, WithHeadings
 {
-    public function __construct(private EnvioCavali $envio) {}
+    public function __construct(private EnvioCavali $envio)
+    {
+    }
+
+    public function title(): string
+    {
+        return 'LETRAS';
+    }
 
     public function collection()
     {
