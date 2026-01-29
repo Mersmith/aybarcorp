@@ -18,8 +18,13 @@ class EnvioCavali extends Model
 
     protected $casts = [
         'fecha_corte' => 'date',
-        'enviado_at'  => 'datetime',
+        'enviado_at' => 'datetime',
     ];
+
+    public function unidadNegocio()
+    {
+        return $this->belongsTo(UnidadNegocio::class);
+    }
 
     public function solicitudes()
     {
@@ -29,5 +34,10 @@ class EnvioCavali extends Model
             'envios_cavali_id',
             'solicitud_digitalizar_letras_id'
         );
+    }
+
+    public function getArchivoNombreAttribute()
+    {
+        return $this->archivo_zip ? basename($this->archivo_zip) : null;
     }
 }

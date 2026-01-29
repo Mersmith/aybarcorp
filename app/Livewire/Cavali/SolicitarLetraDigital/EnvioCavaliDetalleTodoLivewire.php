@@ -51,6 +51,24 @@ class EnvioCavaliDetalleTodoLivewire extends Component
         );
     }
 
+    public function descargarArchivo()
+    {
+        if (!$this->envio->archivo_zip) {
+            session()->flash('error', 'No hay archivo disponible para descargar.');
+            return;
+        }
+
+        if (!\Storage::disk('local')->exists($this->envio->archivo_zip)) {
+            session()->flash('error', 'El archivo no existe en el servidor.');
+            return;
+        }
+
+        // Usar Storage::path() para obtener la ruta completa correcta
+        $path = \Storage::disk('local')->path($this->envio->archivo_zip);
+
+        return response()->download($path, $this->envio->archivo_nombre);
+    }
+
     public function render()
     {
         return view('livewire.cavali.solicitar-letra-digital.envio-cavali-detalle-todo-livewire');

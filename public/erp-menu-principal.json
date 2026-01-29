@@ -1105,6 +1105,20 @@
                     "supervisor-backoffice"
                 ],
                 "submenus": []
+            },
+            {
+                "id": 46,
+                "nombre": "Envios CAVALI",
+                "ruta": "admin.envios-cavali.vista.todo",
+                "url": "/admin/envios-cavali",
+                "icono": "fa-solid fa-file-invoice-dollar",
+                "nivel": 2,
+                "roles": [
+                    "super-admin",
+                    "admin",
+                    "supervisor-backoffice"
+                ],
+                "submenus": []
             }
         ]
     },
