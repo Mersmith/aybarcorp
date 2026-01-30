@@ -8,9 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class CavaliAceptanteExport implements FromCollection, WithHeadings
 {
-    public function __construct(private EnvioCavali $envio)
-    {
-    }
+    public function __construct(private EnvioCavali $envio) {}
 
     public function title(): string
     {
@@ -44,17 +42,17 @@ class CavaliAceptanteExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'codigo_venta',
-            'tipo_documento_aceptante',
-            'numero_documento_aceptante',
-            'nombres_aceptante',
-            'apellidos_aceptante',
-            'domicilio_aceptante',
-            'localidad_aceptante',
-            'correo_electronico_aceptante',
-            'telefono_casa_aceptante',
-            'celular_aceptante',
-            'tipo_firmante_aceptante',
+            'CODIGO DE VENTA',
+            'TIPO DOCUMENTO ACEPTANTE',
+            'NUMERO DOCUMENTO ACEPTANTE',
+            'NOMBRES ACEPTANTE',
+            'APELLIDOS ACEPTANTE',
+            'DOMICILIO ACEPTANTE',
+            'LOCALIDAD ACEPTANTE',
+            'CORREO ELECTRONICO ACEPTANTE',
+            'TELEFONO CASA ACEPTANTE',
+            'CELULAR ACEPTANTE',
+            'TIPO FIRMANTE ACEPTANTE',
         ];
     }
 }

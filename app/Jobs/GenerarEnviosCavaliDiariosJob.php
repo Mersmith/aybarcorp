@@ -96,10 +96,11 @@ class GenerarEnviosCavaliDiariosJob implements ShouldQueue
 
                 // Enviar correo
                 Mail::raw(
-                    "Se adjunta el envío CAVALI del {$fecha}\n\nEmpresa: {$unidad->razon_social}\nTotal de solicitudes: {$solicitudes->count()}",
+                    "Estimados, se hace llegar la base de letras pagadas físicas a desmaterializar. {$fecha}\n\nEmpresa: {$unidad->razon_social}\nTotal de solicitudes: {$solicitudes->count()}",
                     function ($message) use ($path, $fileName, $razonSocialSanitizada) {
                         $message->to('PROGRAMADOR@aybarsac.com')
-                            ->subject("Envío CAVALI Diario - {$razonSocialSanitizada}")
+                            ->cc(['mersmith14@gmail.com'])
+                            ->subject("Letras físicas pagadas - {$razonSocialSanitizada}")
                             ->attach(Storage::path($path), [
                                 'as' => $fileName,
                             ]);
@@ -110,7 +111,6 @@ class GenerarEnviosCavaliDiariosJob implements ShouldQueue
                     'envio_id' => $envio->id,
                     'unidad_negocio' => $unidad->razon_social,
                 ]);
-
             } catch (\Exception $e) {
                 \Log::error('JOB CAVALI: Error al procesar envío', [
                     'unidad_negocio_id' => $unidad->id,

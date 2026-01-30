@@ -8,9 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class CavaliGiradorExport implements FromCollection, WithHeadings
 {
-    public function __construct(private EnvioCavali $envio)
-    {
-    }
+    public function __construct(private EnvioCavali $envio) {}
 
     public function title(): string
     {
@@ -39,6 +37,15 @@ class CavaliGiradorExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return array_keys($this->collection()->first());
+        //return array_keys($this->collection()->first());
+        return [
+            'RUC GIRADOR',
+            'TIPO DOCUMENTO REP. LEGAL',
+            'NUMERO DOCUMENTO REP. LEGAL',
+            'NOMBRES REP. LEGAL',
+            'APELLIDOS REP. LEGAL',
+            'CORREO ELECTRONICO REP. LEGAL',
+            'TELEFONO REP. LEGAL',
+        ];
     }
 }
