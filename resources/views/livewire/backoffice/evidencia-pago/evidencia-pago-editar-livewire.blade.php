@@ -206,6 +206,13 @@
                             <input type="text" disabled value="{{ $solicitud->slin_asbanc ? 'SI' : 'No' }}">
                         </div>
                     </div>
+
+                    <div class="g_fila">
+                        <div class="g_margin_bottom_10 g_columna_3">
+                            <label>Fecha vencimiento</label>
+                            <input type="text" disabled value="{{ $solicitud->fecha_vencimiento ?? 'Sin asignar' }}">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="g_panel g_gap_pagina">

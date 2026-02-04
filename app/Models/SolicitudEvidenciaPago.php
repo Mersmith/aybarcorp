@@ -29,6 +29,7 @@ class SolicitudEvidenciaPago extends Model
         'numero_cuota',
         'transaccion_id',
         'fecha_operacion',
+        'fecha_vencimiento',
         'monto_operacion',
         'slin_monto',
         'slin_penalidad',
