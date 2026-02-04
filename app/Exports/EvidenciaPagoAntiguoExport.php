@@ -17,6 +17,7 @@ class EvidenciaPagoAntiguoExport implements FromCollection, WithHeadings, Should
     protected ?string $tieneFechaDeposito;
     protected ?string $tieneImagen;
     protected ?string $tieneNumeroOperacion;
+    protected ?string $tieneCodigoCuenta;
     protected int $perPage;
     protected int $page;
 
@@ -29,6 +30,7 @@ class EvidenciaPagoAntiguoExport implements FromCollection, WithHeadings, Should
         $tieneFechaDeposito,
         $tieneImagen,
         $tieneNumeroOperacion,
+        $tieneCodigoCuenta,
         $perPage,
         $page,
     ) {
@@ -40,6 +42,7 @@ class EvidenciaPagoAntiguoExport implements FromCollection, WithHeadings, Should
         $this->tieneFechaDeposito = $tieneFechaDeposito;
         $this->tieneImagen = $tieneImagen;
         $this->tieneNumeroOperacion = $tieneNumeroOperacion;
+        $this->tieneCodigoCuenta = $tieneCodigoCuenta;
         $this->perPage = (int) $perPage;
         $this->page = (int) $page;
     }
@@ -95,6 +98,14 @@ class EvidenciaPagoAntiguoExport implements FromCollection, WithHeadings, Should
             ->when(
                 $this->tieneNumeroOperacion === 'no',
                 fn($q) => $q->whereNull('operacion_numero')
+            )
+            ->when(
+                $this->tieneCodigoCuenta === 'si',
+                fn($q) => $q->whereNotNull('codigo_cuenta')
+            )
+            ->when(
+                $this->tieneCodigoCuenta === 'no',
+                fn($q) => $q->whereNull('codigo_cuenta')
             )
             ->orderByDesc('created_at')
             ->skip(($this->page - 1) * $this->perPage)

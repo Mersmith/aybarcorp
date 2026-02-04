@@ -92,6 +92,15 @@
                         <option value="no">NO</option>
                     </select>
                 </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>¿Tiene código cuenta?</label>
+                    <select wire:model.live="tiene_codigo_cuenta">
+                        <option value="">TODOS</option>
+                        <option value="si">SÍ</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
             </div>
         </div>
 

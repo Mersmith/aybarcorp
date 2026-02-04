@@ -25,6 +25,7 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
     public $tiene_fecha_deposito = '';
     public $tiene_imagen = '';
     public $tiene_numero_operacion = '';
+    public $tiene_codigo_cuenta = '';
 
     public function mount()
     {
@@ -77,6 +78,11 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
         $this->resetPage();
     }
 
+    public function updatingTieneCodigoCuenta()
+    {
+        $this->resetPage();
+    }
+
     public function resetFiltros()
     {
         $this->reset([
@@ -88,6 +94,7 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
             'tiene_fecha_deposito',
             'tiene_imagen',
             'tiene_numero_operacion',
+            'tiene_codigo_cuenta',
         ]);
 
         $this->perPage = 20;
@@ -106,6 +113,7 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
                 $this->tiene_fecha_deposito,
                 $this->tiene_imagen,
                 $this->tiene_numero_operacion,
+                $this->tiene_codigo_cuenta,
                 $this->perPage,
                 $this->getPage(),
             ),
@@ -156,6 +164,15 @@ class EvidenciaPagoAntiguoTodoLivewire extends Component
 
                 if ($this->tiene_numero_operacion === 'no') {
                     $q->whereNull('operacion_numero');
+                }
+            })
+            ->when($this->tiene_codigo_cuenta !== '', function ($q) {
+                if ($this->tiene_codigo_cuenta === 'si') {
+                    $q->whereNotNull('codigo_cuenta');
+                }
+
+                if ($this->tiene_codigo_cuenta === 'no') {
+                    $q->whereNull('codigo_cuenta');
                 }
             })
             ->orderBy('created_at', 'desc')
