@@ -355,6 +355,7 @@ class SlinController extends Controller
 
     public function probarCliente()
     {
+        //$dni = "20508775742";//desmaterializada
         //$dni = "47693208";//desmaterializada
         //$dni = "72397392"; //desmaterializada
         $dni = "71598773"; //desmaterializada

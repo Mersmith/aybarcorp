@@ -10,6 +10,10 @@
             <a href="{{ route('admin.evidencia-pago.vista.todo') }}" class="g_boton g_boton_light">
                 Inicio <i class="fa-solid fa-house"></i></a>
 
+            <button wire:click="exportExcel" class="g_boton g_boton_excel">
+                Excel <i class="fa-regular fa-file-excel"></i>
+            </button>
+
             <button wire:click="resetFiltros" class="g_boton g_boton_danger">
                 Refresh Filtros <i class="fa-solid fa-rotate-left"></i>
             </button>
@@ -51,6 +55,41 @@
                         @foreach ($proyectos as $proyecto)
                         <option value="{{ $proyecto->id }}">{{ $proyecto->nombre }}</option>
                         @endforeach
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>¿Tiene fecha deposito?</label>
+                    <select wire:model.live="tiene_fecha_deposito">
+                        <option value="">TODOS</option>
+                        <option value="si">SÍ</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="g_fila">
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>Lote</label>
+                    <input type="text" wire:model.live.debounce.1300ms="buscar_lote" id="buscar_lote"
+                        name="buscar_lote">
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>¿Tiene imagen?</label>
+                    <select wire:model.live="tiene_imagen">
+                        <option value="">TODOS</option>
+                        <option value="si">SÍ</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
+
+                <div class="g_margin_bottom_10 g_columna_2">
+                    <label>¿Tiene número operación?</label>
+                    <select wire:model.live="tiene_numero_operacion">
+                        <option value="">TODOS</option>
+                        <option value="si">SÍ</option>
+                        <option value="no">NO</option>
                     </select>
                 </div>
             </div>
