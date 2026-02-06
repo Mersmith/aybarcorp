@@ -98,13 +98,12 @@
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Correo</label>
-                            <input type="text" disabled value="{{ $ticket->cliente?->email ?? 'Sin asignar' }}">
+                            <input type="text" wire:model.live="email">
                         </div>
 
                         <div class="g_margin_bottom_10 g_columna_3">
                             <label>Celular</label>
-                            <input type="text" disabled
-                                value="{{ $ticket->cliente?->cliente?->telefono_principal ?? 'Sin asignar' }}">
+                            <input type="text" wire:model.live="celular">
                         </div>
                     </div>
 

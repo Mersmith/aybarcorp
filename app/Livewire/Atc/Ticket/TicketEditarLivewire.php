@@ -27,6 +27,9 @@ class TicketEditarLivewire extends Component
     public $asunto_respuesta;
     public $descripcion_respuesta;
 
+    public $email;
+    public $celular;
+
     public $estados, $estado_ticket_id;
 
     public $historial = [];
@@ -48,6 +51,8 @@ class TicketEditarLivewire extends Component
         $this->estado_ticket_id = $this->ticket->estado_ticket_id;
         $this->asunto_respuesta = $this->ticket->asunto_respuesta;
         $this->descripcion_respuesta = $this->ticket->descripcion_respuesta;
+        $this->email = $this->ticket->cliente?->email ?? $this->ticket->email;
+        $this->celular = $this->ticket->cliente?->cliente?->telefono_principal ?? $this->ticket->celular;
 
         $this->historial = $this->ticket->historial()->latest()->get();
         $this->archivos_existentes = $this->ticket->archivos()->get();
@@ -55,11 +60,11 @@ class TicketEditarLivewire extends Component
 
     public function store()
     {
-       if($this->archivo || $this->descripcion_archivo){
-           $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Primero adjunta del archivo.']);
+        if ($this->archivo || $this->descripcion_archivo) {
+            $this->dispatch('alertaLivewire', ['title' => 'Advertencia', 'text' => 'Primero adjunta del archivo.']);
 
-           return;
-       }      
+            return;
+        }
 
         $old = $this->ticket->toArray();
 
@@ -67,6 +72,8 @@ class TicketEditarLivewire extends Component
             'estado_ticket_id' => $this->estado_ticket_id,
             'asunto_respuesta' => $this->asunto_respuesta,
             'descripcion_respuesta' => $this->descripcion_respuesta,
+            'email' => $this->email,
+            'celular' => $this->celular,
         ];
 
         $this->ticket->update($data);
