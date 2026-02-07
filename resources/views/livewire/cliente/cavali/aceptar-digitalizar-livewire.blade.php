@@ -20,7 +20,7 @@
 
     <div class="formulario_botones">
         <button wire:click="guardar" class="g_boton_personalizado verde">
-            Aceptar digitalizar letra
+            Solicita tu letra
         </button>
     </div>
 </div>
