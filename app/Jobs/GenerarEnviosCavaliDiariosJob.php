@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class GenerarEnviosCavaliDiariosJob implements ShouldQueue
@@ -31,7 +32,7 @@ class GenerarEnviosCavaliDiariosJob implements ShouldQueue
                     ->get();
 
                 if ($solicitudes->isEmpty()) {
-                    \Log::info('JOB CAVALI: No hay solicitudes pendientes', [
+                    Log::channel('cavali')->info('JOB CAVALI: No hay solicitudes pendientes', [
                         'unidad_negocio_id' => $unidad->id,
                         'razon_social' => $unidad->razon_social,
                     ]);
@@ -53,7 +54,7 @@ class GenerarEnviosCavaliDiariosJob implements ShouldQueue
                     $solicitudes->pluck('id')
                 );
 
-                \Log::info('JOB CAVALI: sync ejecutado', [
+                Log::channel('cavali')->info('JOB CAVALI: sync ejecutado', [
                     'envio_id' => $envio->id,
                     'attached' => $result['attached'] ?? [],
                     'updated' => $result['updated'] ?? [],
@@ -77,14 +78,14 @@ class GenerarEnviosCavaliDiariosJob implements ShouldQueue
                 }
 
                 $fileSize = \Storage::disk('local')->size($path);
-                \Log::info('JOB CAVALI: excel generado exitosamente', [
+                Log::channel('cavali')->info('JOB CAVALI: excel generado exitosamente', [
                     'path' => storage_path('app/' . $path),
                     'size' => $fileSize . ' bytes',
                     'solicitudes_count' => $solicitudes->count(),
                 ]);
 
                 // Actualizar envío
-                $envio->update([
+                /*$envio->update([
                     'estado' => 'enviado',
                     'enviado_at' => now(),
                     'archivo_zip' => $path,
@@ -92,7 +93,7 @@ class GenerarEnviosCavaliDiariosJob implements ShouldQueue
 
                 // Actualizar solicitudes
                 SolicitudDigitalizarLetra::whereIn('id', $solicitudes->pluck('id'))
-                    ->update(['estado_cavali' => 'enviado']);
+                    ->update(['estado_cavali' => 'enviado']);*/
 
                 // Enviar correo
                 Mail::raw(
@@ -107,12 +108,12 @@ class GenerarEnviosCavaliDiariosJob implements ShouldQueue
                     }
                 );
 
-                \Log::info('JOB CAVALI: Proceso completado exitosamente', [
+                Log::channel('cavali')->info('JOB CAVALI: Proceso completado exitosamente', [
                     'envio_id' => $envio->id,
                     'unidad_negocio' => $unidad->razon_social,
                 ]);
             } catch (\Exception $e) {
-                \Log::error('JOB CAVALI: Error al procesar envío', [
+                Log::channel('cavali')->error('JOB CAVALI: Error al procesar envío', [
                     'unidad_negocio_id' => $unidad->id,
                     'razon_social' => $unidad->razon_social,
                     'error' => $e->getMessage(),

@@ -120,3 +120,6 @@ app.php
 Tareas programadas (Cron)
 
 * * * * *	/usr/bin/php /home/u248517392/domains/aybarcorp.com/public_html/plataforma-digital/artisan schedule:run
+
+QUEUE_CONNECTION=sync
+*************************************

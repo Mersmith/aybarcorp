@@ -292,7 +292,7 @@ class EvidenciaPagoEditarLivewire extends Component
             return;
         }
 
-        /*$estadoRechazadoId = EstadoEvidenciaPago::id(
+        $estadoRechazadoId = EstadoEvidenciaPago::id(
             EstadoEvidenciaPago::RECHAZADO
         );
 
@@ -317,7 +317,7 @@ class EvidenciaPagoEditarLivewire extends Component
 
         $this->estado_id = $estadoRechazadoId;
         $this->solicitud->refresh();
-        $this->evidenciaSeleccionada->refresh();*/
+        $this->evidenciaSeleccionada->refresh();
 
         Mail::to($emailDestino)->send(
             new EvidenciaPagoObservacionMail(

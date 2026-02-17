@@ -97,7 +97,7 @@
                     <thead>
                         <tr>
                             <th>Nº</th>
-                            <th>ID</th>
+                            <th>LETRA</th>
                             <th>Código Venta</th>
                             <th>Proyecto</th>
                             <th>Etapa</th>
@@ -116,7 +116,7 @@
                             @foreach ($envio->solicitudes as $index => $solicitud)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $solicitud->id }}</td>
+                                    <td>{{ $solicitud->codigo_venta }}-{{ $solicitud->numero_cuota }}</td>
                                     <td class="g_negrita">{{ $solicitud->codigo_venta }}</td>
                                     <td class="g_resumir">{{ $solicitud->proyecto->nombre ?? '—' }}</td>
                                     <td>{{ $solicitud->etapa ?? '—' }}</td>

@@ -89,7 +89,7 @@ return [
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
-                'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
+                'connectionString' => 'tls://' . env('PAPERTRAIL_URL') . ':' . env('PAPERTRAIL_PORT'),
             ],
             'processors' => [PsrLogMessageProcessor::class],
         ],
@@ -121,6 +121,12 @@ return [
         'null' => [
             'driver' => 'monolog',
             'handler' => NullHandler::class,
+        ],
+
+        'cavali' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/cavali.log'),
+            'level' => 'debug',
         ],
 
         'emergency' => [

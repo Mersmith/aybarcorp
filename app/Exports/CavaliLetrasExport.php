@@ -8,7 +8,9 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class CavaliLetrasExport implements FromCollection, WithHeadings
 {
-    public function __construct(private EnvioCavali $envio) {}
+    public function __construct(private EnvioCavali $envio)
+    {
+    }
 
     public function title(): string
     {
@@ -29,7 +31,7 @@ class CavaliLetrasExport implements FromCollection, WithHeadings
                 'tipo_documento_girador' => 'RUC',
                 'numero_documento_girador' => $unidad->ruc,
                 'razon_social_girador' => $unidad->razon_social,
-                'numero_letra' => $s->codigo_venta,
+                'numero_letra' => $s->codigo_venta . '-' . $s->numero_cuota,
                 'referencia_girador' => '',
                 'fecha_giro' => now()->format('Y-m-d'),
                 'lugar_giro' => '',

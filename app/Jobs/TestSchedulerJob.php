@@ -17,7 +17,7 @@ class TestSchedulerJob implements ShouldQueue
     {
         $timestamp = now()->format('Y-m-d H:i:s');
 
-        Log::info('🎯 TEST SCHEDULER: Job ejecutado exitosamente', [
+        Log::channel('cavali')->info('🎯 TEST SCHEDULER: Job ejecutado exitosamente', [
             'timestamp' => $timestamp,
             'message' => '¡El scheduler está funcionando correctamente!'
         ]);
